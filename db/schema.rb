@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190106105432) do
+ActiveRecord::Schema.define(version: 20190106144938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gminy", force: :cascade do |t|
+    t.string   "name"
+    t.string   "name_dod"
+    t.string   "teryt"
+    t.integer  "wojewodztwo_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.date     "stan_na",        default: '2019-01-01'
+    t.index ["wojewodztwo_id"], name: "index_gminy_on_wojewodztwo_id", using: :btree
+  end
+
+  create_table "gminy_plynne", id: false, force: :cascade do |t|
+    t.integer "gmina_id",  null: false
+    t.integer "plynny_id", null: false
+  end
+
+  create_table "gminy_stale", id: false, force: :cascade do |t|
+    t.integer "gmina_id", null: false
+    t.integer "staly_id", null: false
+  end
 
   create_table "grunty", force: :cascade do |t|
     t.string   "name"
@@ -45,4 +66,12 @@ ActiveRecord::Schema.define(version: 20190106105432) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "wojewodztwa", force: :cascade do |t|
+    t.string   "name"
+    t.string   "teryt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "gminy", "wojewodztwa"
 end
