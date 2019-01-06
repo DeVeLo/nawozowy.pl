@@ -14,3 +14,10 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular 'wojewodztwo', 'wojewodztwa'
+  inflect.irregular 'gmina', 'gminy'
+  inflect.irregular 'grunt', 'grunty'
+  inflect.irregular 'plynny', 'plynne'
+  inflect.irregular 'staly', 'stale'
+end

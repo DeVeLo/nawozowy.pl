@@ -50,5 +50,11 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'activerecord-postgis-adapter'
+gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
+gem 'foreman'
+gem 'gon'
+gem 'rabl-rails'
+gem 'terc_parser'
+gem 'nokogiri'
