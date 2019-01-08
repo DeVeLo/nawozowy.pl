@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Gatunek:
+  = @rownowaznik.gatunek
+%p
+  %strong Nazwautrzymania:
+  = @rownowaznik.nazwautrzymania
+%p
+  %strong Sezon:
+  = @rownowaznik.sezon
+%p
+  %strong Wartosc:
+  = @rownowaznik.wartosc
+= link_to 'Edit', edit_rownowaznik_path(@rownowaznik)
+|
+= link_to 'Back', rownowazniki_path

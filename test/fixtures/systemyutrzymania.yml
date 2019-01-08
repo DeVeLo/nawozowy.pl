@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  produkcja: 9.99
+  zawartosc: 9.99
+  jednostkautrzymania: one
+  nazwautrzymania: one
+  zwierze: one
+
+two:
+  produkcja: 9.99
+  zawartosc: 9.99
+  jednostkautrzymania: two
+  nazwautrzymania: two
+  zwierze: two

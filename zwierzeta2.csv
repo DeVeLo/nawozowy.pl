@@ -1,0 +1,78 @@
+;"Gatunek/grupa technologiczna
+zwierząt";SYSTEM UTRZYMANIA;;;;;;;;Wartość współczynnika odliczenia koncentracji „w”4)
+;;Głęboka ściółka;;Płytka ściółka;;;;Bezściółkowo;;
+;;Obornik2);;Obornik2);;Gnojówka2);;Gnojowica/pomiot/odchody2), 3);;
+;;Produkcja ;Zawartość ;Produkcja ;Zawartość ;Produkcja ;Zawartość ;Produkcja ;Zawartość;
+;;(t/rok);(kg N/t);(t/rok);(kg N/t);(m3/rok);(kg N/m3); (m3 lub t/rok);"(kg N/t 
+lub m3)";
+Bydło;Buhaje;19,0;3,1;10,5;3,3;5,8;3,4;22,0;3,5;0,7
+Bydło;Krowy mleczne 1;18,8;2,6;10,0;2,8;6,2;2,7;17,6;3,4;0,7
+Bydło;Krowy mleczne 2;23,8;3,1;14,8;3,3;7,6;3,2;23,0;4,0;0,7
+Bydło;Krowy mleczne 3;26,0;3,7;16,2;4,0;8,4;3,8;25,4;4,5;0,7
+Bydło;Jałówki cielne;18,4;3,0;8,5;3,2;5,4;3,1;16,4;3,4;0,7
+Bydło;Jałówki powyżej 1 roku ;12,4;2,8;6,0;2,8;5,8;2,7;11,6;2,9;0,7
+Bydło;Jałówki od 6 miesiąca do 1 roku ;7,8;3,4;3,6;3,5;2,4;3,7;6,8;4,7;0,7
+Bydło;Cielęta do 6 miesiąca ;2,4;3,8;1,6;2,8;1,4;3,2;2,6;3,2;0,7
+Bydło;Bydło opasowe  od 6 miesiąca do 1 roku;12,0;2,6;5,0;3,1;3,8;3,4;10,0;4,5;0,7
+Bydło;Bydło opasowe powyżej 1 roku;15,0;3,0;7,0;2,7;6,9;2,9;14,2;3,2;0,7
+Świnie;Knury;5,5;3,1;3,2;3,1;1,9;3,3;4,6;3,6;0,85
+Świnie;Lochy;5,0;3,9;3,7;4,0;1,8;4,2;4,6;4,3;0,79
+Świnie;Warchlaki od 2 do 4 miesięcy ;1,5;2,4;1,1;1,9;0,5;0,8;1,4;2,8;0,79
+Świnie;Prosięta do 2 miesięcy ;0,5;1,8;0,3;0,9;0,2;0,4;0,7;2,0;
+Świnie;Tuczniki;2,0;4,2;1,5;4,4;1,0;4,6;1,9;4,6;0,75
+Konie duże;Ogiery;8,5;5,0;5,0;1,7;2,0;1,9;;;0,6
+Konie duże;Klacze, wałachy;8,5;5,2;5,5;1,9;2,4;2,1;;;0,6
+Konie duże;Źrebaki powyżej 2 lat ;6,5;4,2;5,5;1,5;1,7;1,8;;;0,6
+Konie duże;Źrebaki powyżej 1 roku  do 2 lat;6,0;3,2;4,0;1,4;1,4;1,3;;;0,6
+Konie duże;Źrebaki od miesiąca do 1 roku ;2,5;2,7;2,0;1,3;1,2;0,9;;;0,6
+Konie duże;Źrebięta do 6 miesiąca;1,6;0,2;1,0;0,8;0,7;0,5;;;0,6
+Konie małe;Ogiery;5,4;2,5;4,0;0,8;1,5;0,9;;;0,6
+Konie małe;Klacze, wałachy;5,4;2,6;4,5;0,9;1,7;1,0;;;0,6
+Konie małe;Źrebaki powyżej 2 lat życia;4,5;2,1;4,5;0,8;1,2;0,9;;;0,6
+Konie małe;Źrebaki powyżej 1 roku życia do 2 lat;4,0;1,6;3,4;0,7;1,0;0,7;;;0,6
+Konie małe;Źrebaki od ½ do 1 roku życia;1,7;1,4;1,4;0,6;0,8;0,5;;;0,6
+Konie małe;Źrebięta do ½ roku życia;1,2;0,07;0,7;0,4;0,7;0,3;;;0,6
+Owce;Tryki powyżej 1,5 roku ;1,4;6,7;;;;;;;0,6
+Owce;Owce powyżej 1,5 roku ;1,2;6,9;;;;;;;0,6
+Owce;Jagnięta do 3,5 miesiąca ;0,4;8,3;;;;;;;0,6
+Owce;Jarlaki ;0,7;10,5;;;;;;;0,6
+Drób;Kury nieśne;0,029;20,7;;;;;0,014;22,4;0,71
+Drób;Kury mięsne;0,018;20,7;;;;;0,014;21,6;0,71
+Drób;Kury do 20 tygodnia życia;0,008;15,7;;;;;;;
+Drób;Brojlery kurze;0,017;24,7;;;;;;;0,71
+Drób;Kaczki;0,026;22,8;;;;;0,014;23,8;0,71
+Drób;Gęsi;0,03;21,8;;;;;0,02;32,7;0,71
+Drób;Indyki samce;0,048;41,5;;;;;;;0,71
+Drób;Indyki samice;0,032;40,6;;;;;;;0,71
+Drób;Przepiórki;0,002;1,2;;;;;;;
+Drób;Perlice;0,025;3,4;;;;;;;
+Lisy i jenoty;Samiec;;;;;;;0,240;7,5;
+Lisy i jenoty;Samica;;;;;;;0,292;9,6;
+Lisy i jenoty;Młode;;;;;;;0,130;5,3;
+Norki i tchórze;Samiec;;;;;;;0,017;13,4;
+Norki i tchórze;Samica;;;;;;;0,015;16,5;
+Norki i tchórze;Młode;;;;;;;0,011;9,5;
+Króliki i nutrie;Samiec;;;0,15;2,9;0,13;3,1;0,21;3,5;0,6
+Króliki i nutrie;Samica;;;0,17;3,2;0,11;3,3;0,23;3,8;0,6
+Króliki i nutrie;Młode;;;0,08;2,6;0,05;2,8;0,11;3,2;0,6
+Szynszyle;Samiec;0,026;2,6;;;;;0,018;2,9;
+Szynszyle;Samica;0,032;3,1;;;;;0,021;3,5;
+Szynszyle;Młode;0,023;2;;;;;0,012;2,3;
+Kozy;Kozy matki;1,2;8,4;;;;;;;0,6
+Kozy;Koźlęta od 3,5 miesiąca do 1,5 roku;0,8;6,9;;;;;;;0,6
+Kozy;Koźlęta do 3,5 miesiąca;0,4;9,4;;;;;;;0,6
+Kozy;Pozostałe;1,0;8,0;;;;;;;0,6
+Jelenie szlachetne;Byki;1,8;8,3;;;;;;;0,5
+Jelenie szlachetne;Łanie;1,6;8,7;;;;;;;0,5
+Jelenie szlachetne;Młode;0,8;2,1;;;;;;;0,5
+Jelenie sika i daniele;Byki;1,4;4,5;;;;;;;0,5
+Jelenie sika i daniele;Łanie;1,3;5,1;;;;;;;0,5
+Jelenie sika i daniele;Młode;0,6;1,6;;;;;;;0,5
+Pozostałe gatunki;Strusie afrykańskie;0,8;1,75;;;;;;;0,7
+Pozostałe gatunki;Strusie Emu i Nandu;0,5;1,5;;;;;;;0,7
+Pozostałe gatunki;Inne zwierzęta o łącznej masie 500 kg, z wyłączeniem ryb;12,0;6,0;;;;;;;0,7
+Produkt pofermentacyjny– fermentacja „mokra”;Produkt pofermentacyjny– fermentacja „mokra”;;;;;;;;2,8;
+Separowana gnojowica faza ciekła;Bydło;;;;;;;;2,8;
+Separowana gnojowica faza ciekła;Świnie;;;;;;;;4,2;
+Separowana gnojowica faza stała;Bydło;;;;;;;;3,4;
+Separowana gnojowica faza stała;Świnie;;;;;;;;5,2;

@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190106144938) do
+ActiveRecord::Schema.define(version: 20190108121255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gatunki", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "gminy", force: :cascade do |t|
     t.string   "name"
@@ -52,9 +58,62 @@ ActiveRecord::Schema.define(version: 20190106144938) do
     t.integer "staly_id", null: false
   end
 
+  create_table "jednostkiutrzymania", force: :cascade do |t|
+    t.string   "produkcja"
+    t.string   "zawartosc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kategorie", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "zasob"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nazwyutrzymania", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plynne", force: :cascade do |t|
     t.date     "od"
     t.date     "do"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rodzajeupraw", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rosliny", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "pobranie"
+    t.integer  "rodzajuprawy_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["rodzajuprawy_id"], name: "index_rosliny_on_rodzajuprawy_id", using: :btree
+  end
+
+  create_table "rownowazniki", force: :cascade do |t|
+    t.integer  "gatunek_id"
+    t.integer  "nazwautrzymania_id"
+    t.integer  "sezon_id"
+    t.decimal  "wartosc"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["gatunek_id"], name: "index_rownowazniki_on_gatunek_id", using: :btree
+    t.index ["nazwautrzymania_id"], name: "index_rownowazniki_on_nazwautrzymania_id", using: :btree
+    t.index ["sezon_id"], name: "index_rownowazniki_on_sezon_id", using: :btree
+  end
+
+  create_table "sezony", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -66,6 +125,19 @@ ActiveRecord::Schema.define(version: 20190106144938) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "systemyutrzymania", force: :cascade do |t|
+    t.decimal  "produkcja"
+    t.decimal  "zawartosc"
+    t.integer  "jednostkautrzymania_id"
+    t.integer  "nazwautrzymania_id"
+    t.integer  "zwierze_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["jednostkautrzymania_id"], name: "index_systemyutrzymania_on_jednostkautrzymania_id", using: :btree
+    t.index ["nazwautrzymania_id"], name: "index_systemyutrzymania_on_nazwautrzymania_id", using: :btree
+    t.index ["zwierze_id"], name: "index_systemyutrzymania_on_zwierze_id", using: :btree
+  end
+
   create_table "wojewodztwa", force: :cascade do |t|
     t.string   "name"
     t.string   "teryt"
@@ -73,5 +145,23 @@ ActiveRecord::Schema.define(version: 20190106144938) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "zwierzeta", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "gatunek_id"
+    t.decimal  "wspolczynnik"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.decimal  "koncentracja"
+    t.index ["gatunek_id"], name: "index_zwierzeta_on_gatunek_id", using: :btree
+  end
+
   add_foreign_key "gminy", "wojewodztwa"
+  add_foreign_key "rosliny", "rodzajeupraw"
+  add_foreign_key "rownowazniki", "gatunki"
+  add_foreign_key "rownowazniki", "nazwyutrzymania"
+  add_foreign_key "rownowazniki", "sezony"
+  add_foreign_key "systemyutrzymania", "jednostkiutrzymania"
+  add_foreign_key "systemyutrzymania", "nazwyutrzymania"
+  add_foreign_key "systemyutrzymania", "zwierzeta"
+  add_foreign_key "zwierzeta", "gatunki"
 end

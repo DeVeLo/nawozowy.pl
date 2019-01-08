@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  pobranie: 9.99
+  rodzajuprawy: one
+
+two:
+  name: MyString
+  pobranie: 9.99
+  rodzajuprawy: two

@@ -1,0 +1,2 @@
+class Kategoria < ApplicationRecord
+end

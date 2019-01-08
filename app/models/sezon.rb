@@ -1,0 +1,2 @@
+class Sezon < ApplicationRecord
+end

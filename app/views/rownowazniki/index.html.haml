@@ -1,0 +1,22 @@
+%p#notice= notice
+%h1 Rownowazniki
+%table
+  %thead
+    %tr
+      %th Gatunek
+      %th Nazwautrzymania
+      %th Sezon
+      %th Wartosc
+      %th{:colspan => "3"}
+  %tbody
+    - @rownowazniki.each do |rownowaznik|
+      %tr
+        %td= rownowaznik.gatunek.name
+        %td= rownowaznik.nazwautrzymania.name
+        %td= rownowaznik.sezon.name
+        %td= rownowaznik.wartosc
+        %td= link_to 'Show', rownowaznik
+        %td= link_to 'Edit', edit_rownowaznik_path(rownowaznik)
+        %td= link_to 'Destroy', rownowaznik, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Rownowaznik', new_rownowaznik_path

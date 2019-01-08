@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gatunek: one
+  nazwautrzymania: one
+  sezon: one
+  wartosc: 9.99
+
+two:
+  gatunek: two
+  nazwautrzymania: two
+  sezon: two
+  wartosc: 9.99
