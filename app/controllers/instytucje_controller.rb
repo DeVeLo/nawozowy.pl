@@ -1,0 +1,2 @@
+class InstytucjeController < ApplicationController
+end

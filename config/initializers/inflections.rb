@@ -16,6 +16,7 @@
 # end
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'wojewodztwo', 'wojewodztwa'
+  inflect.irregular 'powiat', 'powiaty'
   inflect.irregular 'gmina', 'gminy'
   inflect.irregular 'grunt', 'grunty'
   inflect.irregular 'plynny', 'plynne'
@@ -32,4 +33,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'rownowaznik', 'rownowazniki'
   inflect.irregular 'wartoscrownowaznika', 'wartoscirownowaznikow'
   inflect.irregular 'sezon', 'sezony'
+  inflect.irregular 'rolnik', 'rolnicy'
+  inflect.irregular 'instytucja', 'instytucje'
 end

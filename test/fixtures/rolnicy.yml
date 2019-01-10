@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  lname: MyString
+  gname: MyString
+  wojewodztwo: one
+  powiat: one
+  gmina: one
+  miejscowosc: MyString
+  nrdom: MyString
+  nrmieszkania: MyString
+
+two:
+  name: MyString
+  lname: MyString
+  gname: MyString
+  wojewodztwo: two
+  powiat: two
+  gmina: two
+  miejscowosc: MyString
+  nrdom: MyString
+  nrmieszkania: MyString

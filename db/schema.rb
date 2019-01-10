@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108121255) do
+ActiveRecord::Schema.define(version: 20190110122011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "gatunki", force: :cascade do |t|
     t.string   "name"
@@ -26,9 +27,11 @@ ActiveRecord::Schema.define(version: 20190108121255) do
     t.string   "name_dod"
     t.string   "teryt"
     t.integer  "wojewodztwo_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.date     "stan_na",        default: '2019-01-01'
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "powiat_id"
+    t.date     "stanna"
+    t.index ["powiat_id"], name: "index_gminy_on_powiat_id", using: :btree
     t.index ["wojewodztwo_id"], name: "index_gminy_on_wojewodztwo_id", using: :btree
   end
 
@@ -58,6 +61,23 @@ ActiveRecord::Schema.define(version: 20190108121255) do
     t.integer "staly_id", null: false
   end
 
+  create_table "instytucje", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "name"
+    t.string   "nip"
+    t.string   "regon"
+    t.integer  "wojewodztwo_id"
+    t.integer  "powiat_id"
+    t.integer  "gmina_id"
+    t.string   "ulica"
+    t.string   "nrp"
+    t.string   "nrm"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["gmina_id"], name: "index_instytucje_on_gmina_id", using: :btree
+    t.index ["powiat_id"], name: "index_instytucje_on_powiat_id", using: :btree
+    t.index ["wojewodztwo_id"], name: "index_instytucje_on_wojewodztwo_id", using: :btree
+  end
+
   create_table "jednostkiutrzymania", force: :cascade do |t|
     t.string   "produkcja"
     t.string   "zawartosc"
@@ -85,10 +105,42 @@ ActiveRecord::Schema.define(version: 20190108121255) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "powiaty", force: :cascade do |t|
+    t.string   "name"
+    t.string   "teryt"
+    t.integer  "wojewodztwo_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.date     "stanna"
+    t.index ["wojewodztwo_id"], name: "index_powiaty_on_wojewodztwo_id", using: :btree
+  end
+
   create_table "rodzajeupraw", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rolnicy", force: :cascade do |t|
+    t.string   "name"
+    t.string   "lname"
+    t.string   "gname"
+    t.integer  "wojewodztwo_id"
+    t.integer  "powiat_id"
+    t.integer  "gmina_id"
+    t.string   "miejscowosc"
+    t.string   "nrdom"
+    t.string   "nrmieszkania"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "nip"
+    t.string   "nig"
+    t.string   "ulica"
+    t.uuid     "instytucja_id"
+    t.index ["gmina_id"], name: "index_rolnicy_on_gmina_id", using: :btree
+    t.index ["instytucja_id"], name: "index_rolnicy_on_instytucja_id", using: :btree
+    t.index ["powiat_id"], name: "index_rolnicy_on_powiat_id", using: :btree
+    t.index ["wojewodztwo_id"], name: "index_rolnicy_on_wojewodztwo_id", using: :btree
   end
 
   create_table "rosliny", force: :cascade do |t|
@@ -143,6 +195,7 @@ ActiveRecord::Schema.define(version: 20190108121255) do
     t.string   "teryt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "stanna"
   end
 
   create_table "zwierzeta", force: :cascade do |t|
@@ -155,7 +208,16 @@ ActiveRecord::Schema.define(version: 20190108121255) do
     t.index ["gatunek_id"], name: "index_zwierzeta_on_gatunek_id", using: :btree
   end
 
+  add_foreign_key "gminy", "powiaty"
   add_foreign_key "gminy", "wojewodztwa"
+  add_foreign_key "instytucje", "gminy"
+  add_foreign_key "instytucje", "powiaty"
+  add_foreign_key "instytucje", "wojewodztwa"
+  add_foreign_key "powiaty", "wojewodztwa"
+  add_foreign_key "rolnicy", "gminy"
+  add_foreign_key "rolnicy", "instytucje"
+  add_foreign_key "rolnicy", "powiaty"
+  add_foreign_key "rolnicy", "wojewodztwa"
   add_foreign_key "rosliny", "rodzajeupraw"
   add_foreign_key "rownowazniki", "gatunki"
   add_foreign_key "rownowazniki", "nazwyutrzymania"

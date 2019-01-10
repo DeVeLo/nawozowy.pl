@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  nip: MyString
+  regon: MyString
+  wojewodztwo: one
+  powiat: one
+  gmina: one
+  ulica: MyString
+  nrp: MyString
+  nrm: MyString
+
+two:
+  name: MyString
+  nip: MyString
+  regon: MyString
+  wojewodztwo: two
+  powiat: two
+  gmina: two
+  ulica: MyString
+  nrp: MyString
+  nrm: MyString
