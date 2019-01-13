@@ -1,0 +1,2 @@
+class Wariant < ApplicationRecord
+end

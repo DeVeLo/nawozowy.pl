@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  instytucja: one
+  rolnik: one
+  zlecenie: one
+  zwierze: one
+  nazwautrzymania: one
+  systemutrzymania: one
+  ilosc: 9.99
+
+two:
+  instytucja: two
+  rolnik: two
+  zlecenie: two
+  zwierze: two
+  nazwautrzymania: two
+  systemutrzymania: two
+  ilosc: 9.99

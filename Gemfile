@@ -54,7 +54,6 @@ end
 gem 'activerecord-postgis-adapter'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 gem 'foreman'
-gem 'gon'
 gem 'rabl-rails'
 gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'

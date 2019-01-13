@@ -1,0 +1,109 @@
+<template>
+<b-container fluid>
+  <b-row class="mb-3">
+
+	 <b-col xl="3">
+		<czlecenie></czlecenie>
+		<crolnik class="d-none d-xl-block"></crolnik>
+		<cinstytucja class="d-none d-xl-block"></cinstytucja>
+	 </b-col>
+
+	 <b-col>
+
+		<b-row class="mt-3">
+		  <b-col>
+			 <h2>szczegóły zlecenia</h2>
+		  </b-col>
+		  
+		  <b-col class="text-right">
+				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">lista rolników</b-button>
+				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia'">lista zleceń</b-button>
+				<b-button @click="modalForm.show()">edytuj</b-button>
+				
+			 <cform></cform>
+		  </b-col>
+		</b-row>
+		<b-row>
+		  <b-col>
+			 <b-card no-body>
+				<b-tabs card>
+				  <b-tab title="działki i uprawy">
+					 wykaz działek
+				  </b-tab>
+				  <b-tab title="zwierzęta" active>
+					 <b-form-row>
+						<b-col class="text-right">
+						  <animalform></animalform>
+						  <b-button @click="createAnimal">dodaj zwierzęta</b-button>
+						</b-col>
+					 </b-form-row>
+					 <b-form-row>
+						<b-col>
+						  <animaltable></animaltable>
+						</b-col>
+					 </b-form-row>
+				  </b-tab>
+				  <b-tab title="naturalny zakupiony">
+					 nabyty nawóz naturalny z innego gospodarstwa rolnego
+				  </b-tab>
+				  <b-tab title="naturalny sprzedany">
+					 nawóz naturalny wytworzony w gospodarstwie i sprzedany
+				  </b-tab>
+				</b-tabs>
+			 </b-card>
+		  </b-col>
+		</b-row>
+		
+	 </b-col>
+  </b-row>
+</b-container>
+</template>
+
+<script>
+import {mapActions, mapGetters} from 'vuex'
+import cinstytucja from '../components/cinstytucja.vue'
+import crolnik from '../components/crolnik.vue'
+import czlecenie from '../components/czlecenie.vue'
+import cform from '../zlecenia/components/cform.vue'
+import animalform from './components/animalform.vue'
+import animaltable from './components/animaltable.vue'
+
+export default {
+	 name: 'show',
+	 components: {
+		  cinstytucja,
+		  crolnik,
+		  czlecenie,
+		  cform,
+		  animalform,
+		  animaltable,
+	 },
+	 data() {
+		  return {
+				instytucja: zlecenie.instytucja,
+				gon: gon
+		  }
+	 },
+	 computed: {
+		  ...mapGetters([ 'zlecenie',
+								'modalForm',
+								'animalmodal' ]),
+		  animal: {	get() { return this.$store.state.animal },
+						set(v) { this.$store.commit('animal', v) }	}
+	 },
+	 methods: {
+		  ...mapActions([ 'pobierz' ]),
+		  createAnimal() {
+				this.animal = {
+					 instytucja_id: gon.instytucja_id,
+					 rolnik_id: gon.rolnik_id,
+					 zlecenie_id: gon.id,
+				}
+				this.animalmodal.show()
+		  },
+	 },
+	 created() {
+		  this.pobierz()
+	 },
+}
+</script>

@@ -14,7 +14,7 @@ class RolnicyController < ApplicationController
   end
 
   def create
-    @rolnik = Rolnik.new(rolnik_params)
+    @rolnik = @instytucja.rolnicy.new(rolnik_params)
 
     respond_to do |format|
       if @rolnik.save
@@ -44,7 +44,7 @@ class RolnicyController < ApplicationController
   
   private
   def rolnik_params
-    params.require(:rolnik).permit(:id, :name, :lname, :gname, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc, :nrdom, :nrmieszkania, :nip, :nig, :ulica, :instytucja_id)
+    params.require(:rolnik).permit(:id, :name, :lname, :gname, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc, :nrdom, :nrmieszkania, :nip, :nig, :ulica, :instytucja_id, :kod, :poczta, :tel, :kom, :mail)
   end
 
   def set_rolnik

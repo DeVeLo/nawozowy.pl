@@ -10,11 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190110122011) do
+ActiveRecord::Schema.define(version: 20190112202617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "animals", force: :cascade do |t|
+    t.uuid     "instytucja_id"
+    t.uuid     "rolnik_id"
+    t.uuid     "zlecenie_id"
+    t.integer  "zwierze_id"
+    t.integer  "nazwautrzymania_id"
+    t.integer  "systemutrzymania_id"
+    t.decimal  "sztuk"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["instytucja_id"], name: "index_animals_on_instytucja_id", using: :btree
+    t.index ["nazwautrzymania_id"], name: "index_animals_on_nazwautrzymania_id", using: :btree
+    t.index ["rolnik_id"], name: "index_animals_on_rolnik_id", using: :btree
+    t.index ["systemutrzymania_id"], name: "index_animals_on_systemutrzymania_id", using: :btree
+    t.index ["zlecenie_id"], name: "index_animals_on_zlecenie_id", using: :btree
+    t.index ["zwierze_id"], name: "index_animals_on_zwierze_id", using: :btree
+  end
 
   create_table "gatunki", force: :cascade do |t|
     t.string   "name"
@@ -73,6 +91,12 @@ ActiveRecord::Schema.define(version: 20190110122011) do
     t.string   "nrm"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "tel"
+    t.string   "fax"
+    t.string   "mail"
+    t.string   "miejscowosc"
+    t.string   "kod"
+    t.string   "poczta"
     t.index ["gmina_id"], name: "index_instytucje_on_gmina_id", using: :btree
     t.index ["powiat_id"], name: "index_instytucje_on_powiat_id", using: :btree
     t.index ["wojewodztwo_id"], name: "index_instytucje_on_wojewodztwo_id", using: :btree
@@ -105,6 +129,12 @@ ActiveRecord::Schema.define(version: 20190110122011) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "podstawy", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "powiaty", force: :cascade do |t|
     t.string   "name"
     t.string   "teryt"
@@ -121,7 +151,7 @@ ActiveRecord::Schema.define(version: 20190110122011) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "rolnicy", force: :cascade do |t|
+  create_table "rolnicy", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name"
     t.string   "lname"
     t.string   "gname"
@@ -131,12 +161,17 @@ ActiveRecord::Schema.define(version: 20190110122011) do
     t.string   "miejscowosc"
     t.string   "nrdom"
     t.string   "nrmieszkania"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
     t.string   "nip"
     t.string   "nig"
     t.string   "ulica"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.uuid     "instytucja_id"
+    t.string   "kod"
+    t.string   "poczta"
+    t.string   "tel"
+    t.string   "kom"
+    t.string   "mail"
     t.index ["gmina_id"], name: "index_rolnicy_on_gmina_id", using: :btree
     t.index ["instytucja_id"], name: "index_rolnicy_on_instytucja_id", using: :btree
     t.index ["powiat_id"], name: "index_rolnicy_on_powiat_id", using: :btree
@@ -190,12 +225,42 @@ ActiveRecord::Schema.define(version: 20190110122011) do
     t.index ["zwierze_id"], name: "index_systemyutrzymania_on_zwierze_id", using: :btree
   end
 
+  create_table "warianty", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "wojewodztwa", force: :cascade do |t|
     t.string   "name"
     t.string   "teryt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date     "stanna"
+  end
+
+  create_table "zlecenia", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "name"
+    t.uuid     "instytucja_id"
+    t.uuid     "rolnik_id"
+    t.integer  "wariant_id"
+    t.string   "podstawainna"
+    t.string   "sprawa"
+    t.integer  "podstawa_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "wojewodztwo_id"
+    t.integer  "powiat_id"
+    t.integer  "gmina_id"
+    t.string   "miejscowosc"
+    t.string   "powierzchnia"
+    t.index ["gmina_id"], name: "index_zlecenia_on_gmina_id", using: :btree
+    t.index ["instytucja_id"], name: "index_zlecenia_on_instytucja_id", using: :btree
+    t.index ["podstawa_id"], name: "index_zlecenia_on_podstawa_id", using: :btree
+    t.index ["powiat_id"], name: "index_zlecenia_on_powiat_id", using: :btree
+    t.index ["rolnik_id"], name: "index_zlecenia_on_rolnik_id", using: :btree
+    t.index ["wariant_id"], name: "index_zlecenia_on_wariant_id", using: :btree
+    t.index ["wojewodztwo_id"], name: "index_zlecenia_on_wojewodztwo_id", using: :btree
   end
 
   create_table "zwierzeta", force: :cascade do |t|
@@ -208,6 +273,12 @@ ActiveRecord::Schema.define(version: 20190110122011) do
     t.index ["gatunek_id"], name: "index_zwierzeta_on_gatunek_id", using: :btree
   end
 
+  add_foreign_key "animals", "instytucje"
+  add_foreign_key "animals", "nazwyutrzymania"
+  add_foreign_key "animals", "rolnicy"
+  add_foreign_key "animals", "systemyutrzymania"
+  add_foreign_key "animals", "zlecenia"
+  add_foreign_key "animals", "zwierzeta"
   add_foreign_key "gminy", "powiaty"
   add_foreign_key "gminy", "wojewodztwa"
   add_foreign_key "instytucje", "gminy"
@@ -225,5 +296,12 @@ ActiveRecord::Schema.define(version: 20190110122011) do
   add_foreign_key "systemyutrzymania", "jednostkiutrzymania"
   add_foreign_key "systemyutrzymania", "nazwyutrzymania"
   add_foreign_key "systemyutrzymania", "zwierzeta"
+  add_foreign_key "zlecenia", "gminy"
+  add_foreign_key "zlecenia", "instytucje"
+  add_foreign_key "zlecenia", "podstawy"
+  add_foreign_key "zlecenia", "powiaty"
+  add_foreign_key "zlecenia", "rolnicy"
+  add_foreign_key "zlecenia", "warianty"
+  add_foreign_key "zlecenia", "wojewodztwa"
   add_foreign_key "zwierzeta", "gatunki"
 end

@@ -7,14 +7,16 @@
   size="lg"
   header-bg-variant="dark"
   header-text-variant="light"
+  hide-footer
   @shown="focus_rolnik_name"
-  @hidden="clear(attr.id);">
+  @hidden="reset">
   
   <b-form @submit="save" @reset="reset">
 	 
 	 <b-container>
 		
-		<b-row>			 
+		<b-form-row>
+
 		  <input type="hidden" id="id" v-model="attr.id"></input>
 		  <input type="hidden" id="instytucja_id" v-model="attr.instytucja_id"></input>
 			 
@@ -42,9 +44,9 @@
 				  </b-form-input>
 				</b-form-group>
 			 </b-col>
-		</b-row>
+		</b-form-row>
 		
-		<b-row>
+		<b-form-row>
 		  <b-col>
 			 <b-form-group
 				label="nazwa przedsiębiorstwa"
@@ -55,9 +57,9 @@
 				</b-form-input>
 			 </b-form-group>
 		  </b-col>
-		</b-row>
+		</b-form-row>
 		
-		<b-row>
+		<b-form-row>
 		  <b-col>
 			 <b-form-group
 				label="NIP"
@@ -78,9 +80,9 @@
 				</b-form-input>
 			 </b-form-group>
 		  </b-col>
-		</b-row>
+		</b-form-row>
 		
-		<b-row>
+		<b-form-row>
 		  <b-col>
 			 <b-form-group
 				label="województwo"
@@ -121,9 +123,9 @@
 				</b-form-select>
 			 </b-form-group>
 		  </b-col>
-		</b-row>
+		</b-form-row>
 		
-		<b-row v-show="attr.gmina_id">
+		<b-form-row v-show="attr.gmina_id">
 		  <b-col>
 			 <b-form-group
 				label="miejscowość"
@@ -146,10 +148,10 @@
 				</b-form-input>
 			 </b-form-group>
 		  </b-col>
-		</b-row>
+		</b-form-row>
 		
-		<b-row v-show="attr.gmina_id">
-		  <b-col>
+		<b-form-row v-show="attr.gmina_id">
+		  <b-col cols="2">
 			 <b-form-group
 				label="nr domu"
 				label-for="nrdom">
@@ -160,7 +162,7 @@
 				</b-form-input>
 			 </b-form-group>
 		  </b-col>
-		  <b-col>
+		  <b-col cols="2">
 			 <b-form-group
 				label="nr mieszkania"
 				label-for="nrmieszkania">
@@ -170,15 +172,77 @@
 				</b-form-input>
 			 </b-form-group>
 		  </b-col>
-		</b-row>
+
+		  <b-col cols="3">
+			 <b-form-group
+				label="kod"
+				label-for="kod">
+				<b-form-input
+				  required
+				  id="kod"
+				  v-model="attr.kod">
+				</b-form-input>
+			 </b-form-group>
+		  </b-col>
+
+		  <b-col>
+			 <b-form-group
+				label="poczta"
+				label-for="poczta">
+				<b-form-input
+				  required
+				  id="poczta"
+				  v-model="attr.poczta">
+				</b-form-input>
+			 </b-form-group>
+		  </b-col>
+		  
+		</b-form-row>
+
+		<b-form-row>
+		  <b-col cols="3">
+			 <b-form-group
+				label="tel."
+				label-for="tel">
+				<b-form-input
+				  id="tel"
+				  v-model="attr.tel">
+				</b-form-input>
+			 </b-form-group>
+		  </b-col>
+		  <b-col cols="3">
+			 <b-form-group
+				label="kom:"
+				label-for="kom">
+				<b-form-input
+				  id="kom"
+				  v-model="attr.kom">
+				</b-form-input>
+			 </b-form-group>
+		  </b-col>
+		  <b-col>
+			 <b-form-group
+				label="email"
+				label-for="mail">
+				<b-form-input
+				  id="mail"
+				  v-model="attr.mail">
+				</b-form-input>
+			 </b-form-group>
+		  </b-col>
+		</b-form-row>
 		
-		
-		<b-button type="submit" variant="primary">zapisz</b-button>
+  	 </b-container>
+
+	 <div slot="modal-footer" class="w-100 text-center">
+		<hr />
+		<b-button type="button" @click="modalForm.hide()">anuluj</b-button>
 		<b-button type="reset" variant="dark">resetuj</b-button>
-		
-	 </b-container>
+		<b-button type="submit" variant="primary">zapisz</b-button>
+	 </div>
+	 
   </b-form>
-  
+
 </b-modal>
 </template>
 <script>
@@ -246,9 +310,6 @@ export default {
 						  })
 						  .catch((error) => console.log(error))
 				}
-				
-				this.clear()
-				
 		  },
 		  reset(e = false) {
 				if (e) { e.preventDefault() }
@@ -260,25 +321,7 @@ export default {
 				}
 		  },
 		  clear(data = false) {
-				if (data) {
-					 this.pobierz_rolnika()
-				} else {
-					 this.attr = {}
-					 // 	  id: null,
-					 // 	  name: '',
-					 // 	  lname: '',
-					 // 	  gname: '',
-					 // 	  nip: '',
-					 // 	  nig: '',
-					 // 	  wojewodztwo_id: null,
-					 // 	  powiat_id: null,
-					 // 	  gmina_id: null,
-					 // 	  miejscowosc: '',
-					 // 	  nrdom: '',
-					 // 	  nrmieszkania: '',
-					 // 	  ulica: ''
-					 // }
-				}
+				this.attr = {}
 		  },
 		  focus_rolnik_name() {
 				this.$refs.rolnik_name.focus()

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  instytucja: one
+  rolnik: one
+  wariant: one
+  podstawainna: MyString
+  podstawa: one
+
+two:
+  name: MyString
+  instytucja: two
+  rolnik: two
+  wariant: two
+  podstawainna: MyString
+  podstawa: two

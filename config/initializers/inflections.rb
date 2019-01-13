@@ -35,4 +35,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'sezon', 'sezony'
   inflect.irregular 'rolnik', 'rolnicy'
   inflect.irregular 'instytucja', 'instytucje'
+  inflect.irregular 'zlecenie', 'zlecenia'
+  inflect.irregular 'wariant', 'warianty'
+  inflect.irregular 'podstawa', 'podstawy'
 end

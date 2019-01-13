@@ -2,12 +2,10 @@ import Vue from 'vue/dist/vue.esm'
 import App from './rolnicy/rolnik.vue'
 import TurbolinksAdapter from 'vue-turbolinks';
 import Resource from 'vue-resource'
-import vmodal from 'vue-js-modal'
-import { store } from './store/store'
+import { store } from './rolnicy/store/store'
 import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue);
-Vue.use(vmodal)
 Vue.use(Resource)
 Vue.use(TurbolinksAdapter)
 
