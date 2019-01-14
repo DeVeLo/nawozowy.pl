@@ -27,18 +27,20 @@
 		  <b-col>
 			 <b-card no-body>
 				<b-tabs card>
-				  <b-tab title="działki i uprawy">
-					 wykaz działek
-				  </b-tab>
-				  <b-tab title="zwierzęta" active>
+				  <b-tab title="uprawy" active>
 					 <b-form-row>
 						<b-col class="text-right">
-						  <animalform></animalform>
-						  <b-button @click="createAnimal">dodaj zwierzęta</b-button>
+						  <uprawaform></uprawaform>
+						  <uprawatable></uprawatable>
+						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						</b-col>
 					 </b-form-row>
+				  </b-tab>
+				  <b-tab title="zwierzęta">
 					 <b-form-row>
-						<b-col>
+						<b-col class="text-right">
+						  <b-button @click="createAnimal()">dodaj zwierzę</b-button>
+						  <animalform></animalform>
 						  <animaltable></animaltable>
 						</b-col>
 					 </b-form-row>
@@ -67,6 +69,8 @@ import czlecenie from '../components/czlecenie.vue'
 import cform from '../zlecenia/components/cform.vue'
 import animalform from './components/animalform.vue'
 import animaltable from './components/animaltable.vue'
+import uprawaform from './components/uprawaform.vue'
+import uprawatable from './components/uprawatable.vue'
 
 export default {
 	 name: 'show',
@@ -77,6 +81,8 @@ export default {
 		  cform,
 		  animalform,
 		  animaltable,
+		  uprawaform,
+		  uprawatable,
 	 },
 	 data() {
 		  return {
@@ -87,7 +93,9 @@ export default {
 	 computed: {
 		  ...mapGetters([ 'zlecenie',
 								'modalForm',
-								'animalmodal' ]),
+								'animalmodal',
+								'uprawamodal',
+							 ]),
 		  animal: {	get() { return this.$store.state.animal },
 						set(v) { this.$store.commit('animal', v) }	}
 	 },
@@ -100,6 +108,14 @@ export default {
 					 zlecenie_id: gon.id,
 				}
 				this.animalmodal.show()
+		  },
+		  createUprawa() {
+				this.animal = {
+					 instytucja_id: gon.instytucja_id,
+					 rolnik_id: gon.rolnik_id,
+					 zlecenie_id: gon.id,
+				}
+				this.uprawamodal.show()
 		  },
 	 },
 	 created() {

@@ -38,4 +38,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'zlecenie', 'zlecenia'
   inflect.irregular 'wariant', 'warianty'
   inflect.irregular 'podstawa', 'podstawy'
+  inflect.irregular 'uzytek', 'uzytki'
 end

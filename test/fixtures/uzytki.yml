@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  kategoria: one
+  rodzajuprawy: one
+  nmin: 9.99
+  prognoza: 9.99
+
+two:
+  name: MyString
+  kategoria: two
+  rodzajuprawy: two
+  nmin: 9.99
+  prognoza: 9.99

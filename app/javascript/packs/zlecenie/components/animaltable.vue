@@ -30,7 +30,12 @@
   <template slot="zawartosc" slot-scope="row">
 	 <span :id="'zawartosc_azotu_' + row.item.id">{{ row.item.azot }}&nbsp;kg/rok</span>
 	 <b-tooltip :target="'zawartosc_azotu_' + row.item.id">
-		<strong>zawartość N:</strong> {{ row.item.systemutrzymania.zawartosc }}&nbsp;{{ row.item.systemutrzymania.jednostkautrzymania.zawartosc }}
+		<span v-if="row.item.specjalnezywienie">
+		  <strong>zawartość N (zastosowano specjalne żywienie):</strong> {{ row.item.systemutrzymania.zawartosc * row.item.zwierze.koncentracja }}&nbsp;{{ row.item.systemutrzymania.jednostkautrzymania.zawartosc }}
+		</span>
+		<span v-else>
+		  <strong>zawartość N:</strong> {{ row.item.systemutrzymania.zawartosc }}&nbsp;{{ row.item.systemutrzymania.jednostkautrzymania.zawartosc }}
+		</span>		
 	 </b-tooltip>
   </template>
 

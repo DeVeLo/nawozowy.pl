@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190112202617) do
+ActiveRecord::Schema.define(version: 20190114205640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20190112202617) do
     t.integer  "nazwautrzymania_id"
     t.integer  "systemutrzymania_id"
     t.decimal  "sztuk"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "specjalnezywienie",   default: false
     t.index ["instytucja_id"], name: "index_animals_on_instytucja_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_animals_on_nazwautrzymania_id", using: :btree
     t.index ["rolnik_id"], name: "index_animals_on_rolnik_id", using: :btree
@@ -225,6 +226,18 @@ ActiveRecord::Schema.define(version: 20190112202617) do
     t.index ["zwierze_id"], name: "index_systemyutrzymania_on_zwierze_id", using: :btree
   end
 
+  create_table "uzytki", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "kategoria_id"
+    t.integer  "rodzajuprawy_id"
+    t.decimal  "nmin"
+    t.decimal  "prognoza"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["kategoria_id"], name: "index_uzytki_on_kategoria_id", using: :btree
+    t.index ["rodzajuprawy_id"], name: "index_uzytki_on_rodzajuprawy_id", using: :btree
+  end
+
   create_table "warianty", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -296,6 +309,8 @@ ActiveRecord::Schema.define(version: 20190112202617) do
   add_foreign_key "systemyutrzymania", "jednostkiutrzymania"
   add_foreign_key "systemyutrzymania", "nazwyutrzymania"
   add_foreign_key "systemyutrzymania", "zwierzeta"
+  add_foreign_key "uzytki", "kategorie"
+  add_foreign_key "uzytki", "rodzajeupraw"
   add_foreign_key "zlecenia", "gminy"
   add_foreign_key "zlecenia", "instytucje"
   add_foreign_key "zlecenia", "podstawy"

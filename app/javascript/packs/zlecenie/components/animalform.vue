@@ -17,6 +17,7 @@
 		<input type="hidden" id="rolnik_id" v-model="animal.rolnik_id"></input>
 		<input type="hidden" id="zlecenie_id" v-model="animal.zlecenie_id"></input>
 		<input type="hidden" id="systemutrzymania_id" v-model="animal.systemutrzymania_id"></input>
+		
 	 </b-form-row>
 
 	 <b-form-row>
@@ -74,15 +75,25 @@
 		  </b-form-group>
 		</b-col>
 
-		<div slot="modal-footer" class="w-100 text-center">
-		  <hr />
-		  <b-button type="button" @click="animalmodal.hide()">anuluj</b-button>
-		  <b-button type="reset" variant="dark">resetuj</b-button>
-		  <b-button type="submit" variant="primary">zapisz</b-button>
-		</div>
-
+		<b-col v-if="animal.zwierze_id && zwierze.koncentracja">
+		  <b-form-group
+			 label="zastosowano specjalne żywienie?"
+			 label-for="specjalnezywienie">
+			 <b-form-radio-group
+				id="specjalnezywienie"
+				:options="specjalnezywienieoptions"
+				v-model="animal.specjalnezywienie"></b-form-radio-group>
+		  </b-form-group>
+		</b-col>
 	 </b-form-row>
-
+ 
+	 <div slot="modal-footer" class="w-100 text-center">
+		<hr />
+		<b-button type="button" @click="animalmodal.hide()">anuluj</b-button>
+		<b-button type="reset" variant="dark">resetuj</b-button>
+		<b-button type="submit" variant="primary">zapisz</b-button>
+	 </div>
+ 
   </b-form>
 </b-modal>
 </template>
@@ -98,6 +109,11 @@ export default {
 				gatunki: [],
 				nazwyutrzymania: [],
 				systemutrzymania: {},
+				zwierze: {},
+				specjalnezywienieoptions: [
+					 { text: 'tak', value: true },
+					 { text: 'nie', value: false },
+				]
 		  }
 	 },
 	 computed: {
@@ -183,6 +199,7 @@ export default {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
+					 
 				}
 		  },
 		  reset(e) {
@@ -225,9 +242,17 @@ export default {
 		  },
 		  pobierz_nazwyutrzymania() {
 				if (this.animal.zwierze_id) {
+					 
 					 this.$http.get('/gatunki/' + this.animal.gatunek_id + '/zwierzeta/' + this.animal.zwierze_id + '/nazwyutrzymania.json')
 						  .then((result) => { this.nazwyutrzymania = result.body })
 						  .catch((error) => { console.log(error) })
+
+					 // pobierz również zwierzę, aby określić współczynnik "w" -> koncentracji
+
+					 this.$http.get('/gatunki/' + this.animal.gatunek_id + '/zwierzeta/' + this.animal.zwierze_id + '.json')
+						  .then((result) => { this.zwierze = result.body })
+						  .catch((error) => { console.log(error) })
+					 
 					 if (this.animal.nazwautrzymania_id) {
 						  this.pobierz_systemutrzymania()
 					 }

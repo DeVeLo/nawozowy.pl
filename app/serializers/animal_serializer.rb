@@ -1,5 +1,5 @@
 class AnimalSerializer < ActiveModel::Serializer
-  attributes :id, :instytucja_id, :rolnik_id, :zlecenie_id, :zwierze_id, :nazwautrzymania_id, :systemutrzymania_id, :sztuk, :nazwautrzymania, :gatunek_id, :produkt, :azot
+  attributes :id, :instytucja_id, :rolnik_id, :zlecenie_id, :zwierze_id, :nazwautrzymania_id, :systemutrzymania_id, :sztuk, :nazwautrzymania, :gatunek_id, :produkt, :azot, :specjalnezywienie
   belongs_to :zlecenie
   belongs_to :zwierze
   belongs_to :nazwautrzymania

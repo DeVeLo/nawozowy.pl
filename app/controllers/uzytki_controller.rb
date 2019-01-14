@@ -1,0 +1,2 @@
+class UzytkiController < ApplicationController
+end
