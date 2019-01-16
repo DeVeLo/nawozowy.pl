@@ -13,14 +13,19 @@ export const store = new Vuex.Store({
 		  animalform: null,
 		  animalmodal: null,
 		  uprawamodal: null,
-		  animal: {},
+		  animal: {
+				specjalnezywienie: false,
+				badania: false,
+		  },
 		  animals: [],
 		  zwierzeta: [],
 		  uzytek: {},
+		  uzytki: [],
 	 },
 	 getters: {
 		  zwierzeta: state => { return state.zwierzeta },
 		  uzytek: state => { return state.uzytek },
+		  uzytki: state => { return state.uzytki },
 		  animal: state => { return state.animal },
 		  animals: state => { return state.animals },
 	 	  rolnik: state => { return state.rolnik },
@@ -34,6 +39,7 @@ export const store = new Vuex.Store({
 	 mutations: {
 		  zwierzeta: (state, response) => { state.zwierzeta = response },
 		  uzytek: (state, response) => { state.uzytek = response },
+		  uzytki: (state, response) => { state.uzytki = response },
 		  animal: (state, response) => { state.animal = response },
 		  animals: (state, response) => { state.animals = response },
 		  instytucja: (state, response) => { state.instytucja = response },

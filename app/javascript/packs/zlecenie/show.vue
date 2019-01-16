@@ -30,9 +30,9 @@
 				  <b-tab title="uprawy" active>
 					 <b-form-row>
 						<b-col class="text-right">
+						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						  <uprawaform></uprawaform>
 						  <uprawatable></uprawatable>
-						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						</b-col>
 					 </b-form-row>
 				  </b-tab>
@@ -97,7 +97,9 @@ export default {
 								'uprawamodal',
 							 ]),
 		  animal: {	get() { return this.$store.state.animal },
-						set(v) { this.$store.commit('animal', v) }	}
+						set(v) { this.$store.commit('animal', v) }	},
+		  uzytek: {	get() { return this.$store.state.uzytek },
+						set(v) { this.$store.commit('uzytek', v) }	}
 	 },
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
@@ -110,7 +112,7 @@ export default {
 				this.animalmodal.show()
 		  },
 		  createUprawa() {
-				this.animal = {
+				this.uzytek = {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,

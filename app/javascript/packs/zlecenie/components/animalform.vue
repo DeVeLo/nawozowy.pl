@@ -29,7 +29,7 @@
 				required
 				ref="animal_sztuk"
 				id="sztuk"
-				:formatter="formatter_sztuk"
+				:formatter="formatter_decimal"
 				v-model="animal.sztuk"></b-form-input>
 		  </b-form-group>
 		</b-col>
@@ -86,7 +86,33 @@
 		  </b-form-group>
 		</b-col>
 	 </b-form-row>
- 
+
+	 <b-form-row v-if="animal.zwierze_id && animal.nazwautrzymania_id">
+		<b-col>
+		  <b-form-group
+			 label="określ zawartość N na podstawie:"
+			 label-for="badania">
+			 <b-form-radio-group
+				id="badania"
+				:options="badaniaoptions"
+				v-model="animal.badania">
+			 </b-form-radio-group>
+		  </b-form-group>
+		</b-col>
+		<b-col v-if="animal.badania == true">
+		  <b-form-group
+			 :label="'zawartość ' + zawartosc_jednostka"
+			 label-for="zawartosc">
+			 <b-form-input
+				id="zawartosc"
+				required
+				v-model="animal.zawartosc"
+				:formatter="formatter_decimal">
+			 </b-form-input>
+		  </b-form-group>
+		</b-col>
+	 </b-form-row>
+	 
 	 <div slot="modal-footer" class="w-100 text-center">
 		<hr />
 		<b-button type="button" @click="animalmodal.hide()">anuluj</b-button>
@@ -113,7 +139,12 @@ export default {
 				specjalnezywienieoptions: [
 					 { text: 'tak', value: true },
 					 { text: 'nie', value: false },
-				]
+				],
+				badaniaoptions: [
+					 { text: 'danych z Tabeli 9', value: false },
+					 { text: 'przeprowadzonych badań', value: true },
+				],
+				zawartosc_jednostka: ''
 		  }
 	 },
 	 computed: {
@@ -141,7 +172,7 @@ export default {
 		  }
 	 },
 	 methods: {
-		  formatter_sztuk(v, e) {
+		  formatter_decimal(v, e) {
 				if (v !== null) {
 					 v = v.replace(',','.')
 					 var r = /^[0-9]+([.]{0,1}[0-9]*)?$/g
@@ -153,6 +184,13 @@ export default {
 				else { return 'dodaj zwierzęta' }
 		  },
 		  focus() {
+				// jeśli dodajemy zwierzątko
+				// czyścimy i wprowadzamy dane defaultowe z metody this.clear()
+				if (!this.animal.id) {
+					 this.clear()
+				}
+
+				// focus na ilość sztuk zwierząt
 				this.$refs.animal_sztuk.focus()
 		  },
 		  save(e) {
@@ -175,7 +213,7 @@ export default {
 						  .catch((error) => console.log(error))
 				} else {
 					 // create
-					 this.animal.id = null;
+					 this.animal.id = null
 					 this.$http.post('/instytucje/' +
 										  this.animal.instytucja_id +
 										  "/rolnicy/" +
@@ -194,12 +232,13 @@ export default {
 				}
 				
 		  },
-		  clear() {
+		  clear() {	
 				this.animal = {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
-					 
+					 badania: false,
+					 specjalnezywienie: false,
 				}
 		  },
 		  reset(e) {
@@ -264,6 +303,7 @@ export default {
 						  .then((result) => {
 								this.systemutrzymania = result.body;
 								if (result.body) {
+									 this.zawartosc_jednostka = result.body.jednostkautrzymania.zawartosc
 									 this.animal.systemutrzymania_id = result.body.id
 								}
 						  })

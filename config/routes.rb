@@ -1,7 +1,6 @@
 # coding: utf-8
 Rails.application.routes.draw do
 
-  resources :uzytki
   resources :zlecenia
   # na razie domyślnie wyświetlaj rolników z OSChR Lublin
   root "rolnicy#index", instytucja_id: "d04e8915-2ce7-45ee-b161-a7dcce79f65a"
@@ -16,7 +15,13 @@ Rails.application.routes.draw do
 
       # zlecenia w ramach instytucji
       resources :zlecenia do
+        
+        # zwierzęta w gospodarstwie
         resources :animals
+
+        # pola z uprawami
+        resources :uzytki
+        
       end
     end
     

@@ -4,4 +4,5 @@ class Zlecenie < ApplicationRecord
   belongs_to :wariant
   belongs_to :podstawa
   has_many :animals, dependent: :destroy
+  has_many :uzytki, dependent: :destroy
 end

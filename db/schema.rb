@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190114205640) do
+ActiveRecord::Schema.define(version: 20190116135234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20190114205640) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.boolean  "specjalnezywienie",   default: false
+    t.boolean  "badania",             default: false
+    t.decimal  "zawartosc"
     t.index ["instytucja_id"], name: "index_animals_on_instytucja_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_animals_on_nazwautrzymania_id", using: :btree
     t.index ["rolnik_id"], name: "index_animals_on_rolnik_id", using: :btree
@@ -232,10 +234,17 @@ ActiveRecord::Schema.define(version: 20190114205640) do
     t.integer  "rodzajuprawy_id"
     t.decimal  "nmin"
     t.decimal  "prognoza"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.uuid     "instytucja_id"
+    t.uuid     "rolnik_id"
+    t.uuid     "zlecenie_id"
+    t.boolean  "badania",         default: false
+    t.index ["instytucja_id"], name: "index_uzytki_on_instytucja_id", using: :btree
     t.index ["kategoria_id"], name: "index_uzytki_on_kategoria_id", using: :btree
     t.index ["rodzajuprawy_id"], name: "index_uzytki_on_rodzajuprawy_id", using: :btree
+    t.index ["rolnik_id"], name: "index_uzytki_on_rolnik_id", using: :btree
+    t.index ["zlecenie_id"], name: "index_uzytki_on_zlecenie_id", using: :btree
   end
 
   create_table "warianty", force: :cascade do |t|
@@ -309,8 +318,11 @@ ActiveRecord::Schema.define(version: 20190114205640) do
   add_foreign_key "systemyutrzymania", "jednostkiutrzymania"
   add_foreign_key "systemyutrzymania", "nazwyutrzymania"
   add_foreign_key "systemyutrzymania", "zwierzeta"
+  add_foreign_key "uzytki", "instytucje"
   add_foreign_key "uzytki", "kategorie"
   add_foreign_key "uzytki", "rodzajeupraw"
+  add_foreign_key "uzytki", "rolnicy"
+  add_foreign_key "uzytki", "zlecenia"
   add_foreign_key "zlecenia", "gminy"
   add_foreign_key "zlecenia", "instytucje"
   add_foreign_key "zlecenia", "podstawy"
