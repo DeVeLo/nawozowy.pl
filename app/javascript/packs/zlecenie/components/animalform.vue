@@ -86,19 +86,22 @@
 		  </b-form-group>
 		</b-col>
 	 </b-form-row>
-
+<br>
 	 <b-form-row v-if="animal.zwierze_id && animal.nazwautrzymania_id">
 		<b-col>
 		  <b-form-group
 			 label="określ zawartość N na podstawie:"
-			 label-for="badania">
+			 label-for="animalbadania">
 			 <b-form-radio-group
-				id="badania"
+				stacked
+				id="animalbadania"
+				required
 				:options="badaniaoptions"
 				v-model="animal.badania">
 			 </b-form-radio-group>
 		  </b-form-group>
 		</b-col>
+
 		<b-col v-if="animal.badania == true">
 		  <b-form-group
 			 :label="'zawartość ' + zawartosc_jednostka"
@@ -111,6 +114,7 @@
 			 </b-form-input>
 		  </b-form-group>
 		</b-col>
+		
 	 </b-form-row>
 	 
 	 <div slot="modal-footer" class="w-100 text-center">
@@ -125,7 +129,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
 	 name: 'animalform',
@@ -172,7 +176,7 @@ export default {
 		  }
 	 },
 	 methods: {
-		  formatter_decimal(v, e) {
+		  formatter_decimal(v,e) {
 				if (v !== null) {
 					 v = v.replace(',','.')
 					 var r = /^[0-9]+([.]{0,1}[0-9]*)?$/g

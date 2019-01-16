@@ -30,26 +30,45 @@
 		  </b-form-group>
 		</b-col>
 
-		</b-form-row>
-
-	 <b-form-row>
 		<b-col>
 		  <b-form-group
 			 label="kategoria agronomiczna gleby"
 			 label-for="kategoria">
 			 <b-form-select
+				required
 				id="kategoria"
 				:options="kategorie"
 				v-model="uzytek.kategoria_id"></b-form-select>
 		  </b-form-group>
 		</b-col>
+		
+	 </b-form-row>
+	 
+	 <b-form-row>
 
 		<b-col>
 		  <b-form-group
-			 label="(wynika badania N<small>min</small> wiosną"
+			 label="zasoby azotu mineralnego wiosną na podstawie"
+			 label-for="badania">
+			 <b-form-radio-group
+				id="badania"
+				required
+				stacked
+				:options="badaniaoptions"
+				v-model="uzytek.badania">
+			 </b-form-radio-group>
+		  </b-form-group>
+		</b-col>
+		
+		<b-col v-if="uzytek.badania == true">
+		  <b-form-group
+			 label="kg N/ha"
 			 label-for="nmin">
 			 <b-form-input
-				></b-form-input>
+				id="nmin"
+				required
+				v-model="uzytek.nmin"
+				:formatter="formatter_decimal"></b-form-input>
 		  </b-form-group>
 		</b-col>
 		
@@ -68,6 +87,8 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+
 export default {
 	 name: 'uprawaform',
 	 data() {
@@ -75,6 +96,10 @@ export default {
 				rodzajeuprawy: [],
 				kategorie: [],
 				gon: gon,
+				badaniaoptions: [
+					 { text: 'danych z Tabeli 12', value: false },
+					 { text: 'przeprowadzonych badań', value: true },
+				],
 		  }
 	 },
 	 computed: {
@@ -86,6 +111,13 @@ export default {
 						set(v) { this.$store.commit('uzytki', v) } },
 	 },
 	 methods: {
+		  formatter_decimal(v,e) {
+				if (v !== null) {
+					 v = v.replace(',','.')
+					 var r = /^[0-9]+([.]{0,1}[0-9]*)?$/g
+					 if (r.test(v)) { return v } else { return v.substr(0, v.length -1)}
+				} else { return '' }
+		  },
 		  title() {
 				if (this.uzytek.id) { return 'edytuj użytki' }
 				else { return 'dodaj użytek' }
@@ -102,6 +134,7 @@ export default {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
+					 badania: false,
 				}
 		  },
 		  save(e) {

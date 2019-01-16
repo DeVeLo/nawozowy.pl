@@ -59,6 +59,6 @@ class UzytkiController < ApplicationController
   end
   
   def uzytek_params
-    params.require(:uzytek).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :name, :kategoria_id, :rodzajuprawy_id, :nmin, :prognoza )
+    params.require(:uzytek).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :name, :kategoria_id, :rodzajuprawy_id, :nmin, :prognoza, :badania)
   end
 end

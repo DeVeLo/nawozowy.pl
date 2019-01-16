@@ -108,6 +108,8 @@ export default {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
+					 badania: false,
+					 specjalnezywienie: false,
 				}
 				this.animalmodal.show()
 		  },
@@ -116,6 +118,7 @@ export default {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
+					 badania: false,
 				}
 				this.uprawamodal.show()
 		  },

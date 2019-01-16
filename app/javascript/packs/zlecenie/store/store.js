@@ -63,6 +63,6 @@ export const store = new Vuex.Store({
 						  commit('rolnik', result.rolnik)
 					 })
 
-		  }
+		  },		  
 	 }
 })
