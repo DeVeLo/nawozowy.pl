@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190116135234) do
+ActiveRecord::Schema.define(version: 20190130104819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 20190116135234) do
     t.index ["systemutrzymania_id"], name: "index_animals_on_systemutrzymania_id", using: :btree
     t.index ["zlecenie_id"], name: "index_animals_on_zlecenie_id", using: :btree
     t.index ["zwierze_id"], name: "index_animals_on_zwierze_id", using: :btree
+  end
+
+  create_table "bobowate", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "n"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "gatunki", force: :cascade do |t|
@@ -115,8 +122,9 @@ ActiveRecord::Schema.define(version: 20190116135234) do
   create_table "kategorie", force: :cascade do |t|
     t.string   "name"
     t.decimal  "zasob"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.decimal  "przelicznik"
   end
 
   create_table "nazwyutrzymania", force: :cascade do |t|
@@ -181,12 +189,20 @@ ActiveRecord::Schema.define(version: 20190116135234) do
     t.index ["wojewodztwo_id"], name: "index_rolnicy_on_wojewodztwo_id", using: :btree
   end
 
+  create_table "roslinaprzedplony", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "n"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rosliny", force: :cascade do |t|
     t.string   "name"
     t.decimal  "pobranie"
     t.integer  "rodzajuprawy_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.decimal  "wspolczynnik",    default: "0.6"
     t.index ["rodzajuprawy_id"], name: "index_rosliny_on_rodzajuprawy_id", using: :btree
   end
 
@@ -197,6 +213,7 @@ ActiveRecord::Schema.define(version: 20190116135234) do
     t.decimal  "wartosc"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "wariant"
     t.index ["gatunek_id"], name: "index_rownowazniki_on_gatunek_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_rownowazniki_on_nazwautrzymania_id", using: :btree
     t.index ["sezon_id"], name: "index_rownowazniki_on_sezon_id", using: :btree
@@ -234,16 +251,28 @@ ActiveRecord::Schema.define(version: 20190116135234) do
     t.integer  "rodzajuprawy_id"
     t.decimal  "nmin"
     t.decimal  "prognoza"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.uuid     "instytucja_id"
     t.uuid     "rolnik_id"
     t.uuid     "zlecenie_id"
-    t.boolean  "badania",         default: false
+    t.boolean  "badania",             default: false
+    t.integer  "bobowate_id"
+    t.integer  "roslina_id"
+    t.decimal  "plon"
+    t.decimal  "powierzchnia"
+    t.boolean  "nminsezon",           default: false
+    t.decimal  "przedplon",           default: "0.0"
+    t.integer  "roslinaprzedplon_id", default: 1
+    t.integer  "bobowata_id"
+    t.index ["bobowata_id"], name: "index_uzytki_on_bobowata_id", using: :btree
+    t.index ["bobowate_id"], name: "index_uzytki_on_bobowate_id", using: :btree
     t.index ["instytucja_id"], name: "index_uzytki_on_instytucja_id", using: :btree
     t.index ["kategoria_id"], name: "index_uzytki_on_kategoria_id", using: :btree
     t.index ["rodzajuprawy_id"], name: "index_uzytki_on_rodzajuprawy_id", using: :btree
     t.index ["rolnik_id"], name: "index_uzytki_on_rolnik_id", using: :btree
+    t.index ["roslina_id"], name: "index_uzytki_on_roslina_id", using: :btree
+    t.index ["roslinaprzedplon_id"], name: "index_uzytki_on_roslinaprzedplon_id", using: :btree
     t.index ["zlecenie_id"], name: "index_uzytki_on_zlecenie_id", using: :btree
   end
 
@@ -318,10 +347,14 @@ ActiveRecord::Schema.define(version: 20190116135234) do
   add_foreign_key "systemyutrzymania", "jednostkiutrzymania"
   add_foreign_key "systemyutrzymania", "nazwyutrzymania"
   add_foreign_key "systemyutrzymania", "zwierzeta"
+  add_foreign_key "uzytki", "bobowate"
+  add_foreign_key "uzytki", "bobowate", column: "bobowate_id"
   add_foreign_key "uzytki", "instytucje"
   add_foreign_key "uzytki", "kategorie"
   add_foreign_key "uzytki", "rodzajeupraw"
   add_foreign_key "uzytki", "rolnicy"
+  add_foreign_key "uzytki", "roslinaprzedplony"
+  add_foreign_key "uzytki", "rosliny"
   add_foreign_key "uzytki", "zlecenia"
   add_foreign_key "zlecenia", "gminy"
   add_foreign_key "zlecenia", "instytucje"

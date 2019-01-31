@@ -1,0 +1,2 @@
+class Roslinaprzedplon < ApplicationRecord
+end

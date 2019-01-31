@@ -1,0 +1,2 @@
+class Bobowata < ApplicationRecord
+end

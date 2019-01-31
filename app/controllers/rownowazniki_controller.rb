@@ -28,7 +28,7 @@ class RownowaznikiController < ApplicationController
 
     respond_to do |format|
       if @rownowaznik.save
-        format.html { redirect_to @rownowaznik, notice: 'Rownowaznik was successfully created.' }
+        format.html { redirect_to rownowazniki_path, notice: 'Rownowaznik was successfully created.' }
         format.json { render :show, status: :created, location: @rownowaznik }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class RownowaznikiController < ApplicationController
   def update
     respond_to do |format|
       if @rownowaznik.update(rownowaznik_params)
-        format.html { redirect_to @rownowaznik, notice: 'Rownowaznik was successfully updated.' }
+        format.html { redirect_to rownowazniki_path, notice: 'Rownowaznik was successfully updated.' }
         format.json { render :show, status: :ok, location: @rownowaznik }
       else
         format.html { render :edit }
@@ -69,6 +69,6 @@ class RownowaznikiController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rownowaznik_params
-      params.require(:rownowaznik).permit(:gatunek_id, :nazwautrzymania_id, :sezon_id, :wartosc)
+      params.require(:rownowaznik).permit(:gatunek_id, :nazwautrzymania_id, :sezon_id, :wartosc, :wariant)
     end
 end

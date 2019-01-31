@@ -1,6 +1,8 @@
 # coding: utf-8
 Rails.application.routes.draw do
 
+  resources :roslinaprzedplony
+  resources :bobowate
   resources :zlecenia
   # na razie domyślnie wyświetlaj rolników z OSChR Lublin
   root "rolnicy#index", instytucja_id: "d04e8915-2ce7-45ee-b161-a7dcce79f65a"
@@ -56,7 +58,11 @@ Rails.application.routes.draw do
   end
 
   # rodzaje upraw
-  resources :rodzajeuprawy, only: [:index]
+  resources :rodzajeuprawy, only: [:index] do
+    # rośliny uprawne
+    resources :rosliny, only: [:index]
+  end
+  
   resources :kategorie, only: [:index]
   
 end

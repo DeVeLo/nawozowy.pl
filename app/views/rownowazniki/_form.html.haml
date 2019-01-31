@@ -1,8 +1,9 @@
 = semantic_form_for @rownowaznik do |f|
   = f.inputs do
-    = f.input :gatunek
-    = f.input :nazwautrzymania
-    = f.input :sezon
-    = f.input :wartosc
+    = f.input :wariant, label: 'wariant (np. drób nieśny / drób rzeźny)'
+    = f.input :gatunek, label: 'gatunek'
+    = f.input :nazwautrzymania, label: 'system utrzymania'
+    = f.input :sezon, label: 'sezon'
+    = f.input :wartosc, label: 'wartość równoważnika'
   = f.actions do
-    = f.action :submit, :as => :input
+    = f.action :submit, :as => :input, label: 'zapisz', button_html: { class: 'btn btn-primary' }

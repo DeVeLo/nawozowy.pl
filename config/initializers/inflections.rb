@@ -39,4 +39,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'wariant', 'warianty'
   inflect.irregular 'podstawa', 'podstawy'
   inflect.irregular 'uzytek', 'uzytki'
+  inflect.irregular 'bobowata', 'bobowate'
+  inflect.irregular 'roslinaprzedplon', 'roslinaprzedplony'
 end

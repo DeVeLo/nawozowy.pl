@@ -1,5 +1,5 @@
 class KategoriaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :text, :value
+  attributes :id, :name, :text, :value, :zasob
 
   def text
     object.name

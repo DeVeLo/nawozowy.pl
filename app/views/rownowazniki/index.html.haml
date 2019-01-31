@@ -16,7 +16,9 @@
   %tbody
     - @rownowazniki.each do |rownowaznik|
       %tr
-        %td= rownowaznik.gatunek.name
+        %td
+          = rownowaznik.gatunek.name
+          = rownowaznik.wariant
         %td= rownowaznik.nazwautrzymania.name
         %td= rownowaznik.sezon.name
         %td= rownowaznik.wartosc

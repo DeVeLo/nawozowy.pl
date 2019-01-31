@@ -5,7 +5,7 @@ class UzytkiController < ApplicationController
   before_action :set_zlecenie
 
   def index
-    render json: Uzytek.all.order(created_at: :ASC)
+    render json: Uzytek.all.where(zlecenie_id: @zlecenie.id).order(created_at: :ASC)
   end
 
   def show
@@ -59,6 +59,10 @@ class UzytkiController < ApplicationController
   end
   
   def uzytek_params
-    params.require(:uzytek).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :name, :kategoria_id, :rodzajuprawy_id, :nmin, :prognoza, :badania)
+    params.require(:uzytek).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id,
+                                   :name, :kategoria_id, :rodzajuprawy_id, :nmin,
+                                   :prognoza, :badania, :bobowata_id, :roslina_id,
+                                   :plon, :powierzchnia, :nminsezon, :przedplon,
+                                   :roslinaprzedplon_id)
   end
 end

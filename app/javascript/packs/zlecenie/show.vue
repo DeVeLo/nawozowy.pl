@@ -32,6 +32,7 @@
 						<b-col class="text-right">
 						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						  <uprawaform></uprawaform>
+						  <uprawazrodla></uprawazrodla>
 						  <uprawatable></uprawatable>
 						</b-col>
 					 </b-form-row>
@@ -44,12 +45,6 @@
 						  <animaltable></animaltable>
 						</b-col>
 					 </b-form-row>
-				  </b-tab>
-				  <b-tab title="naturalny zakupiony">
-					 nabyty nawóz naturalny z innego gospodarstwa rolnego
-				  </b-tab>
-				  <b-tab title="naturalny sprzedany">
-					 nawóz naturalny wytworzony w gospodarstwie i sprzedany
 				  </b-tab>
 				</b-tabs>
 			 </b-card>
@@ -71,6 +66,7 @@ import animalform from './components/animalform.vue'
 import animaltable from './components/animaltable.vue'
 import uprawaform from './components/uprawaform.vue'
 import uprawatable from './components/uprawatable.vue'
+import uprawazrodla from './components/uprawazrodla.vue'
 
 export default {
 	 name: 'show',
@@ -83,6 +79,7 @@ export default {
 		  animaltable,
 		  uprawaform,
 		  uprawatable,
+		  uprawazrodla,
 	 },
 	 data() {
 		  return {

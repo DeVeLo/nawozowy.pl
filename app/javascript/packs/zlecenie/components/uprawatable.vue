@@ -10,14 +10,36 @@
   empty-text="W tej chwili nie ma tutaj nic do wyświetlenia."
   :fields="naglowki"
   :items="uzytki"
-  class="my-3">
+  class="my-3">  
 
+  <template slot="powierzchnia" slot-scope="row">
+	 <span :id="'uzytki_powierzchnia_' + row.item.id">{{ row.item.powierzchnia }}&nbsp;ha</span>
+  </template>
+
+  <template slot="roslina" slot-scope="row">
+	 <span :id="'uzytki_roslina_' + row.item.id">{{ row.item.roslina.name }}&nbsp;ha</span>
+	 <b-tooltip :target="'uzytki_roslina_' + row.item.id">
+		{{ row.item.roslina.rodzajuprawy.name }}
+	 </b-tooltip>
+  </template>
   
+  <template slot="zapotrzebowanie" slot-scope="row">
+	 <span :id="'uzytki_zapotrzebowanie_' + row.item.id">{{ row.item.zapotrzebowanie }}&nbsp;kg N</span>
+	 <b-tooltip :target="'uzytki_zapotrzebowanie_' + row.item.id">
+		<strong>sposób liczenia:</strong> powierzchnia&nbsp;{{ row.item.powierzchnia }}&nbsp;ha&nbsp;*&nbsp;plon&nbsp;{{ row.item.plon }}&nbsp;t&nbsp;*&nbsp;pobranie&nbsp;{{ row.item.roslina.pobranie }}&nbsp;kg&nbsp;N/ha
+	 </b-tooltip>
+  </template>
   
   <template slot="przyciski" slot-scope="row">
 	 <b-container fluid>
 
 		<b-row>
+		  <b-col class="text-center">
+			 <b-button variant="primary" class="mt-1" size="sm" @click="zrodla(row.item)">
+				źródła&nbsp;N
+			 </b-button>
+		  </b-col>
+
 		  <b-col class="text-center">
 			 <b-button class="mt-1" size="sm" @click="edit(row.item)">
 				edytuj
@@ -54,13 +76,16 @@ export default {
 		  return {
 				naglowki: [
 					 { key: 'name', label: 'oznaczenie' },
+					 { key: 'roslina', label: 'roślina' },
+					 { key: 'powierzchnia', label: 'powierzchnia' },
+					 { key: 'zapotrzebowanie', label: 'zapotrzebowanie' },
 					 { key: 'przyciski', label: '' },
 				],
 				confirm: false,
 		  }
 	 },
 	 computed: {
-		  ...mapGetters(['uprawamodal']),
+		  ...mapGetters(['uprawamodal', 'uprawazrodla']),
 		  uzytki: { get() { return this.$store.state.uzytki },
 						set(v) { this.$store.commit('uzytki', v) } },
 		  uzytek: { get() { return this.$store.state.uzytek },
@@ -84,6 +109,10 @@ export default {
 		  edit(item) {
 				this.uzytek = item
 				this.uprawamodal.show()
+		  },
+		  zrodla(item) {
+				this.uzytek = item
+				this.uprawazrodla.show()
 		  },
 		  pobierzUzytki() {
 				this.$http.get('/instytucje/'

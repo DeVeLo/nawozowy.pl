@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
 		  animalform: null,
 		  animalmodal: null,
 		  uprawamodal: null,
+		  uprawazrodla: null,
 		  animal: {
 				specjalnezywienie: false,
 				badania: false,
@@ -31,6 +32,7 @@ export const store = new Vuex.Store({
 	 	  rolnik: state => { return state.rolnik },
 	 	  animalmodal: state => { return state.animalmodal },
 		  uprawamodal: state => { return state.uprawamodal },
+		  uprawazrodla: state => { return state.uprawazrodla },
 	 	  instytucja: state => { return state.instytucja },
 	 	  zlecenie: state => { return state.zlecenie },
 	 	  attr: state => { return state.attr },
@@ -45,6 +47,7 @@ export const store = new Vuex.Store({
 		  instytucja: (state, response) => { state.instytucja = response },
 		  animalmodal: (state, response) => { state.animalmodal = response },
 		  uprawamodal: (state, response) => { state.uprawamodal = response },
+		  uprawazrodla: (state, response) => { state.uprawazrodla = response },
 		  rolnik: (state, response) => {	state.rolnik = response },
 		  zlecenie: (state, response) => { state.zlecenie = response },
 		  attr: (state, response) => { state.attr = response },
