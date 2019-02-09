@@ -1,5 +1,5 @@
 class ZwierzeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :gatunek_id, :wspolczynnik, :koncentracja, :value, :text
+  attributes :id, :name, :gatunek_id, :wspolczynnik, :koncentracja, :value, :text, :rownowazniki
 
   def value
     object.id

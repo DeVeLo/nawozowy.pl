@@ -3,12 +3,20 @@ class Animal < ApplicationRecord
   belongs_to :instytucja
   belongs_to :rolnik
   belongs_to :zlecenie
+  belongs_to :animalgroup
   belongs_to :zwierze
   belongs_to :nazwautrzymania
   belongs_to :systemutrzymania
+  belongs_to :rownowaznik
+  has_many :nawozynaturalne, dependent: :destroy
+  has_many :nawozywykorzystane, dependent: :destroy
 
   before_save :koncentracja?
 
+  def name
+    self.zwierze.name
+  end
+  
   # jeśli nie ma współczynnika koncentracji
   # dla podanego zwierzęcia i systemu utrzymania
   # to wyłączamy w ogóle opcję specjalne żywienie
@@ -43,9 +51,33 @@ class Animal < ApplicationRecord
     self.sztuk * self.systemutrzymania.produkcja
   end
 
+  # pozostały nawóz po dodaniu do użytku
+  def pozostalynawoz
+    self.produkt - self.nawozywykorzystane.sum(:ilosc)
+  end
+
   # ilość wyprodukowanego nawozu w ciągu roku
   def azot
     self.produkt * self.zawartosc_wynikowa
   end
+
+  # równoważnik
+  def getrownowaznik(sezon)
+    if sezon == 1
+      self.rownowaznik.jesien
+    elsif sezon == 2
+      self.rownowaznik.wiosna
+    else
+      1
+    end
+  end
+  
+  # pozostały nawóz
+  def pozostalyazot
+    # ilość azotu w nawozie pozostałym po
+    self.pozostalynawoz * self.zawartosc_wynikowa
+  end
+
+  
   
 end

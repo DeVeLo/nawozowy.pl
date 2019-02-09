@@ -3,6 +3,7 @@ class AnimalsController < ApplicationController
   before_action :set_instytucja
   before_action :set_rolnik
   before_action :set_zlecenie
+  before_action :set_animalgroup
 
   def index
     render json: @zlecenie.animals.order(created_at: :ASC)
@@ -57,8 +58,15 @@ class AnimalsController < ApplicationController
   def set_zlecenie
     @zlecenie = Zlecenie.find(params[:zlecenie_id])
   end
+
+  def set_animalgroup
+    @animalgroup = Animalgroup.find(params[:animalgroup_id])
+    logger.info @animalgroup
+  end
   
   def animal_params
-    params.require(:animal).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :zwierze_id, :nazwautrzymania_id, :systemutrzymania_id, :sztuk, :specjalnezywienie, :badania, :zawartosc)
+    params.require(:animal).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :zwierze_id,
+                                   :nazwautrzymania_id, :systemutrzymania_id, :sztuk, :specjalnezywienie,
+                                   :badania, :zawartosc, :rownowaznik_id, :animalgroup_id)
   end
 end

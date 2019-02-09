@@ -41,4 +41,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'uzytek', 'uzytki'
   inflect.irregular 'bobowata', 'bobowate'
   inflect.irregular 'roslinaprzedplon', 'roslinaprzedplony'
+  inflect.irregular 'nawoznaturalny', 'nawozynaturalne'
+  inflect.irregular 'nawozwykorzystany', 'nawozywykorzystane'
 end

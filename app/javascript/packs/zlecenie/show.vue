@@ -27,22 +27,21 @@
 		  <b-col>
 			 <b-card no-body>
 				<b-tabs card>
-				  <b-tab title="uprawy" active>
+				  <b-tab title="zwierzęta" active>
+					 <b-form-row>
+						<b-col class="text-right m-0 p-0">
+						  <b-button @click="createAnimalgroup()">dodaj grupę</b-button>
+						  <animalgrouptable :key="animalgroupKey"></animalgrouptable>
+						</b-col>
+					 </b-form-row>
+				  </b-tab>
+				  <b-tab title="uprawy">
 					 <b-form-row>
 						<b-col class="text-right">
 						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						  <uprawaform></uprawaform>
 						  <uprawazrodla></uprawazrodla>
 						  <uprawatable></uprawatable>
-						</b-col>
-					 </b-form-row>
-				  </b-tab>
-				  <b-tab title="zwierzęta">
-					 <b-form-row>
-						<b-col class="text-right">
-						  <b-button @click="createAnimal()">dodaj zwierzę</b-button>
-						  <animalform></animalform>
-						  <animaltable></animaltable>
 						</b-col>
 					 </b-form-row>
 				  </b-tab>
@@ -62,8 +61,7 @@ import cinstytucja from '../components/cinstytucja.vue'
 import crolnik from '../components/crolnik.vue'
 import czlecenie from '../components/czlecenie.vue'
 import cform from '../zlecenia/components/cform.vue'
-import animalform from './components/animalform.vue'
-import animaltable from './components/animaltable.vue'
+import animalgrouptable from './components/animalgrouptable.vue'
 import uprawaform from './components/uprawaform.vue'
 import uprawatable from './components/uprawatable.vue'
 import uprawazrodla from './components/uprawazrodla.vue'
@@ -75,8 +73,7 @@ export default {
 		  crolnik,
 		  czlecenie,
 		  cform,
-		  animalform,
-		  animaltable,
+		  animalgrouptable,
 		  uprawaform,
 		  uprawatable,
 		  uprawazrodla,
@@ -93,22 +90,41 @@ export default {
 								'animalmodal',
 								'uprawamodal',
 							 ]),
-		  animal: {	get() { return this.$store.state.animal },
-						set(v) { this.$store.commit('animal', v) }	},
 		  uzytek: {	get() { return this.$store.state.uzytek },
-						set(v) { this.$store.commit('uzytek', v) }	}
+						set(v) { this.$store.commit('uzytek', v) }	},
+		  animalgroupKey: {	get() { return this.$store.state.animalgroupKey },
+									set(v) { this.$store.commit('animalgroupKey', v) }	},
+		  sezony: {	get() { return this.$store.state.sezony },
+						set(v) { this.$store.commit('sezony', v) }	},
+		  ilosc: {	get() { return this.$store.state.ilosc },
+						set(v) { this.$store.commit('ilosc', v) }	},
+		  animalgroups: {	get() { return this.$store.state.animalgroups },
+								set(v) { this.$store.commit('animalgroups', v) }	},
 	 },
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
-		  createAnimal() {
-				this.animal = {
-					 instytucja_id: gon.instytucja_id,
-					 rolnik_id: gon.rolnik_id,
-					 zlecenie_id: gon.id,
-					 badania: false,
-					 specjalnezywienie: false,
-				}
-				this.animalmodal.show()
+		  createAnimalgroup() {
+				this.$http.post('/instytucje/' +
+									 this.gon.instytucja_id +
+									 "/rolnicy/" +
+									 this.gon.rolnik_id +
+									 "/zlecenia/" +
+									 this.gon.id +
+									 "/animalgroups.json",
+									 { animalgroup:
+										{
+											 name: '',
+											 instytucja_id: this.gon.instytucja_id,
+											 rolnik_id: this.gon.rolnik_id,
+											 zlecenie_id: this.gon.zlecenie_id,
+										}
+									 },
+									 {}
+									)
+					 .then((result) => {
+						  this.animalgroups.push(result.body)
+					 })
+					 .catch((error) => console.log(error))
 		  },
 		  createUprawa() {
 				this.uzytek = {
@@ -117,6 +133,8 @@ export default {
 					 zlecenie_id: gon.id,
 					 badania: false,
 				}
+				this.sezony = []
+				this.ilosc = []
 				this.uprawamodal.show()
 		  },
 	 },

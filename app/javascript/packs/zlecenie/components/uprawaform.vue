@@ -11,10 +11,10 @@
   @shown="focus"
   @hidden="reset"
   class="text-left">
-  <b-form @submit="save" @reset="reset">
+  <b-form @submit.prevent="save(reaction)" @reset="reset">
 	 
 	 <b-card no-body>
-		<b-tabs card>
+		<b-tabs card v-model="tabIndex">
 		  <b-tab title="dane podstawowe" active>
 			 <b-container>
 
@@ -187,7 +187,7 @@
 			 </b-container>
 		  </b-tab>
 		  
-		  <b-tab title="nawóz naturalny">
+		  <b-tab title="nawóz naturalny" :disabled="uzytek.id==null">
 			 <uprawanaturalny></uprawanaturalny>
 		  </b-tab>
 		  
@@ -195,9 +195,10 @@
 	 </b-card>
 	 
 	 <div slot="modal-footer" class="w-100 mt-3 text-center">
-		<b-button type="button" @click="uprawamodal.hide()">anuluj</b-button>
+		<b-button type="button" @click="uprawamodal.hide()">zamknij</b-button>
 		<b-button type="reset" variant="dark">resetuj</b-button>
-		<b-button type="submit" variant="primary">zapisz</b-button>
+		<b-button type="submit" @click="reaction=false" variant="primary">zapisz</b-button>
+		<b-button type="submit" @click="reaction=true" variant="primary">zapisz i zamknij</b-button>
 	 </div>
 	 
   </b-form>
@@ -215,6 +216,8 @@ export default {
 	 },
 	 data() {
 		  return {
+				reaction: false,
+				tabIndex: 0,
 				rodzajeuprawy: [],
 				rosliny: [],
 				kategorie: [],
@@ -238,6 +241,10 @@ export default {
 						set(v) { this.$store.commit('uzytek', v) } },
 		  uzytki: { get() { return this.$store.state.uzytki },
 						set(v) { this.$store.commit('uzytki', v) } },
+		  sezony: { get() { return this.$store.state.sezony },
+						set(v) { this.$store.commit('sezony', v) } },
+		  ilosc: { get() { return this.$store.state.ilosc },
+					  set(v) { this.$store.commit('ilosc', v) } },
 	 },
 	 methods: {
 		  formatter_decimal(v,e) {
@@ -269,8 +276,7 @@ export default {
 					 roslinaprzedplon_id: 1,
 				}
 		  },
-		  save(e) {
-				e.preventDefault()
+		  save(reaction) {
 
 				if (this.uzytek.id) {
 					 // update
@@ -284,7 +290,9 @@ export default {
 											+ this.uzytek.id + ".json",
 											{ uzytek: this.uzytek }, {})
 						  .then((res) => {
-								this.uprawamodal.hide()
+								if (reaction) {
+									 this.uprawamodal.hide()
+								}
 						  })
 						  .catch((error) => console.log(error))
 				} else {
@@ -302,7 +310,11 @@ export default {
 										 )
 						  .then((result) => {
 								this.uzytki.push(result.body)
-								this.uprawamodal.hide()
+								if (reaction) {
+									 this.uprawamodal.hide()
+								} else {
+									 this.uzytek = result.body
+								}
 						  })
 						  .catch((error) => console.log(error))
 				}
@@ -310,6 +322,9 @@ export default {
 		  reset(e) {
 				e.preventDefault()
 
+				// ustawiam tab na dane podstawowe
+				this.tabIndex = 0
+				
 				if (this.uzytek.id) {
 					 this.pobierzUzytek()
 				} else {
@@ -351,7 +366,7 @@ export default {
 									+ '/zlecenia/'
 									+ gon.id
 									+ '/uzytki/'
-									+this.uzytek.id
+									+ this.uzytek.id
 									+ '.json')
 					 .then((result) => {
 						  for (var k in result.body) {

@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190130104819) do
+ActiveRecord::Schema.define(version: 20190207192125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "animalgroups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "name"
+    t.uuid     "instytucja_id"
+    t.uuid     "rolnik_id"
+    t.uuid     "zlecenie_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["instytucja_id"], name: "index_animalgroups_on_instytucja_id", using: :btree
+    t.index ["rolnik_id"], name: "index_animalgroups_on_rolnik_id", using: :btree
+    t.index ["zlecenie_id"], name: "index_animalgroups_on_zlecenie_id", using: :btree
+  end
 
   create_table "animals", force: :cascade do |t|
     t.uuid     "instytucja_id"
@@ -29,9 +41,13 @@ ActiveRecord::Schema.define(version: 20190130104819) do
     t.boolean  "specjalnezywienie",   default: false
     t.boolean  "badania",             default: false
     t.decimal  "zawartosc"
+    t.integer  "rownowaznik_id"
+    t.uuid     "animalgroup_id"
+    t.index ["animalgroup_id"], name: "index_animals_on_animalgroup_id", using: :btree
     t.index ["instytucja_id"], name: "index_animals_on_instytucja_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_animals_on_nazwautrzymania_id", using: :btree
     t.index ["rolnik_id"], name: "index_animals_on_rolnik_id", using: :btree
+    t.index ["rownowaznik_id"], name: "index_animals_on_rownowaznik_id", using: :btree
     t.index ["systemutrzymania_id"], name: "index_animals_on_systemutrzymania_id", using: :btree
     t.index ["zlecenie_id"], name: "index_animals_on_zlecenie_id", using: :btree
     t.index ["zwierze_id"], name: "index_animals_on_zwierze_id", using: :btree
@@ -127,6 +143,32 @@ ActiveRecord::Schema.define(version: 20190130104819) do
     t.decimal  "przelicznik"
   end
 
+  create_table "nawozynaturalne", force: :cascade do |t|
+    t.integer  "uzytek_id"
+    t.integer  "animal_id"
+    t.integer  "sezon_id"
+    t.decimal  "produkcja"
+    t.decimal  "n"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.decimal  "ilosc"
+    t.uuid     "animalgroup_id"
+    t.index ["animal_id"], name: "index_nawozynaturalne_on_animal_id", using: :btree
+    t.index ["animalgroup_id"], name: "index_nawozynaturalne_on_animalgroup_id", using: :btree
+    t.index ["sezon_id"], name: "index_nawozynaturalne_on_sezon_id", using: :btree
+    t.index ["uzytek_id"], name: "index_nawozynaturalne_on_uzytek_id", using: :btree
+  end
+
+  create_table "nawozywykorzystane", force: :cascade do |t|
+    t.integer  "animal_id"
+    t.integer  "nawoznaturalny_id"
+    t.decimal  "ilosc"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["animal_id"], name: "index_nawozywykorzystane_on_animal_id", using: :btree
+    t.index ["nawoznaturalny_id"], name: "index_nawozywykorzystane_on_nawoznaturalny_id", using: :btree
+  end
+
   create_table "nazwyutrzymania", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -214,9 +256,13 @@ ActiveRecord::Schema.define(version: 20190130104819) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "wariant"
+    t.integer  "zwierze_id"
+    t.decimal  "jesien"
+    t.decimal  "wiosna"
     t.index ["gatunek_id"], name: "index_rownowazniki_on_gatunek_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_rownowazniki_on_nazwautrzymania_id", using: :btree
     t.index ["sezon_id"], name: "index_rownowazniki_on_sezon_id", using: :btree
+    t.index ["zwierze_id"], name: "index_rownowazniki_on_zwierze_id", using: :btree
   end
 
   create_table "sezony", force: :cascade do |t|
@@ -324,9 +370,14 @@ ActiveRecord::Schema.define(version: 20190130104819) do
     t.index ["gatunek_id"], name: "index_zwierzeta_on_gatunek_id", using: :btree
   end
 
+  add_foreign_key "animalgroups", "instytucje"
+  add_foreign_key "animalgroups", "rolnicy"
+  add_foreign_key "animalgroups", "zlecenia"
+  add_foreign_key "animals", "animalgroups"
   add_foreign_key "animals", "instytucje"
   add_foreign_key "animals", "nazwyutrzymania"
   add_foreign_key "animals", "rolnicy"
+  add_foreign_key "animals", "rownowazniki"
   add_foreign_key "animals", "systemyutrzymania"
   add_foreign_key "animals", "zlecenia"
   add_foreign_key "animals", "zwierzeta"
@@ -335,6 +386,12 @@ ActiveRecord::Schema.define(version: 20190130104819) do
   add_foreign_key "instytucje", "gminy"
   add_foreign_key "instytucje", "powiaty"
   add_foreign_key "instytucje", "wojewodztwa"
+  add_foreign_key "nawozynaturalne", "animalgroups"
+  add_foreign_key "nawozynaturalne", "animals"
+  add_foreign_key "nawozynaturalne", "sezony"
+  add_foreign_key "nawozynaturalne", "uzytki"
+  add_foreign_key "nawozywykorzystane", "animals"
+  add_foreign_key "nawozywykorzystane", "nawozynaturalne"
   add_foreign_key "powiaty", "wojewodztwa"
   add_foreign_key "rolnicy", "gminy"
   add_foreign_key "rolnicy", "instytucje"
@@ -344,6 +401,7 @@ ActiveRecord::Schema.define(version: 20190130104819) do
   add_foreign_key "rownowazniki", "gatunki"
   add_foreign_key "rownowazniki", "nazwyutrzymania"
   add_foreign_key "rownowazniki", "sezony"
+  add_foreign_key "rownowazniki", "zwierzeta"
   add_foreign_key "systemyutrzymania", "jednostkiutrzymania"
   add_foreign_key "systemyutrzymania", "nazwyutrzymania"
   add_foreign_key "systemyutrzymania", "zwierzeta"

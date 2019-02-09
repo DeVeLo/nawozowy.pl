@@ -90,6 +90,10 @@ export default {
 						set(v) { this.$store.commit('uzytki', v) } },
 		  uzytek: { get() { return this.$store.state.uzytek },
 						set(v) { this.$store.commit('uzytek', v) } },
+		  sezony: { get() { return this.$store.state.sezony },
+						set(v) { this.$store.commit('sezony', v) } },
+		  ilosc: { get() { return this.$store.state.ilosc },
+					  set(v) { this.$store.commit('ilosc', v) } },
 	 },
 	 methods: {
 		  usun_uzytek(id,index) {
@@ -108,6 +112,13 @@ export default {
 		  },
 		  edit(item) {
 				this.uzytek = item
+				this.sezony = []
+				this.ilosc = []
+				for (var s in item.nawozynaturalne) {
+					 this.sezony[item.nawozynaturalne[s].animal_id] = item.nawozynaturalne[s].sezon_id
+					 this.ilosc[item.nawozynaturalne[s].animal_id] = item.nawozynaturalne[s].ilosc
+				}
+				
 				this.uprawamodal.show()
 		  },
 		  zrodla(item) {

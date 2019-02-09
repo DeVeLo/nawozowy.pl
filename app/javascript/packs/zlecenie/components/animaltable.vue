@@ -1,16 +1,15 @@
 <template>
 <b-table
-  thead-class="thead-dark"
-  tfoot-class="thead-dark"
+  class="m-0 p-0"
+  thead-class="thead-light"
   striped
   hover
-  foot-clone
   outlined
   show-empty
-  empty-text="W tej chwili nie ma tutaj nic do wyświetlenia."
+  small
+  :empty-text="'W tej chwili nie ma tutaj nic do wyświetlenia. '"
   :fields="naglowki"
-  :items="animals"
-  class="my-3">
+  :items="animals.filter((x) => { return x.animalgroup_id == animalgroup.id })">
 
   <template slot="nazwautrzymania" slot-scope="row">
 	 {{ row.item.nazwautrzymania.name }}
@@ -83,6 +82,7 @@
 import {mapActions, mapGetters} from 'vuex'
 export default {
 	 name: 'animaltable',
+	 props: ['animalgroup'],
 	 data() {
 		  return {
 				gon: gon,
@@ -98,13 +98,13 @@ export default {
 		  }
 	 },
 	 computed: {
-		  animals: {
-				get() { return this.$store.state.animals },
-				set(v) { this.$store.commit('animals', v) }
-		  },
 		  animal: {
 				get() { return this.$store.state.animal },
 				set(v) { this.$store.commit('animal', v) }
+		  },
+		  animals: {
+				get() { return this.$store.state.animals },
+				set(v) { this.$store.commit('animals', v) }
 		  },
 		  ...mapGetters(['animalmodal']),
 	 },
@@ -116,6 +116,8 @@ export default {
 										+ gon.rolnik_id
 										+ '/zlecenia/'
 										+ gon.id
+										+ '/animalgroups/'
+										+ this.animalgroup.id
 										+ '/animals/'
 										+ id + '.json')
 					 .then((result) => {
@@ -134,8 +136,12 @@ export default {
 									+ gon.rolnik_id
 									+ '/zlecenia/'
 									+ gon.id
+									+ "/animalgroups/"
+									+ this.animalgroup.id
 									+ '/animals.json')
-					 .then((result) => { this.animals = result.body })
+					 .then((result) => {
+						  this.animals = result.body
+					 })
 					 .catch((error) => { console.log(error)} )
 		  },
 	 },

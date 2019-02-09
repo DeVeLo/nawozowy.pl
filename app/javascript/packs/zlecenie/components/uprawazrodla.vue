@@ -60,6 +60,19 @@
 	 <strong>{{ uzytek.zbobowata }} kg N/ha</strong>
   </template>
   
+  <template v-if="uzytek.nawoznaturalny != ''">
+	 <br>
+	 <br>
+	 uwzględniając nawóz naturalny:<br>
+	 wytworzony: {{ uzytek.nawoznaturalny }}kg N/ha<br>
+	 <strong><u>{{ uzytek.zanimalsami }} kg N/ha</u></strong>
+  </template>
+
+  <br>
+  <br>
+  <center><b>PODSUMOWANIE</b></center><br>
+  zapotrzebowanie: {{ uzytek.zapotrzebowanie_ha }} - {{ uzytek.azot }} = {{ uzytek.podsumowanie_ha }}<br>
+  ilość nawozu mineralnego do zastosowania {{ uzytek.podsumowanie_ha }} / 0.7 = <u>{{ uzytek.mineralny_ha }}</u>
   
 </b-modal>
 </template>

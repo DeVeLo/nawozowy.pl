@@ -63,6 +63,8 @@ class UzytkiController < ApplicationController
                                    :name, :kategoria_id, :rodzajuprawy_id, :nmin,
                                    :prognoza, :badania, :bobowata_id, :roslina_id,
                                    :plon, :powierzchnia, :nminsezon, :przedplon,
-                                   :roslinaprzedplon_id)
+                                   :roslinaprzedplon_id,
+                                   nawozynaturalne_attributes: [:id, :uzytek_id, :produkcja, :ilosc,
+                                                                :n, :animalgroup_id, :sezon_id, :_destroy])
   end
 end

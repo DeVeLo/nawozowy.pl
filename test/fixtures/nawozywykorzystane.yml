@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  animal: one
+  nawoznaturalny: one
+  ilosc: 9.99
+
+two:
+  animal: two
+  nawoznaturalny: two
+  ilosc: 9.99

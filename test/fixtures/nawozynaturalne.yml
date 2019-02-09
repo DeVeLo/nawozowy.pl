@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uzytek: one
+  animal: one
+  sezon: one
+  produkcja: 9.99
+  'n': 9.99
+
+two:
+  uzytek: two
+  animal: two
+  sezon: two
+  produkcja: 9.99
+  'n': 9.99

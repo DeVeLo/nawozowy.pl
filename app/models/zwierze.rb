@@ -3,7 +3,38 @@ class Zwierze < ApplicationRecord
   belongs_to :gatunek
   has_many :systemyutrzymania, dependent: :destroy
   has_many :nazwyutrzymania, through: :systemyutrzymania
+  has_many :rownowazniki
 
+  def self.export
+    file = "#{Rails.root}/zwierzeta.csv"
+
+    zwierzeta = Zwierze.all.order(id: :ASC)
+
+    CSV.open(file, 'w') do |w|
+      zwierzeta.each do |z|
+        z.nazwyutrzymania.each do |n|
+          w << [z.id, z.name, z.gatunek.name, n.id, n.name]
+        end
+      end
+    end
+  end
+
+  def self.importuj_rownowazniki
+    CSV.foreach('zwierzeta.csv', { col_sep: ',' }) do |r|
+      gatunek_id = Zwierze.find(r[0].to_i).gatunek_id
+      zwierze_id = Zwierze.find(r[0].to_i).id
+      nazwautrzymania_id = r[3].to_i
+
+      Rownowaznik.create(gatunek_id: gatunek_id,
+                         zwierze_id: zwierze_id,
+                         nazwautrzymania_id: nazwautrzymania_id,
+                         sezon_id: 1,
+                         jesien: r[5].to_d,
+                         wiosna: r[6].to_d,
+                         wariant: r[7].to_s)
+    end
+  end
+  
   def self.import
     CSV.foreach('zwierzeta.csv', { col_sep: ';'}) do |r|
       

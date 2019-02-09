@@ -5,11 +5,27 @@ class Uzytek < ApplicationRecord
   belongs_to :roslina
   belongs_to :roslinaprzedplon
   belongs_to :bobowata
+  has_many :nawozynaturalne, inverse_of: :uzytek, dependent: :destroy
+  has_many :animalgroups
+  has_many :animals, through: :animalgroups
+  has_many :nawozywykorzystane, through: :nawozynaturalne
+
+  accepts_nested_attributes_for :nawozynaturalne, allow_destroy: true
 
   # podsumowanie
   # prawa minus lewa
   def zestawienie
     zapotrzebowanie - azot
+  end
+
+  # podsumowanie na 1 ha
+  def podsumowanie_ha
+    zapotrzebowanie_ha - azot
+  end
+
+  # azot mineralny do zastosowania
+  def mineralny_ha
+    (podsumowanie_ha / 0.7).round(2)
   end
   
   # LEWA STRONA
@@ -18,15 +34,29 @@ class Uzytek < ApplicationRecord
     plon * roslina.pobranie * powierzchnia
   end
 
+  # zapotrzebowanie na 1 ha
+  def zapotrzebowanie_ha
+    plon * roslina.pobranie
+  end
+
   # PRAWA STRONA
   # ilość azotu działającego
   def azot
-    zbobowata
+    zanimalsami
   end
 
-  # nazwa bobowatej
-  def nazwabobowata
-    bobowata.name
+  # azot z dodatkiem nawozu naturalnego
+  def zanimalsami
+    (zbobowata + self.nawoznaturalny).round(2)
+  end
+
+  # ilość zastosowanego nawozu naturalnego
+  def nawoznaturalny
+    zanimalsami = 0
+    self.nawozywykorzystane.each do |nw|
+      zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa * nw.animal.getrownowaznik(nw.nawoznaturalny.sezon_id))
+    end
+    zanimalsami.round(2)
   end
   
   # z dodatkiem bobowatych
@@ -76,6 +106,11 @@ class Uzytek < ApplicationRecord
   # nazwa roślinki
   def nazwarosliny
     roslina.rodzajuprawy.name + ': ' + roslina.name
+  end
+
+  # nazwa bobowatej
+  def nazwabobowata
+    bobowata.name
   end
   
   # zasobność gleby w azot mineralny

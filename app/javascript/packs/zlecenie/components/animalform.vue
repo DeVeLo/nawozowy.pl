@@ -17,6 +17,7 @@
 		<input type="hidden" id="rolnik_id" v-model="animal.rolnik_id"></input>
 		<input type="hidden" id="zlecenie_id" v-model="animal.zlecenie_id"></input>
 		<input type="hidden" id="systemutrzymania_id" v-model="animal.systemutrzymania_id"></input>
+		<input type="hidden" id="animalgroup_id" v-model="animal.animalgroup_id"></input>
 		
 	 </b-form-row>
 
@@ -59,6 +60,7 @@
 				v-model="animal.zwierze_id"></b-form-select>
 		  </b-form-group>
 		</b-col>
+
 	 </b-form-row>
 
 	 <b-form-row>
@@ -70,11 +72,25 @@
 				required
 				id="nazwyutrzymania"
 				:options="nazwyutrzymania"
-				@input="pobierz_systemutrzymania()"
+				@input="pobierz_systemutrzymania(); pobierz_rownowazniki()"
 				v-model="animal.nazwautrzymania_id"></b-form-select>
 		  </b-form-group>
 		</b-col>
 
+		<b-col v-show="rownowazniki.length > 1">
+		  <b-form-group
+			 label="wariant"
+			 label-for="wariant">
+			 <b-form-select
+				required
+				id="wariant"
+				:options="rownowazniki"
+				v-model="animal.rownowaznik_id"></b-form-select>
+		  </b-form-group>
+		</b-col>
+
+		<input v-if="rownowazniki.length == 1" type="hidden" id="rownowaznik_id" v-model="animal.rownowaznik_id"></input>
+		
 		<b-col v-if="animal.zwierze_id && zwierze.koncentracja">
 		  <b-form-group
 			 label="zastosowano specjalne żywienie?"
@@ -86,8 +102,8 @@
 		  </b-form-group>
 		</b-col>
 	 </b-form-row>
-<br>
-	 <b-form-row v-if="animal.zwierze_id && animal.nazwautrzymania_id">
+
+	 <b-form-row v-if="animal.zwierze_id && animal.nazwautrzymania_id" class="mt-3">
 		<b-col>
 		  <b-form-group
 			 label="określ zawartość N na podstawie:"
@@ -166,14 +182,22 @@ export default {
 				get() { return this.$store.state.animals },
 				set(v) { this.$store.commit('animals', v) }
 		  },
+		  animalgroups: {
+				get() { return this.$store.state.animalgroups },
+				set(v) { this.$store.commit('animalgroups', v) }
+		  },
 		  zwierzeta: {
 				get() { return this.$store.state.zwierzeta },
 				set(v) { this.$store.commit('zwierzeta', v) }
 		  },
+		  rownowazniki: {
+				get() { return this.$store.state.rownowazniki },
+				set(v) { this.$store.commit('rownowazniki', v) }
+		  },
 		  animalmodal: {
 				get() { return this.$store.state.animalmodal },
 				set(v) { this.$store.commit('animalmodal', v) }
-		  }
+		  },
 	 },
 	 methods: {
 		  formatter_decimal(v,e) {
@@ -208,6 +232,8 @@ export default {
 											+ this.animal.rolnik_id
 											+ "/zlecenia/"
 											+ this.animal.zlecenie_id
+											+ "/animalgroups/"
+											+ this.animal.animalgroup_id
 											+ "/animals/"
 											+ this.animal.id + ".json",
 											{ animal: this.animal }, {})
@@ -218,13 +244,15 @@ export default {
 				} else {
 					 // create
 					 this.animal.id = null
-					 this.$http.post('/instytucje/' +
-										  this.animal.instytucja_id +
-										  "/rolnicy/" +
-										  this.animal.rolnik_id +
-										  "/zlecenia/" +
-										  this.animal.zlecenie_id +
-										  "/animals.json",
+					 this.$http.post('/instytucje/'
+										  + this.animal.instytucja_id
+										  + "/rolnicy/"
+										  + this.animal.rolnik_id
+										  + "/zlecenia/"
+										  + this.animal.zlecenie_id
+										  + "/animalgroups/"
+										  + this.animal.animalgroup_id
+										  + "/animals.json",
 										  { animal: this.animal },
 										  {}
 										 )
@@ -236,13 +264,14 @@ export default {
 				}
 				
 		  },
-		  clear() {	
+		  clear() {
 				this.animal = {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
 					 badania: false,
 					 specjalnezywienie: false,
+					 animalgroup_id: this.animal.animalgroup_id,
 				}
 		  },
 		  reset(e) {
@@ -261,6 +290,8 @@ export default {
 									+ gon.rolnik_id
 									+ '/zlecenia/'
 									+ gon.id
+									+ '/animalgroups/'
+									+ this.animal.animalgroup_id
 									+ '/animals/'
 									+ this.animal.id
 									+ '.json')
@@ -298,6 +329,7 @@ export default {
 					 
 					 if (this.animal.nazwautrzymania_id) {
 						  this.pobierz_systemutrzymania()
+						  this.pobierz_rownowazniki()
 					 }
 				}
 		  },
@@ -309,6 +341,22 @@ export default {
 								if (result.body) {
 									 this.zawartosc_jednostka = result.body.jednostkautrzymania.zawartosc
 									 this.animal.systemutrzymania_id = result.body.id
+								}
+						  })
+						  .catch((error) => { console.log(error) })
+				}
+		  },
+		  pobierz_rownowazniki() {
+				if (this.animal.nazwautrzymania_id) {
+					 this.$http.get('/gatunki/' + this.animal.gatunek_id + '/zwierzeta/' + this.animal.zwierze_id + '/nazwyutrzymania/' + this.animal.nazwautrzymania_id + '/rownowazniki.json')
+						  .then((result) => {
+								this.rownowazniki = result.body;
+								if (result.body) {
+									 this.rownowazniki = result.body
+									 if (this.rownowazniki.length == 1) {
+										  this.animal.rownowaznik_id = result.body[0].id
+										  // console.log(result.body[0].id)
+									 }
 								}
 						  })
 						  .catch((error) => { console.log(error) })

@@ -1,7 +1,7 @@
 class Gatunek < ApplicationRecord
   require('csv')
   has_many :zwierzeta, dependent: :destroy
-
+  has_many :rownowazniki
   
   
   def self.import

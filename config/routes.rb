@@ -1,6 +1,8 @@
 # coding: utf-8
 Rails.application.routes.draw do
 
+  resources :nawozywykorzystane
+  resources :animalgroups
   resources :roslinaprzedplony
   resources :bobowate
   resources :zlecenia
@@ -17,12 +19,22 @@ Rails.application.routes.draw do
 
       # zlecenia w ramach instytucji
       resources :zlecenia do
-        
-        # zwierzęta w gospodarstwie
-        resources :animals
+
+        # grupy zwierząt (w ramach grup nawóz naturalny jest zmieszany)
+        resources :animalgroups do
+          
+          # zwierzęta w gospodarstwie
+          resources :animals
+
+        end
 
         # pola z uprawami
-        resources :uzytki
+        resources :uzytki do
+
+          # nawóz naturalny w ramach uprawy
+          resources :nawozynaturalne
+          
+        end
         
       end
     end
@@ -52,11 +64,12 @@ Rails.application.routes.draw do
   resources :gatunki, only: [:index] do
     resources :zwierzeta, only: [:index, :show] do
       resources :nazwyutrzymania, only: [:index] do
+        resources :rownowazniki, only: [:index]
         resources :systemyutrzymania, only: [:index]
       end
     end
   end
-
+  
   # rodzaje upraw
   resources :rodzajeuprawy, only: [:index] do
     # rośliny uprawne

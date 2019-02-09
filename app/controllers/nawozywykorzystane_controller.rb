@@ -1,0 +1,2 @@
+class NawozywykorzystaneController < ApplicationController
+end
