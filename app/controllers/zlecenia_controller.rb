@@ -27,8 +27,15 @@ class ZleceniaController < ApplicationController
       f.json {
         render json: @zlecenie
       }
-    end
-  end
+      f.pdf do
+        pdf = ZleceniePdf.new(@zlecenie)
+        send_data pdf.render,
+                  filename: "#{@zlecenie.id}",
+                  type: 'application/pdf',
+                  disposition: 'inline'
+      end
+    end  
+  end       
 
   def create
     @zlecenie = @rolnik.zlecenia.new(zlecenie_params)
@@ -61,7 +68,9 @@ class ZleceniaController < ApplicationController
   
   private
   def zlecenie_params
-    params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id, :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc, :powierzchnia)
+    params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id,
+                                     :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc,
+                                     :powierzchnia, :podstawa_id, :podstawainna)
   end
   
   def set_zlecenie

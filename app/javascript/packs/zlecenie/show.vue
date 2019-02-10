@@ -16,6 +16,7 @@
 		  </b-col>
 		  
 		  <b-col class="text-right">
+				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '.pdf'" variant="warning">export do PDF</b-button>
 				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">lista rolników</b-button>
 				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia'">lista zleceń</b-button>
 				<b-button @click="modalForm.show()">edytuj</b-button>

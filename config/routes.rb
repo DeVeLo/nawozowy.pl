@@ -43,6 +43,9 @@ Rails.application.routes.draw do
 
   # warianty zlecenia
   resources :warianty, only: [:index]
+
+  # zlecenie podstawy zaopiniowania
+  resources :podstawy, only: [:index]
   
   # na razie dostęp dla wszystkich
   resources :wojewodztwa, only: [:index]

@@ -22,7 +22,7 @@
 	 <b-form-row>
 		<b-col>
 		  <b-form-group
-			 label="nazwa"
+			 label="nazwa (np 2018/2019)"
 			 label-for="name">
 			 <b-form-input
 				required
@@ -53,6 +53,33 @@
 				:options="warianty"
 				v-model="attr.wariant_id">
 			 </b-form-select>
+		  </b-form-group>
+		</b-col>
+		
+		<b-col v-if="attr.wariant_id == 2">
+		  <b-form-group
+			 label="zaopiniowanie na podstawie"
+			 label-for="podstawa_id">
+			 <b-form-select
+				required
+				id="podstawa"
+				:options="podstawy"
+				v-model="attr.podstawa_id">
+			 </b-form-select>
+		  </b-form-group>
+		</b-col>
+
+	 </b-form-row>
+
+	 <b-form-row v-if="attr.podstawa_id == 3">
+		<b-col>
+		  <b-form-group
+			 label="zaopiniowanie na jakiej innej podstawie"
+			 label-for="podstawainna">
+			 <b-form-input
+				required
+				id="podstawainna"
+				v-model="attr.podstawainna"></b-form-input>
 		  </b-form-group>
 		</b-col>
 	 </b-form-row>
@@ -131,6 +158,7 @@ export default {
 	 name: 'cform',
 	 data() {
 		  return {
+				podstawy: [],
 				warianty: [],
 				wojewodztwa: [],
 				powiaty: [],
@@ -242,6 +270,11 @@ export default {
 					 .then((result) => { this.warianty = result.body })
 					 .catch((error) => { console.log(error) })
 		  },
+		  pobierz_podstawy() {
+				this.$http.get('/podstawy.json')
+					 .then((result) => { this.podstawy = result.body })
+					 .catch((error) => { console.log(error) })
+		  },
 		  pobierz_wojewodztwa() {
 				this.$http.get('/wojewodztwa.json')
 					 .then((result) => { this.wojewodztwa = result.body; })
@@ -263,6 +296,7 @@ export default {
 		  }
 	 },
 	 mounted() {
+		  this.pobierz_podstawy()
 		  this.pobierz_warianty()
 		  this.pobierz_wojewodztwa()
 		  this.$store.commit('modalForm', this.$refs.modalForm)
