@@ -22,7 +22,7 @@
 	 <b-form-row>
 		<b-col>
 		  <b-form-group
-			 label="nazwa (np 2018/2019)"
+			 label="rok gospodarczy (np 2019/2020)"
 			 label-for="name">
 			 <b-form-input
 				required
@@ -71,7 +71,7 @@
 
 	 </b-form-row>
 
-	 <b-form-row v-if="attr.podstawa_id == 3">
+	 <b-form-row v-if="attr.podstawa_id == 3 && attr.wariant_id == 2">
 		<b-col>
 		  <b-form-group
 			 label="zaopiniowanie na jakiej innej podstawie"

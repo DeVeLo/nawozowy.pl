@@ -5,21 +5,39 @@ class UzytkiController < ApplicationController
   before_action :set_zlecenie
 
   def index
-    render json: Uzytek.all.where(zlecenie_id: @zlecenie.id).order(created_at: :ASC)
+    respond_to do |f|
+      f.json { render json: Uzytek.all.where(zlecenie_id: @zlecenie.id).order(created_at: :ASC) }
+      f.pdf {
+        pdf = UzytkiPdf.new(@zlecenie)
+        send_data pdf.render,
+                  filename: "#{@zlecenie.id}-uzytki",
+                  type: 'application/pdf',
+                  disposition: 'download'
+      }
+    end
   end
 
   def show
-    render json: @uzytek
+    respond_to do |f|
+      f.json { render json: @uzytek }
+      f.pdf {
+        pdf = UzytekPdf.new(@uzytek)
+        send_data pdf.render,
+                  filename: "#{@zlecenie.id}-#{@uzytek.id}",
+                  type: 'application/pdf',
+                  disposition: 'download'
+      }
+    end
   end
 
   def create
     @uzytek = @zlecenie.uzytki.new(uzytek_params)
 
-    respond_to do |format|
+    respond_to do |f|
       if @uzytek.save
-        format.json { render json: @uzytek, status: :created }
+        f.json { render json: @uzytek, status: :created }
       else
-        format.json { render json: @uzytek.errors, status: :unprocessable_entity }
+        f.json { render json: @uzytek.errors, status: :unprocessable_entity }
       end
     end
   end

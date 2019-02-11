@@ -14,7 +14,7 @@ class ZleceniePdf < Prawn::Document
     @zlecenie = zlecenie
     
     # ustawienia fontów podstawowych
-    Zlecenie::Preparation.new(self)
+    Defaults::Fonts.new(self)
 
     # pisz nagłówek (po lewej rolnik po prawej instytucja)
     Zlecenie::Title.new(self)

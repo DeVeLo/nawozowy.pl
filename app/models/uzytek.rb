@@ -5,6 +5,8 @@ class Uzytek < ApplicationRecord
   belongs_to :roslina
   belongs_to :roslinaprzedplon
   belongs_to :bobowata
+  belongs_to :zlecenie
+  belongs_to :rolnik
   has_many :nawozynaturalne, inverse_of: :uzytek, dependent: :destroy
   has_many :animalgroups
   has_many :animals, through: :animalgroups
@@ -12,36 +14,63 @@ class Uzytek < ApplicationRecord
 
   accepts_nested_attributes_for :nawozynaturalne, allow_destroy: true
 
-  # podsumowanie
-  # prawa minus lewa
-  def zestawienie
-    zapotrzebowanie - azot
+  # PEŁNA SUMA AZOTU DO ZASTOSOWANIA
+  def azot_pole
+    azot * powierzchnia
+  end
+  
+  def azot
+    azot_naturalny_ha + azot_mineralny_ha
   end
 
-  # podsumowanie na 1 ha
-  def podsumowanie_ha
-    zapotrzebowanie_ha - azot
+  # ewentualne saldo N
+  def saldo_n
+    saldo = zapotrzebowanie_ha - azot_naturalny_ha
+    if saldo > 0
+      0
+    else
+      - saldo
+    end
   end
 
+  def azot_mineralny_ha_w_nawozie
+    (azot_mineralny_ha / 0.7).round(2)
+  end
+
+  def azot_mineralny_pole
+    azot_mineralny_ha * powierzchnia
+  end
   # azot mineralny do zastosowania
-  def mineralny_ha
-    (podsumowanie_ha / 0.7).round(2)
+  # SUMA AZOTU MINERALNEGO DO ZASTOSOWANIA
+  def azot_mineralny_ha
+    podsumowanie = zapotrzebowanie_ha - azot_naturalny_ha
+    if podsumowanie > 0
+      podsumowanie.round(2)
+    else
+      0
+    end
   end
   
   # LEWA STRONA
-  # zapotrzebowanie na azot na danym polu
+  # zapotrzebowanie na azot na pole
   def zapotrzebowanie
     plon * roslina.pobranie * powierzchnia
   end
 
-  # zapotrzebowanie na 1 ha
+  # zapotrzebowanie rośliny w kg N/1 ha
   def zapotrzebowanie_ha
     plon * roslina.pobranie
   end
 
   # PRAWA STRONA
-  # ilość azotu działającego
-  def azot
+  # AZOT NATURALNY SUMA ***********************
+  # ilość azotu naturalnego per pole
+  def azot_naturalny_pole
+    azot_naturalny_ha * powierzchnia
+  end
+
+  # ilość azotu naturalnego per ha
+  def azot_naturalny_ha
     zanimalsami
   end
 

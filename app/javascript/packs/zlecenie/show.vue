@@ -39,6 +39,7 @@
 				  <b-tab title="uprawy">
 					 <b-form-row>
 						<b-col class="text-right">
+						  <b-button v-if="uzytki.length > 0" :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki.pdf'" variant="warning">Plany PDF</b-button>
 						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						  <uprawaform></uprawaform>
 						  <uprawazrodla></uprawazrodla>
@@ -90,6 +91,7 @@ export default {
 								'modalForm',
 								'animalmodal',
 								'uprawamodal',
+								'uzytki'
 							 ]),
 		  uzytek: {	get() { return this.$store.state.uzytek },
 						set(v) { this.$store.commit('uzytek', v) }	},

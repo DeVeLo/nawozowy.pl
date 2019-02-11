@@ -5,8 +5,9 @@ class UzytekSerializer < ActiveModel::Serializer
              :gleba, :nminsezon, :przelicznik, :jaraozima, :nazwarosliny, :wspolczynnikrosliny,
              :przedplon, :realnyprzedplon, :zprzedplonem, :roslinaprzedplon_id, :azot,
              :zroslinaprzedplon, :zbobowata, :nazwaroslinaprzedplon, :nazwabobowata, :nawozynaturalne,
-             :nawozynaturalne_attributes, :zanimalsami, :nawoznaturalny, :zapotrzebowanie_ha, :podsumowanie_ha,
-             :mineralny_ha
+             :nawozynaturalne_attributes, :zanimalsami, :nawoznaturalny, :zapotrzebowanie_ha,
+             :azot_mineralny_ha, :kategoria, :azot_naturalny_ha, :saldo_n, :azot_mineralny_ha_w_nawozie,
+             :azot_mineralny_pole, :azot_naturalny_pole, :azot_pole
 
   def nawozynaturalne_attributes
     nawozy = []
@@ -24,7 +25,9 @@ class UzytekSerializer < ActiveModel::Serializer
     return nawozy
   end
   
-  belongs_to :kategoria
+  def kategoria
+    object.kategoria.name
+  end
   belongs_to :rodzajuprawy
   belongs_to :roslina
 

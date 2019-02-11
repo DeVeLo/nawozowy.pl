@@ -35,6 +35,16 @@
 
 		<b-row>
 		  <b-col class="text-center">
+			 <b-button
+				class="mt-1"
+				size="sm"
+				:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki/' + row.item.id + '.pdf'"
+				variant="warning">
+				PDF
+			 </b-button>
+		  </b-col>
+
+		  <b-col class="text-center">
 			 <b-button variant="primary" class="mt-1" size="sm" @click="zrodla(row.item)">
 				źródła&nbsp;N
 			 </b-button>
@@ -45,7 +55,7 @@
 				edytuj
 			 </b-button>
 		  </b-col>
-
+		  
 		  <b-col class="text-center">
 			 <b-button class="my-1" v-show="row.item.id != confirm" @click="confirm = row.item.id" variant="danger" size="sm">
 				usuń
@@ -74,6 +84,7 @@ export default {
 	 name: 'uprawatable',
 	 data() {
 		  return {
+				gon: gon,
 				naglowki: [
 					 { key: 'name', label: 'oznaczenie' },
 					 { key: 'roslina', label: 'roślina' },

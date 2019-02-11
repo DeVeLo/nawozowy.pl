@@ -15,11 +15,12 @@ class Zlecenie::Title
     @rolnik_kontakt = []
 
     kolumny
-  end
 
+  end
+  
   # podział tytułu na kolumny
   def kolumny
-    @o.table([[ klient, firma ]],
+    @o.table([[ klient, Instytucja::Title.new(@o).firma ]],
              { width: @o.bounds.width })
   end
 
@@ -134,59 +135,6 @@ class Zlecenie::Title
         @rolnik.mail
       )
     end
-  end
-
-  # PRAWA STRONA - informacja o instytucji
-  def firma
-    { content: [
-        [miejscowosc_data],
-        [instytucja_name],
-        [instytucja_adres],
-        [instytucja_poczta],
-      ],
-      border_width: 0 }
-  end
-
-  # miejscowość i data
-  def miejscowosc_data
-    { content: "miejscowość, data: ...............................",
-      border_width: 0,
-      align: :right,
-      width: 80.mm,
-      size: 8.pt
-    }
-  end
-
-  # instytucja name
-  def instytucja_name
-    { content: @instytucja.name,
-      border_width: 0,
-      align: :center,
-      padding: [ 30.mm, 0, 0, 0 ] }
-  end
-  
-  # adres instytucji
-  def instytucja_adres
-    { content:
-        @instytucja.miejscowosc +
-      if @instytucja.ulica != '' && ! @instytucja.ulica.nil? then ", " + @instytucja.ulica + " " else " " end +
-      @instytucja.nrp +
-      if (@instytucja.nrm != '') && (!@instytucja.nrm.nil?) then ("/" + @instytucja.nrm) else "" end,
-      border_width: 0,
-      padding: [ 0.pt, 0, 0, 0 ],
-      size: 7.pt,
-      align: :center }
-  end
-
-  # instytucja kod i poczta
-  def instytucja_poczta
-    { content: @instytucja.kod +
-      " " +
-      @instytucja.poczta,
-      border_width: 0,
-      padding: [ 3.pt, 0, 0, 0 ],
-      size: 7.pt,
-      align: :center }
   end
   
 end

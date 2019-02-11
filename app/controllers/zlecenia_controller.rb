@@ -32,7 +32,7 @@ class ZleceniaController < ApplicationController
         send_data pdf.render,
                   filename: "#{@zlecenie.id}",
                   type: 'application/pdf',
-                  disposition: 'inline'
+                  disposition: 'download'
       end
     end  
   end       
