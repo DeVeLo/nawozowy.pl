@@ -32,7 +32,7 @@ class UzytkiPdf < Prawn::Document
 
       if ((index + 1) < zlecenie.uzytki.count)
         move_down 15.pt
-        stroke_horizontal_rule,
+        stroke_horizontal_rule
         move_down 15.pt
       end
     end
