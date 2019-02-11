@@ -62,9 +62,9 @@ class Zlecenie::Title
   def rolnik_adres
     { content:
         @rolnik.miejscowosc +
-      if @rolnik.ulica != '' then ", " + @rolnik.ulica + " " else " " end +
+      if @rolnik.ulica != '' && ! @rolnik.ulica.nil? then ", " + @rolnik.ulica + " " else " " end +
       @rolnik.nrdom +
-      if @rolnik.nrmieszkania != '' then ("/" + @rolnik.nrmieszkania) else "" end,
+      if @rolnik.nrmieszkania != '' && ! @rolnik.nrmieszkania.nil? then ("/" + @rolnik.nrmieszkania) else "" end,
       border_width: 0,
       padding: [ 3.mm, 0, 0, 0 ],
       size: 9.pt }
@@ -111,29 +111,29 @@ class Zlecenie::Title
 
   # rolnika tel.
   def rolnik_tel
-    @rolnik_kontakt.push(
-      if @rolnik.tel != ''
+    if @rolnik.tel != '' && ! @rolnik.tel.nil?
+      @rolnik_kontakt.push(
         "tel.: " + @rolnik.tel
-      end
-    )
+      )
+    end
   end
 
   # rolnika kom:
   def rolnik_kom
-    @rolnik_kontakt.push(
-      if @rolnik.kom != ''
+    if @rolnik.kom != '' && ! @rolnik.kom.nil?
+      @rolnik_kontakt.push(
         "kom: " + @rolnik.kom
-      end
-    )
+      )
+    end
   end
 
     # rolnika kom:
   def rolnik_mail
-    @rolnik_kontakt.push(
-      if @rolnik.mail != ''
+    if @rolnik.mail != '' && ! @rolnik.mail.nil?
+      @rolnik_kontakt.push(
         @rolnik.mail
-      end
-    )
+      )
+    end
   end
 
   # PRAWA STRONA - informacja o instytucji
@@ -169,7 +169,7 @@ class Zlecenie::Title
   def instytucja_adres
     { content:
         @instytucja.miejscowosc +
-      if @instytucja.ulica != '' && !@instytucja.ulica.nil? then ", " + @instytucja.ulica + " " else " " end +
+      if @instytucja.ulica != '' && ! @instytucja.ulica.nil? then ", " + @instytucja.ulica + " " else " " end +
       @instytucja.nrp +
       if (@instytucja.nrm != '') && (!@instytucja.nrm.nil?) then ("/" + @instytucja.nrm) else "" end,
       border_width: 0,
