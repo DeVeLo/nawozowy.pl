@@ -20,7 +20,7 @@ class Rolnik::Dane
     [
       [
         { content: "Miejscowość:", border_width: 0, padding: [ 0, 0, 0, 0 ] },
-        { content: "<b>" + @rolnik.miejscowosc + "</b>", border_width: 0, padding: [ 0, 0, 0, 2.mm ], inline_format: true }
+        { content: "<b>" + @rolnik.miejscowosc.to_s + "</b>", border_width: 0, padding: [ 0, 0, 0, 2.mm ], inline_format: true }
       ],
       [
         { content: "Gmina:", border_width: 0, padding: [ 2.mm, 0, 0, 0 ] },

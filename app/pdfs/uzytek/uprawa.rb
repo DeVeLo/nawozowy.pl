@@ -31,7 +31,7 @@ class Uzytek::Uprawa
 
     @o.move_down 15.pt
 
-    @o.text 'Azot stusujemy z podziałem na dawki.'
+    @o.text 'Azot stosujemy z podziałem na dawki.'
     
   end
 

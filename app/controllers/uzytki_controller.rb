@@ -10,7 +10,7 @@ class UzytkiController < ApplicationController
       f.pdf {
         pdf = UzytkiPdf.new(@zlecenie)
         send_data pdf.render,
-                  filename: "#{@zlecenie.id}-uzytki",
+                  filename: "#{@zlecenie.id}-uzytki.pdf",
                   type: 'application/pdf',
                   disposition: 'download'
       }
@@ -23,7 +23,7 @@ class UzytkiController < ApplicationController
       f.pdf {
         pdf = UzytekPdf.new(@uzytek)
         send_data pdf.render,
-                  filename: "#{@zlecenie.id}-#{@uzytek.id}",
+                  filename: "#{@zlecenie.id}-#{@uzytek.id}.pdf",
                   type: 'application/pdf',
                   disposition: 'download'
       }
