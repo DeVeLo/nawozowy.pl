@@ -34,11 +34,11 @@ class Zlecenie::Polozenie
   # adres
   def adres
     @o.move_down 5.pt
-    @o.text "· miejscowość: " + @zlecenie.miejscowosc + ", ", align: :left, style: :normal, size: 8.pt, inline_format: true
+    @o.text "· miejscowość: " + @zlecenie.miejscowosc.to_s + ", ", align: :left, style: :normal, size: 8.pt, inline_format: true
     @o.move_down 2.pt
-    @o.text "· gmina: " + @zlecenie.gmina.name + ", ", align: :left, style: :normal, size: 8.pt, inline_format: true
+    @o.text "· gmina: " + @zlecenie.gmina.name.to_s + ", ", align: :left, style: :normal, size: 8.pt, inline_format: true
     @o.move_down 2.pt
-    @o.text "· powiat: " + @zlecenie.powiat.name + ", ", align: :left, style: :normal, size: 8.pt, inline_format: true
+    @o.text "· powiat: " + @zlecenie.powiat.name.to_s + ", ", align: :left, style: :normal, size: 8.pt, inline_format: true
     @o.move_down 2.pt
     @o.text "· województwo: " + @zlecenie.wojewodztwo.name + ".", align: :left, style: :normal, size: 8.pt, inline_format: true
   end
