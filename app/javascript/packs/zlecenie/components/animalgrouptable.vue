@@ -1,7 +1,7 @@
 <template>
 <b-container class="m-0 p-0" fluid>
   <animalform></animalform>
-  <b-row class="m-0 mt-3 p-0" v-for="(animalgroup, index) in animalgroups">
+  <b-row class="m-0 mt-3 p-0" v-for="(animalgroup, index) in animalgroups" :key="animalgroup.id">
 	 <b-col class="m-0 p-0 text-left">
 		<b-card
 		  no-body
