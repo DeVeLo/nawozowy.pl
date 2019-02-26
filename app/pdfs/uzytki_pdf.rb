@@ -42,9 +42,8 @@ class UzytkiPdf < Prawn::Document
   def naglowek
     # dane instytucji
     table([
-            [ { content: '', border_width: 0, width: 60.mm },
+            [
               Instytucja::Title.new(self).firma,
-              { content: '', border_width: 0  }
             ]
           ],
           {

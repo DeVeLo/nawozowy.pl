@@ -32,6 +32,21 @@ class Uzytek::Uprawa
     @o.move_down 15.pt
 
     @o.text 'Azot stosujemy z podziałem na dawki.'
+
+    @o.move_down 15.pt
+
+
+    if @uzytek.nawozywykorzystane.count > 0
+      @o.text 'Zastosowany nawóz naturalny pod roślinę:'
+    end
+
+    lp = 0
+    @uzytek.nawozywykorzystane.each do |nw|
+      lp = lp + 1
+      @o.text ++lp.to_s + ') ' + nw.animal.name + ' - ' + nw.animal.nazwautrzymania.name + ' - ' + nw.ilosc_na_pole.round(1).to_s + ' t/pole - ' + nw.nawoznaturalny.sezon.name
+      #zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa * nw.animal.getrownowaznik(nw.nawoznaturalny.sezon_id))
+    end
+
     
   end
 
