@@ -39,8 +39,9 @@ class Uzytek::Uprawa
   def podsumowanie
     [
       [
-        { content: 'nawożenie azotem: <b>' + @uzytek.azot_pole.round(1).to_s + "</b> kg N/ha/rok", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width/3 },
-        { content: 'w tym z nawozów nat. i org. <b>' + @uzytek.azot_naturalny_ha.round(1).to_s + '</b> ha', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :center, width: @o.bounds.width/3, inline_format: true },
+        { content: 'Nawożenie azotem (kg N/ha/rok): <b>' + @uzytek.azot_w_nawozie.round(1).to_s + "</b> " +
+          "(z nawozów mineralnych " + @uzytek.azot_mineralny_ha_w_nawozie.round(2).to_s + ", z nawozów nat. i organicznych " +
+          @uzytek.azot_naturalny_ha.round(2).to_s + ")", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width/3*2 },
         { content: 'saldo N: <b>' + @uzytek.saldo_n.round(1).to_s + '</b> ha', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width/3, inline_format: true }
       ]
     ]

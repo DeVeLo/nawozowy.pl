@@ -9,7 +9,9 @@ class Rolnik::Dane
 
     @o.table([
                [
-                 { content: gospodarstwo, border_width: 0, width: 100.mm },
+                 { content: gospodarstwo, border_width: 0,
+                   width: @o.bounds.width/2
+                 },
                  { content: adres, border_width: 0 },
                ]
              ])

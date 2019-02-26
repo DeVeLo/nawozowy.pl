@@ -7,7 +7,8 @@ class UzytekSerializer < ActiveModel::Serializer
              :zroslinaprzedplon, :zbobowata, :nazwaroslinaprzedplon, :nazwabobowata, :nawozynaturalne,
              :nawozynaturalne_attributes, :zanimalsami, :nawoznaturalny, :zapotrzebowanie_ha,
              :azot_mineralny_ha, :kategoria, :azot_naturalny_ha, :saldo_n, :azot_mineralny_ha_w_nawozie,
-             :azot_mineralny_pole, :azot_naturalny_pole, :azot_pole, :nawoznaturalnyzastosowany
+             :azot_mineralny_pole, :azot_naturalny_pole, :azot_pole, :nawoznaturalnyzastosowany,
+             :azot_w_nawozie
 
   def nawozynaturalne_attributes
     nawozy = []

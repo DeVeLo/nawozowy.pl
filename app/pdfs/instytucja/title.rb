@@ -15,7 +15,9 @@ class Instytucja::Title
   def firma
     { content: [
         # [miejscowosc_data],
-        [nazwa],
+        [
+          nazwa,
+        ],
         [adres],
         [kod_poczta],
       ],
@@ -27,6 +29,7 @@ class Instytucja::Title
   def nazwa
     { content: @instytucja.name,
       border_width: 0,
+      width: @o.bounds.width,
       align: :center,
       padding: [ 0.mm, 0, 0, 0 ] }
   end

@@ -23,6 +23,10 @@ class Uzytek < ApplicationRecord
     azot_naturalny_ha + azot_mineralny_ha
   end
 
+  def azot_w_nawozie
+    azot_naturalny_ha + azot_mineralny_ha_w_nawozie
+  end
+  
   # ewentualne saldo N
   def saldo_n
     saldo = zapotrzebowanie_ha - azot_naturalny_ha
