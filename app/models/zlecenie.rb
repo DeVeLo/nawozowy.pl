@@ -10,4 +10,12 @@ class Zlecenie < ApplicationRecord
   has_many :animalgroups, dependent: :destroy
   has_many :animals, dependent: :destroy
   has_many :uzytki, dependent: :destroy
+
+  after_create :set_lp
+  
+  def set_lp
+    unless self.lp
+      self.update(lp: self.rolnik.zlecenia.count)
+    end
+  end
 end

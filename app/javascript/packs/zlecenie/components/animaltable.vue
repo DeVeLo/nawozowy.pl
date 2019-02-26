@@ -90,7 +90,7 @@ export default {
 					 { key: 'zwierze', label: 'zwierzę' },
 					 { key: 'sztuk', label: 'szt.' },
 					 { key: 'nazwautrzymania', label: 'system utrzymania' },
-					 { key: 'produkcja', label: 'produkcja' },
+					 { key: 'produkcja', label: 'ilość nawozu wyprodukowanego / zakupionego' },
 					 { key: 'zawartosc', label: 'prod N' },
 					 { key: 'przyciski', label: '' },
 				],

@@ -8,8 +8,11 @@
   header-bg-variant="dark"
   header-text-variant="light"
   hide-footer
-  class="text-center">
+  class="text-left">
 
+  <span class="text-danger">
+	 1.
+  </span>
   Użytek - (gleba {{ this.uzytek.kategoria }}) ilość azotu uzyskana
   <template v-if="uzytek.badania">
 	 na podstawie badania gleby
@@ -29,52 +32,87 @@
 
   <br />
   <br />
+  <span class="text-danger">
+	 2.
+  </span>
   Uprawa - {{ uzytek.nazwarosliny }} ({{ uzytek.gleba }} kg N/h * {{ uzytek.wspolczynnikrosliny }})
-
+  
   <br />
   <strong>{{ uzytek.jaraozima }}&nbsp;kg&nbsp;N/ha</strong>
 
-  <template v-if="uzytek.przedplon > 0">
-	 <br />
-	 <br />
-	 Obornik pod przedplon - Zastosowano obornik pod przedplon w ilości: {{ uzytek.przedplon }} kg N/ha,
-	 <br />
-	 po przemnożeniu przez 0.15 pozostaje <i>{{ uzytek.realnyprzedplon }} kg N/ha</i>
-	 <br />
+  <br />
+  <br />
+  <span class="text-danger">
+	 3.
+  </span>
+  Obornik pod przedplon - Zastosowano obornik pod przedplon w ilości: {{ uzytek.przedplon }} kg N/ha,
+  <br />
+  po przemnożeniu przez 0.15 pozostaje <i>{{ uzytek.realnyprzedplon }} kg N/ha</i>
+  <br />
 
-	 <strong>{{ uzytek.zprzedplonem }} kg N/ha</strong>
-  </template>
+  <span class="text-danger">Suma (2+3)</span> <strong>{{ uzytek.zprzedplonem }} kg N/ha</strong>
 
+  
   <template v-if="uzytek.roslinaprzedplon_id > 1">
 	 <br />
 	 <br />
+	 <span class="text-danger">
+		4.
+	 </span>
 	 Przedplon - {{ uzytek.nazwaroslinaprzedplon }} {{ roslinaprzedplony.find(x => x.id === uzytek.roslinaprzedplon_id).n }} kg N/ha + {{ uzytek.zprzedplonem }} kg N/ha
 	 <br>
-	 <strong>{{ uzytek.zroslinaprzedplon }} kg N/ha</strong>
+	 <span class="text-danger">Suma (2+3+4)</span> <strong>{{ uzytek.zroslinaprzedplon }} kg N/ha</strong>
   </template>
+  <template v-else>
+	 <br />
+	 <br />
+	 <span class="text-danger">
+		4.
+	 </span>
+	 Przedplon - brak 0 kg N/ha
+	 <br />
+	 <span class="text-danger">Suma (2+3+4)</span> <strong>{{ uzytek.zroslinaprzedplon }} kg N/ha</strong>
+  </template>
+  
 
   <template v-if='uzytek.bobowata_id>1'>
 	 <br>
 	 <br>
+	 <span class="text-danger">
+		5.
+	 </span>
 	 Bobowate - {{ uzytek.nazwabobowata }} {{ bobowate.find(x => x.id === uzytek.bobowata_id).n }} kg N/ha + {{ uzytek.zroslinaprzedplon }} kg N/ha
 	 <br />
-	 <strong>{{ uzytek.zbobowata }} kg N/ha</strong>
+	 <span class="text-danger">zapasy azotu ze wszystkich źródeł -Suma (2+3+4+5)</span> <strong>{{ uzytek.zbobowata }} kg N/ha</strong>
   </template>
-  
+  <template v-else>
+	 <br>
+	 <br>
+	 <span class="text-danger">
+		5.
+	 </span>
+	 Bobowate - brak 0 kg N/ha
+	 <br />
+	 <span class="text-danger">zapasy azotu ze wszystkich źródeł -Suma (2+3+4+5)</span> <strong>{{ uzytek.zbobowata }} kg N/ha</strong>
+  </template>
+
+	 
   <template v-if="uzytek.nawoznaturalny != ''">
 	 <br>
 	 <br>
-	 uwzględniając nawóz naturalny:<br>
-	 wytworzony: {{ uzytek.nawoznaturalny }}kg N/ha<br>
+	 Ilość azotu z zastosowanego nawozu naturalnego - {{ uzytek.nawoznaturalnyzastosowany }} kg N/ha <br />
+	 ilość azotu <b>działającego</b> z zastosowanego nawozu naturalnego - {{ uzytek.nawoznaturalny }}kg N/ha<br />
+	 <br />
+	 
 	 <strong><u>{{ uzytek.zanimalsami }} kg N/ha</u></strong>
   </template>
 
   <br>
   <br>
   <center><b>PODSUMOWANIE</b></center><br>
-  zapotrzebowanie rośliny w N kg/1 ha {{ uzytek.zapotrzebowanie_ha }} - {{ uzytek.azot_naturalny_ha }} kg/1 ha = {{ uzytek.azot_mineralny_ha }} kg/1 ha<br>
+  dawka azotu mineralnego działającego w N kg/1 ha {{ uzytek.zapotrzebowanie_ha }} - {{ uzytek.azot_naturalny_ha }} kg/1 ha = {{ uzytek.azot_mineralny_ha }} kg/1 ha<br>
   saldo N <span :style="'color: ' + kolor_salda + ';'">{{ uzytek.saldo_n }}</span><br>
-  ilość nawozu mineralnego do zastosowania {{ uzytek.azot_mineralny_ha }} / 0.7 = <u>{{ uzytek.azot_mineralny_ha_w_nawozie }} dawka z nawozu</u>
+  dawka nawozu mineralnego do zastosowania {{ uzytek.azot_mineralny_ha }} / 0.7 = <u>{{ Math.round(100*uzytek.azot_mineralny_ha_w_nawozie)/100 }} dawka z nawozu</u>
   
 </b-modal>
 </template>

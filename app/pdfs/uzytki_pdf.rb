@@ -7,7 +7,7 @@ class UzytkiPdf < Prawn::Document
     @zlecenie = zlecenie
     
     super(:page_size => "A4",
-          :page_layout => :portrait,
+          :page_layout => :landscape,
           :left_margin => 12.7.mm,
           :right_margin => 12.7.mm,
           :top_margin => 7.6.mm,

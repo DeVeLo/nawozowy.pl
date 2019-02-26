@@ -77,6 +77,7 @@ export default {
 					 powiat_id: gon.powiat_id,
 					 gmina_id: gon.gmina_id,
 					 miejscowosc: gon.miejscowosc,
+					 datawplywu: new Date
 				}
 				this.modalForm.show()
 		  }

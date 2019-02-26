@@ -21,11 +21,9 @@ class Nawoznaturalny < ApplicationRecord
 
     self.animalgroup.animals.each do |animal|
       wspolczynnik = animal.produkt / produkt
-      ilosc = (self.ilosc * wspolczynnik ).round(2)
+      ilosc = (self.ilosc * wspolczynnik )
       self.nawozywykorzystane.create({animal_id: animal.id, ilosc: ilosc})
     end
-  end
-
-    
+  end    
   
 end

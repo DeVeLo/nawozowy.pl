@@ -33,8 +33,12 @@ class Uzytek < ApplicationRecord
     end
   end
 
+  def azot_mineralny_pole_w_nawozie
+    (azot_mineralny_ha / 0.7) * powierzchnia
+  end  
+  
   def azot_mineralny_ha_w_nawozie
-    (azot_mineralny_ha / 0.7).round(2)
+    (azot_mineralny_ha / 0.7)
   end
 
   def azot_mineralny_pole
@@ -45,7 +49,7 @@ class Uzytek < ApplicationRecord
   def azot_mineralny_ha
     podsumowanie = zapotrzebowanie_ha - azot_naturalny_ha
     if podsumowanie > 0
-      podsumowanie.round(2)
+      podsumowanie
     else
       0
     end
@@ -76,17 +80,27 @@ class Uzytek < ApplicationRecord
 
   # azot z dodatkiem nawozu naturalnego
   def zanimalsami
-    (zbobowata + self.nawoznaturalny).round(2)
+    (zbobowata + self.nawoznaturalny)
   end
 
-  # ilość zastosowanego nawozu naturalnego
+  # ilość działającego nawozu naturalnego / ha
   def nawoznaturalny
     zanimalsami = 0
     self.nawozywykorzystane.each do |nw|
       zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa * nw.animal.getrownowaznik(nw.nawoznaturalny.sezon_id))
     end
-    zanimalsami.round(2)
+    zanimalsami
   end
+
+  # ilosc zastosowanego nawozu naturalnego / ha
+  def nawoznaturalnyzastosowany
+    zanimalsami = 0
+    self.nawozywykorzystane.each do |nw|
+      zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa)
+    end
+    zanimalsami
+  end
+  
   
   # z dodatkiem bobowatych
   def zbobowata

@@ -20,9 +20,21 @@
 	 </b-form-row>
 	 
 	 <b-form-row>
+		<b-col cols="1">
+		  <b-form-group
+			 label="n.p."
+			 label-for="lp">
+			 <b-form-input
+				type="number"
+				id="lp"
+				ref="zlecenie_lp"
+				v-model="attr.lp"></b-form-input>
+		  </b-form-group>
+		</b-col>
+
 		<b-col>
 		  <b-form-group
-			 label="rok gospodarczy (np 2019/2020)"
+			 label="rok gospodarczy"
 			 label-for="name">
 			 <b-form-input
 				required
@@ -38,6 +50,18 @@
 			 <b-form-input
 				id="sprawa"
 				v-model="attr.sprawa"></b-form-input>
+		  </b-form-group>
+		</b-col>
+		<b-col>
+		  <b-form-group
+			 label="data wpływu"
+			 label-for="datawplywu">
+			 <datepicker
+				bootstrap-styling
+				required
+				:language="pl"
+				id="datawplywu"
+				v-model="attr.datawplywu"></datepicker>
 		  </b-form-group>
 		</b-col>
 	 </b-form-row>
@@ -154,6 +178,9 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
+import {pl} from 'vuejs-datepicker/dist/locale'
+  
 export default {
 	 name: 'cform',
 	 data() {
@@ -162,8 +189,12 @@ export default {
 				warianty: [],
 				wojewodztwa: [],
 				powiaty: [],
-				gminy: []
+				gminy: [],
+				pl: pl,
 		  }
+	 },
+	 components: {
+		  Datepicker
 	 },
 	 computed: {
 		  attr: {

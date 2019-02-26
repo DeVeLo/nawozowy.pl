@@ -55,15 +55,15 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
 	 name: 'ctable',
 	 data() {
 		  return {
 				naglowki: [
-					 { key: 'id', label: '#', sortable: true },
+					 { key: 'lp', label: 'n.p.', sortable: true },
+					 { key: 'datawplywu', label: 'data wpływu', sortable: true },
 					 { key: 'name', label: 'nazwa', sortable: true },
 					 { key: 'sprawa', label: 'nr sprawy', sortable: true },
 					 { key: 'wariant_id', label: 'wariant', sortable: true },

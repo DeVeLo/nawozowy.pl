@@ -13,7 +13,7 @@ class ZleceniaController < ApplicationController
         gon.gmina_id = @rolnik.gmina_id
         gon.miejscowosc = @rolnik.miejscowosc
       }
-      f.json { render json: @rolnik.zlecenia.order(id: :DESC) }
+      f.json { render json: @rolnik.zlecenia.order(datawplywu: :DESC, lp: :DESC) }
     end
   end
 
@@ -70,7 +70,7 @@ class ZleceniaController < ApplicationController
   def zlecenie_params
     params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id,
                                      :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc,
-                                     :powierzchnia, :podstawa_id, :podstawainna)
+                                     :powierzchnia, :podstawa_id, :podstawainna, :datawplywu, :lp)
   end
   
   def set_zlecenie
