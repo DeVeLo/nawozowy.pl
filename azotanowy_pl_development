@@ -163,6 +163,47 @@ ALTER SEQUENCE public.bobowate_id_seq OWNED BY public.bobowate.id;
 
 
 --
+-- Name: dawkicao; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.dawkicao (
+    id integer NOT NULL,
+    kategoria_id integer,
+    grunt_id integer,
+    od numeric,
+    "do" numeric,
+    dawka numeric,
+    potrzeba_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.dawkicao OWNER TO azotanowy_pl;
+
+--
+-- Name: dawkicao_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.dawkicao_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dawkicao_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: dawkicao_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.dawkicao_id_seq OWNED BY public.dawkicao.id;
+
+
+--
 -- Name: gatunki; Type: TABLE; Schema: public; Owner: azotanowy_pl
 --
 
@@ -543,6 +584,240 @@ ALTER SEQUENCE public.nazwyutrzymania_id_seq OWNED BY public.nazwyutrzymania.id;
 
 
 --
+-- Name: ocenapota; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.ocenapota (
+    id integer NOT NULL,
+    ocena_id integer,
+    kategoria_id integer,
+    powyzej numeric,
+    ponizej numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ocenapota OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenapota_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.ocenapota_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ocenapota_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenapota_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.ocenapota_id_seq OWNED BY public.ocenapota.id;
+
+
+--
+-- Name: oceny; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.oceny (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    wspolczynnik numeric
+);
+
+
+ALTER TABLE public.oceny OWNER TO azotanowy_pl;
+
+--
+-- Name: oceny_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.oceny_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.oceny_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: oceny_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.oceny_id_seq OWNED BY public.oceny.id;
+
+
+--
+-- Name: ocenyfosfor; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.ocenyfosfor (
+    id integer NOT NULL,
+    kategoria_id integer,
+    ocena_id integer,
+    weglanowa boolean,
+    powyzej numeric,
+    ponizej numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ocenyfosfor OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenyfosfor_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.ocenyfosfor_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ocenyfosfor_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenyfosfor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.ocenyfosfor_id_seq OWNED BY public.ocenyfosfor.id;
+
+
+--
+-- Name: ocenymagnez; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.ocenymagnez (
+    id integer NOT NULL,
+    ocena_id integer,
+    kategoria_id integer,
+    powyzej numeric,
+    ponizej numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    rownowaznik integer
+);
+
+
+ALTER TABLE public.ocenymagnez OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenymagnez_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.ocenymagnez_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ocenymagnez_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenymagnez_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.ocenymagnez_id_seq OWNED BY public.ocenymagnez.id;
+
+
+--
+-- Name: ocenypotas; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.ocenypotas (
+    id integer NOT NULL,
+    ocena_id integer,
+    kategoria_id integer,
+    powyzej numeric,
+    ponizej numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ocenypotas OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenypotas_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.ocenypotas_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ocenypotas_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: ocenypotas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.ocenypotas_id_seq OWNED BY public.ocenypotas.id;
+
+
+--
+-- Name: phzakresy; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.phzakresy (
+    id integer NOT NULL,
+    name character varying,
+    odczyn character varying,
+    od numeric,
+    "do" numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.phzakresy OWNER TO azotanowy_pl;
+
+--
+-- Name: phzakresy_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.phzakresy_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.phzakresy_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: phzakresy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.phzakresy_id_seq OWNED BY public.phzakresy.id;
+
+
+--
 -- Name: plynne; Type: TABLE; Schema: public; Owner: azotanowy_pl
 --
 
@@ -613,6 +888,42 @@ ALTER TABLE public.podstawy_id_seq OWNER TO azotanowy_pl;
 --
 
 ALTER SEQUENCE public.podstawy_id_seq OWNED BY public.podstawy.id;
+
+
+--
+-- Name: potrzeby; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.potrzeby (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.potrzeby OWNER TO azotanowy_pl;
+
+--
+-- Name: potrzeby_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.potrzeby_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.potrzeby_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: potrzeby_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.potrzeby_id_seq OWNED BY public.potrzeby.id;
 
 
 --
@@ -730,7 +1041,16 @@ CREATE TABLE public.roslinaprzedplony (
     name character varying,
     n numeric,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    fosfor numeric,
+    potas numeric,
+    mnoznik numeric,
+    wsp_fosfor_i_rok numeric,
+    wsp_potas_i_rok numeric,
+    wsp_magnez_i_rok numeric,
+    wsp_fosfor_ii_rok numeric,
+    wsp_potas_ii_rok numeric,
+    wsp_magnez_ii_rok numeric
 );
 
 
@@ -769,7 +1089,10 @@ CREATE TABLE public.rosliny (
     rodzajuprawy_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    wspolczynnik numeric DEFAULT 0.6
+    wspolczynnik numeric DEFAULT 0.6,
+    fosfor numeric,
+    potas numeric,
+    magnez numeric
 );
 
 
@@ -988,7 +1311,16 @@ CREATE TABLE public.uzytki (
     nminsezon boolean DEFAULT false,
     przedplon numeric DEFAULT 0.0,
     roslinaprzedplon_id integer DEFAULT 1,
-    bobowata_id integer
+    bobowata_id integer,
+    grunt_id integer,
+    ph numeric,
+    weglanowa boolean DEFAULT false,
+    fosfor numeric,
+    potas numeric,
+    magnez numeric,
+    przedplonfosfor numeric,
+    przedplonpotas numeric,
+    wspwykorzystania_id integer
 );
 
 
@@ -1091,6 +1423,48 @@ ALTER SEQUENCE public.wojewodztwa_id_seq OWNED BY public.wojewodztwa.id;
 
 
 --
+-- Name: wspiwykorzystania; Type: TABLE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE TABLE public.wspiwykorzystania (
+    id integer NOT NULL,
+    name character varying,
+    wsp_fosfor_i_rok numeric,
+    wsp_potas_i_rok numeric,
+    wsp_magnez_i_rok numeric,
+    wsp_fosfor_ii_rok numeric,
+    wsp_potas_ii_rok numeric,
+    wsp_magnez_ii_rok numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.wspiwykorzystania OWNER TO azotanowy_pl;
+
+--
+-- Name: wspiwykorzystania_id_seq; Type: SEQUENCE; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE SEQUENCE public.wspiwykorzystania_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.wspiwykorzystania_id_seq OWNER TO azotanowy_pl;
+
+--
+-- Name: wspiwykorzystania_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER SEQUENCE public.wspiwykorzystania_id_seq OWNED BY public.wspiwykorzystania.id;
+
+
+--
 -- Name: zlecenia; Type: TABLE; Schema: public; Owner: azotanowy_pl
 --
 
@@ -1171,6 +1545,13 @@ ALTER TABLE ONLY public.bobowate ALTER COLUMN id SET DEFAULT nextval('public.bob
 
 
 --
+-- Name: dawkicao id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.dawkicao ALTER COLUMN id SET DEFAULT nextval('public.dawkicao_id_seq'::regclass);
+
+
+--
 -- Name: gatunki id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -1227,6 +1608,48 @@ ALTER TABLE ONLY public.nazwyutrzymania ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: ocenapota id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenapota ALTER COLUMN id SET DEFAULT nextval('public.ocenapota_id_seq'::regclass);
+
+
+--
+-- Name: oceny id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.oceny ALTER COLUMN id SET DEFAULT nextval('public.oceny_id_seq'::regclass);
+
+
+--
+-- Name: ocenyfosfor id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenyfosfor ALTER COLUMN id SET DEFAULT nextval('public.ocenyfosfor_id_seq'::regclass);
+
+
+--
+-- Name: ocenymagnez id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenymagnez ALTER COLUMN id SET DEFAULT nextval('public.ocenymagnez_id_seq'::regclass);
+
+
+--
+-- Name: ocenypotas id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenypotas ALTER COLUMN id SET DEFAULT nextval('public.ocenypotas_id_seq'::regclass);
+
+
+--
+-- Name: phzakresy id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.phzakresy ALTER COLUMN id SET DEFAULT nextval('public.phzakresy_id_seq'::regclass);
+
+
+--
 -- Name: plynne id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -1238,6 +1661,13 @@ ALTER TABLE ONLY public.plynne ALTER COLUMN id SET DEFAULT nextval('public.plynn
 --
 
 ALTER TABLE ONLY public.podstawy ALTER COLUMN id SET DEFAULT nextval('public.podstawy_id_seq'::regclass);
+
+
+--
+-- Name: potrzeby id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.potrzeby ALTER COLUMN id SET DEFAULT nextval('public.potrzeby_id_seq'::regclass);
 
 
 --
@@ -1318,6 +1748,13 @@ ALTER TABLE ONLY public.wojewodztwa ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: wspiwykorzystania id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.wspiwykorzystania ALTER COLUMN id SET DEFAULT nextval('public.wspiwykorzystania_id_seq'::regclass);
+
+
+--
 -- Name: zwierzeta id; Type: DEFAULT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -1334,7 +1771,6 @@ b67697cf-8ad4-42bd-a79a-37df71373a5b	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65
 95670622-3251-46e1-b2a4-89880a79bef1	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	92ca8c3c-1e54-4ce3-ac82-0523cdeb7887	dbfc4d94-c777-485c-a0d7-ace63cf837a3	2019-02-17 17:56:46.62604	2019-02-17 17:56:46.62604
 00608a5d-d4e5-4764-9563-721670601cf9	grupa 2	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	2019-02-20 11:31:34.696223	2019-02-20 11:31:34.696223
 36e1dccb-5d2c-4532-851c-65587534d4bb	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	2019-02-25 09:43:55.34917	2019-02-25 09:43:55.34917
-f79b1dc0-cf09-4b7d-b3a0-84b383e0d3e9	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	f2e8d0e9-a75c-48a8-a65b-bf092dd76e76	e2d1c7f7-4776-424f-9805-bd3dce339a2b	2019-02-26 11:51:21.692215	2019-02-26 11:51:21.692215
 069eb2ae-a2a0-4f0a-bd50-a392f3d94bc3	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	2019-02-07 14:30:15.516996	2019-02-07 14:30:15.516996
 \.
 
@@ -1352,7 +1788,6 @@ COPY public.animals (id, instytucja_id, rolnik_id, zlecenie_id, zwierze_id, nazw
 171	d04e8915-2ce7-45ee-b161-a7dcce79f65a	92ca8c3c-1e54-4ce3-ac82-0523cdeb7887	dbfc4d94-c777-485c-a0d7-ace63cf837a3	613	4	12	200.0	2019-02-17 18:02:59.54767	2019-02-17 18:02:59.54767	t	f	\N	452	95670622-3251-46e1-b2a4-89880a79bef1
 172	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	622	1	45	87.0	2019-02-20 11:31:42.154213	2019-02-20 11:31:42.154213	f	f	\N	485	00608a5d-d4e5-4764-9563-721670601cf9
 173	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	655	1	129	306000.0	2019-02-25 09:45:21.066728	2019-02-25 10:14:55.98999	f	t	20.4	572	36e1dccb-5d2c-4532-851c-65587534d4bb
-174	d04e8915-2ce7-45ee-b161-a7dcce79f65a	f2e8d0e9-a75c-48a8-a65b-bf092dd76e76	e2d1c7f7-4776-424f-9805-bd3dce339a2b	653	4	127	100.0	2019-02-26 11:51:51.888716	2019-02-26 11:51:51.888716	f	f	\N	569	f79b1dc0-cf09-4b7d-b3a0-84b383e0d3e9
 129	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	664	1	140	23.0	2019-02-07 14:31:15.345932	2019-02-07 14:31:15.345932	f	f	\N	591	069eb2ae-a2a0-4f0a-bd50-a392f3d94bc3
 130	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	699	1	189	22.0	2019-02-07 14:31:30.378467	2019-02-07 14:31:30.378467	f	f	\N	640	069eb2ae-a2a0-4f0a-bd50-a392f3d94bc3
 \.
@@ -1387,6 +1822,114 @@ COPY public.bobowate (id, name, n, created_at, updated_at) FROM stdin;
 14	w mieszankach z trawami lub zbożami - międzyplon - przyorane resztki pożniwne	10.0	2019-01-28 18:24:52.361734	2019-01-28 18:24:52.361734
 15	w mieszankach z trawami lub zbożami - międzyplon - przyorane całe rośliny	20.0	2019-01-28 18:25:07.901064	2019-01-28 18:25:07.901064
 1	brak	0.0	2019-01-28 19:10:31.547254	2019-01-28 19:10:31.547254
+\.
+
+
+--
+-- Data for Name: dawkicao; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.dawkicao (id, kategoria_id, grunt_id, od, "do", dawka, potrzeba_id, created_at, updated_at) FROM stdin;
+203	1	1	0.0	4.0	3.0	1	2019-02-27 16:25:18.975404	2019-02-27 16:25:18.975404
+204	1	2	0.0	4.0	3.0	1	2019-02-27 16:25:18.989025	2019-02-27 16:25:18.989025
+205	1	3	0.0	4.0	3.0	1	2019-02-27 16:25:19.000546	2019-02-27 16:25:19.000546
+206	2	1	0.0	4.5	3.5	1	2019-02-27 16:25:19.008833	2019-02-27 16:25:19.008833
+207	2	2	0.0	4.5	3.5	1	2019-02-27 16:25:19.022237	2019-02-27 16:25:19.022237
+208	2	3	0.0	4.5	3.5	1	2019-02-27 16:25:19.034016	2019-02-27 16:25:19.034016
+209	3	1	0.0	5.0	4.5	1	2019-02-27 16:25:19.042162	2019-02-27 16:25:19.042162
+210	3	2	0.0	5.0	4.5	1	2019-02-27 16:25:19.050587	2019-02-27 16:25:19.050587
+211	3	3	0.0	5.0	4.5	1	2019-02-27 16:25:19.058935	2019-02-27 16:25:19.058935
+212	4	1	0.0	5.5	6.0	1	2019-02-27 16:25:19.06719	2019-02-27 16:25:19.06719
+213	4	2	0.0	5.5	6.0	1	2019-02-27 16:25:19.075567	2019-02-27 16:25:19.075567
+214	4	3	0.0	5.5	6.0	1	2019-02-27 16:25:19.083888	2019-02-27 16:25:19.083888
+215	5	1	0.0	4.0	3.0	1	2019-02-27 16:25:19.109064	2019-02-27 16:25:19.109064
+216	5	2	0.0	4.0	3.0	1	2019-02-27 16:25:19.122356	2019-02-27 16:25:19.122356
+217	5	3	0.0	4.0	3.0	1	2019-02-27 16:25:19.168174	2019-02-27 16:25:19.168174
+218	1	4	0.0	4.5	2.0	1	2019-02-27 16:25:19.201493	2019-02-27 16:25:19.201493
+219	2	4	0.0	4.5	2.0	1	2019-02-27 16:25:19.214255	2019-02-27 16:25:19.214255
+220	3	4	0.0	4.5	2.0	1	2019-02-27 16:25:19.225675	2019-02-27 16:25:19.225675
+221	4	4	0.0	4.5	2.0	1	2019-02-27 16:25:19.234031	2019-02-27 16:25:19.234031
+222	5	4	0.0	4.0	3.0	1	2019-02-27 16:25:19.242283	2019-02-27 16:25:19.242283
+223	1	1	4.0	4.5	2.0	2	2019-02-27 16:25:19.250662	2019-02-27 16:25:19.250662
+224	1	2	4.0	4.5	2.0	2	2019-02-27 16:25:19.258969	2019-02-27 16:25:19.258969
+225	1	3	4.0	4.5	2.0	2	2019-02-27 16:25:19.267298	2019-02-27 16:25:19.267298
+226	2	1	4.5	5.0	2.5	2	2019-02-27 16:25:19.275703	2019-02-27 16:25:19.275703
+227	2	2	4.5	5.0	2.5	2	2019-02-27 16:25:19.283956	2019-02-27 16:25:19.283956
+228	2	3	4.5	5.0	2.5	2	2019-02-27 16:25:19.293775	2019-02-27 16:25:19.293775
+229	3	1	5.0	5.5	3.0	2	2019-02-27 16:25:19.305829	2019-02-27 16:25:19.305829
+230	3	2	5.0	5.5	3.0	2	2019-02-27 16:25:19.317326	2019-02-27 16:25:19.317326
+231	3	3	5.0	5.5	3.0	2	2019-02-27 16:25:19.325718	2019-02-27 16:25:19.325718
+232	4	1	5.5	6.0	3.0	2	2019-02-27 16:25:19.334086	2019-02-27 16:25:19.334086
+233	4	2	5.5	6.0	3.0	2	2019-02-27 16:25:19.342343	2019-02-27 16:25:19.342343
+234	4	3	5.5	6.0	3.0	2	2019-02-27 16:25:19.350652	2019-02-27 16:25:19.350652
+235	5	1	4.0	4.5	3.0	2	2019-02-27 16:25:19.35904	2019-02-27 16:25:19.35904
+236	5	2	4.0	4.5	3.0	2	2019-02-27 16:25:19.367311	2019-02-27 16:25:19.367311
+237	5	3	4.0	4.5	3.0	2	2019-02-27 16:25:19.375674	2019-02-27 16:25:19.375674
+238	1	4	4.5	5.0	1.5	2	2019-02-27 16:25:19.384081	2019-02-27 16:25:19.384081
+239	2	4	4.5	5.0	1.5	2	2019-02-27 16:25:19.392428	2019-02-27 16:25:19.392428
+240	3	4	4.5	5.0	1.5	2	2019-02-27 16:25:19.400726	2019-02-27 16:25:19.400726
+241	4	4	4.5	5.0	1.5	2	2019-02-27 16:25:19.409122	2019-02-27 16:25:19.409122
+242	5	4	4.0	4.5	3.0	2	2019-02-27 16:25:19.417448	2019-02-27 16:25:19.417448
+243	1	1	4.5	5.0	1.0	3	2019-02-27 16:25:19.425777	2019-02-27 16:25:19.425777
+244	1	2	4.5	5.0	1.0	3	2019-02-27 16:25:19.434038	2019-02-27 16:25:19.434038
+245	1	3	4.5	5.0	1.0	3	2019-02-27 16:25:19.442375	2019-02-27 16:25:19.442375
+246	2	1	5.0	5.5	1.5	3	2019-02-27 16:25:19.450781	2019-02-27 16:25:19.450781
+247	2	2	5.0	5.5	1.5	3	2019-02-27 16:25:19.459099	2019-02-27 16:25:19.459099
+248	2	3	5.0	5.5	1.5	3	2019-02-27 16:25:19.467394	2019-02-27 16:25:19.467394
+249	3	1	5.5	6.0	1.7	3	2019-02-27 16:25:19.475759	2019-02-27 16:25:19.475759
+250	3	2	5.5	6.0	1.7	3	2019-02-27 16:25:19.48411	2019-02-27 16:25:19.48411
+251	3	3	5.5	6.0	1.7	3	2019-02-27 16:25:19.492497	2019-02-27 16:25:19.492497
+252	4	1	6.0	6.5	2.0	3	2019-02-27 16:25:19.500732	2019-02-27 16:25:19.500732
+253	4	2	6.0	6.5	2.0	3	2019-02-27 16:25:19.508873	2019-02-27 16:25:19.508873
+254	4	3	6.0	6.5	2.0	3	2019-02-27 16:25:19.517432	2019-02-27 16:25:19.517432
+255	5	1	4.5	5.0	2.5	3	2019-02-27 16:25:19.526098	2019-02-27 16:25:19.526098
+256	5	2	4.5	5.0	2.5	3	2019-02-27 16:25:19.539325	2019-02-27 16:25:19.539325
+257	5	3	4.5	5.0	2.5	3	2019-02-27 16:25:19.550889	2019-02-27 16:25:19.550889
+258	1	4	5.0	5.5	1.0	3	2019-02-27 16:25:19.559168	2019-02-27 16:25:19.559168
+259	2	4	5.0	5.5	1.0	3	2019-02-27 16:25:19.567427	2019-02-27 16:25:19.567427
+260	3	4	5.0	5.5	1.0	3	2019-02-27 16:25:19.575812	2019-02-27 16:25:19.575812
+261	4	4	5.0	5.5	1.0	3	2019-02-27 16:25:19.584132	2019-02-27 16:25:19.584132
+262	5	4	4.5	5.0	2.5	3	2019-02-27 16:25:19.59255	2019-02-27 16:25:19.59255
+263	1	1	5.0	5.5	\N	4	2019-02-27 16:25:19.60109	2019-02-27 16:25:19.60109
+264	1	2	5.0	5.5	\N	4	2019-02-27 16:25:19.614598	2019-02-27 16:25:19.614598
+265	1	3	5.0	5.5	\N	4	2019-02-27 16:25:19.625832	2019-02-27 16:25:19.625832
+266	2	1	5.5	6.0	\N	4	2019-02-27 16:25:19.642654	2019-02-27 16:25:19.642654
+267	2	2	5.5	6.0	\N	4	2019-02-27 16:25:19.650847	2019-02-27 16:25:19.650847
+268	2	3	5.5	6.0	\N	4	2019-02-27 16:25:19.659185	2019-02-27 16:25:19.659185
+269	3	1	6.0	6.5	1.0	4	2019-02-27 16:25:19.667551	2019-02-27 16:25:19.667551
+270	3	2	6.0	6.5	1.0	4	2019-02-27 16:25:19.675828	2019-02-27 16:25:19.675828
+271	3	3	6.0	6.5	1.0	4	2019-02-27 16:25:19.68419	2019-02-27 16:25:19.68419
+272	4	1	6.5	7.0	1.0	4	2019-02-27 16:25:19.692559	2019-02-27 16:25:19.692559
+273	4	2	6.5	7.0	1.0	4	2019-02-27 16:25:19.700847	2019-02-27 16:25:19.700847
+274	4	3	6.5	7.0	1.0	4	2019-02-27 16:25:19.709192	2019-02-27 16:25:19.709192
+275	5	1	\N	\N	\N	4	2019-02-27 16:25:19.717619	2019-02-27 16:25:19.717619
+276	5	2	\N	\N	\N	4	2019-02-27 16:25:19.725843	2019-02-27 16:25:19.725843
+277	5	3	\N	\N	\N	4	2019-02-27 16:25:19.734987	2019-02-27 16:25:19.734987
+278	1	4	5.5	6.0	0.5	4	2019-02-27 16:25:19.801383	2019-02-27 16:25:19.801383
+279	2	4	5.5	6.0	0.5	4	2019-02-27 16:25:19.814823	2019-02-27 16:25:19.814823
+280	3	4	5.5	6.0	0.5	4	2019-02-27 16:25:19.826071	2019-02-27 16:25:19.826071
+281	4	4	5.5	6.0	0.5	4	2019-02-27 16:25:19.834517	2019-02-27 16:25:19.834517
+282	5	4	\N	\N	\N	4	2019-02-27 16:25:19.842755	2019-02-27 16:25:19.842755
+283	1	1	5.5	100.0	\N	5	2019-02-27 16:25:19.850995	2019-02-27 16:25:19.850995
+284	1	2	5.5	100.0	\N	5	2019-02-27 16:25:19.859369	2019-02-27 16:25:19.859369
+285	1	3	5.5	100.0	\N	5	2019-02-27 16:25:19.867614	2019-02-27 16:25:19.867614
+286	2	1	6.0	100.0	\N	5	2019-02-27 16:25:19.876047	2019-02-27 16:25:19.876047
+287	2	2	6.0	100.0	\N	5	2019-02-27 16:25:19.884317	2019-02-27 16:25:19.884317
+288	2	3	6.0	100.0	\N	5	2019-02-27 16:25:19.893462	2019-02-27 16:25:19.893462
+289	3	1	6.5	100.0	\N	5	2019-02-27 16:25:19.956485	2019-02-27 16:25:19.956485
+290	3	2	6.5	100.0	\N	5	2019-02-27 16:25:19.967748	2019-02-27 16:25:19.967748
+291	3	3	6.5	100.0	\N	5	2019-02-27 16:25:19.976013	2019-02-27 16:25:19.976013
+292	4	1	7.0	100.0	\N	5	2019-02-27 16:25:19.984472	2019-02-27 16:25:19.984472
+293	4	2	7.0	100.0	\N	5	2019-02-27 16:25:19.998188	2019-02-27 16:25:19.998188
+294	4	3	7.0	100.0	\N	5	2019-02-27 16:25:20.009396	2019-02-27 16:25:20.009396
+295	5	1	\N	\N	\N	5	2019-02-27 16:25:20.017725	2019-02-27 16:25:20.017725
+296	5	2	\N	\N	\N	5	2019-02-27 16:25:20.026046	2019-02-27 16:25:20.026046
+297	5	3	\N	\N	\N	5	2019-02-27 16:25:20.034348	2019-02-27 16:25:20.034348
+298	1	4	\N	\N	\N	5	2019-02-27 16:25:20.067875	2019-02-27 16:25:20.067875
+299	2	4	\N	\N	\N	5	2019-02-27 16:25:20.114689	2019-02-27 16:25:20.114689
+300	3	4	\N	\N	\N	5	2019-02-27 16:25:20.126143	2019-02-27 16:25:20.126143
+301	4	4	\N	\N	\N	5	2019-02-27 16:25:20.134456	2019-02-27 16:25:20.134456
+302	5	4	\N	\N	\N	5	2019-02-27 16:25:20.142735	2019-02-27 16:25:20.142735
 \.
 
 
@@ -5311,7 +5854,8 @@ COPY public.kategorie (id, name, zasob, created_at, updated_at, przelicznik) FRO
 
 COPY public.nawozynaturalne (id, uzytek_id, animal_id, sezon_id, produkcja, n, created_at, updated_at, ilosc, animalgroup_id) FROM stdin;
 195	65	\N	1	\N	\N	2019-02-26 11:19:46.160117	2019-02-26 11:19:46.160117	8.0	36e1dccb-5d2c-4532-851c-65587534d4bb
-198	70	\N	1	\N	\N	2019-02-26 12:04:58.76284	2019-02-26 12:04:58.76284	2.0	f79b1dc0-cf09-4b7d-b3a0-84b383e0d3e9
+200	67	\N	1	\N	\N	2019-02-27 07:24:31.476266	2019-02-27 07:24:31.476266	5.0	36e1dccb-5d2c-4532-851c-65587534d4bb
+201	67	\N	2	\N	\N	2019-02-27 07:24:41.695104	2019-02-27 07:24:41.695104	4.0	36e1dccb-5d2c-4532-851c-65587534d4bb
 174	57	\N	1	\N	\N	2019-02-11 07:28:15.373622	2019-02-11 07:28:15.373622	30.0	b67697cf-8ad4-42bd-a79a-37df71373a5b
 176	58	\N	2	\N	\N	2019-02-11 07:31:30.252338	2019-02-11 07:31:30.252338	30.0	b67697cf-8ad4-42bd-a79a-37df71373a5b
 177	60	\N	1	\N	\N	2019-02-11 07:34:27.067524	2019-02-11 07:34:27.067524	30.0	b67697cf-8ad4-42bd-a79a-37df71373a5b
@@ -5327,7 +5871,8 @@ COPY public.nawozynaturalne (id, uzytek_id, animal_id, sezon_id, produkcja, n, c
 --
 
 COPY public.nawozywykorzystane (id, animal_id, nawoznaturalny_id, ilosc, created_at, updated_at) FROM stdin;
-177	174	198	2.0	2019-02-26 12:04:58.767954	2019-02-26 12:04:58.767954
+179	173	200	5.0	2019-02-27 07:24:31.481483	2019-02-27 07:24:31.481483
+180	173	201	4.0	2019-02-27 07:24:41.700648	2019-02-27 07:24:41.700648
 146	165	174	22.0	2019-02-11 07:28:15.379418	2019-02-11 07:28:15.379418
 147	166	174	8.0	2019-02-11 07:28:15.380914	2019-02-11 07:28:15.380914
 150	165	176	22.0	2019-02-11 07:31:30.258582	2019-02-11 07:31:30.258582
@@ -5357,6 +5902,159 @@ COPY public.nazwyutrzymania (id, name, created_at, updated_at) FROM stdin;
 
 
 --
+-- Data for Name: ocenapota; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.ocenapota (id, ocena_id, kategoria_id, powyzej, ponizej, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: oceny; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.oceny (id, name, created_at, updated_at, wspolczynnik) FROM stdin;
+1	bardzo niska	2019-02-27 19:12:30.628461	2019-02-28 07:58:41.748491	1.5
+2	niska	2019-02-27 19:12:33.344307	2019-02-28 07:59:02.93521	1.25
+3	średnia	2019-02-27 19:12:37.673998	2019-02-28 07:59:08.355516	1.0
+4	wysoka	2019-02-27 19:12:42.641039	2019-02-28 07:59:14.598391	0.75
+5	bardzo wysoka	2019-02-27 19:12:49.29427	2019-02-28 07:59:20.624303	0.5
+\.
+
+
+--
+-- Data for Name: ocenyfosfor; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.ocenyfosfor (id, kategoria_id, ocena_id, weglanowa, powyzej, ponizej, created_at, updated_at) FROM stdin;
+1	1	1	f	-100.0	5.0	2019-02-27 19:38:43.13139	2019-02-27 19:38:43.13139
+2	2	1	f	-100.0	5.0	2019-02-27 19:38:43.162913	2019-02-27 19:38:43.162913
+3	3	1	f	-100.0	5.0	2019-02-27 19:38:43.194324	2019-02-27 19:38:43.194324
+4	4	1	f	-100.0	5.0	2019-02-27 19:38:43.204239	2019-02-27 19:38:43.204239
+5	1	2	f	5.0	10.0	2019-02-27 19:38:43.212598	2019-02-27 19:38:43.212598
+6	2	2	f	5.0	10.0	2019-02-27 19:38:43.220828	2019-02-27 19:38:43.220828
+7	3	2	f	5.0	10.0	2019-02-27 19:38:43.22921	2019-02-27 19:38:43.22921
+8	4	2	f	5.0	10.0	2019-02-27 19:38:43.237549	2019-02-27 19:38:43.237549
+9	1	3	f	10.0	15.0	2019-02-27 19:38:43.252659	2019-02-27 19:38:43.252659
+10	2	3	f	10.0	15.0	2019-02-27 19:38:43.262624	2019-02-27 19:38:43.262624
+11	3	3	f	10.0	15.0	2019-02-27 19:38:43.270983	2019-02-27 19:38:43.270983
+12	4	3	f	10.0	15.0	2019-02-27 19:38:43.279252	2019-02-27 19:38:43.279252
+13	1	4	f	15.0	20.0	2019-02-27 19:38:43.287652	2019-02-27 19:38:43.287652
+14	2	4	f	15.0	20.0	2019-02-27 19:38:43.295934	2019-02-27 19:38:43.295934
+15	3	4	f	15.0	20.0	2019-02-27 19:38:43.304292	2019-02-27 19:38:43.304292
+16	4	4	f	15.0	20.0	2019-02-27 19:38:43.312565	2019-02-27 19:38:43.312565
+17	1	5	f	20.0	2000.0	2019-02-27 19:38:43.320992	2019-02-27 19:38:43.320992
+18	2	5	f	20.0	2000.0	2019-02-27 19:38:43.337777	2019-02-27 19:38:43.337777
+19	3	5	f	20.0	2000.0	2019-02-27 19:38:43.346098	2019-02-27 19:38:43.346098
+20	4	5	f	20.0	2000.0	2019-02-27 19:38:43.35436	2019-02-27 19:38:43.35436
+21	1	1	t	-100.0	5.0	2019-02-27 19:38:43.362779	2019-02-27 19:38:43.362779
+22	2	1	t	-100.0	5.0	2019-02-27 19:38:43.370998	2019-02-27 19:38:43.370998
+23	3	1	t	-100.0	5.0	2019-02-27 19:38:43.379273	2019-02-27 19:38:43.379273
+24	4	1	t	-100.0	5.0	2019-02-27 19:38:43.387781	2019-02-27 19:38:43.387781
+25	1	2	t	5.0	10.0	2019-02-27 19:38:43.396044	2019-02-27 19:38:43.396044
+26	2	2	t	5.0	10.0	2019-02-27 19:38:43.404306	2019-02-27 19:38:43.404306
+27	3	2	t	5.0	10.0	2019-02-27 19:38:43.412676	2019-02-27 19:38:43.412676
+28	4	2	t	5.0	10.0	2019-02-27 19:38:43.420936	2019-02-27 19:38:43.420936
+29	1	3	t	10.0	20.0	2019-02-27 19:38:43.429365	2019-02-27 19:38:43.429365
+30	2	3	t	10.0	20.0	2019-02-27 19:38:43.437718	2019-02-27 19:38:43.437718
+31	3	3	t	10.0	20.0	2019-02-27 19:38:43.446013	2019-02-27 19:38:43.446013
+32	4	3	t	10.0	20.0	2019-02-27 19:38:43.454332	2019-02-27 19:38:43.454332
+33	1	4	t	20.0	40.0	2019-02-27 19:38:43.462739	2019-02-27 19:38:43.462739
+34	2	4	t	20.0	40.0	2019-02-27 19:38:43.470973	2019-02-27 19:38:43.470973
+35	3	4	t	20.0	40.0	2019-02-27 19:38:43.479426	2019-02-27 19:38:43.479426
+36	4	4	t	20.0	40.0	2019-02-27 19:38:43.487685	2019-02-27 19:38:43.487685
+37	1	5	t	40.0	2000.0	2019-02-27 19:38:43.496192	2019-02-27 19:38:43.496192
+38	2	5	t	40.0	2000.0	2019-02-27 19:38:43.50439	2019-02-27 19:38:43.50439
+39	3	5	t	40.0	2000.0	2019-02-27 19:38:43.512708	2019-02-27 19:38:43.512708
+40	4	5	t	40.0	2000.0	2019-02-27 19:38:43.521072	2019-02-27 19:38:43.521072
+41	5	1	f	-100.0	40.0	2019-02-27 19:38:43.529414	2019-02-27 19:38:43.529414
+42	5	2	f	40.0	60.0	2019-02-27 19:38:43.537772	2019-02-27 19:38:43.537772
+43	5	3	f	60.0	80.0	2019-02-27 19:38:43.546029	2019-02-27 19:38:43.546029
+44	5	4	f	80.0	120.0	2019-02-27 19:38:43.554543	2019-02-27 19:38:43.554543
+45	5	5	f	120.0	2000.0	2019-02-27 19:38:43.563411	2019-02-27 19:38:43.563411
+\.
+
+
+--
+-- Data for Name: ocenymagnez; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.ocenymagnez (id, ocena_id, kategoria_id, powyzej, ponizej, created_at, updated_at, rownowaznik) FROM stdin;
+1	1	1	-100.0	1.0	2019-02-27 20:19:32.596783	2019-02-27 21:53:22.046663	30
+6	1	2	-100.0	2.0	2019-02-27 20:19:32.665557	2019-02-27 21:53:22.063005	30
+11	1	3	-100.0	3.0	2019-02-27 20:19:32.710201	2019-02-27 21:53:22.07332	30
+16	1	4	-100.0	4.0	2019-02-27 20:19:32.777727	2019-02-27 21:53:22.081548	30
+21	1	5	-100.0	20.0	2019-02-27 20:19:32.826996	2019-02-27 21:53:22.089889	30
+2	2	1	1.0	2.0	2019-02-27 20:19:32.626992	2019-02-27 21:53:31.052185	15
+7	2	2	2.0	3.0	2019-02-27 20:19:32.676875	2019-02-27 21:53:31.074792	15
+12	2	3	3.0	5.0	2019-02-27 20:19:32.71849	2019-02-27 21:53:31.084384	15
+17	2	4	4.0	6.0	2019-02-27 20:19:32.785285	2019-02-27 21:53:31.09268	15
+22	2	5	20.0	40.0	2019-02-27 20:19:32.835253	2019-02-27 21:53:31.109485	15
+3	3	1	2.0	4.0	2019-02-27 20:19:32.635219	2019-02-27 21:53:39.495561	0
+8	3	2	3.0	5.0	2019-02-27 20:19:32.685189	2019-02-27 21:53:39.512046	0
+13	3	3	5.0	7.0	2019-02-27 20:19:32.726806	2019-02-27 21:53:39.520344	0
+18	3	4	6.0	10.0	2019-02-27 20:19:32.793638	2019-02-27 21:53:39.528574	0
+23	3	5	40.0	80.0	2019-02-27 20:19:32.84353	2019-02-27 21:53:39.536792	0
+4	4	1	4.0	6.0	2019-02-27 20:19:32.643544	2019-02-27 21:53:49.875152	-10
+9	4	2	5.0	7.0	2019-02-27 20:19:32.693581	2019-02-27 21:53:49.890018	-10
+14	4	3	7.0	9.0	2019-02-27 20:19:32.735143	2019-02-27 21:53:49.89832	-10
+19	4	4	10.0	14.0	2019-02-27 20:19:32.801928	2019-02-27 21:53:49.906743	-10
+24	4	5	80.0	120.0	2019-02-27 20:19:32.851918	2019-02-27 21:53:49.914987	-10
+5	5	1	6.0	2000.0	2019-02-27 20:19:32.651892	2019-02-27 21:53:55.232062	-20
+10	5	2	7.0	2000.0	2019-02-27 20:19:32.701846	2019-02-27 21:53:55.24204	-20
+15	5	3	9.0	2000.0	2019-02-27 20:19:32.749427	2019-02-27 21:53:55.250374	-20
+20	5	4	14.0	2000.0	2019-02-27 20:19:32.81571	2019-02-27 21:53:55.258706	-20
+25	5	5	120.0	2000.0	2019-02-27 20:19:32.860201	2019-02-27 21:53:55.26693	-20
+\.
+
+
+--
+-- Data for Name: ocenypotas; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.ocenypotas (id, ocena_id, kategoria_id, powyzej, ponizej, created_at, updated_at) FROM stdin;
+1	1	1	-100.0	2.5	2019-02-27 20:02:05.751645	2019-02-27 20:02:05.751645
+2	2	1	2.5	7.5	2019-02-27 20:02:05.786353	2019-02-27 20:02:05.786353
+3	3	1	7.5	12.5	2019-02-27 20:02:05.794509	2019-02-27 20:02:05.794509
+4	4	1	12.5	17.5	2019-02-27 20:02:05.808523	2019-02-27 20:02:05.808523
+5	5	1	17.5	2000.0	2019-02-27 20:02:05.819513	2019-02-27 20:02:05.819513
+6	1	2	-100.0	5.0	2019-02-27 20:02:05.827855	2019-02-27 20:02:05.827855
+7	2	2	5.0	10.0	2019-02-27 20:02:05.836342	2019-02-27 20:02:05.836342
+8	3	2	10.0	15.0	2019-02-27 20:02:05.844506	2019-02-27 20:02:05.844506
+9	4	2	15.0	20.0	2019-02-27 20:02:05.852852	2019-02-27 20:02:05.852852
+10	5	2	20.0	2000.0	2019-02-27 20:02:05.861169	2019-02-27 20:02:05.861169
+11	1	3	-100.0	7.5	2019-02-27 20:02:05.869517	2019-02-27 20:02:05.869517
+12	2	3	7.5	12.5	2019-02-27 20:02:05.877814	2019-02-27 20:02:05.877814
+13	3	3	12.5	20.0	2019-02-27 20:02:05.886236	2019-02-27 20:02:05.886236
+14	4	3	20.0	25.0	2019-02-27 20:02:05.894451	2019-02-27 20:02:05.894451
+15	5	3	25.0	2000.0	2019-02-27 20:02:05.902801	2019-02-27 20:02:05.902801
+16	1	4	-100.0	10.0	2019-02-27 20:02:05.911129	2019-02-27 20:02:05.911129
+17	2	4	10.0	15.0	2019-02-27 20:02:05.919437	2019-02-27 20:02:05.919437
+18	3	4	15.0	25.0	2019-02-27 20:02:05.928008	2019-02-27 20:02:05.928008
+19	4	4	25.0	30.0	2019-02-27 20:02:05.93627	2019-02-27 20:02:05.93627
+20	5	4	30.0	2000.0	2019-02-27 20:02:05.944554	2019-02-27 20:02:05.944554
+21	1	5	-100.0	30.0	2019-02-27 20:02:05.952844	2019-02-27 20:02:05.952844
+22	2	5	30.0	60.0	2019-02-27 20:02:05.961202	2019-02-27 20:02:05.961202
+23	3	5	60.0	90.0	2019-02-27 20:02:05.969516	2019-02-27 20:02:05.969516
+24	4	5	90.0	120.0	2019-02-27 20:02:05.977973	2019-02-27 20:02:05.977973
+25	5	5	120.0	2000.0	2019-02-27 20:02:05.986157	2019-02-27 20:02:05.986157
+\.
+
+
+--
+-- Data for Name: phzakresy; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.phzakresy (id, name, odczyn, od, "do", created_at, updated_at) FROM stdin;
+1	bardzo kwaśny	V	0.0	4.5	2019-02-27 10:33:45.47308	2019-02-27 10:33:45.47308
+2	kwaśny	IV	4.5	5.5	2019-02-27 10:36:57.873351	2019-02-27 10:36:57.873351
+3	lekko kwaśny	III	5.5	6.5	2019-02-27 10:37:16.439077	2019-02-27 10:37:16.439077
+4	obojętny	II	6.5	7.2	2019-02-27 10:37:39.560613	2019-02-27 10:38:00.945834
+5	zasadowy	I	7.2	100.0	2019-02-27 10:38:27.989296	2019-02-27 10:38:27.989296
+\.
+
+
+--
 -- Data for Name: plynne; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
 --
 
@@ -5376,6 +6074,19 @@ COPY public.podstawy (id, name, created_at, updated_at) FROM stdin;
 1	art. 104 Prawo Wodne Dz. U. 2017r. poz. 1566	2019-01-12 11:43:43.363675	2019-01-12 11:43:43.363675
 2	programów rolno-środowiskowych	2019-01-12 11:43:58.943089	2019-01-12 11:43:58.943089
 3	innej	2019-01-12 11:44:26.159059	2019-01-12 11:44:26.159059
+\.
+
+
+--
+-- Data for Name: potrzeby; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.potrzeby (id, name, created_at, updated_at) FROM stdin;
+1	konieczne	2019-02-27 15:48:35.150272	2019-02-27 15:48:35.150272
+2	potrzebne	2019-02-27 15:48:38.395293	2019-02-27 15:48:38.395293
+3	wskazane	2019-02-27 15:48:42.103298	2019-02-27 15:48:42.103298
+4	ograniczone	2019-02-27 15:48:47.832428	2019-02-27 15:48:47.832428
+5	zbędne	2019-02-27 15:48:51.975217	2019-02-27 15:48:51.975217
 \.
 
 
@@ -5791,7 +6502,6 @@ COPY public.rolnicy (id, name, lname, gname, wojewodztwo_id, powiat_id, gmina_id
 b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	Małgorzata	Wisiorska	sdfsdfsd	5	94	3425	Łask	42	34	234234234	34322323	\N	2019-01-12 10:29:59.176941	2019-01-12 14:18:17.674073	d04e8915-2ce7-45ee-b161-a7dcce79f65a	21-002	Jastków	815022465	608635446	konrad@snopkow.eu
 83261c68-60f4-4ec2-91e3-5045dc110fd7	jan	nowak	gr	3	54	2980	czemierniki	1	1	1111111111111111	111111111111	\N	2019-02-11 06:52:22.944159	2019-02-11 06:52:22.944159	d04e8915-2ce7-45ee-b161-a7dcce79f65a	20-000	20-000	6666666	666666	kkkkk
 92ca8c3c-1e54-4ce3-ac82-0523cdeb7887	Łukasz	Szczypiorkowski	Świnka Piggi Corporation	5	97	3451	Bocianołęgi	5	3	93484398	3487384743	Szmerowa	2019-02-17 17:55:54.567202	2019-02-17 17:55:54.567202	d04e8915-2ce7-45ee-b161-a7dcce79f65a	87-345	Mysiowory	643533533	343494839898	bobo@indonezja.org
-f2e8d0e9-a75c-48a8-a65b-bf092dd76e76	Jan	Nowak	GR	3	54	2983	Kodeń	1	1	7127121010	5555555555555	\N	2019-02-25 06:44:12.61434	2019-02-25 06:44:12.61434	d04e8915-2ce7-45ee-b161-a7dcce79f65a	20530	Kodeń	817426301	660660	oschr@pl
 a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	sławomir 	urbas	GR	3	62	3110	Dys	1	1	1111111111	kkkkkkkkkkkkkkkkkk	\N	2019-02-25 09:42:07.610724	2019-02-25 09:42:07.610724	d04e8915-2ce7-45ee-b161-a7dcce79f65a	20-530	Dys	0000	000	000
 \.
 
@@ -5800,10 +6510,17 @@ a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	sławomir 	urbas	GR	3	62	3110	Dys	1	1	11111
 -- Data for Name: roslinaprzedplony; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
 --
 
-COPY public.roslinaprzedplony (id, name, n, created_at, updated_at) FROM stdin;
-1	brak	0.0	2019-01-30 10:17:04.781604	2019-01-30 10:17:04.781604
-2	przyorane liście roślin korzeniowych	25.0	2019-01-30 10:17:08.210362	2019-01-30 10:17:08.210362
-3	przyorana słoma	21.0	2019-01-30 10:17:11.240987	2019-01-30 10:17:11.240987
+COPY public.roslinaprzedplony (id, name, n, created_at, updated_at, fosfor, potas, mnoznik, wsp_fosfor_i_rok, wsp_potas_i_rok, wsp_magnez_i_rok, wsp_fosfor_ii_rok, wsp_potas_ii_rok, wsp_magnez_ii_rok) FROM stdin;
+1	brak	0.0	2019-01-30 10:17:04.781604	2019-02-28 12:38:27.827795	0.0	0.0	0.0	\N	\N	\N	\N	\N	\N
+4	przyorana słoma jęczmienia	21.0	2019-02-28 13:04:09.42171	2019-02-28 16:46:42.535326	0.9	11.6	0.9	0.4	0.5	0.4	0.3	0.4	0.3
+5	przyorana słoma żyta	21.0	2019-02-28 13:04:35.134643	2019-02-28 16:46:42.555028	0.9	11.3	1.4	0.4	0.5	0.4	0.3	0.4	0.3
+6	przyorana słoma kukurydzy	21.0	2019-02-28 13:05:06.315491	2019-02-28 16:46:42.564442	1.8	18.1	1.0	0.4	0.5	0.4	0.3	0.4	0.3
+7	przyorana słoma bobiku	21.0	2019-02-28 13:05:30.4782	2019-02-28 16:46:42.572678	1.4	16.6	1.0	0.4	0.5	0.4	0.3	0.4	0.3
+8	przyorana słoma grochu	21.0	2019-02-28 13:06:22.049659	2019-02-28 16:46:42.581018	1.6	17.0	1.0	0.4	0.5	0.4	0.3	0.4	0.3
+9	przyorana słoma łubinów	21.0	2019-02-28 13:06:45.416826	2019-02-28 16:46:42.614347	1.4	14.8	1.0	0.4	0.5	0.4	0.3	0.4	0.3
+10	przyorana słoma rzepaku	21.0	2019-02-28 13:07:03.128681	2019-02-28 16:46:42.639228	1.4	16.4	1.0	0.4	0.5	0.4	0.3	0.4	0.3
+2	przyorane liście roślin korzeniowych	25.0	2019-01-30 10:17:08.210362	2019-02-28 16:49:07.324946	0.5	5.3	0.8	0.7	0.9	0.7	\N	\N	\N
+3	przyorana słoma pszenicy	21.0	2019-01-30 10:17:11.240987	2019-02-28 16:49:13.815256	0.7	9.6	1.0	0.4	0.5	0.4	0.3	0.4	0.3
 \.
 
 
@@ -5811,89 +6528,89 @@ COPY public.roslinaprzedplony (id, name, n, created_at, updated_at) FROM stdin;
 -- Data for Name: rosliny; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
 --
 
-COPY public.rosliny (id, name, pobranie, rodzajuprawy_id, created_at, updated_at, wspolczynnik) FROM stdin;
-161	Gryka	41.7	1	2019-01-08 07:28:04.495384	2019-01-08 07:28:04.495384	0.6
-162	Jęczmień jary browarny	21.0	1	2019-01-08 07:28:04.503489	2019-01-08 07:28:04.503489	0.6
-163	Jęczmień jary pastewny	24.0	1	2019-01-08 07:28:04.509871	2019-01-08 07:28:04.509871	0.6
-165	Kukurydza na ziarno	26.0	1	2019-01-08 07:28:04.532859	2019-01-08 07:28:04.532859	0.6
-166	Mieszanki zbożowe  na ziarno	27.0	1	2019-01-08 07:28:04.541384	2019-01-08 07:28:04.541384	0.6
-167	Mieszanki zbożowo-strączkowe na ziarno	15.0	1	2019-01-08 07:28:04.550916	2019-01-08 07:28:04.550916	0.6
-168	Owies	22.2	1	2019-01-08 07:28:04.563432	2019-01-08 07:28:04.563432	0.6
-169	Pszenica jara	27.0	1	2019-01-08 07:28:04.5738	2019-01-08 07:28:04.5738	0.6
-172	Pszenżyto jare	27.0	1	2019-01-08 07:28:04.608894	2019-01-08 07:28:04.608894	0.6
-174	Żyto jare	24.0	1	2019-01-08 07:28:04.629021	2019-01-08 07:28:04.629021	0.6
-175	Bobik, nasiona	8.0	2	2019-01-08 07:28:04.643001	2019-01-08 07:28:04.643001	0.6
-176	Grochy, nasiona	8.0	2	2019-01-08 07:28:04.652383	2019-01-08 07:28:04.652383	0.6
-177	Lędźwian	8.0	2	2019-01-08 07:28:04.660888	2019-01-08 07:28:04.660888	0.6
-178	Łubiny, nasiona	0.0	2	2019-01-08 07:28:04.671546	2019-01-08 07:28:04.671546	0.6
-179	Seradela	8.0	2	2019-01-08 07:28:04.68572	2019-01-08 07:28:04.68572	0.6
-180	Soczewica	8.0	2	2019-01-08 07:28:04.694985	2019-01-08 07:28:04.694985	0.6
-181	Soja, nasiona	15.0	2	2019-01-08 07:28:04.707384	2019-01-08 07:28:04.707384	0.6
-183	Wyka jara	8.0	2	2019-01-08 07:28:04.72617	2019-01-08 07:28:04.72617	0.6
-184	Gorczyca, nasiona	60.5	3	2019-01-08 07:28:04.73858	2019-01-08 07:28:04.73858	0.6
-187	Słonecznik, nasiona	55.0	3	2019-01-08 07:28:04.768327	2019-01-08 07:28:04.768327	0.6
-188	Burak cukrowy	3.5	4	2019-01-08 07:28:04.780417	2019-01-08 07:28:04.780417	0.6
-189	Burak pastewny	2.5	4	2019-01-08 07:28:04.787008	2019-01-08 07:28:04.787008	0.6
-190	Ziemniak późny	4.2	4	2019-01-08 07:28:04.794772	2019-01-08 07:28:04.794772	0.6
-191	Ziemniak wczesny	3.3	4	2019-01-08 07:28:04.809124	2019-01-08 07:28:04.809124	0.6
-192	Inne	2.5	4	2019-01-08 07:28:04.821422	2019-01-08 07:28:04.821422	0.6
-193	Lucerna, zielona masa	0.0	5	2019-01-08 07:28:04.830692	2019-01-08 07:28:04.830692	0.6
-194	Kapusta pastewna, zielona masa	4.2	5	2019-01-08 07:28:04.838997	2019-01-08 07:28:04.838997	0.6
-195	Koniczyna, zielona masa	0.0	5	2019-01-08 07:28:04.851638	2019-01-08 07:28:04.851638	0.6
-196	Kukurydza, zielona masa	2.4	5	2019-01-08 07:28:04.862499	2019-01-08 07:28:04.862499	0.6
-197	Mieszanki zbożowe-strączkowe, zielona masa	1.5	5	2019-01-08 07:28:04.871423	2019-01-08 07:28:04.871423	0.6
-198	Mieszanki motylkowe z trawami, zielona masa	3.0	5	2019-01-08 07:28:04.878918	2019-01-08 07:28:04.878918	0.6
-199	Owies, zielona masa	4.0	5	2019-01-08 07:28:04.892016	2019-01-08 07:28:04.892016	0.6
-200	Rzepak, zielona masa	4.5	5	2019-01-08 07:28:04.90007	2019-01-08 07:28:04.90007	0.6
-201	Seradela, zielona masa	0.0	5	2019-01-08 07:28:04.906373	2019-01-08 07:28:04.906373	0.6
-202	Słonecznik, zielona masa	4.2	5	2019-01-08 07:28:04.91487	2019-01-08 07:28:04.91487	0.6
-203	Trawy w uprawie polowej, zielona masa	5.1	5	2019-01-08 07:28:04.929609	2019-01-08 07:28:04.929609	0.6
-204	Żyto, zielona masa	4.1	5	2019-01-08 07:28:04.939188	2019-01-08 07:28:04.939188	0.6
-205	Inne motylkowe, zielona masa	4.8	5	2019-01-08 07:28:04.946136	2019-01-08 07:28:04.946136	0.6
-206	Inne nie motylkowe, zielona masa	4.0	5	2019-01-08 07:28:04.959082	2019-01-08 07:28:04.959082	0.6
-207	Chmiel	75.0	6	2019-01-08 07:28:04.970965	2019-01-08 07:28:04.970965	0.6
-208	Konopie	40.0	6	2019-01-08 07:28:04.983075	2019-01-08 07:28:04.983075	0.6
-209	Len oleisty, nasiona	40.3	6	2019-01-08 07:28:04.994766	2019-01-08 07:28:04.994766	0.6
-210	Len włóknisty, słoma	49.5	6	2019-01-08 07:28:05.007146	2019-01-08 07:28:05.007146	0.6
-211	Tytoń, suche liście	50.0	6	2019-01-08 07:28:05.018594	2019-01-08 07:28:05.018594	0.6
-212	Miskant olbrzymi	8.4	7	2019-01-08 07:28:05.031991	2019-01-08 07:28:05.031991	0.6
-213	Ślazowiec pensylwański	7.0	7	2019-01-08 07:28:05.040902	2019-01-08 07:28:05.040902	0.6
-214	Pozostałe	7.0	7	2019-01-08 07:28:05.046738	2019-01-08 07:28:05.046738	0.6
-215	Brokuł	3.7	8	2019-01-08 07:28:05.058021	2019-01-08 07:28:05.058021	0.6
-216	Burak ćwikłowy	2.7	8	2019-01-08 07:28:05.069958	2019-01-08 07:28:05.069958	0.6
-217	Cebula	1.9	8	2019-01-08 07:28:05.083305	2019-01-08 07:28:05.083305	0.6
-218	Cykoria sałatowa	2.5	8	2019-01-08 07:28:05.09005	2019-01-08 07:28:05.09005	0.6
-219	Fasola	3.4	8	2019-01-08 07:28:05.105556	2019-01-08 07:28:05.105556	0.6
-220	Koper włoski, (fenkuł)	2.4	8	2019-01-08 07:28:05.117241	2019-01-08 07:28:05.117241	0.6
-221	Jarmuż	4.6	8	2019-01-08 07:28:05.12344	2019-01-08 07:28:05.12344	0.6
-222	Kalafior	3.2	8	2019-01-08 07:28:05.12991	2019-01-08 07:28:05.12991	0.6
-223	Kalarepa	3.0	8	2019-01-08 07:28:05.145831	2019-01-08 07:28:05.145831	0.6
-224	Kapusta brukselska	4.7	8	2019-01-08 07:28:05.155378	2019-01-08 07:28:05.155378	0.6
-225	Kapusta pekińska	1.6	8	2019-01-08 07:28:05.162034	2019-01-08 07:28:05.162034	0.6
-226	Kapusta głowiasta biała	2.3	8	2019-01-08 07:28:05.175784	2019-01-08 07:28:05.175784	0.6
-227	Kapusta głowiasta czerwona	2.6	8	2019-01-08 07:28:05.186641	2019-01-08 07:28:05.186641	0.6
-228	Kapusta włoska	2.8	8	2019-01-08 07:28:05.19983	2019-01-08 07:28:05.19983	0.6
-229	Marchew	1.7	8	2019-01-08 07:28:05.212495	2019-01-08 07:28:05.212495	0.6
-230	Ogórek	1.7	8	2019-01-08 07:28:05.225495	2019-01-08 07:28:05.225495	0.6
-231	Por	2.6	8	2019-01-08 07:28:05.235824	2019-01-08 07:28:05.235824	0.6
-232	Papryka	4.0	8	2019-01-08 07:28:05.245073	2019-01-08 07:28:05.245073	0.6
-233	Pomidor	2.0	8	2019-01-08 07:28:05.257086	2019-01-08 07:28:05.257086	0.6
-234	Pietruszka korzeniowa	3.5	8	2019-01-08 07:28:05.266798	2019-01-08 07:28:05.266798	0.6
-235	Rzodkiewka	2.0	8	2019-01-08 07:28:05.276038	2019-01-08 07:28:05.276038	0.6
-236	Sałata głowiasta	1.8	8	2019-01-08 07:28:05.288008	2019-01-08 07:28:05.288008	0.6
-237	Sałata liściasta	1.3	8	2019-01-08 07:28:05.297937	2019-01-08 07:28:05.297937	0.6
-238	Seler korzeniowy	2.7	8	2019-01-08 07:28:05.304708	2019-01-08 07:28:05.304708	0.6
-239	Szpinak	3.6	8	2019-01-08 07:28:05.318496	2019-01-08 07:28:05.318496	0.6
-240	Szparag	25.0	8	2019-01-08 07:28:05.330466	2019-01-08 07:28:05.330466	0.6
-182	Wyka ozima	8.0	2	2019-01-08 07:28:04.716762	2019-01-29 13:13:17.625869	0.6
-186	Rzepik jary	50.0	3	2019-01-08 07:28:04.755647	2019-01-29 13:14:33.51933	0.6
-241	Rzepik ozimy	50.0	3	2019-01-29 13:17:00.882755	2019-01-29 13:17:00.882755	0.9
-242	Rzepak ozimy, nasiona	50.0	3	2019-01-29 13:20:45.486201	2019-01-29 13:22:01.588279	0.9
-185	Rzepak jary, nasiona	50.0	3	2019-01-08 07:28:04.748952	2019-01-29 13:22:30.771695	0.6
-164	Jęczmień ozimy	24.0	1	2019-01-08 07:28:04.521545	2019-01-29 13:24:23.821104	0.9
-170	Pszenica ozima	27.0	1	2019-01-08 07:28:04.583492	2019-01-29 13:24:42.831503	0.9
-171	Pszenżyto ozime	27.0	1	2019-01-08 07:28:04.593836	2019-01-29 13:24:54.686252	0.9
-173	Żyto ozime	24.0	1	2019-01-08 07:28:04.618665	2019-01-29 13:25:04.957904	0.9
+COPY public.rosliny (id, name, pobranie, rodzajuprawy_id, created_at, updated_at, wspolczynnik, fosfor, potas, magnez) FROM stdin;
+177	Lędźwian	8.0	2	2019-01-08 07:28:04.660888	2019-01-08 07:28:04.660888	0.6	\N	\N	\N
+179	Seradela	8.0	2	2019-01-08 07:28:04.68572	2019-01-08 07:28:04.68572	0.6	\N	\N	\N
+180	Soczewica	8.0	2	2019-01-08 07:28:04.694985	2019-01-08 07:28:04.694985	0.6	\N	\N	\N
+183	Wyka jara	8.0	2	2019-01-08 07:28:04.72617	2019-01-08 07:28:04.72617	0.6	\N	\N	\N
+198	Mieszanki motylkowe z trawami, zielona masa	3.0	5	2019-01-08 07:28:04.878918	2019-01-08 07:28:04.878918	0.6	\N	\N	\N
+205	Inne motylkowe, zielona masa	4.8	5	2019-01-08 07:28:04.946136	2019-01-08 07:28:04.946136	0.6	\N	\N	\N
+206	Inne nie motylkowe, zielona masa	4.0	5	2019-01-08 07:28:04.959082	2019-01-08 07:28:04.959082	0.6	\N	\N	\N
+207	Chmiel	75.0	6	2019-01-08 07:28:04.970965	2019-01-08 07:28:04.970965	0.6	\N	\N	\N
+208	Konopie	40.0	6	2019-01-08 07:28:04.983075	2019-01-08 07:28:04.983075	0.6	\N	\N	\N
+209	Len oleisty, nasiona	40.3	6	2019-01-08 07:28:04.994766	2019-01-08 07:28:04.994766	0.6	\N	\N	\N
+210	Len włóknisty, słoma	49.5	6	2019-01-08 07:28:05.007146	2019-01-08 07:28:05.007146	0.6	\N	\N	\N
+211	Tytoń, suche liście	50.0	6	2019-01-08 07:28:05.018594	2019-01-08 07:28:05.018594	0.6	\N	\N	\N
+212	Miskant olbrzymi	8.4	7	2019-01-08 07:28:05.031991	2019-01-08 07:28:05.031991	0.6	\N	\N	\N
+213	Ślazowiec pensylwański	7.0	7	2019-01-08 07:28:05.040902	2019-01-08 07:28:05.040902	0.6	\N	\N	\N
+214	Pozostałe	7.0	7	2019-01-08 07:28:05.046738	2019-01-08 07:28:05.046738	0.6	\N	\N	\N
+215	Brokuł	3.7	8	2019-01-08 07:28:05.058021	2019-01-08 07:28:05.058021	0.6	\N	\N	\N
+216	Burak ćwikłowy	2.7	8	2019-01-08 07:28:05.069958	2019-01-08 07:28:05.069958	0.6	\N	\N	\N
+217	Cebula	1.9	8	2019-01-08 07:28:05.083305	2019-01-08 07:28:05.083305	0.6	\N	\N	\N
+218	Cykoria sałatowa	2.5	8	2019-01-08 07:28:05.09005	2019-01-08 07:28:05.09005	0.6	\N	\N	\N
+219	Fasola	3.4	8	2019-01-08 07:28:05.105556	2019-01-08 07:28:05.105556	0.6	\N	\N	\N
+220	Koper włoski, (fenkuł)	2.4	8	2019-01-08 07:28:05.117241	2019-01-08 07:28:05.117241	0.6	\N	\N	\N
+221	Jarmuż	4.6	8	2019-01-08 07:28:05.12344	2019-01-08 07:28:05.12344	0.6	\N	\N	\N
+222	Kalafior	3.2	8	2019-01-08 07:28:05.12991	2019-01-08 07:28:05.12991	0.6	\N	\N	\N
+223	Kalarepa	3.0	8	2019-01-08 07:28:05.145831	2019-01-08 07:28:05.145831	0.6	\N	\N	\N
+224	Kapusta brukselska	4.7	8	2019-01-08 07:28:05.155378	2019-01-08 07:28:05.155378	0.6	\N	\N	\N
+225	Kapusta pekińska	1.6	8	2019-01-08 07:28:05.162034	2019-01-08 07:28:05.162034	0.6	\N	\N	\N
+226	Kapusta głowiasta biała	2.3	8	2019-01-08 07:28:05.175784	2019-01-08 07:28:05.175784	0.6	\N	\N	\N
+227	Kapusta głowiasta czerwona	2.6	8	2019-01-08 07:28:05.186641	2019-01-08 07:28:05.186641	0.6	\N	\N	\N
+228	Kapusta włoska	2.8	8	2019-01-08 07:28:05.19983	2019-01-08 07:28:05.19983	0.6	\N	\N	\N
+229	Marchew	1.7	8	2019-01-08 07:28:05.212495	2019-01-08 07:28:05.212495	0.6	\N	\N	\N
+230	Ogórek	1.7	8	2019-01-08 07:28:05.225495	2019-01-08 07:28:05.225495	0.6	\N	\N	\N
+231	Por	2.6	8	2019-01-08 07:28:05.235824	2019-01-08 07:28:05.235824	0.6	\N	\N	\N
+232	Papryka	4.0	8	2019-01-08 07:28:05.245073	2019-01-08 07:28:05.245073	0.6	\N	\N	\N
+233	Pomidor	2.0	8	2019-01-08 07:28:05.257086	2019-01-08 07:28:05.257086	0.6	\N	\N	\N
+234	Pietruszka korzeniowa	3.5	8	2019-01-08 07:28:05.266798	2019-01-08 07:28:05.266798	0.6	\N	\N	\N
+235	Rzodkiewka	2.0	8	2019-01-08 07:28:05.276038	2019-01-08 07:28:05.276038	0.6	\N	\N	\N
+236	Sałata głowiasta	1.8	8	2019-01-08 07:28:05.288008	2019-01-08 07:28:05.288008	0.6	\N	\N	\N
+237	Sałata liściasta	1.3	8	2019-01-08 07:28:05.297937	2019-01-08 07:28:05.297937	0.6	\N	\N	\N
+238	Seler korzeniowy	2.7	8	2019-01-08 07:28:05.304708	2019-01-08 07:28:05.304708	0.6	\N	\N	\N
+239	Szpinak	3.6	8	2019-01-08 07:28:05.318496	2019-01-08 07:28:05.318496	0.6	\N	\N	\N
+240	Szparag	25.0	8	2019-01-08 07:28:05.330466	2019-01-08 07:28:05.330466	0.6	\N	\N	\N
+182	Wyka ozima	8.0	2	2019-01-08 07:28:04.716762	2019-01-29 13:13:17.625869	0.6	\N	\N	\N
+186	Rzepik jary	50.0	3	2019-01-08 07:28:04.755647	2019-01-29 13:14:33.51933	0.6	\N	\N	\N
+241	Rzepik ozimy	50.0	3	2019-01-29 13:17:00.882755	2019-01-29 13:17:00.882755	0.9	\N	\N	\N
+242	Rzepak ozimy, nasiona	50.0	3	2019-01-29 13:20:45.486201	2019-01-29 13:22:01.588279	0.9	\N	\N	\N
+187	Słonecznik, nasiona	55.0	3	2019-01-08 07:28:04.768327	2019-02-27 20:50:12.186605	0.6	23.4	46.7	\N
+165	Kukurydza na ziarno	26.0	1	2019-01-08 07:28:04.532859	2019-02-27 20:39:22.554307	0.6	12.4	27.9	4.0
+171	Pszenżyto ozime	27.0	1	2019-01-08 07:28:04.593836	2019-02-27 20:43:57.09386	0.9	10.8	21.1	1.8
+172	Pszenżyto jare	27.0	1	2019-01-08 07:28:04.608894	2019-02-27 20:44:08.07625	0.6	10.8	21.1	1.8
+174	Żyto jare	24.0	1	2019-01-08 07:28:04.629021	2019-02-27 20:44:41.136118	0.6	10.1	21.6	1.8
+161	Gryka	41.7	1	2019-01-08 07:28:04.495384	2019-02-27 20:36:21.337101	0.6	20.8	53.9	4.5
+162	Jęczmień jary browarny	21.0	1	2019-01-08 07:28:04.503489	2019-02-27 20:37:14.726626	0.6	9.62	16.4	1.9
+163	Jęczmień jary pastewny	24.0	1	2019-01-08 07:28:04.509871	2019-02-27 20:37:34.686343	0.6	9.62	16.4	1.9
+164	Jęczmień ozimy	24.0	1	2019-01-08 07:28:04.521545	2019-02-27 20:38:45.894281	0.9	9.85	18.7	3.1
+166	Mieszanki zbożowe  na ziarno	27.0	1	2019-01-08 07:28:04.541384	2019-02-27 20:40:03.973565	0.6	11.5	20.8	\N
+167	Mieszanki zbożowo-strączkowe na ziarno	15.0	1	2019-01-08 07:28:04.550916	2019-02-27 20:40:34.376268	0.6	12.4	26.5	\N
+168	Owies	22.2	1	2019-01-08 07:28:04.563432	2019-02-27 20:41:45.258393	0.6	10.8	21.9	2.2
+169	Pszenica jara	27.0	1	2019-01-08 07:28:04.5738	2019-02-27 20:42:18.441452	0.6	10.3	16.3	1.8
+170	Pszenica ozima	27.0	1	2019-01-08 07:28:04.583492	2019-02-27 20:43:01.937035	0.9	9.85	15.1	1.7
+173	Żyto ozime	24.0	1	2019-01-08 07:28:04.618665	2019-02-27 20:44:31.836619	0.9	10.1	21.6	1.8
+175	Bobik, nasiona	8.0	2	2019-01-08 07:28:04.643001	2019-02-27 20:45:30.385909	0.6	16.0	36.4	1.9
+176	Grochy, nasiona	8.0	2	2019-01-08 07:28:04.652383	2019-02-27 20:46:04.996301	0.6	13.5	32.4	2.3
+178	Łubiny, nasiona	0.0	2	2019-01-08 07:28:04.671546	2019-02-27 20:46:48.133205	0.6	19.5	33.9	3.7
+181	Soja, nasiona	15.0	2	2019-01-08 07:28:04.707384	2019-02-27 20:47:25.846271	0.6	19.5	33.8	\N
+184	Gorczyca, nasiona	60.5	3	2019-01-08 07:28:04.73858	2019-02-27 20:48:22.246924	0.6	24.7	53.2	\N
+185	Rzepak jary, nasiona	50.0	3	2019-01-08 07:28:04.748952	2019-02-27 20:49:35.320536	0.6	21.9	39.9	3.6
+188	Burak cukrowy	3.5	4	2019-01-08 07:28:04.780417	2019-02-27 20:52:20.27564	0.6	1.6	6.48	0.9
+189	Burak pastewny	2.5	4	2019-01-08 07:28:04.787008	2019-02-27 20:52:58.043595	0.6	1.37	6.24	0.6
+190	Ziemniak późny	4.2	4	2019-01-08 07:28:04.794772	2019-02-27 20:53:23.869454	0.6	1.37	6.6	0.5
+191	Ziemniak wczesny	3.3	4	2019-01-08 07:28:04.809124	2019-02-27 20:53:52.606242	0.6	1.15	5.76	0.5
+192	Inne	2.5	4	2019-01-08 07:28:04.821422	2019-02-27 20:54:30.756238	0.6	1.15	5.4	\N
+193	Lucerna, zielona masa	0.0	5	2019-01-08 07:28:04.830692	2019-02-27 20:55:18.126352	0.6	1.37	5.64	0.6
+194	Kapusta pastewna, zielona masa	4.2	5	2019-01-08 07:28:04.838997	2019-02-27 20:55:46.244336	0.6	1.15	6.0	0.2
+195	Koniczyna, zielona masa	0.0	5	2019-01-08 07:28:04.851638	2019-02-27 20:57:54.693406	0.6	11.5	5.28	0.6
+196	Kukurydza, zielona masa	2.4	5	2019-01-08 07:28:04.862499	2019-02-27 21:00:27.251466	0.6	1.37	4.56	0.4
+199	Owies, zielona masa	4.0	5	2019-01-08 07:28:04.892016	2019-02-27 21:01:55.358884	0.6	1.37	5.52	0.5
+200	Rzepak, zielona masa	4.5	5	2019-01-08 07:28:04.90007	2019-02-27 21:02:34.865641	0.6	1.37	5.76	\N
+201	Seradela, zielona masa	0.0	5	2019-01-08 07:28:04.906373	2019-02-27 21:03:04.851201	0.6	1.37	4.68	\N
+202	Słonecznik, zielona masa	4.2	5	2019-01-08 07:28:04.91487	2019-02-27 21:03:49.745811	0.6	1.6	5.16	0.6
+204	Żyto, zielona masa	4.1	5	2019-01-08 07:28:04.939188	2019-02-27 21:04:58.176061	0.6	1.37	5.28	0.4
+197	Mieszanki zbożowe-strączkowe, zielona masa	1.5	5	2019-01-08 07:28:04.871423	2019-02-27 21:01:10.936285	0.6	1.6	6.48	2.7
+203	Trawy w uprawie polowej, zielona masa	5.1	5	2019-01-08 07:28:04.929609	2019-02-27 21:04:20.604934	0.6	1.37	5.88	0.4
 \.
 
 
@@ -6201,6 +6918,26 @@ COPY public.schema_migrations (version) FROM stdin;
 20190207192125
 20190226073940
 20190226091954
+20190227103253
+20190227121652
+20190227154743
+20190227155221
+20190227164437
+20190227185024
+20190227191203
+20190227192652
+20190227194153
+20190227195734
+20190227195911
+20190227195924
+20190227203420
+20190227215226
+20190228075734
+20190228122915
+20190228123735
+20190228163507
+20190228165355
+20190228170834
 \.
 
 
@@ -6436,21 +7173,21 @@ COPY public.systemyutrzymania (id, produkcja, zawartosc, jednostkautrzymania_id,
 -- Data for Name: uzytki; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
 --
 
-COPY public.uzytki (id, name, kategoria_id, rodzajuprawy_id, nmin, prognoza, created_at, updated_at, instytucja_id, rolnik_id, zlecenie_id, badania, bobowate_id, roslina_id, plon, powierzchnia, nminsezon, przedplon, roslinaprzedplon_id, bobowata_id) FROM stdin;
-57	1	3	1	\N	\N	2019-02-11 07:21:08.38551	2019-02-11 07:21:08.38551	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	170	6.0	1.0	f	50.0	1	1
-58	2	3	1	\N	\N	2019-02-11 07:23:02.457914	2019-02-11 07:23:02.457914	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	172	5.0	1.0	f	0.0	1	2
-59	3	3	4	\N	\N	2019-02-11 07:24:26.242369	2019-02-11 07:24:26.242369	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	188	50.0	1.0	f	0.0	1	1
-60	4	2	3	\N	\N	2019-02-11 07:25:12.018543	2019-02-11 07:25:12.018543	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	242	4.0	1.0	f	40.0	1	1
-61	wef	1	2	\N	\N	2019-02-11 21:49:22.930015	2019-02-11 21:49:22.930015	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	f	\N	176	22.0	22.0	f	2.0	1	1
-62	4frgdfg	3	4	\N	\N	2019-02-11 21:50:58.873314	2019-02-11 21:50:58.873314	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	f	\N	189	44.0	3.0	f	44.0	2	3
-63	A	2	3	\N	\N	2019-02-17 17:58:24.158684	2019-02-17 18:03:37.297677	d04e8915-2ce7-45ee-b161-a7dcce79f65a	92ca8c3c-1e54-4ce3-ac82-0523cdeb7887	dbfc4d94-c777-485c-a0d7-ace63cf837a3	f	\N	184	5.0	20.0	f	50.0	3	11
-64	weriuy	2	6	34.0	\N	2019-02-20 11:32:03.964125	2019-02-20 11:32:03.964125	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	t	\N	208	234.0	34.0	f	345.0	3	3
-67	3	3	1	\N	\N	2019-02-25 09:51:34.637355	2019-02-25 09:51:34.637355	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	f	\N	170	8.0	0.78	f	0.0	1	1
-68	4	3	1	48.0	\N	2019-02-25 09:52:17.248493	2019-02-25 09:52:17.248493	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	168	2.91	2.91	f	0.0	1	1
-69	5	3	1	48.0	\N	2019-02-25 09:53:09.861162	2019-02-25 09:53:09.861162	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	171	8.0	2.14	f	0.0	1	1
-70	fssdf	3	1	\N	\N	2019-02-26 11:52:33.66759	2019-02-26 11:52:33.66759	d04e8915-2ce7-45ee-b161-a7dcce79f65a	f2e8d0e9-a75c-48a8-a65b-bf092dd76e76	e2d1c7f7-4776-424f-9805-bd3dce339a2b	f	\N	169	10.0	100.0	f	0.0	1	1
-65	1	3	1	48.0	\N	2019-02-25 09:50:02.54008	2019-02-26 12:53:05.315967	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	170	8.0	2.0	f	0.0	1	1
-66	2	3	1	48.0	\N	2019-02-25 09:50:54.795633	2019-02-26 14:54:57.161066	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	169	6.0	2.0	t	100.0	3	2
+COPY public.uzytki (id, name, kategoria_id, rodzajuprawy_id, nmin, prognoza, created_at, updated_at, instytucja_id, rolnik_id, zlecenie_id, badania, bobowate_id, roslina_id, plon, powierzchnia, nminsezon, przedplon, roslinaprzedplon_id, bobowata_id, grunt_id, ph, weglanowa, fosfor, potas, magnez, przedplonfosfor, przedplonpotas, wspwykorzystania_id) FROM stdin;
+59	3	3	4	\N	\N	2019-02-11 07:24:26.242369	2019-02-11 07:24:26.242369	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	188	50.0	1.0	f	0.0	1	1	\N	\N	f	\N	\N	\N	\N	\N	\N
+60	4	2	3	\N	\N	2019-02-11 07:25:12.018543	2019-02-11 07:25:12.018543	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	242	4.0	1.0	f	40.0	1	1	\N	\N	f	\N	\N	\N	\N	\N	\N
+62	4frgdfg	3	4	\N	\N	2019-02-11 21:50:58.873314	2019-02-11 21:50:58.873314	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	f	\N	189	44.0	3.0	f	44.0	2	3	\N	\N	f	\N	\N	\N	\N	\N	\N
+63	A	2	3	\N	\N	2019-02-17 17:58:24.158684	2019-02-17 18:03:37.297677	d04e8915-2ce7-45ee-b161-a7dcce79f65a	92ca8c3c-1e54-4ce3-ac82-0523cdeb7887	dbfc4d94-c777-485c-a0d7-ace63cf837a3	f	\N	184	5.0	20.0	f	50.0	3	11	\N	\N	f	\N	\N	\N	\N	\N	\N
+64	weriuy	2	6	34.0	\N	2019-02-20 11:32:03.964125	2019-02-20 11:32:03.964125	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	t	\N	208	234.0	34.0	f	345.0	3	3	\N	\N	f	\N	\N	\N	\N	\N	\N
+67	3	3	1	\N	\N	2019-02-25 09:51:34.637355	2019-02-25 09:51:34.637355	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	f	\N	170	8.0	0.78	f	0.0	1	1	\N	\N	f	\N	\N	\N	\N	\N	\N
+69	5	3	1	48.0	\N	2019-02-25 09:53:09.861162	2019-02-25 09:53:09.861162	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	171	8.0	2.14	f	0.0	1	1	\N	\N	f	\N	\N	\N	\N	\N	\N
+58	2	3	1	\N	\N	2019-02-11 07:23:02.457914	2019-02-27 13:27:22.147668	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	172	5.0	1.0	f	0.0	1	2	1	\N	f	\N	\N	\N	\N	\N	\N
+65	1	2	1	48.0	\N	2019-02-25 09:50:02.54008	2019-02-28 12:34:37.313991	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	162	8.0	2.0	f	0.0	1	1	1	5.0	f	\N	\N	4.0	\N	\N	\N
+66	2	4	1	48.0	\N	2019-02-25 09:50:54.795633	2019-02-28 12:53:18.096659	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	170	5.0	1.0	t	100.0	3	2	1	3.0	f	\N	\N	5.0	\N	\N	\N
+57	1	3	1	\N	\N	2019-02-11 07:21:08.38551	2019-02-28 13:01:36.003138	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	548d1f1b-ffdf-41f3-9049-06412cc437b1	f	\N	170	5.0	1.0	f	0.0	1	1	1	5.0	f	\N	\N	5.0	\N	\N	\N
+61	wef	1	2	\N	\N	2019-02-11 21:49:22.930015	2019-02-28 07:43:26.527927	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	5bfff69e-ee58-4f4d-9249-46d152c66632	f	\N	176	22.0	22.0	f	2.0	1	1	1	\N	f	\N	\N	\N	\N	\N	\N
+68	4	3	1	48.0	\N	2019-02-25 09:52:17.248493	2019-02-28 07:49:27.546294	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	t	\N	168	2.91	2.91	f	0.0	1	1	1	5.55	f	\N	\N	4.0	\N	\N	\N
+75	sdsdf	3	5	\N	\N	2019-02-28 12:27:09.632309	2019-02-28 12:27:09.632309	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	722cf9ed-bd24-478b-89c7-f5fcf6cff808	f	\N	199	5.0	22.0	f	5.0	2	12	1	5.0	f	4.0	4.0	5.0	\N	\N	\N
 \.
 
 
@@ -6505,6 +7242,17 @@ COPY public.wojewodztwa (id, name, teryt, created_at, updated_at, stanna) FROM s
 
 
 --
+-- Data for Name: wspiwykorzystania; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
+--
+
+COPY public.wspiwykorzystania (id, name, wsp_fosfor_i_rok, wsp_potas_i_rok, wsp_magnez_i_rok, wsp_fosfor_ii_rok, wsp_potas_ii_rok, wsp_magnez_ii_rok, created_at, updated_at) FROM stdin;
+1	obornik	0.4	0.8	0.4	0.3	0.1	0.3	2019-02-28 16:55:24.558696	2019-02-28 16:55:24.558696
+2	gnojowica	0.7	0.8	0.4	0.1	0.1	0.3	2019-02-28 16:55:46.664227	2019-02-28 16:55:46.664227
+3	gnojówka	0.7	0.8	0.4	0.1	0.1	0.3	2019-02-28 16:56:03.534249	2019-02-28 16:56:03.534249
+\.
+
+
+--
 -- Data for Name: zlecenia; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
 --
 
@@ -6512,7 +7260,6 @@ COPY public.zlecenia (id, name, instytucja_id, rolnik_id, wariant_id, podstawain
 548d1f1b-ffdf-41f3-9049-06412cc437b1	1/z/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	83261c68-60f4-4ec2-91e3-5045dc110fd7	2	ustawa		3	2019-02-11 07:00:33.572294	2019-02-11 07:00:33.572294	3	54	2980	czemierniki	\N	\N	\N
 dbfc4d94-c777-485c-a0d7-ace63cf837a3	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	92ca8c3c-1e54-4ce3-ac82-0523cdeb7887	1	\N	OP/34/34/D23	3	2019-02-17 17:56:40.928477	2019-02-17 17:56:40.928477	5	97	3451	Bocianołęgi	\N	\N	\N
 722cf9ed-bd24-478b-89c7-f5fcf6cff808	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	a7c11ae5-f90c-4c2d-a5f0-c61dc73104f0	1	\N	1/9/2019	\N	2019-02-25 09:43:48.022652	2019-02-26 09:52:48.884457	3	62	3110	Dys	\N	2019-02-26	1
-e2d1c7f7-4776-424f-9805-bd3dce339a2b	sdfsdf	d04e8915-2ce7-45ee-b161-a7dcce79f65a	f2e8d0e9-a75c-48a8-a65b-bf092dd76e76	1	\N	\N	\N	2019-02-26 11:51:14.744768	2019-02-26 11:51:14.744768	3	54	2983	Kodeń	\N	2019-02-26	1
 5bfff69e-ee58-4f4d-9249-46d152c66632	sdafsdf	d04e8915-2ce7-45ee-b161-a7dcce79f65a	b85c8bce-bcaf-4bb9-bc2d-7c794a3f66f0	1	\N	sdffsd	\N	2019-01-12 14:40:28.623872	2019-02-26 14:51:36.360113	5	94	3425	Łask	\N	2019-02-26	1
 \.
 
@@ -6629,7 +7376,7 @@ COPY public.zwierzeta (id, name, gatunek_id, wspolczynnik, created_at, updated_a
 -- Name: animals_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.animals_id_seq', 174, true);
+SELECT pg_catalog.setval('public.animals_id_seq', 176, true);
 
 
 --
@@ -6637,6 +7384,13 @@ SELECT pg_catalog.setval('public.animals_id_seq', 174, true);
 --
 
 SELECT pg_catalog.setval('public.bobowate_id_seq', 16, true);
+
+
+--
+-- Name: dawkicao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.dawkicao_id_seq', 302, true);
 
 
 --
@@ -6678,14 +7432,14 @@ SELECT pg_catalog.setval('public.kategorie_id_seq', 5, true);
 -- Name: nawozynaturalne_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.nawozynaturalne_id_seq', 198, true);
+SELECT pg_catalog.setval('public.nawozynaturalne_id_seq', 203, true);
 
 
 --
 -- Name: nawozywykorzystane_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.nawozywykorzystane_id_seq', 177, true);
+SELECT pg_catalog.setval('public.nawozywykorzystane_id_seq', 183, true);
 
 
 --
@@ -6693,6 +7447,48 @@ SELECT pg_catalog.setval('public.nawozywykorzystane_id_seq', 177, true);
 --
 
 SELECT pg_catalog.setval('public.nazwyutrzymania_id_seq', 4, true);
+
+
+--
+-- Name: ocenapota_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.ocenapota_id_seq', 1, false);
+
+
+--
+-- Name: oceny_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.oceny_id_seq', 5, true);
+
+
+--
+-- Name: ocenyfosfor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.ocenyfosfor_id_seq', 45, true);
+
+
+--
+-- Name: ocenymagnez_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.ocenymagnez_id_seq', 25, true);
+
+
+--
+-- Name: ocenypotas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.ocenypotas_id_seq', 25, true);
+
+
+--
+-- Name: phzakresy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.phzakresy_id_seq', 5, true);
 
 
 --
@@ -6707,6 +7503,13 @@ SELECT pg_catalog.setval('public.plynne_id_seq', 4, true);
 --
 
 SELECT pg_catalog.setval('public.podstawy_id_seq', 3, true);
+
+
+--
+-- Name: potrzeby_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.potrzeby_id_seq', 5, true);
 
 
 --
@@ -6727,7 +7530,7 @@ SELECT pg_catalog.setval('public.rodzajeupraw_id_seq', 8, true);
 -- Name: roslinaprzedplony_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.roslinaprzedplony_id_seq', 3, true);
+SELECT pg_catalog.setval('public.roslinaprzedplony_id_seq', 10, true);
 
 
 --
@@ -6769,7 +7572,7 @@ SELECT pg_catalog.setval('public.systemyutrzymania_id_seq', 200, true);
 -- Name: uzytki_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.uzytki_id_seq', 70, true);
+SELECT pg_catalog.setval('public.uzytki_id_seq', 75, true);
 
 
 --
@@ -6784,6 +7587,13 @@ SELECT pg_catalog.setval('public.warianty_id_seq', 2, true);
 --
 
 SELECT pg_catalog.setval('public.wojewodztwa_id_seq', 33, true);
+
+
+--
+-- Name: wspiwykorzystania_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
+--
+
+SELECT pg_catalog.setval('public.wspiwykorzystania_id_seq', 3, true);
 
 
 --
@@ -6823,6 +7633,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.bobowate
     ADD CONSTRAINT bobowate_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dawkicao dawkicao_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.dawkicao
+    ADD CONSTRAINT dawkicao_pkey PRIMARY KEY (id);
 
 
 --
@@ -6898,6 +7716,54 @@ ALTER TABLE ONLY public.nazwyutrzymania
 
 
 --
+-- Name: ocenapota ocenapota_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenapota
+    ADD CONSTRAINT ocenapota_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oceny oceny_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.oceny
+    ADD CONSTRAINT oceny_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ocenyfosfor ocenyfosfor_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenyfosfor
+    ADD CONSTRAINT ocenyfosfor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ocenymagnez ocenymagnez_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenymagnez
+    ADD CONSTRAINT ocenymagnez_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ocenypotas ocenypotas_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenypotas
+    ADD CONSTRAINT ocenypotas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: phzakresy phzakresy_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.phzakresy
+    ADD CONSTRAINT phzakresy_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: plynne plynne_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -6911,6 +7777,14 @@ ALTER TABLE ONLY public.plynne
 
 ALTER TABLE ONLY public.podstawy
     ADD CONSTRAINT podstawy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: potrzeby potrzeby_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.potrzeby
+    ADD CONSTRAINT potrzeby_pkey PRIMARY KEY (id);
 
 
 --
@@ -7018,6 +7892,14 @@ ALTER TABLE ONLY public.wojewodztwa
 
 
 --
+-- Name: wspiwykorzystania wspiwykorzystania_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.wspiwykorzystania
+    ADD CONSTRAINT wspiwykorzystania_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: zlecenia zlecenia_pkey; Type: CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -7111,6 +7993,27 @@ CREATE INDEX index_animals_on_zwierze_id ON public.animals USING btree (zwierze_
 
 
 --
+-- Name: index_dawkicao_on_grunt_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_dawkicao_on_grunt_id ON public.dawkicao USING btree (grunt_id);
+
+
+--
+-- Name: index_dawkicao_on_kategoria_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_dawkicao_on_kategoria_id ON public.dawkicao USING btree (kategoria_id);
+
+
+--
+-- Name: index_dawkicao_on_potrzeba_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_dawkicao_on_potrzeba_id ON public.dawkicao USING btree (potrzeba_id);
+
+
+--
 -- Name: index_gminy_on_powiat_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
 --
 
@@ -7185,6 +8088,62 @@ CREATE INDEX index_nawozywykorzystane_on_animal_id ON public.nawozywykorzystane 
 --
 
 CREATE INDEX index_nawozywykorzystane_on_nawoznaturalny_id ON public.nawozywykorzystane USING btree (nawoznaturalny_id);
+
+
+--
+-- Name: index_ocenapota_on_kategoria_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenapota_on_kategoria_id ON public.ocenapota USING btree (kategoria_id);
+
+
+--
+-- Name: index_ocenapota_on_ocena_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenapota_on_ocena_id ON public.ocenapota USING btree (ocena_id);
+
+
+--
+-- Name: index_ocenyfosfor_on_kategoria_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenyfosfor_on_kategoria_id ON public.ocenyfosfor USING btree (kategoria_id);
+
+
+--
+-- Name: index_ocenyfosfor_on_ocena_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenyfosfor_on_ocena_id ON public.ocenyfosfor USING btree (ocena_id);
+
+
+--
+-- Name: index_ocenymagnez_on_kategoria_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenymagnez_on_kategoria_id ON public.ocenymagnez USING btree (kategoria_id);
+
+
+--
+-- Name: index_ocenymagnez_on_ocena_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenymagnez_on_ocena_id ON public.ocenymagnez USING btree (ocena_id);
+
+
+--
+-- Name: index_ocenypotas_on_kategoria_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenypotas_on_kategoria_id ON public.ocenypotas USING btree (kategoria_id);
+
+
+--
+-- Name: index_ocenypotas_on_ocena_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_ocenypotas_on_ocena_id ON public.ocenypotas USING btree (ocena_id);
 
 
 --
@@ -7293,6 +8252,13 @@ CREATE INDEX index_uzytki_on_bobowate_id ON public.uzytki USING btree (bobowate_
 
 
 --
+-- Name: index_uzytki_on_grunt_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_uzytki_on_grunt_id ON public.uzytki USING btree (grunt_id);
+
+
+--
 -- Name: index_uzytki_on_instytucja_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
 --
 
@@ -7332,6 +8298,13 @@ CREATE INDEX index_uzytki_on_roslina_id ON public.uzytki USING btree (roslina_id
 --
 
 CREATE INDEX index_uzytki_on_roslinaprzedplon_id ON public.uzytki USING btree (roslinaprzedplon_id);
+
+
+--
+-- Name: index_uzytki_on_wspwykorzystania_id; Type: INDEX; Schema: public; Owner: azotanowy_pl
+--
+
+CREATE INDEX index_uzytki_on_wspwykorzystania_id ON public.uzytki USING btree (wspwykorzystania_id);
 
 
 --
@@ -7411,6 +8384,14 @@ ALTER TABLE ONLY public.rownowazniki
 
 ALTER TABLE ONLY public.systemyutrzymania
     ADD CONSTRAINT fk_rails_04c9896e32 FOREIGN KEY (zwierze_id) REFERENCES public.zwierzeta(id);
+
+
+--
+-- Name: ocenymagnez fk_rails_086518925e; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenymagnez
+    ADD CONSTRAINT fk_rails_086518925e FOREIGN KEY (kategoria_id) REFERENCES public.kategorie(id);
 
 
 --
@@ -7494,6 +8475,14 @@ ALTER TABLE ONLY public.nawozynaturalne
 
 
 --
+-- Name: dawkicao fk_rails_2a502c3ed7; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.dawkicao
+    ADD CONSTRAINT fk_rails_2a502c3ed7 FOREIGN KEY (kategoria_id) REFERENCES public.kategorie(id);
+
+
+--
 -- Name: uzytki fk_rails_2d4c500488; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -7518,6 +8507,14 @@ ALTER TABLE ONLY public.animals
 
 
 --
+-- Name: dawkicao fk_rails_3d35487f3a; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.dawkicao
+    ADD CONSTRAINT fk_rails_3d35487f3a FOREIGN KEY (grunt_id) REFERENCES public.grunty(id);
+
+
+--
 -- Name: nawozywykorzystane fk_rails_44a448233b; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -7534,6 +8531,14 @@ ALTER TABLE ONLY public.uzytki
 
 
 --
+-- Name: uzytki fk_rails_4b8ac7a14c; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.uzytki
+    ADD CONSTRAINT fk_rails_4b8ac7a14c FOREIGN KEY (grunt_id) REFERENCES public.grunty(id);
+
+
+--
 -- Name: uzytki fk_rails_4d71ab2730; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
@@ -7542,11 +8547,27 @@ ALTER TABLE ONLY public.uzytki
 
 
 --
+-- Name: ocenapota fk_rails_51db74d716; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenapota
+    ADD CONSTRAINT fk_rails_51db74d716 FOREIGN KEY (ocena_id) REFERENCES public.oceny(id);
+
+
+--
 -- Name: uzytki fk_rails_5895ee3d38; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
 ALTER TABLE ONLY public.uzytki
     ADD CONSTRAINT fk_rails_5895ee3d38 FOREIGN KEY (bobowata_id) REFERENCES public.bobowate(id);
+
+
+--
+-- Name: ocenymagnez fk_rails_59c54d9162; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenymagnez
+    ADD CONSTRAINT fk_rails_59c54d9162 FOREIGN KEY (ocena_id) REFERENCES public.oceny(id);
 
 
 --
@@ -7603,6 +8624,14 @@ ALTER TABLE ONLY public.systemyutrzymania
 
 ALTER TABLE ONLY public.uzytki
     ADD CONSTRAINT fk_rails_9596f3b869 FOREIGN KEY (instytucja_id) REFERENCES public.instytucje(id);
+
+
+--
+-- Name: ocenapota fk_rails_997afb3d0a; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenapota
+    ADD CONSTRAINT fk_rails_997afb3d0a FOREIGN KEY (kategoria_id) REFERENCES public.kategorie(id);
 
 
 --
@@ -7678,11 +8707,35 @@ ALTER TABLE ONLY public.rolnicy
 
 
 --
+-- Name: dawkicao fk_rails_c15ff1e82c; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.dawkicao
+    ADD CONSTRAINT fk_rails_c15ff1e82c FOREIGN KEY (potrzeba_id) REFERENCES public.potrzeby(id);
+
+
+--
 -- Name: animals fk_rails_c1fdb8206f; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
 ALTER TABLE ONLY public.animals
     ADD CONSTRAINT fk_rails_c1fdb8206f FOREIGN KEY (animalgroup_id) REFERENCES public.animalgroups(id);
+
+
+--
+-- Name: ocenypotas fk_rails_c2467a93f1; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenypotas
+    ADD CONSTRAINT fk_rails_c2467a93f1 FOREIGN KEY (kategoria_id) REFERENCES public.kategorie(id);
+
+
+--
+-- Name: ocenyfosfor fk_rails_c678e79167; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenyfosfor
+    ADD CONSTRAINT fk_rails_c678e79167 FOREIGN KEY (ocena_id) REFERENCES public.oceny(id);
 
 
 --
@@ -7715,6 +8768,14 @@ ALTER TABLE ONLY public.zlecenia
 
 ALTER TABLE ONLY public.nawozynaturalne
     ADD CONSTRAINT fk_rails_d0128638d1 FOREIGN KEY (sezon_id) REFERENCES public.sezony(id);
+
+
+--
+-- Name: ocenypotas fk_rails_d1e0486ace; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenypotas
+    ADD CONSTRAINT fk_rails_d1e0486ace FOREIGN KEY (ocena_id) REFERENCES public.oceny(id);
 
 
 --
@@ -7758,11 +8819,27 @@ ALTER TABLE ONLY public.instytucje
 
 
 --
+-- Name: ocenyfosfor fk_rails_e137bee374; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.ocenyfosfor
+    ADD CONSTRAINT fk_rails_e137bee374 FOREIGN KEY (kategoria_id) REFERENCES public.kategorie(id);
+
+
+--
 -- Name: powiaty fk_rails_f0fb31c780; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
 --
 
 ALTER TABLE ONLY public.powiaty
     ADD CONSTRAINT fk_rails_f0fb31c780 FOREIGN KEY (wojewodztwo_id) REFERENCES public.wojewodztwa(id);
+
+
+--
+-- Name: uzytki fk_rails_f3a07a04f8; Type: FK CONSTRAINT; Schema: public; Owner: azotanowy_pl
+--
+
+ALTER TABLE ONLY public.uzytki
+    ADD CONSTRAINT fk_rails_f3a07a04f8 FOREIGN KEY (wspwykorzystania_id) REFERENCES public.wspiwykorzystania(id);
 
 
 --
