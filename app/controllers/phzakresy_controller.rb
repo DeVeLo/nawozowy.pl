@@ -1,0 +1,2 @@
+class PhzakresyController < ApplicationController
+end

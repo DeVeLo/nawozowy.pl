@@ -1,0 +1,26 @@
+;ocena_id;kategoria_id;;powyzej;ponizej
+Bardzo niska;1;1;< 2,5;-100;2.5
+Niska;2;1;2,6÷7,5;2.5;7.5
+Średnia;3;1; 7,6÷12,5;7.5;12.5
+Wysoka;4;1;12,6÷17,5;12.5;17.5
+Bardzo wysoka;5;1;> 17,6;17.5;2000
+Bardzo niska;1;2;< 5,0;-100;5
+Niska;2;2; 5,1÷10,0;5;10
+Średnia;3;2;10,1÷15,0;10;15
+Wysoka;4;2;15,1÷20,0;15;20
+Bardzo wysoka;5;2;> 20,1;20;2000
+Bardzo niska;1;3;< 7,5;-100;7.5
+Niska;2;3; 7,6÷12,5;7.5;12.5
+Średnia;3;3;12,6÷20,0;12.5;20
+Wysoka;4;3;20,1÷25,0;20;25
+Bardzo wysoka;5;3;> 25,1;25;2000
+Bardzo niska;1;4;< 10,0;-100;10
+Niska;2;4;10,1÷15,0;10;15
+Średnia;3;4;15,1÷25,0;15;25
+Wysoka;4;4;25,1÷30,0;25;30
+Bardzo wysoka;5;4;> 30,1;30;2000
+Bardzo niska;1;5;<30;-100;30
+Niska;2;5;31-60;30;60
+Średnia;3;5;61-90;60;90
+Wysoka;4;5;91-120;90;120
+Bardzo wysoka;5;5;>120,1;120;2000

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  wsp_fosfor_i_rok: 9.99
+  wsp_potas_i_rok: 9.99
+  wsp_magnez_i_rok: 9.99
+  wsp_fosfor_ii_rok: 9.99
+  wsp_potas_ii_rok: 9.99
+  wsp_magnez_ii_rok: 9.99
+
+two:
+  name: MyString
+  wsp_fosfor_i_rok: 9.99
+  wsp_potas_i_rok: 9.99
+  wsp_magnez_i_rok: 9.99
+  wsp_fosfor_ii_rok: 9.99
+  wsp_potas_ii_rok: 9.99
+  wsp_magnez_ii_rok: 9.99

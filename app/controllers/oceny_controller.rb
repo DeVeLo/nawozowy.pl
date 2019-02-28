@@ -1,0 +1,2 @@
+class OcenyController < ApplicationController
+end

@@ -1,6 +1,7 @@
 # coding: utf-8
 Rails.application.routes.draw do
 
+  resources :wspiwykorzystania
   resources :nawozywykorzystane
   resources :animalgroups
   resources :roslinaprzedplony
@@ -80,5 +81,6 @@ Rails.application.routes.draw do
   end
   
   resources :kategorie, only: [:index]
+  resources :grunty, only: [:index]
   
 end

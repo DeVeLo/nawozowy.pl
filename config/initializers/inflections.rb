@@ -43,4 +43,13 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'roslinaprzedplon', 'roslinaprzedplony'
   inflect.irregular 'nawoznaturalny', 'nawozynaturalne'
   inflect.irregular 'nawozwykorzystany', 'nawozywykorzystane'
+  inflect.irregular 'phzakres', 'phzakresy'
+  inflect.irregular 'wapnowanie', 'wapnowania'
+  inflect.irregular 'potrzeba', 'potrzeby'
+  inflect.irregular 'dawkacao', 'dawkicao'
+  inflect.irregular 'ocena', 'oceny'
+  inflect.irregular 'ocenafosfor', 'ocenyfosfor'
+  inflect.irregular 'ocenapotas', 'ocenypotas'
+  inflect.irregular 'ocenamagnez', 'ocenymagnez'
+  inflect.irregular 'wspwykorzystania', 'wspiwykorzystania'
 end

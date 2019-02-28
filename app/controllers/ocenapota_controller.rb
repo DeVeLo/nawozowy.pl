@@ -1,0 +1,2 @@
+class OcenapotaController < ApplicationController
+end

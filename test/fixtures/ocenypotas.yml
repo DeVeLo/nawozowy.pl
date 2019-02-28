@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ocena: one
+  kategoria: one
+  powyzej: 9.99
+  ponizej: 9.99
+
+two:
+  ocena: two
+  kategoria: two
+  powyzej: 9.99
+  ponizej: 9.99

@@ -1,0 +1,2 @@
+class DawkicaoController < ApplicationController
+end

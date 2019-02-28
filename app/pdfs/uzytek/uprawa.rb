@@ -43,10 +43,14 @@ class Uzytek::Uprawa
     lp = 0
     @uzytek.nawozywykorzystane.each do |nw|
       lp = lp + 1
-      @o.text ++lp.to_s + ') ' + nw.animal.name + ' - ' + nw.animal.nazwautrzymania.name + ' - ' + nw.ilosc_na_pole.round(1).to_s + ' t/pole - ' + nw.nawoznaturalny.sezon.name
+      @o.text ++lp.to_s + ') ' + nw.animal.nazwautrzymania.name + ' - ' + nw.animal.name + ' - ' + nw.ilosc_na_pole.round(0).to_i.to_s + ' t/pole - ' + nw.nawoznaturalny.sezon.name
       #zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa * nw.animal.getrownowaznik(nw.nawoznaturalny.sezon_id))
     end
 
+    @o.move_down 15.pt
+    
+	 @o.text 'Ilość azotu działającego z nawozu naturalnego + z pozostałych źródeł ' + @uzytek.zanimalsami.round(0).to_i.to_s + ' kg N/ha'
+    
     
   end
 
@@ -54,9 +58,9 @@ class Uzytek::Uprawa
   def podsumowanie
     [
       [
-        { content: 'Nawożenie azotem (kg N/ha/rok): <b>' + @uzytek.azot_w_nawozie.round(1).to_s + "</b> " +
-          "(z nawozów mineralnych " + @uzytek.azot_mineralny_ha_w_nawozie.round(2).to_s + ", z nawozów nat. i organicznych " +
-          @uzytek.azot_naturalny_ha.round(2).to_s + ")", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width/3*2 },
+        { content: 'Nawożenie azotem (kg N/ha/rok): <b>' + @uzytek.azot.round(0).to_i.to_s + "</b> " +
+          "(z nawozów mineralnych " + @uzytek.azot_mineralny_ha_w_nawozie.round(0).to_i.to_s + ", z nawozów nat. i organicznych " +
+          @uzytek.nawoznaturalny.round(0).to_i.to_s + ")", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width/3*2 },
         { content: 'saldo N: <b>' + @uzytek.saldo_n.round(1).to_s + '</b> ha', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width/3, inline_format: true }
       ]
     ]
@@ -304,7 +308,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '<strikethrough>P2O5</strikethrough>',
+          content: '<strikethrough>P<sub>2</sub>O<sub>5</sub></strikethrough>',
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -313,7 +317,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '<strikethrough>K2O</strikethrough>',
+          content: '<strikethrough>K<sub>2</sub>O</strikethrough>',
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -322,7 +326,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '<strikethrough>MgO</strikethrough>',
+          content: mg_naglowek,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -331,7 +335,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '<strikethrough>CaO</strikethrough>',
+          content: cao_naglowek,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -343,6 +347,54 @@ class Uzytek::Uprawa
     ]
   end
 
+  def mg_naglowek
+    unless @uzytek.mg_wynik_ha.nil?
+      'MgO'
+    else
+      '<strikethrough>MgO</strikethrough>'
+    end
+  end
+  
+  def mg_ha
+    unless @uzytek.mg_wynik_ha.nil?
+      @uzytek.mg_wynik_ha.round(1).to_s
+    else
+      '-'
+    end
+  end
+
+  def mg_pole
+    unless @uzytek.mg_wynik_ha.nil?
+      @uzytek.mg_wynik_pole.round(1).to_s
+    else
+      '-'
+    end
+  end
+  
+  def cao_naglowek
+    unless @uzytek.cao.nil?
+      'CaO'
+    else
+      '<strikethrough>CaO</strikethrough>'
+    end
+  end
+  
+  def cao_ha
+    unless @uzytek.cao.nil?
+      @uzytek.cao_ha.round(1).to_s
+    else
+      '-'
+    end
+  end
+
+  def cao_pole
+    unless @uzytek.cao.nil?
+      @uzytek.cao_pole.round(1).to_s
+    else
+      '-'
+    end
+  end
+  
   def naglowek_pierwiastki_jednostki
     [
       [
@@ -428,7 +480,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: mg_ha,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -437,7 +489,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: cao_ha,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -480,7 +532,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: mg_pole,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -489,7 +541,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: cao_pole,
           align: :center,
           size: 8.pt,
           padding: 1.mm,

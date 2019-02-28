@@ -1,0 +1,2 @@
+class OcenyfosforController < ApplicationController
+end

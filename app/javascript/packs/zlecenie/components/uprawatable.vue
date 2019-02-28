@@ -38,6 +38,7 @@
 			 <b-button
 				class="mt-1"
 				size="sm"
+				target="_blank"
 				:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki/' + row.item.id + '.pdf'"
 				variant="warning">
 				PDF

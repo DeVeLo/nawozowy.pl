@@ -50,8 +50,33 @@
 						  v-model="uzytek.kategoria_id"></b-form-select>
 					 </b-form-group>
 				  </b-col>
+
+				  <b-col v-if="uzytek.kategoria_id < 5">
+					 <b-form-group
+						label="węglanowa"
+						label-for="weglanowa">
+						<b-form-select
+						  id="weglanowa"
+						  :options="weglanowe"
+						  v-model="uzytek.weglanowa"></b-form-select>
+					 </b-form-group>
+				  </b-col>
+				</b-form-row>
+
+				<b-form-row>
+				  <b-col>
+					 <b-form-group
+						label="rodzaj gruntu"
+						label-for="grunt">
+						<b-form-select
+						  required
+						  id="grunt"
+						  :options="grunty"
+						  v-model="uzytek.grunt_id"></b-form-select>
+					 </b-form-group>
+				  </b-col>
 				  
-				  <b-col cols="3">
+				  <b-col>
 					 <b-form-group
 						label="powierzchnia ha"
 						label-for="powierzchnia">
@@ -62,6 +87,54 @@
 						  :formatter="formatter_decimal"></b-form-input>
 					 </b-form-group>
 				  </b-col>
+				</b-form-row>
+
+				<b-form-row>
+
+				  <b-col>
+					 <b-form-group
+						label="Ph"
+						label-for="ph">
+						<b-form-input
+						  id="ph"
+						  v-model="uzytek.ph"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="P<sub>2</sub>O<sub>5</sub>"
+						label-for="fosfor">
+						<b-form-input
+						  id="fosfor"
+						  v-model="uzytek.fosfor"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="K<sub>2</sub>O"
+						label-for="potas">
+						<b-form-input
+						  id="potas"
+						  v-model="uzytek.potas"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="MgO"
+						label-for="magnez">
+						<b-form-input
+						  id="magnez"
+						  v-model="uzytek.magnez"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+				  
 				</b-form-row>
 				
 				<b-form-row>
@@ -120,7 +193,43 @@
 						  :formatter="formatter_decimal"></b-form-input>
 					 </b-form-group>
 				  </b-col>
-				  
+
+				  <b-col>
+					 <b-form-group
+						label="przedplon kg P<sub>2</sub>O<sub>5</sub>/ha"
+						label-for="przedplonfosfor">
+						<b-form-input
+						  id="przedplonfosfor"
+						  v-model="uzytek.przedplonfosfor"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="przedplon kg K<sub>2</sub>O/ha"
+						label-for="przedplonpotas">
+						<b-form-input
+						  id="przedplonpotas"
+						  v-model="uzytek.przedplonpotas"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="wspwykorzystania"
+						label-for="wspwykorzystania">
+						<b-form-select
+						  id="wspwykorzystania"
+						  :options="wspiwykorzystania"
+						  v-model="uzytek.wspwykorzystania_id"></b-form-select>
+					 </b-form-group>
+				  </b-col>
+				</b-form-row>
+				
+				<b-form-row>
+
 				  <b-col>
 					 <b-form-group
 						label="przedplon"
@@ -132,9 +241,7 @@
 						  v-model="uzytek.roslinaprzedplon_id"></b-form-select>
 					 </b-form-group>
 				  </b-col>
-				</b-form-row>
-				
-				<b-form-row>
+
 				  <b-col>
 					 <b-form-group
 						label="ilość azotu działającego pozostałego po uprawie roślin bobowatych"
@@ -146,6 +253,7 @@
 						  v-model="uzytek.bobowata_id"></b-form-select>
 					 </b-form-group>
 				  </b-col>
+
 				</b-form-row>
 				
 				<b-form-row>
@@ -219,8 +327,10 @@ export default {
 				reaction: false,
 				tabIndex: 0,
 				rodzajeuprawy: [],
+				wspiwykorzystania: [],
 				rosliny: [],
 				kategorie: [],
+				grunty: [],
 				bobowate: [],
 				roslinaprzedplony: [],
 				gon: gon,
@@ -231,6 +341,10 @@ export default {
 				nminsezonoptions: [
 					 { text: 'wiosną', value: false },
 					 { text: 'jesienią', value: true },
+				],
+				weglanowe: [
+					 { text: 'nie', value: false },
+					 { text: 'tak', value: true },
 				],
 		  }
 	 },
@@ -274,6 +388,7 @@ export default {
 					 bobowata_id: 1,
 					 nminsezon: false,
 					 roslinaprzedplon_id: 1,
+					 grunt_id: 1,
 				}
 		  },
 		  save(reaction) {
@@ -348,6 +463,16 @@ export default {
 					 .then((result) => { this.kategorie = result.body })
 					 .catch((error) => { console.log(error) })
 		  },
+		  pobierzWspwykorzystania() {
+				this.$http.get('/wspiwykorzystania.json')
+					 .then((result) => { this.wspiwykorzystania = result.body })
+					 .catch((error) => { console.log(error) })
+		  },
+		  pobierzGrunty() {
+				this.$http.get('/grunty.json')
+					 .then((result) => { this.grunty = result.body })
+					 .catch((error) => { console.log(error) })
+		  },
 		  pobierzBobowate() {
 				this.$http.get('/bobowate.json')
 					 .then((result) => { this.bobowate = result.body })
@@ -379,8 +504,10 @@ export default {
 	 created() {
 		  this.pobierzRodzajeupraw()
 		  this.pobierzKategorie()
+		  this.pobierzGrunty()
 		  this.pobierzBobowate()
 		  this.pobierzRoslinaprzedplony()
+		  this.pobierzWspwykorzystania()
 	 },
 	 mounted() {
 		  this.uprawamodal = this.$refs.uprawamodal

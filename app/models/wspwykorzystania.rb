@@ -1,0 +1,2 @@
+class Wspwykorzystania < ApplicationRecord
+end

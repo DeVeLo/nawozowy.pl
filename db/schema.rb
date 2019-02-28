@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190226091954) do
+ActiveRecord::Schema.define(version: 20190228170834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,20 @@ ActiveRecord::Schema.define(version: 20190226091954) do
     t.decimal  "n"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "dawkicao", force: :cascade do |t|
+    t.integer  "kategoria_id"
+    t.integer  "grunt_id"
+    t.decimal  "od"
+    t.decimal  "do"
+    t.decimal  "dawka"
+    t.integer  "potrzeba_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["grunt_id"], name: "index_dawkicao_on_grunt_id", using: :btree
+    t.index ["kategoria_id"], name: "index_dawkicao_on_kategoria_id", using: :btree
+    t.index ["potrzeba_id"], name: "index_dawkicao_on_potrzeba_id", using: :btree
   end
 
   create_table "gatunki", force: :cascade do |t|
@@ -175,6 +189,68 @@ ActiveRecord::Schema.define(version: 20190226091954) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ocenapota", force: :cascade do |t|
+    t.integer  "ocena_id"
+    t.integer  "kategoria_id"
+    t.decimal  "powyzej"
+    t.decimal  "ponizej"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["kategoria_id"], name: "index_ocenapota_on_kategoria_id", using: :btree
+    t.index ["ocena_id"], name: "index_ocenapota_on_ocena_id", using: :btree
+  end
+
+  create_table "oceny", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.decimal  "wspolczynnik"
+  end
+
+  create_table "ocenyfosfor", force: :cascade do |t|
+    t.integer  "kategoria_id"
+    t.integer  "ocena_id"
+    t.boolean  "weglanowa"
+    t.decimal  "powyzej"
+    t.decimal  "ponizej"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["kategoria_id"], name: "index_ocenyfosfor_on_kategoria_id", using: :btree
+    t.index ["ocena_id"], name: "index_ocenyfosfor_on_ocena_id", using: :btree
+  end
+
+  create_table "ocenymagnez", force: :cascade do |t|
+    t.integer  "ocena_id"
+    t.integer  "kategoria_id"
+    t.decimal  "powyzej"
+    t.decimal  "ponizej"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "rownowaznik"
+    t.index ["kategoria_id"], name: "index_ocenymagnez_on_kategoria_id", using: :btree
+    t.index ["ocena_id"], name: "index_ocenymagnez_on_ocena_id", using: :btree
+  end
+
+  create_table "ocenypotas", force: :cascade do |t|
+    t.integer  "ocena_id"
+    t.integer  "kategoria_id"
+    t.decimal  "powyzej"
+    t.decimal  "ponizej"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["kategoria_id"], name: "index_ocenypotas_on_kategoria_id", using: :btree
+    t.index ["ocena_id"], name: "index_ocenypotas_on_ocena_id", using: :btree
+  end
+
+  create_table "phzakresy", force: :cascade do |t|
+    t.string   "name"
+    t.string   "odczyn"
+    t.decimal  "od"
+    t.decimal  "do"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plynne", force: :cascade do |t|
     t.date     "od"
     t.date     "do"
@@ -183,6 +259,12 @@ ActiveRecord::Schema.define(version: 20190226091954) do
   end
 
   create_table "podstawy", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "potrzeby", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -234,8 +316,17 @@ ActiveRecord::Schema.define(version: 20190226091954) do
   create_table "roslinaprzedplony", force: :cascade do |t|
     t.string   "name"
     t.decimal  "n"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.decimal  "fosfor"
+    t.decimal  "potas"
+    t.decimal  "mnoznik"
+    t.decimal  "wsp_fosfor_i_rok"
+    t.decimal  "wsp_potas_i_rok"
+    t.decimal  "wsp_magnez_i_rok"
+    t.decimal  "wsp_fosfor_ii_rok"
+    t.decimal  "wsp_potas_ii_rok"
+    t.decimal  "wsp_magnez_ii_rok"
   end
 
   create_table "rosliny", force: :cascade do |t|
@@ -245,6 +336,9 @@ ActiveRecord::Schema.define(version: 20190226091954) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.decimal  "wspolczynnik",    default: "0.6"
+    t.decimal  "fosfor"
+    t.decimal  "potas"
+    t.decimal  "magnez"
     t.index ["rodzajuprawy_id"], name: "index_rosliny_on_rodzajuprawy_id", using: :btree
   end
 
@@ -311,14 +405,25 @@ ActiveRecord::Schema.define(version: 20190226091954) do
     t.decimal  "przedplon",           default: "0.0"
     t.integer  "roslinaprzedplon_id", default: 1
     t.integer  "bobowata_id"
+    t.integer  "grunt_id"
+    t.decimal  "ph"
+    t.boolean  "weglanowa",           default: false
+    t.decimal  "fosfor"
+    t.decimal  "potas"
+    t.decimal  "magnez"
+    t.decimal  "przedplonfosfor"
+    t.decimal  "przedplonpotas"
+    t.integer  "wspwykorzystania_id"
     t.index ["bobowata_id"], name: "index_uzytki_on_bobowata_id", using: :btree
     t.index ["bobowate_id"], name: "index_uzytki_on_bobowate_id", using: :btree
+    t.index ["grunt_id"], name: "index_uzytki_on_grunt_id", using: :btree
     t.index ["instytucja_id"], name: "index_uzytki_on_instytucja_id", using: :btree
     t.index ["kategoria_id"], name: "index_uzytki_on_kategoria_id", using: :btree
     t.index ["rodzajuprawy_id"], name: "index_uzytki_on_rodzajuprawy_id", using: :btree
     t.index ["rolnik_id"], name: "index_uzytki_on_rolnik_id", using: :btree
     t.index ["roslina_id"], name: "index_uzytki_on_roslina_id", using: :btree
     t.index ["roslinaprzedplon_id"], name: "index_uzytki_on_roslinaprzedplon_id", using: :btree
+    t.index ["wspwykorzystania_id"], name: "index_uzytki_on_wspwykorzystania_id", using: :btree
     t.index ["zlecenie_id"], name: "index_uzytki_on_zlecenie_id", using: :btree
   end
 
@@ -334,6 +439,18 @@ ActiveRecord::Schema.define(version: 20190226091954) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date     "stanna"
+  end
+
+  create_table "wspiwykorzystania", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "wsp_fosfor_i_rok"
+    t.decimal  "wsp_potas_i_rok"
+    t.decimal  "wsp_magnez_i_rok"
+    t.decimal  "wsp_fosfor_ii_rok"
+    t.decimal  "wsp_potas_ii_rok"
+    t.decimal  "wsp_magnez_ii_rok"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "zlecenia", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -383,6 +500,9 @@ ActiveRecord::Schema.define(version: 20190226091954) do
   add_foreign_key "animals", "systemyutrzymania"
   add_foreign_key "animals", "zlecenia"
   add_foreign_key "animals", "zwierzeta"
+  add_foreign_key "dawkicao", "grunty"
+  add_foreign_key "dawkicao", "kategorie"
+  add_foreign_key "dawkicao", "potrzeby"
   add_foreign_key "gminy", "powiaty"
   add_foreign_key "gminy", "wojewodztwa"
   add_foreign_key "instytucje", "gminy"
@@ -394,6 +514,14 @@ ActiveRecord::Schema.define(version: 20190226091954) do
   add_foreign_key "nawozynaturalne", "uzytki"
   add_foreign_key "nawozywykorzystane", "animals"
   add_foreign_key "nawozywykorzystane", "nawozynaturalne"
+  add_foreign_key "ocenapota", "kategorie"
+  add_foreign_key "ocenapota", "oceny"
+  add_foreign_key "ocenyfosfor", "kategorie"
+  add_foreign_key "ocenyfosfor", "oceny"
+  add_foreign_key "ocenymagnez", "kategorie"
+  add_foreign_key "ocenymagnez", "oceny"
+  add_foreign_key "ocenypotas", "kategorie"
+  add_foreign_key "ocenypotas", "oceny"
   add_foreign_key "powiaty", "wojewodztwa"
   add_foreign_key "rolnicy", "gminy"
   add_foreign_key "rolnicy", "instytucje"
@@ -409,12 +537,14 @@ ActiveRecord::Schema.define(version: 20190226091954) do
   add_foreign_key "systemyutrzymania", "zwierzeta"
   add_foreign_key "uzytki", "bobowate"
   add_foreign_key "uzytki", "bobowate", column: "bobowate_id"
+  add_foreign_key "uzytki", "grunty"
   add_foreign_key "uzytki", "instytucje"
   add_foreign_key "uzytki", "kategorie"
   add_foreign_key "uzytki", "rodzajeupraw"
   add_foreign_key "uzytki", "rolnicy"
   add_foreign_key "uzytki", "roslinaprzedplony"
   add_foreign_key "uzytki", "rosliny"
+  add_foreign_key "uzytki", "wspiwykorzystania"
   add_foreign_key "uzytki", "zlecenia"
   add_foreign_key "zlecenia", "gminy"
   add_foreign_key "zlecenia", "instytucje"

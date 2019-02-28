@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kategoria: one
+  grunt: one
+  od: 9.99
+  do: 9.99
+  dawka: 9.99
+  potrzeba: one
+
+two:
+  kategoria: two
+  grunt: two
+  od: 9.99
+  do: 9.99
+  dawka: 9.99
+  potrzeba: two

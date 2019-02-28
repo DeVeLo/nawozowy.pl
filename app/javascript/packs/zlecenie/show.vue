@@ -39,7 +39,11 @@
 				  <b-tab title="uprawy">
 					 <b-form-row>
 						<b-col class="text-right">
-						  <b-button v-if="uzytki.length > 0" :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki.pdf'" variant="warning">Plany PDF</b-button>
+						  <b-button
+							 v-if="uzytki.length > 0"
+							 target="_blank"
+							 :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki.pdf'"
+							 variant="warning">Plany PDF</b-button>
 						  <b-button @click="createUprawa()">dodaj użytek</b-button>
 						  <uprawaform></uprawaform>
 						  <uprawazrodla></uprawazrodla>

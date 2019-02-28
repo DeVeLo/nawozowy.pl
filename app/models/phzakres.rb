@@ -1,0 +1,2 @@
+class Phzakres < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class Ocena < ApplicationRecord
+end
