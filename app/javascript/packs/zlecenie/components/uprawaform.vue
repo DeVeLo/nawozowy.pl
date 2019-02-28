@@ -232,6 +232,17 @@
 
 				  <b-col>
 					 <b-form-group
+						label="plon rośliny przedplonowej"
+						label-for="plonprzedplonowej">
+						<b-form-input
+						  id="plonprzedplonowej"
+						  v-model="uzytek.plonprzedplonowej"
+						  :formatter="formatter_decimal"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
 						label="przedplon"
 						label-for="roslinaprzedplony">
 						<b-form-select

@@ -8,6 +8,7 @@ class Uzytek < ApplicationRecord
   belongs_to :zlecenie
   belongs_to :rolnik
   belongs_to :grunt
+  belongs_to :wspwykorzystania
   has_many :nawozynaturalne, inverse_of: :uzytek, dependent: :destroy
   has_many :animalgroups
   has_many :animals, through: :animalgroups
@@ -270,6 +271,10 @@ class Uzytek < ApplicationRecord
     Ocenamagnez.where(kategoria_id: self.kategoria_id)
       .where('powyzej < ?', self.magnez)
       .where('ponizej >= ?', self.magnez).first
+  end
+  
+  def wynik_fosfor
+    Uzytek::Fosfor.new(self).wynik
   end
   
 end

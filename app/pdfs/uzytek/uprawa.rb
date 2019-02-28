@@ -462,7 +462,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: @uzytek.wynik_fosfor.round(1).to_s,
           align: :center,
           size: 8.pt,
           padding: 1.mm,

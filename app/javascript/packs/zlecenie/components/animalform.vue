@@ -132,6 +132,36 @@
 		</b-col>
 		
 	 </b-form-row>
+
+	 <b-form-row>
+
+		<b-col>
+		  <b-form-group
+			 :label="'zawartość kg P<sub>2</sub>O<sub>5</sub>/t lub m<sup>3</sup>'"
+			 label-for="fosfor">
+			 <b-form-input
+				id="fosfor"
+				required
+				v-model="animal.fosfor"
+				:formatter="formatter_decimal">
+			 </b-form-input>
+		  </b-form-group>
+		</b-col>
+
+		<b-col>
+		  <b-form-group
+			 :label="'zawartość kg K<sub>2</sub>O/t m<sup>3</sup>'"
+			 label-for="potas">
+			 <b-form-input
+				id="potas"
+				required
+				v-model="animal.potas"
+				:formatter="formatter_decimal">
+			 </b-form-input>
+		  </b-form-group>
+		</b-col>
+
+	 </b-form-row>
 	 
 	 <div slot="modal-footer" class="w-100 text-center">
 		<hr />

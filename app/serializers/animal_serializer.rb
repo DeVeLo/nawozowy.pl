@@ -3,7 +3,7 @@ class AnimalSerializer < ActiveModel::Serializer
              :nazwautrzymania_id, :systemutrzymania_id, :sztuk, :nazwautrzymania,
              :gatunek_id, :produkt, :azot, :specjalnezywienie, :badania, :zawartosc,
              :zawartosc_wynikowa, :rownowaznik_id, :pozostalynawoz, :pozostalyazot,
-             :animalgroup_id
+             :animalgroup_id, :potas, :fosfor, :magnez, :wapn
 
   belongs_to :zlecenie
   belongs_to :zwierze

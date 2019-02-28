@@ -67,6 +67,7 @@ class AnimalsController < ApplicationController
   def animal_params
     params.require(:animal).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :zwierze_id,
                                    :nazwautrzymania_id, :systemutrzymania_id, :sztuk, :specjalnezywienie,
-                                   :badania, :zawartosc, :rownowaznik_id, :animalgroup_id)
+                                   :badania, :zawartosc, :rownowaznik_id, :animalgroup_id,
+                                   :fosfor, :potas, :magnez, :wapn)
   end
 end

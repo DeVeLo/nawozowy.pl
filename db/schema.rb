@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190228170834) do
+ActiveRecord::Schema.define(version: 20190228212542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,10 @@ ActiveRecord::Schema.define(version: 20190228170834) do
     t.decimal  "zawartosc"
     t.integer  "rownowaznik_id"
     t.uuid     "animalgroup_id"
+    t.decimal  "fosfor"
+    t.decimal  "potas"
+    t.decimal  "magnez"
+    t.decimal  "wapn"
     t.index ["animalgroup_id"], name: "index_animals_on_animalgroup_id", using: :btree
     t.index ["instytucja_id"], name: "index_animals_on_instytucja_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_animals_on_nazwautrzymania_id", using: :btree
@@ -185,8 +189,10 @@ ActiveRecord::Schema.define(version: 20190228170834) do
 
   create_table "nazwyutrzymania", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "wspwykorzystania_id"
+    t.index ["wspwykorzystania_id"], name: "index_nazwyutrzymania_on_wspwykorzystania_id", using: :btree
   end
 
   create_table "ocenapota", force: :cascade do |t|
@@ -414,6 +420,7 @@ ActiveRecord::Schema.define(version: 20190228170834) do
     t.decimal  "przedplonfosfor"
     t.decimal  "przedplonpotas"
     t.integer  "wspwykorzystania_id"
+    t.decimal  "plonprzedplonowej"
     t.index ["bobowata_id"], name: "index_uzytki_on_bobowata_id", using: :btree
     t.index ["bobowate_id"], name: "index_uzytki_on_bobowate_id", using: :btree
     t.index ["grunt_id"], name: "index_uzytki_on_grunt_id", using: :btree
@@ -514,6 +521,7 @@ ActiveRecord::Schema.define(version: 20190228170834) do
   add_foreign_key "nawozynaturalne", "uzytki"
   add_foreign_key "nawozywykorzystane", "animals"
   add_foreign_key "nawozywykorzystane", "nawozynaturalne"
+  add_foreign_key "nazwyutrzymania", "wspiwykorzystania"
   add_foreign_key "ocenapota", "kategorie"
   add_foreign_key "ocenapota", "oceny"
   add_foreign_key "ocenyfosfor", "kategorie"
