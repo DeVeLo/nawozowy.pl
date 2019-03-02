@@ -26,6 +26,20 @@
 				</b-form-row>
 
 				<b-form-row>
+
+				  <b-col cols="1">
+					 <b-form-group
+						label="n.p."
+						label-for="lp">
+						<b-form-input
+						  type="number"
+						  ref="uzytek_lp"
+						  id="lp"
+						  v-model="uzytek.lp">
+						</b-form-input>
+					 </b-form-group>
+				  </b-col>
+				  
 				  <b-col>
 					 <b-form-group
 						label="oznaczenie uprawy"

@@ -84,7 +84,7 @@ class UzytkiController < ApplicationController
       :plon, :powierzchnia, :nminsezon, :przedplon,
       :roslinaprzedplon_id, :grunt_id, :ph, :weglanowa,
       :fosfor, :potas, :magnez, :przedplonfosfor, :przedplonpotas,
-      :wspwykorzystania_id, :plonprzedplonowej,
+      :wspwykorzystania_id, :plonprzedplonowej, :lp,
       nawozynaturalne_attributes: [
         :id, :uzytek_id, :produkcja, :ilosc, :n, :animalgroup_id, :sezon_id, :_destroy
       ]

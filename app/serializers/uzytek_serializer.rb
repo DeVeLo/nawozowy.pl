@@ -9,7 +9,8 @@ class UzytekSerializer < ActiveModel::Serializer
              :azot_mineralny_ha, :kategoria, :azot_naturalny_ha, :saldo_n, :azot_mineralny_ha_w_nawozie,
              :azot_mineralny_pole, :azot_naturalny_pole, :azot_pole, :nawoznaturalnyzastosowany, :grunt_id,
              :ph, :azot_w_nawozie, :cao, :cao_ha, :cao_pole, :weglanowa, :fosfor, :potas, :magnez,
-             :przedplonfosfor, :przedplonpotas, :wspwykorzystania_id, :plonprzedplonowej, :wynik_fosfor
+             :przedplonfosfor, :przedplonpotas, :wspwykorzystania_id, :plonprzedplonowej, :wynik_fosfor, :wynik_potas,
+             :lp
 
   def nawozynaturalne_attributes
     nawozy = []

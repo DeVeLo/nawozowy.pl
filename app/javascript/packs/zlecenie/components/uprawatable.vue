@@ -87,6 +87,7 @@ export default {
 		  return {
 				gon: gon,
 				naglowki: [
+					 { key: 'lp', label: 'n.p.', sortable: true },
 					 { key: 'name', label: 'oznaczenie' },
 					 { key: 'roslina', label: 'roślina' },
 					 { key: 'powierzchnia', label: 'powierzchnia' },

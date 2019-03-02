@@ -308,7 +308,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '<strikethrough>P<sub>2</sub>O<sub>5</sub></strikethrough>',
+          content: fosfor_naglowek,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -317,7 +317,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '<strikethrough>K<sub>2</sub>O</strikethrough>',
+          content: potas_naglowek,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -345,6 +345,22 @@ class Uzytek::Uprawa
         },
       ]
     ]
+  end
+
+  def fosfor_naglowek
+    unless @uzytek.wynik_fosfor.nil?
+      'P<sub>2</sub>O<sub>5</sub>'
+    else
+      '<strikethrough>P<sub>2</sub>O<sub>5</sub></strikethrough>'
+    end
+  end
+
+  def potas_naglowek
+    unless @uzytek.wynik_potas.nil?
+      'K<sub>2</sub>O'
+    else
+      '<strikethrough>K<sub>2</sub>O</strikethrough>'
+    end
   end
 
   def mg_naglowek
@@ -376,6 +392,38 @@ class Uzytek::Uprawa
       'CaO'
     else
       '<strikethrough>CaO</strikethrough>'
+    end
+  end
+
+  def fosfor_wynik_ha
+    unless @uzytek.wynik_fosfor.nil?
+      @uzytek.wynik_fosfor.round(1).to_s
+    else
+      '-'
+    end
+  end
+
+  def potas_wynik_ha
+    unless @uzytek.wynik_potas.nil?
+      @uzytek.wynik_potas.round(1).to_s
+    else
+      '-'
+    end
+  end
+
+  def fosfor_wynik_pole
+    unless @uzytek.wynik_fosfor.nil?
+      (@uzytek.wynik_fosfor * @uzytek.powierzchnia).round(1).to_s
+    else
+      '-'
+    end
+  end
+
+  def potas_wynik_pole
+    unless @uzytek.wynik_potas.nil?
+      (@uzytek.wynik_potas * @uzytek.powierzchnia).round(1).to_s
+    else
+      '-'
     end
   end
   
@@ -462,7 +510,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: @uzytek.wynik_fosfor.round(1).to_s,
+          content: fosfor_wynik_ha,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -471,7 +519,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: potas_wynik_ha,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -514,7 +562,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: fosfor_wynik_pole,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
@@ -523,7 +571,7 @@ class Uzytek::Uprawa
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: '',
+          content: potas_wynik_pole,
           align: :center,
           size: 8.pt,
           padding: 1.mm,

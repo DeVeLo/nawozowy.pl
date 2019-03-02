@@ -1,5 +1,5 @@
 # coding: utf-8
-class Uzytek::Fosfor
+class Uzytek::Potas
 
   def initialize(uzytek)
 
@@ -8,14 +8,13 @@ class Uzytek::Fosfor
   end
 
   # 1) wyznaczamy współczynnik na podstawie
-  #    wyników badań P2O5, kategorii agronomicznej
-  #    oraz oznaczenia gleby - czy węglanowa czy nie
+  #    wyników badań K2O, kategorii agronomicznej
+  #    oraz oznaczenia gleby
   def wspolczynnik
-    r = Ocenafosfor.where(
-      kategoria_id: @u.kategoria_id,
-      weglanowa: @u.weglanowa)
-      .where('powyzej < ?', @u.fosfor)
-      .where('ponizej >= ?', @u.fosfor).first
+    r = Ocenapotas.where(
+      kategoria_id: @u.kategoria_id)
+      .where('powyzej < ?', @u.potas)
+      .where('ponizej >= ?', @u.potas).first
     
     if r.nil?
       nil
@@ -26,7 +25,7 @@ class Uzytek::Fosfor
 
   # 2) określamy pobranie rośliny
   def pobranie
-    @u.roslina.fosfor
+    @u.roslina.potas
   end
 
   # 3) określamy potrzeby pokarmowe rośliny
@@ -50,37 +49,37 @@ class Uzytek::Fosfor
     end
   end
 
-  # 5) ustalamy resztki pożniwne fosforu na podstawie
+  # 5) ustalamy resztki pożniwne potasu na podstawie
   #    plonu głównego rosliny przedplonowej, zawartości
   #    i mnożnika
   def resztki
     if @u.plonprzedplonowej.nil?
       0
     else
-      @u.plonprzedplonowej * @u.roslinaprzedplon.fosfor * @u.roslinaprzedplon.mnoznik
+      @u.plonprzedplonowej * @u.roslinaprzedplon.potas * @u.roslinaprzedplon.mnoznik
     end
   end
 
   # 6) ustalamy zapas składnika z rośliny przedplonowej
-  #    mnożymy resztki pożniwne fosforu
+  #    mnożymy resztki pożniwne potasu
   #    przez współczynnik ilości składników pokarmowych dostępnych
   #    dla roślin następczych w kg z 1 tony przyoranego produktu ubocznego
   #    wg. T. Jadczyszyn
   def zapas
-    if resztki.nil? or @u.roslinaprzedplon.wsp_fosfor_i_rok.nil?
+    if resztki.nil? or @u.roslinaprzedplon.wsp_potas_i_rok.nil?
       0
     else
-      resztki * @u.roslinaprzedplon.wsp_fosfor_i_rok
+      resztki * @u.roslinaprzedplon.wsp_potas_i_rok
     end
   end
 
   # 7) ustalamy zapasy składnika z nawozu naturalnego
   #    z II roku
   def zapasy_nawoz_ii
-    if @u.przedplonfosfor.nil? or @u.wspwykorzystania_id.nil?
+    if @u.przedplonpotas.nil? or @u.wspwykorzystania_id.nil?
       nil
     else
-      @u.przedplonfosfor * @u.wspwykorzystania.wsp_fosfor_ii_rok
+      @u.przedplonpotas * @u.wspwykorzystania.wsp_potas_ii_rok
     end
   end
 
@@ -90,12 +89,12 @@ class Uzytek::Fosfor
     # określam całkowitą ilość nawozu naturalnego
     suma = @u.nawozywykorzystane.sum(:ilosc)
 
-    fosfor = 0
+    potas = 0
     @u.nawozywykorzystane.each do |nawoz|
       wsp = nawoz.ilosc / suma
-      fosfor += nawoz.ilosc * nawoz.animal.fosfor * wsp * nawoz.animal.systemutrzymania.nazwautrzymania.wspwykorzystania.wsp_fosfor_i_rok
+      potas += nawoz.ilosc * nawoz.animal.potas * wsp * nawoz.animal.systemutrzymania.nazwautrzymania.wspwykorzystania.wsp_potas_i_rok
     end
-    fosfor
+    potas
   end
 
   # 9) dodajemy zapasy i odejmujemy zapotrzebowanie

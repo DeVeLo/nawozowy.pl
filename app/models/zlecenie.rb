@@ -1,3 +1,4 @@
+# coding: utf-8
 class Zlecenie < ApplicationRecord
   belongs_to :instytucja
   belongs_to :rolnik
@@ -10,12 +11,48 @@ class Zlecenie < ApplicationRecord
   has_many :animalgroups, dependent: :destroy
   has_many :animals, dependent: :destroy
   has_many :uzytki, dependent: :destroy
-
-  after_create :set_lp
   
+  # automagiczna numeracja porządkowa
+  after_create :set_lp
+  after_create :set_rejestr
+  
+  # ustal następny nr porządkowy
+  def next_lp
+    z = Rolnik.find(self.rolnik_id).zlecenia.where('lp IS NOT NULL').order(lp: :ASC).last
+
+    if z.nil?
+      1
+    else
+      (z.lp  + 1)
+    end
+  end
+  
+  # ustaw numer porządkowy do nowego zlecenia
   def set_lp
     unless self.lp
-      self.update(lp: self.rolnik.zlecenia.count)
+      self.update(lp: next_lp)
+    end
+  end
+
+  # ustal kolejny numer w rejestrze
+  # maska rejestru:
+  # rejestr/PA lub PP/rok (np. 4/PP/2019)
+  def next_rejestr
+    z = Zlecenie.where('rejestr IS NOT NULL')
+          .where(datawplywu: self.datawplywu.beginning_of_year..self.datawplywu.end_of_year)
+          .order(rejestr: :ASC)
+          .last
+    if z.nil?
+      1
+    else
+      (z.rejestr  + 1)
+    end
+  end
+
+  # ustaw numer rejestru w tym roku
+  def set_rejestr
+    unless self.rejestr
+      self.update(rejestr: next_rejestr)
     end
   end
 end

@@ -16,6 +16,26 @@ class Uzytek < ApplicationRecord
 
   accepts_nested_attributes_for :nawozynaturalne, allow_destroy: true
 
+  # automagiczna numeracja porządkowa
+  after_create :set_lp
+  
+  # ustal następny nr porządkowy
+  def next_lp
+    u = Zlecenie.find(self.zlecenie_id).uzytki.where('lp IS NOT NULL').order(lp: :ASC).last
+    if u.lp.nil?
+      1
+    else
+      (u.lp  + 1)
+    end
+  end
+  
+  # ustaw numer porządkowy do nowego użytku
+  def set_lp
+    unless self.lp
+      self.update(lp: next_lp)
+    end
+  end
+  
   # jeśli gleba organiczna (id == 5)
   # ustaw węglanową na false
   before_save :set_weglanowa
@@ -276,5 +296,9 @@ class Uzytek < ApplicationRecord
   def wynik_fosfor
     Uzytek::Fosfor.new(self).wynik
   end
-  
+
+  def wynik_potas
+    Uzytek::Potas.new(self).wynik
+  end
+
 end

@@ -70,7 +70,8 @@ class ZleceniaController < ApplicationController
   def zlecenie_params
     params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id,
                                      :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc,
-                                     :powierzchnia, :podstawa_id, :podstawainna, :datawplywu, :lp)
+                                     :powierzchnia, :podstawa_id, :podstawainna, :datawplywu, :lp,
+                                     :rejestr, :typ)
   end
   
   def set_zlecenie
