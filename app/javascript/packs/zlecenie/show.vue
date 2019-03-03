@@ -21,14 +21,16 @@
 				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia'">lista zleceń</b-button>
 				<b-button @click="modalForm.show()">edytuj</b-button>
 				
-			 <cform></cform>
 		  </b-col>
 		</b-row>
 		<b-row>
 		  <b-col>
+
+			 <cform></cform>
+
 			 <b-card no-body>
 				<b-tabs card>
-				  <b-tab title="źródła nawozów naturalnych" active>
+				  <b-tab title="nawozy naturalne" active>
 					 <b-form-row>
 						<b-col class="text-right m-0 p-0">
 						  <b-button @click="createAnimalgroup()">dodaj grupę</b-button>
