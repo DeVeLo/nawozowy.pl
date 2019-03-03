@@ -9,7 +9,8 @@
   header-text-variant="light"
   hide-footer
   @shown="focus"
-  @hidden="reset">
+  @hidden="reset"
+  class="text-left">
   <b-form @submit="save" @reset="reset">
 	 <b-form-row>
 		<input type="hidden" id="id" v-model="animal.id"></input>
@@ -21,148 +22,259 @@
 		
 	 </b-form-row>
 
-	 <b-form-row>
-		<b-col cols="2">
-		  <b-form-group
-			 label="ilość sztuk"
-			 label-for="sztuk">
-			 <b-form-input
-				required
-				ref="animal_sztuk"
-				id="sztuk"
-				:formatter="formatter_decimal"
-				v-model="animal.sztuk"></b-form-input>
-		  </b-form-group>
-		</b-col>
+	 <b-card
+		bg-variant="light">
+		<b-form-row>
+		  <b-col>
+			 <b-form-group
+				label="Źródło Nawozu Naturalnego"
+				label-class="font-weight-bold">
+
+				<b-form-row>
+				  <b-col cols="3">
+					 <b-form-group
+						label="pochodzenie"
+						label-for="zrodlo"
+						label-size="sm"
+						description="produkcja / zakup">
+						<b-form-select
+						  required
+						  size="sm"
+						  id="zrodlo"
+						  :options="zrodla"
+						  v-model="animal.zrodlo"></b-form-select>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col cols="2">
+					 <b-form-group
+						label="ilość"
+						label-for="sztuk"
+						label-size="sm"
+						description="ilość sztuk">
+						<b-form-input
+						  required
+						  size="sm"
+						  ref="animal_sztuk"
+						  id="sztuk"
+						  :formatter="formatter_decimal"
+						  v-model="animal.sztuk"></b-form-input>
+					 </b-form-group>
+				  </b-col>
 		
-		<b-col>
-		  <b-form-group
-			 label="gatunek"
-			 label-for="gatunek">
-			 <b-form-select
-				required
-				id="gatunek"
-				@input="pobierz_zwierzeta()"
-				:options="gatunki"
-				v-model="animal.gatunek_id"></b-form-select>
-		  </b-form-group>
-		</b-col>
+				  <b-col>
+					 <b-form-group
+						label="gatunek"
+						label-for="gatunek"
+						label-size="sm"
+						description="gatunek zwierzęcia">
+						<b-form-select
+						  required
+						  size="sm"
+						  id="gatunek"
+						  @input="pobierz_zwierzeta()"
+						  :options="gatunki"
+						  v-model="animal.gatunek_id"></b-form-select>
+					 </b-form-group>
+				  </b-col>
+				  
+				</b-form-row>
+				
+				<b-form-row>
 
-		<b-col v-show="animal.gatunek_id">
-		  <b-form-group
-			 label="zwierzęta"
-			 label-for="zwierzeta">
-			 <b-form-select
-				required
-				id="zwierzeta"
-				@input="pobierz_nazwyutrzymania()"
-				:options="zwierzeta"
-				v-model="animal.zwierze_id"></b-form-select>
-		  </b-form-group>
-		</b-col>
+				  <b-col v-show="animal.gatunek_id">
+					 <b-form-group
+						label="zwierzęta"
+						label-for="zwierzeta"
+						description="wybierz zwierzę"
+						label-size="sm">
+						<b-form-select
+						  required
+						  size="sm"
+						  id="zwierzeta"
+						  @input="pobierz_nazwyutrzymania()"
+						  :options="zwierzeta"
+						  v-model="animal.zwierze_id"></b-form-select>
+					 </b-form-group>
+				  </b-col>
+				  
+				  <b-col v-show="animal.zwierze_id">
+					 <b-form-group
+						label="system utrzymania"
+						label-for="nazwyutrzymania"
+						label-size="sm"
+						description="wybierz system utrzymania i rodzaj nawozu">
+						<b-form-select
+						  required
+						  size="sm"
+						  id="nazwyutrzymania"
+						  :options="nazwyutrzymania"
+						  @input="pobierz_systemutrzymania(); pobierz_rownowazniki()"
+						  v-model="animal.nazwautrzymania_id"></b-form-select>
+					 </b-form-group>
+				  </b-col>
+				  
+				  <b-col v-show="rownowazniki.length > 1" cols="2">
+					 <b-form-group
+						label="wariant"
+						label-for="wariant"
+						label-size="sm">
+						<b-form-select
+						  required
+						  size="sm"
+						  id="wariant"
+						  :options="rownowazniki"
+						  v-model="animal.rownowaznik_id"></b-form-select>
+					 </b-form-group>
+				  </b-col>
 
-	 </b-form-row>
+				</b-form-row>
 
-	 <b-form-row>
-		<b-col v-show="animal.zwierze_id">
-		  <b-form-group
-			 label="system utrzymania"
-			 label-for="nazwyutrzymania">
-			 <b-form-select
-				required
-				id="nazwyutrzymania"
-				:options="nazwyutrzymania"
-				@input="pobierz_systemutrzymania(); pobierz_rownowazniki()"
-				v-model="animal.nazwautrzymania_id"></b-form-select>
-		  </b-form-group>
-		</b-col>
-
-		<b-col v-show="rownowazniki.length > 1">
-		  <b-form-group
-			 label="wariant"
-			 label-for="wariant">
-			 <b-form-select
-				required
-				id="wariant"
-				:options="rownowazniki"
-				v-model="animal.rownowaznik_id"></b-form-select>
-		  </b-form-group>
-		</b-col>
-
-		<input v-if="rownowazniki.length == 1" type="hidden" id="rownowaznik_id" v-model="animal.rownowaznik_id"></input>
+				<b-form-row>
+				  
+				  <input v-if="rownowazniki.length == 1" type="hidden" id="rownowaznik_id" v-model="animal.rownowaznik_id"></input>
 		
-		<b-col v-if="animal.zwierze_id && zwierze.koncentracja">
-		  <b-form-group
-			 label="zastosowano specjalne żywienie?"
-			 label-for="specjalnezywienie">
-			 <b-form-radio-group
-				id="specjalnezywienie"
-				:options="specjalnezywienieoptions"
-				v-model="animal.specjalnezywienie"></b-form-radio-group>
-		  </b-form-group>
-		</b-col>
-	 </b-form-row>
+				  <b-col v-if="animal.zwierze_id && zwierze.koncentracja">
+					 <b-form-group
+						label="specjalne żywienie"
+						label-for="specjalnezywienie"
+						description="czy zastosowano specjalne żywienie?"
+						label-size="sm">
+						<b-form-radio-group
+						  size="sm"
+						  id="specjalnezywienie"
+						  :options="specjalnezywienieoptions"
+						  v-model="animal.specjalnezywienie"></b-form-radio-group>
+					 </b-form-group>
+				  </b-col>
 
-	 <b-form-row v-if="animal.zwierze_id && animal.nazwautrzymania_id" class="mt-3">
-		<b-col>
-		  <b-form-group
-			 label="określ zawartość N na podstawie:"
-			 label-for="animalbadania">
-			 <b-form-radio-group
-				stacked
-				id="animalbadania"
-				required
-				:options="badaniaoptions"
-				v-model="animal.badania">
-			 </b-form-radio-group>
-		  </b-form-group>
-		</b-col>
+				</b-form-row>
 
-		<b-col v-if="animal.badania == true">
-		  <b-form-group
-			 :label="'zawartość ' + zawartosc_jednostka"
-			 label-for="zawartosc">
-			 <b-form-input
-				id="zawartosc"
-				required
-				v-model="animal.zawartosc"
-				:formatter="formatter_decimal">
-			 </b-form-input>
-		  </b-form-group>
-		</b-col>
+			 </b-form-group>
+
+		  </b-col>
+
+		</b-form-row>
+
+	 </b-card>
 		
-	 </b-form-row>
+	 <b-card
+		v-if="animal.zwierze_id && animal.nazwautrzymania_id"
+		bg-variant="light"
+		class="mt-2">
+		<b-form-row>
+		  <b-col>
+			 <b-form-group
+				label="Wyznaczenie Zawartości Azotu"
+				label-class="font-weight-bold">
 
-	 <b-form-row>
+				  <b-form-row class="mt-3">
 
-		<b-col>
-		  <b-form-group
-			 :label="'zawartość kg P<sub>2</sub>O<sub>5</sub>/t lub m<sup>3</sup>'"
-			 label-for="fosfor">
-			 <b-form-input
-				id="fosfor"
-				required
-				v-model="animal.fosfor"
-				:formatter="formatter_decimal">
-			 </b-form-input>
-		  </b-form-group>
-		</b-col>
+					 <b-col>
+						<b-form-group
+						  label-for="animalbadania"
+						  label-size="sm"
+						  description="określ zawartość N w nawozie naturalnym na podstawie">
+						  <b-form-radio-group
+							 id="animalbadania"
+							 required
+							 size="sm"
+							 :options="badaniaoptions"
+							 v-model="animal.badania">
+						  </b-form-radio-group>
+						</b-form-group>
+					 </b-col>
+					 
+				  </b-form-row>
 
-		<b-col>
-		  <b-form-group
-			 :label="'zawartość kg K<sub>2</sub>O/t m<sup>3</sup>'"
-			 label-for="potas">
-			 <b-form-input
-				id="potas"
-				required
-				v-model="animal.potas"
-				:formatter="formatter_decimal">
-			 </b-form-input>
-		  </b-form-group>
-		</b-col>
+			 </b-form-group>
+			 
+		  </b-col>
+		  
+		</b-form-row>
 
-	 </b-form-row>
+	 </b-card>
 	 
+	 <b-card
+		bg-variant="light"
+		class="mt-2"
+		v-if="animal.zwierze_id && animal.nazwautrzymania_id && ( zlecenie.typ == true || animal.badania == true )"
+		>
+
+		<b-form-row>
+
+		  <b-col>
+
+			 <b-form-group
+				label="Zawartości pierwiastków na podstawie przeprowadzonych badań"
+				label-class="font-weight-bold">
+
+				<b-form-row>
+				  
+				  <b-col
+					 cols="4"
+					 v-if="animal.badania == true">
+					 <b-form-group
+						:label="zawartosc_jednostka"
+						label-for="zawartosc"
+						label-size="sm"
+						:description="'zawartość ' + zawartosc_jednostka">
+						<b-form-input
+						  id="zawartosc"
+						  required
+						  size="sm"
+						  v-model="animal.zawartosc"
+						  :formatter="formatter_decimal">
+						</b-form-input>
+					 </b-form-group>
+				  </b-col>
+				  
+				  <b-col
+					 cols="4"
+					 v-if="zlecenie.typ == true">
+					 <b-form-group
+						:label="'kg P<sub>2</sub>O<sub>5</sub>' + jednostka"
+						label-for="fosfor"
+						label-size="sm"
+						:description="'zawartość kg P<sub>2</sub>O<sub>5</sub>' + jednostka">
+						<b-form-input
+						id="fosfor"
+						  required
+						  size="sm"
+						  v-model="animal.fosfor"
+						  :formatter="formatter_decimal">
+						</b-form-input>
+					 </b-form-group>
+				  </b-col>
+				  
+				  <b-col
+					 cols="4"
+					 v-if="zlecenie.typ == true">
+					 <b-form-group
+						:label="'kg K<sub>2</sub>O' + jednostka"
+						label-for="potas"
+						label-size="sm"
+						:description="'zawartość kg K<sub>2</sub>O' + jednostka">
+						<b-form-input
+						  id="potas"
+						  required
+						  size="sm"
+						  v-model="animal.potas"
+						  :formatter="formatter_decimal">
+						</b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				</b-form-row>
+				  
+			 </b-form-group>
+
+		  </b-col>
+			 
+		</b-form-row>
+		
+	 </b-card>
+		
 	 <div slot="modal-footer" class="w-100 text-center">
 		<hr />
 		<b-button type="button" @click="animalmodal.hide()">anuluj</b-button>
@@ -181,6 +293,10 @@ export default {
 	 name: 'animalform',
 	 data() {
 		  return {
+				zrodla: [
+					 { text: 'produkcja', value: false },
+					 { text: 'zakup', value: true }
+				],
 				gon: gon,
 				gatunki: [],
 				nazwyutrzymania: [],
@@ -191,7 +307,7 @@ export default {
 					 { text: 'nie', value: false },
 				],
 				badaniaoptions: [
-					 { text: 'danych z Tabeli 9', value: false },
+					 { text: 'danych z tabeli 9', value: false },
 					 { text: 'przeprowadzonych badań', value: true },
 				],
 				zawartosc_jednostka: ''
@@ -227,6 +343,9 @@ export default {
 		  animalmodal: {
 				get() { return this.$store.state.animalmodal },
 				set(v) { this.$store.commit('animalmodal', v) }
+		  },
+		  jednostka: {
+				get() { return this.zawartosc_jednostka.substr(4,this.zawartosc_jednostka.strlen) }
 		  },
 	 },
 	 methods: {
@@ -299,10 +418,15 @@ export default {
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,
 					 zlecenie_id: gon.id,
+					 zrodlo: false,
 					 badania: false,
 					 specjalnezywienie: false,
 					 animalgroup_id: this.animal.animalgroup_id,
+					 zawartosc: 0.0,
+					 fosfor: 0.0,
+					 potas: 0.0,
 				}
+				this.rownowazniki = []
 		  },
 		  reset(e) {
 				e.preventDefault()

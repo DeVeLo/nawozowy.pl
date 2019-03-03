@@ -67,9 +67,17 @@ export default {
 	 },
 	 methods: {
 		  ...mapActions(['pobierz_instytucje', 'pobierz_rolnika']),
+		  set_name() {
+				let y = (new Date).getFullYear()
+				let y2 = y
+				if ((new Date).getMonth()<6) { y = y - 1 } else { y2 = y2 + 1 }
+				return y + '/' + y2
+		  },
 		  create() {
 				this.attr = {
 					 // domyślnie zlecenie w wariancie wykonanie
+					 name: this.set_name(),
+					 typ: false,
 					 wariant_id: 1,
 					 instytucja_id: gon.instytucja_id,
 					 rolnik_id: gon.rolnik_id,

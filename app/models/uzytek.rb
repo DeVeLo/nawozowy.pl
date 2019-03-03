@@ -18,11 +18,12 @@ class Uzytek < ApplicationRecord
 
   # automagiczna numeracja porządkowa
   after_create :set_lp
+  after_create :set_name
   
   # ustal następny nr porządkowy
   def next_lp
     u = Zlecenie.find(self.zlecenie_id).uzytki.where('lp IS NOT NULL').order(lp: :ASC).last
-    if u.lp.nil?
+    if u.nil?
       1
     else
       (u.lp  + 1)
@@ -35,6 +36,15 @@ class Uzytek < ApplicationRecord
       self.update(lp: next_lp)
     end
   end
+
+  # jeśli nie podano nazwy użytku
+  # ustaw taką samą jak nr porządkowy
+  def set_name
+    unless self.name
+      self.update(name: self.lp)
+    end
+  end
+  
   
   # jeśli gleba organiczna (id == 5)
   # ustaw węglanową na false

@@ -16,6 +16,10 @@
   </template>
 
   <span slot="id" slot-scope="row">{{ row.value.substr(1,12) }}&nbsp;&#8230;</span>
+
+  <template slot="rejestr" slot-scope="row">
+	 {{ row.item.rejestr }}/{{ typ[row.item.typ] }}/{{ row.item.datawplywu.substr(0,4) }}
+  </template>
   
   <template slot="przyciski" slot-scope="row">
 
@@ -63,13 +67,14 @@ export default {
 		  return {
 				naglowki: [
 					 { key: 'lp', label: 'n.p.', sortable: true },
+					 { key: 'rejestr', label: 'nr rejestru', sortable: true },
 					 { key: 'datawplywu', label: 'data wpływu', sortable: true },
-					 { key: 'name', label: 'nazwa', sortable: true },
-					 { key: 'sprawa', label: 'nr sprawy', sortable: true },
+					 { key: 'name', label: 'oznaczenie', sortable: true },
 					 { key: 'wariant_id', label: 'wariant', sortable: true },
 					 { key: 'przyciski', label: '' },
 				],
 				confirm: false,
+				typ: {false: 'PA', true: 'PP'}
 		  }
 	 },
 	 computed: {

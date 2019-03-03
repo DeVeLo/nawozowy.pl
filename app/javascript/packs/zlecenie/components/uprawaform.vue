@@ -16,308 +16,346 @@
 	 <b-card no-body>
 		<b-tabs card v-model="tabIndex">
 		  <b-tab title="dane podstawowe" active>
-			 <b-container>
-
+				
 				<b-form-row>
 				  <input type="hidden" id="id" v-model="uzytek.id"></input>
 				  <input type="hidden" id="instytucja_id" v-model="uzytek.instytucja_id"></input>
 				  <input type="hidden" id="rolnik_id" v-model="uzytek.rolnik_id"></input>
 				  <input type="hidden" id="zlecenie_id" v-model="uzytek.zlecenie_id"></input>
 				</b-form-row>
+				
+				<!-- <b-col cols="1"> -->
+				<!-- 	 <b-form-group -->
+				<!-- 		label="n.p." -->
+				<!-- 		label-for="lp"> -->
+				<!-- 		<b-form-input -->
+				<!-- 		  type="number" -->
+				<!-- 		  ref="uzytek_lp" -->
+				<!-- 		  id="lp" -->
+				<!-- 		  v-model="uzytek.lp"> -->
+				<!-- 		</b-form-input> -->
+				<!-- 	 </b-form-group> -->
+				<!-- </b-col> -->
 
-				<b-form-row>
-
-				  <b-col cols="1">
-					 <b-form-group
-						label="n.p."
-						label-for="lp">
-						<b-form-input
-						  type="number"
-						  ref="uzytek_lp"
-						  id="lp"
-						  v-model="uzytek.lp">
-						</b-form-input>
-					 </b-form-group>
-				  </b-col>
+				
+				<b-card
+				  bg-variant="light">
 				  
-				  <b-col>
-					 <b-form-group
-						label="oznaczenie uprawy"
-						label-for="name">
-						<b-form-input
-						  required
-						  ref="uzytek_name"
-						  id="name"
-						  v-model="uzytek.name">
-						</b-form-input>
-					 </b-form-group>
-				  </b-col>
-				  
-				  <b-col>
-					 <b-form-group
-						label="kategoria agronomiczna gleby"
-						label-for="kategoria">
-						<b-form-select
-						  required
-						  id="kategoria"
-						  :options="kategorie"
-						  v-model="uzytek.kategoria_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
+				  <b-form-row>
+					 
+					 <b-col>
+						
+						<b-form-group
+						  label="Ogólne informacje o użytku"
+						  label-class="font-weight-bold">
+						  
+						  <b-form-row>
+							 
+							 <b-col>
+								<b-form-group
+								  label="oznaczenie uprawy"
+								  label-for="name"
+								  label-size="sm"
+								  description="jeśli brak, przyjmie nr porządkowy">
 
-				  <b-col v-if="uzytek.kategoria_id < 5">
-					 <b-form-group
-						label="węglanowa"
-						label-for="weglanowa">
-						<b-form-select
-						  id="weglanowa"
-						  :options="weglanowe"
-						  v-model="uzytek.weglanowa"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-				</b-form-row>
+								  <b-form-input
+									 ref="uzytek_name"
+									 id="name"
+									 size="sm"
+									 v-model="uzytek.name">
+								  </b-form-input>
+								  
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="kategoria"
+								  label-for="kategoria"
+								  label-size="sm"
+								  description="kategoria agronomiczna gleby">
 
-				<b-form-row>
-				  <b-col>
-					 <b-form-group
-						label="rodzaj gruntu"
-						label-for="grunt">
-						<b-form-select
-						  required
-						  id="grunt"
-						  :options="grunty"
-						  v-model="uzytek.grunt_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-				  
-				  <b-col>
-					 <b-form-group
-						label="powierzchnia ha"
-						label-for="powierzchnia">
-						<b-form-input
-						  id="powierzchnia"
-						  required
-						  v-model="uzytek.powierzchnia"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-				</b-form-row>
+								  <b-form-select
+									 required
+									 id="kategoria"
+									 :options="kategorie"
+									 size="sm"
+									 v-model="uzytek.kategoria_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
 
-				<b-form-row>
+						  </b-form-row>
 
-				  <b-col>
-					 <b-form-group
-						label="Ph"
-						label-for="ph">
-						<b-form-input
-						  id="ph"
-						  v-model="uzytek.ph"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
+						  <b-form-row>
+							 
+							 <b-col v-if="(uzytek.kategoria_id < 5) && (zlecenie.typ == true)">
+								<b-form-group
+								  label="węglanowa"
+								  label-for="weglanowa"
+								  label-size="sm"
+								  description="zaznacz czy gleba węglanowa">
+								  <b-form-select
+									 id="weglanowa"
+									 size="sm"
+									 :options="weglanowe"
+									 v-model="uzytek.weglanowa"></b-form-select>
+								</b-form-group>
+							 </b-col>
 
-				  <b-col>
-					 <b-form-group
-						label="P<sub>2</sub>O<sub>5</sub>"
-						label-for="fosfor">
-						<b-form-input
-						  id="fosfor"
-						  v-model="uzytek.fosfor"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
+							 <b-col>
+								<b-form-group
+								  label="rodzaj gruntu"
+								  label-for="grunt"
+								  label-size="sm"
+								  description="grunty orne, uprawy, użytki zielone">
+								  <b-form-select
+									 required
+									 size="sm"
+									 id="grunt"
+									 :options="grunty"
+									 v-model="uzytek.grunt_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
 
-				  <b-col>
-					 <b-form-group
-						label="K<sub>2</sub>O"
-						label-for="potas">
-						<b-form-input
-						  id="potas"
-						  v-model="uzytek.potas"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
+							 <b-col>
+								<b-form-group
+								  label="powierzchnia ha"
+								  label-for="powierzchnia"
+								  label-size="sm"
+								  description="powierzchnia użytku w hektarach">
+								  <b-form-input
+									 id="powierzchnia"
+									 size="sm"
+									 required
+									 v-model="uzytek.powierzchnia"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+						  </b-form-row>
+						  
+						</b-form-group>
+						
+					 </b-col>
 
-				  <b-col>
-					 <b-form-group
-						label="MgO"
-						label-for="magnez">
-						<b-form-input
-						  id="magnez"
-						  v-model="uzytek.magnez"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-				  
-				</b-form-row>
+				  </b-form-row>
+
+				</b-card>
 				
 				<b-form-row>
 				  
 				  <b-col>
-					 <b-form-group
-						label="zasoby azotu mineralnego wiosną na podstawie"
-						label-for="badania">
-						<b-form-radio-group
-						  id="badania"
-						  required
-						  stacked
-						  :options="badaniaoptions"
-						  v-model="uzytek.badania">
-						</b-form-radio-group>
-					 </b-form-group>
-				  </b-col>
-				  
-				  <b-col v-if="uzytek.badania == true" cols="2">
-					 <b-form-group
-						label="kg N/ha"
-						label-for="nmin">
-						<b-form-input
-						  id="nmin"
-						  required
-						  v-model="uzytek.nmin"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-				  
-				  <b-col v-if="uzytek.badania == true" cols="4">
-					 <b-form-group
-						label="badanie przeprowadzone"
-						label-for="nminsezon">
-						<b-form-radio-group
-						  id="nminsezon"
-						  required
-						  stacked
-						  :options="nminsezonoptions"
-						  v-model="uzytek.nminsezon">
-						</b-form-radio-group>
-					 </b-form-group>
-				  </b-col>
-				  
-				</b-form-row>
-				
-				<b-form-row>
-				  <b-col>
-					 <b-form-group
-						label="obornik pod przedplon kg N/ha"
-						label-for="przedplon">
-						<b-form-input
-						  id="przedplon"
-						  required
-						  v-model="uzytek.przedplon"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-
-				  <b-col>
-					 <b-form-group
-						label="przedplon kg P<sub>2</sub>O<sub>5</sub>/ha"
-						label-for="przedplonfosfor">
-						<b-form-input
-						  id="przedplonfosfor"
-						  v-model="uzytek.przedplonfosfor"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-
-				  <b-col>
-					 <b-form-group
-						label="przedplon kg K<sub>2</sub>O/ha"
-						label-for="przedplonpotas">
-						<b-form-input
-						  id="przedplonpotas"
-						  v-model="uzytek.przedplonpotas"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-
-				  <b-col>
-					 <b-form-group
-						label="wspwykorzystania"
-						label-for="wspwykorzystania">
-						<b-form-select
-						  id="wspwykorzystania"
-						  :options="wspiwykorzystania"
-						  v-model="uzytek.wspwykorzystania_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-				</b-form-row>
-				
-				<b-form-row>
-
-				  <b-col>
-					 <b-form-group
-						label="plon rośliny przedplonowej"
-						label-for="plonprzedplonowej">
-						<b-form-input
-						  id="plonprzedplonowej"
-						  v-model="uzytek.plonprzedplonowej"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-
-				  <b-col>
-					 <b-form-group
-						label="przedplon"
-						label-for="roslinaprzedplony">
-						<b-form-select
-						  required
-						  id="roslinaprzedplony"
-						  :options="roslinaprzedplony"
-						  v-model="uzytek.roslinaprzedplon_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-
-				  <b-col>
-					 <b-form-group
-						label="ilość azotu działającego pozostałego po uprawie roślin bobowatych"
-						label-for="bobowate">
-						<b-form-select
-						  required
-						  id="bobowate"
-						  :options="bobowate"
-						  v-model="uzytek.bobowata_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-
-				</b-form-row>
-				
-				<b-form-row>
-				  <b-col>
-					 <b-form-group
-						label="rodzaje uprawy"
-						label-for="rodzajeuprawy">
-						<b-form-select
-						  required
-						  id="rodzajeuprawy"
-						  @input="pobierzRosliny(uzytek.rodzajuprawy_id)"
-						  :options="rodzajeuprawy"
-						  v-model="uzytek.rodzajuprawy_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-				  <b-col v-show="uzytek.rodzajuprawy_id">
-					 <b-form-group
-						label="roślina"
-						label-for="roslina">
-						<b-form-select
-						  required
-						  id="rosliny"
-						  :options="rosliny"
-						  v-model="uzytek.roslina_id"></b-form-select>
-					 </b-form-group>
-				  </b-col>
-				  <b-col v-if="uzytek.rodzajuprawy_id" cols="3">
-					 <b-form-group
-						label="planowany plon t/ha"
-						label-for="plon">
-						<b-form-input
-						  id="plon"
-						  required
-						  v-model="uzytek.plon"
-						  :formatter="formatter_decimal"></b-form-input>
-					 </b-form-group>
-				  </b-col>
-				</b-form-row>
-			 </b-container>
+								<b-form-group
+								  label="Ph"
+								  label-for="ph">
+								  <b-form-input
+									 id="ph"
+									 v-model="uzytek.ph"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="P<sub>2</sub>O<sub>5</sub>"
+								  label-for="fosfor">
+								  <b-form-input
+									 id="fosfor"
+									 v-model="uzytek.fosfor"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="K<sub>2</sub>O"
+								  label-for="potas">
+								  <b-form-input
+									 id="potas"
+									 v-model="uzytek.potas"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="MgO"
+								  label-for="magnez">
+								  <b-form-input
+									 id="magnez"
+									 v-model="uzytek.magnez"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+						  </b-form-row>
+						  
+						  <b-form-row>
+							 
+							 <b-col>
+								<b-form-group
+								  label="zasoby azotu mineralnego wiosną na podstawie"
+								  label-for="badania">
+								  <b-form-radio-group
+									 id="badania"
+									 required
+									 stacked
+									 :options="badaniaoptions"
+									 v-model="uzytek.badania">
+								  </b-form-radio-group>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col v-if="uzytek.badania == true" cols="2">
+								<b-form-group
+								  label="kg N/ha"
+								  label-for="nmin">
+								  <b-form-input
+									 id="nmin"
+									 required
+									 v-model="uzytek.nmin"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col v-if="uzytek.badania == true" cols="4">
+								<b-form-group
+								  label="badanie przeprowadzone"
+								  label-for="nminsezon">
+								  <b-form-radio-group
+									 id="nminsezon"
+									 required
+									 stacked
+									 :options="nminsezonoptions"
+									 v-model="uzytek.nminsezon">
+								  </b-form-radio-group>
+								</b-form-group>
+							 </b-col>
+							 
+						  </b-form-row>
+						  
+						  <b-form-row>
+							 <b-col>
+								<b-form-group
+								  label="obornik pod przedplon kg N/ha"
+								  label-for="przedplon">
+								  <b-form-input
+									 id="przedplon"
+									 required
+									 v-model="uzytek.przedplon"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="przedplon kg P<sub>2</sub>O<sub>5</sub>/ha"
+								  label-for="przedplonfosfor">
+								  <b-form-input
+									 id="przedplonfosfor"
+									 v-model="uzytek.przedplonfosfor"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="przedplon kg K<sub>2</sub>O/ha"
+								  label-for="przedplonpotas">
+								  <b-form-input
+									 id="przedplonpotas"
+									 v-model="uzytek.przedplonpotas"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="wspwykorzystania"
+								  label-for="wspwykorzystania">
+								  <b-form-select
+									 id="wspwykorzystania"
+									 :options="wspiwykorzystania"
+									 v-model="uzytek.wspwykorzystania_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
+						  </b-form-row>
+						  
+						  <b-form-row>
+							 
+							 <b-col>
+								<b-form-group
+								  label="plon rośliny przedplonowej"
+								  label-for="plonprzedplonowej">
+								  <b-form-input
+									 id="plonprzedplonowej"
+									 v-model="uzytek.plonprzedplonowej"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="przedplon"
+								  label-for="roslinaprzedplony">
+								  <b-form-select
+									 required
+									 id="roslinaprzedplony"
+									 :options="roslinaprzedplony"
+									 v-model="uzytek.roslinaprzedplon_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="ilość azotu działającego pozostałego po uprawie roślin bobowatych"
+								  label-for="bobowate">
+								  <b-form-select
+									 required
+									 id="bobowate"
+									 :options="bobowate"
+									 v-model="uzytek.bobowata_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
+							 
+						  </b-form-row>
+						  
+						  <b-form-row>
+							 <b-col>
+								<b-form-group
+								  label="rodzaje uprawy"
+								  label-for="rodzajeuprawy">
+								  <b-form-select
+									 required
+									 id="rodzajeuprawy"
+									 @input="pobierzRosliny(uzytek.rodzajuprawy_id)"
+									 :options="rodzajeuprawy"
+									 v-model="uzytek.rodzajuprawy_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
+							 <b-col v-show="uzytek.rodzajuprawy_id">
+								<b-form-group
+								  label="roślina"
+								  label-for="roslina">
+								  <b-form-select
+									 required
+									 id="rosliny"
+									 :options="rosliny"
+									 v-model="uzytek.roslina_id"></b-form-select>
+								</b-form-group>
+							 </b-col>
+							 <b-col v-if="uzytek.rodzajuprawy_id" cols="3">
+								<b-form-group
+								  label="planowany plon t/ha"
+								  label-for="plon">
+								  <b-form-input
+									 id="plon"
+									 required
+									 v-model="uzytek.plon"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+						  </b-form-row>
 		  </b-tab>
 		  
 		  <b-tab title="nawóz naturalny" :disabled="uzytek.id==null">
@@ -325,9 +363,9 @@
 		  </b-tab>
 		  
 		</b-tabs>
-	 </b-card>
-	 
-	 <div slot="modal-footer" class="w-100 mt-3 text-center">
+		</b-card>
+		
+		<div slot="modal-footer" class="w-100 mt-3 text-center">
 		<b-button type="button" @click="uprawamodal.hide()">zamknij</b-button>
 		<b-button type="reset" variant="dark">resetuj</b-button>
 		<b-button type="submit" @click="reaction=false" variant="primary">zapisz</b-button>
@@ -384,6 +422,8 @@ export default {
 						set(v) { this.$store.commit('sezony', v) } },
 		  ilosc: { get() { return this.$store.state.ilosc },
 					  set(v) { this.$store.commit('ilosc', v) } },
+		  zlecenie: { get() { return this.$store.state.zlecenie },
+					  set(v) { this.$store.commit('zlecenie', v) } },
 	 },
 	 methods: {
 		  formatter_decimal(v,e) {

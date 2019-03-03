@@ -16,7 +16,7 @@
 		  </b-col>
 		  
 		  <b-col class="text-right">
-				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '.pdf'" variant="warning">Zlecenie PDF</b-button>
+				<!-- <b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '.pdf'" variant="warning">Zlecenie PDF</b-button> -->
 				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">lista rolników</b-button>
 				<b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia'">lista zleceń</b-button>
 				<b-button @click="modalForm.show()">edytuj</b-button>
@@ -28,7 +28,7 @@
 		  <b-col>
 			 <b-card no-body>
 				<b-tabs card>
-				  <b-tab title="zwierzęta" active>
+				  <b-tab title="źródła nawozów naturalnych" active>
 					 <b-form-row>
 						<b-col class="text-right m-0 p-0">
 						  <b-button @click="createAnimalgroup()">dodaj grupę</b-button>
