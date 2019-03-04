@@ -34,7 +34,7 @@
 </b-container>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import animalform from './animalform.vue'
 import animaltable from './animaltable.vue'
 
@@ -68,6 +68,7 @@ export default {
 		  }
 	 },
 	 methods: {
+		  ...mapActions([ 'pobierz' ]),
 		  createAnimal(animalgroup_id) {
 				this.animal = {
 					 instytucja_id: gon.instytucja_id,
@@ -101,6 +102,7 @@ export default {
 										+ id + '.json')
 					 .then((result) => {
 						  this.animalgroups.splice(index,1)
+						  this.pobierz()
 					 })
 					 .catch((error) => { console.log(error) })
 		  },

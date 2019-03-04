@@ -1,19 +1,26 @@
 <template>
 <b-container fluid>
+
+  <b-navbar toggleable="md" type="dark" variant="dark" sticky>
+	 <b-navbar-brand href="https://nawozowy.pl/">nawozowy.pl</b-navbar-brand>
+	 <b-navbar-toggle target="nav_collapse" />
+	 
+	 <b-collapse is-nav id="nav_collapse">
+		<b-navbar-nav class="ml-auto">
+		  
+		  <b-nav-item :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">{{ instytucja.name }}</b-nav-item>
+		  <b-nav-item @click="create">Dodaj Rolnika</b-nav-item>
+		  
+		</b-navbar-nav>
+	 </b-collapse>
+  </b-navbar>
+
   
-  <b-row>
-	 <b-col xl="3">
-		
-		<cinstytucja></cinstytucja>
-		
-	 </b-col>
+  <b-form-row>
 	 <b-col>
 		<b-row class="mt-3">
 		  <b-col>
 			 <h2>lista rolników</h2>
-		  </b-col>
-		  <b-col class="text-right">
-			 <b-button @click="create">dodaj rolnika</b-button>
 		  </b-col>
 		</b-row>
 		
@@ -64,12 +71,12 @@
 					 </b-col>
 				  </b-row>		  
 				</b-container>
-		</template>
-
-  </b-table>
+			 </template>
+			 
+		  </b-table>
 		</b-row>
 	 </b-col>
-  </b-row>
+  </b-form-row>
 </b-container>
 </template>
 
@@ -95,6 +102,7 @@ export default {
 					 this.$store.commit('rolnicy', value)
 				},
 		  },
+		  ...mapGetters(['instytucja']),
 	 },
 	 data() {
 		  return {
@@ -102,6 +110,7 @@ export default {
 				wojewodztwa: [],
 				powiaty: [],
 				gminy: [],
+				gon: gon,
 				naglowki: [
 					 { key: 'id',
 						label: '#',

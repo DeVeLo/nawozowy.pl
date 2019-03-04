@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
 	 state: {
 		  zlecenie: {},
+		  datawplywu: '',
 		  attr: {},
 		  instytucja: {},
 		  rolnik: {},
@@ -29,6 +30,7 @@ export const store = new Vuex.Store({
 		  ilosc: [],
 	 },
 	 getters: {
+	 	  datawplywu: state => { return state.datawplywu },
 		  zwierzeta: state => { return state.zwierzeta },
 		  sezony: state => { return state.sezony },
 		  ilosc: state => { return state.ilosc },
@@ -49,6 +51,7 @@ export const store = new Vuex.Store({
 		  modalForm: (state) => { return state.modalForm }
 	 },
 	 mutations: {
+		  datawplywu: (state, response) => { state.datawplywu = response },
 		  zwierzeta: (state, response) => { state.zwierzeta = response },
 		  sezony: (state, response) => { state.sezony = response },
 		  ilosc: (state, response) => { state.ilosc = response },
@@ -77,6 +80,7 @@ export const store = new Vuex.Store({
 					 .then((result) => {
 						  commit('zlecenie', result)
 						  commit('attr', result)
+						  commit('datawplywu', result.datawplywu)
 						  commit('instytucja', result.instytucja)
 						  commit('rolnik', result.rolnik)
 					 })

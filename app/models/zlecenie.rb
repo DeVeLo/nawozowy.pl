@@ -55,4 +55,27 @@ class Zlecenie < ApplicationRecord
       self.update(rejestr: next_rejestr)
     end
   end
+
+  # dane dotyczące nawozu naturalnego #############
+  def produkcja_nawozu
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja.round(2)
+  end
+
+  def produkcja_azotu
+    zn = Zlecenie::Nawoz.new(self)
+    zn.azot.round(2)
+  end
+
+  def pozostaly_nawoz
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostala_nawoz.round(2)
+  end
+
+  def pozostaly_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostaly_azot.round(2)
+  end
+
+  
 end

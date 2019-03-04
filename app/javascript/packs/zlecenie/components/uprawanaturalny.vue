@@ -64,7 +64,7 @@
 </b-container>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
   
 export default {
 	 name: 'uprawanaturalny',
@@ -88,6 +88,7 @@ export default {
 		  }
 	 },
 	 methods: {
+		  ...mapActions([ 'pobierz' ]),
 		  save() {
 				this.$http.post('/instytucje/'
 										  + gon.instytucja_id
@@ -107,6 +108,7 @@ export default {
 					 .then((result) => {
 						  this.uzytek.nawozynaturalne_attributes.push(result.body)
 						  this.wyczyscNawoz()
+						  this.pobierz()
 					 })
 					 .catch((error) => {
 						  console.log(error)
@@ -125,6 +127,7 @@ export default {
 										+ id + ".json",)
 					 .then((result) => {
 						  this.uzytek.nawozynaturalne_attributes.splice(index,1)
+						  this.pobierz()
 					 })
 					 .catch((error) => {
 						  console.log(error)

@@ -349,6 +349,7 @@ export default {
 		  },
 	 },
 	 methods: {
+		  ...mapActions([ 'pobierz' ]),
 		  formatter_decimal(v,e) {
 				if (v !== null) {
 					 v = v.replace(',','.')
@@ -388,6 +389,7 @@ export default {
 											{ animal: this.animal }, {})
 						  .then((res) => {
 								this.animalmodal.hide()
+								this.pobierz()
 						  })
 						  .catch((error) => console.log(error))
 				} else {
@@ -408,6 +410,7 @@ export default {
 						  .then((result) => {
 								this.animals.push(result.body)
 								this.animalmodal.hide()
+								this.pobierz()
 						  })
 						  .catch((error) => console.log(error))
 				}

@@ -53,12 +53,18 @@ class Animal < ApplicationRecord
 
   # pozostały nawóz po dodaniu do użytku
   def pozostalynawoz
-    self.produkt - self.nawozywykorzystane.sum(:ilosc)
+    self.produkt - self.nawozywykorzystane.sum(:ilosc_na_pole)
   end
 
   # ilość wyprodukowanego nawozu w ciągu roku
   def azot
     self.produkt * self.zawartosc_wynikowa
+  end
+  
+  # pozostały nawóz
+  def pozostalyazot
+    # ilość azotu w nawozie pozostałym po
+    self.pozostalynawoz * self.zawartosc_wynikowa
   end
 
   # równoważnik
@@ -71,13 +77,6 @@ class Animal < ApplicationRecord
       1
     end
   end
-  
-  # pozostały nawóz
-  def pozostalyazot
-    # ilość azotu w nawozie pozostałym po
-    self.pozostalynawoz * self.zawartosc_wynikowa
-  end
-
   
   
 end

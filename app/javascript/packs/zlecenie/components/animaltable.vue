@@ -109,6 +109,7 @@ export default {
 		  ...mapGetters(['animalmodal']),
 	 },
 	 methods: {
+		  ...mapActions([ 'pobierz' ]),
 		  usun_animal(id,index) {
 				this.$http.delete('/instytucje/'
 										+ gon.instytucja_id
@@ -122,6 +123,7 @@ export default {
 										+ id + '.json')
 					 .then((result) => {
 						  this.animals.splice(index,1)
+						  this.pobierz()
 					 })
 					 .catch((error) => { console.log(error) })
 		  },

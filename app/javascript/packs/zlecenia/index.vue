@@ -1,37 +1,43 @@
 <template>
-<b-container fluid>
-  
-  <b-row>
+<div>
+
+  <b-navbar toggleable="md" type="dark" variant="dark" sticky>
+	 <b-navbar-brand href="https://nawozowy.pl/">nawozowy.pl</b-navbar-brand>
+	 <b-navbar-toggle target="nav_collapse" />
 	 
-	 <b-col xl="3">
-		<crolnik></crolnik>
-		<cinstytucja class="d-none d-xl-block"></cinstytucja>
-	 </b-col>
-	 
-	 <b-col>
- 		<b-row class="mt-3">
-		  <b-col>
-			 <h2>lista zleceń</h2>
-		  </b-col>
+	 <b-collapse is-nav id="nav_collapse">
+		<b-navbar-nav class="ml-auto">
 		  
-		  <b-col class="text-right">
-			 <b-button :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">lista rolników</b-button>
-			 <b-button @click="create">dodaj zlecenie</b-button>
-		  </b-col>
-		</b-row>
-		
-		<b-row>
-		  <cform></cform>
-		</b-row>
-		
-		<b-row>
-		  <ctable></ctable>
-		</b-row>
-		
-	 </b-col>
-  </b-row>
-  
-</b-container>
+		  <b-nav-item :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">{{ instytucja.name }}</b-nav-item>
+		  <b-nav-item :href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia'">{{ rolnik.name }} {{ rolnik.lname }}</b-nav-item>
+		  <b-nav-item @click="create">Nowe Zlecenie</b-nav-item>
+		  
+		</b-navbar-nav>
+	 </b-collapse>
+  </b-navbar>
+
+  <b-container fluid>
+	 <b-form-row>
+		<b-col>
+ 		  <b-row class="mt-3">
+			 <b-col>
+				<h2>lista zleceń</h2>
+			 </b-col>
+		  </b-row>
+		  
+		  <b-row>
+			 <cform></cform>
+		  </b-row>
+		  
+		  <b-row>
+			 <ctable></ctable>
+		  </b-row>
+		  
+		</b-col>
+	 </b-form-row>
+	 
+  </b-container>
+</div>
 </template>
 
 <script>
@@ -55,7 +61,7 @@ export default {
 		  cinstytucja,
 	 },
 	 computed: {
-		  ...mapGetters([ 'modalForm' ]),
+		  ...mapGetters([ 'modalForm', 'instytucja', 'rolnik' ]),
 		  attr: {
 				get() {
 					 return this.$store.state.attr
