@@ -37,7 +37,7 @@
 		  </b-form-row>
 
 		  <b-form-row>
-			 <b-col>
+			 <b-col class="mt-2">
 				<b-card
 				  bg-variant="light"
 				  title="Nawóz Naturalny"
@@ -46,7 +46,7 @@
 				</b-card>
 			 </b-col>
 
-			 <b-col>
+			 <b-col class="mt-2">
 				<b-card
 				  bg-variant="light"
 				  title="Azot"
