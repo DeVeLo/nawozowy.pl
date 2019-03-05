@@ -13,30 +13,78 @@
   class="text-left">
   <b-form @submit.prevent="save(reaction)" @reset="reset">
 	 
+	 <b-card
+		v-if="uzytek.id"
+		bg-variant="light"
+		class="mb-2 text-center"
+		header="zalecane dawki do zastosowania">
+		
+		<b-form-row class="text-center">
+		  
+		  <b-col>
+			 <dl>
+				<dt>N działający</dt>
+				<dd>{{ uzytek.azot_mineralny_ha }} kg/ha</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col>
+			 <dl>
+				<dt>N mineralny</dt>
+				<dd>{{ Math.round(10*uzytek.azot_mineralny_ha_w_nawozie)/10 }} kg/ha</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col v-if="zlecenie.typ == true">
+			 <dl>
+				<dt>P<sub>2</sub>O<sub>5</sub></dt>
+				<dd>{{ Math.round(10*uzytek.wynik_fosfor)/10 }} kg/ha</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col v-if="zlecenie.typ == true">
+			 <dl>
+				<dt>K<sub>2</sub>O</dt>
+				<dd>{{ Math.round(10*uzytek.wynik_potas)/10 }} ka/ha</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col v-if="zlecenie.typ == true">
+			 <dl>
+				<dt>MgO</dt>
+				<dd>{{ Math.round(10*uzytek.mg_wynik_ha)/10 }} kg/ha</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col v-if="zlecenie.typ == true">
+			 <dl>
+				<dt>CaO</dt>
+				<dd>{{ Math.round(10*uzytek.cao_ha)/10 }} t/ha</dd>
+			 </dl>
+		  </b-col>
+		  
+		</b-form-row>
+		
+	 </b-card>
+	 
 	 <b-card no-body>
 		<b-tabs card v-model="tabIndex">
 		  <b-tab title="dane podstawowe" active>
+			 
+			 <div class="w-100 mb-3 text-center">
+				<b-button type="button" @click="uprawamodal.hide()">zamknij</b-button>
+				<b-button type="reset" variant="dark">resetuj</b-button>
+				<b-button type="submit" @click="reaction=false" variant="primary">zapisz</b-button>
+				<b-button type="submit" @click="reaction=true" variant="primary">zapisz i zamknij</b-button>
+			 </div>
+			 
 			 
 			 <b-form-row>
 				<input type="hidden" id="id" v-model="uzytek.id"></input>
 				<input type="hidden" id="instytucja_id" v-model="uzytek.instytucja_id"></input>
 				<input type="hidden" id="rolnik_id" v-model="uzytek.rolnik_id"></input>
 				<input type="hidden" id="zlecenie_id" v-model="uzytek.zlecenie_id"></input>
-			 </b-form-row>
-			 
-			 <!-- <b-col cols="1"> -->
-			 <!-- 	 <b-form-group -->
-			 <!-- 		label="n.p." -->
-			 <!-- 		label-for="lp"> -->
-			 <!-- 		<b-form-input -->
-			 <!-- 		  type="number" -->
-			 <!-- 		  ref="uzytek_lp" -->
-			 <!-- 		  id="lp" -->
-			 <!-- 		  v-model="uzytek.lp"> -->
-			 <!-- 		</b-form-input> -->
-			 <!-- 	 </b-form-group> -->
-			 <!-- </b-col> -->
-			 
+			 </b-form-row> 		 
 			 
 			 <b-card
 				bg-variant="light">
@@ -51,12 +99,28 @@
 						
 						<b-form-row>
 						  
+						  <b-col cols="2">
+			 				 <b-form-group
+			 					label="n.p."
+			 					label-for="lp"
+								label-size="sm"
+								description="nr porządkowy">
+			 					<b-form-input
+								  size="sm"
+			 					  type="number"
+			 					  ref="uzytek_lp"
+			 					  id="lp"
+			 					  v-model="uzytek.lp">
+			 					</b-form-input>
+			 				 </b-form-group>
+						  </b-col>
+						  
 						  <b-col>
 							 <b-form-group
 								label="oznaczenie uprawy"
 								label-for="name"
 								label-size="sm"
-								description="jeśli brak, przyjmie nr porządkowy">
+								description="jeśli brak, przyjmie n.p.">
 								
 								<b-form-input
 								  ref="uzytek_name"
@@ -187,7 +251,7 @@
 								  v-model="uzytek.rodzajuprawy_id"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						  <b-col v-show="uzytek.rodzajuprawy_id">
 							 <b-form-group
 								label="roślina"
@@ -202,7 +266,7 @@
 								  v-model="uzytek.roslina_id"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						  <b-col v-if="uzytek.rodzajuprawy_id" cols="3">
 							 <b-form-group
 								label="plon"
@@ -217,15 +281,15 @@
 								  :formatter="formatter_decimal"></b-form-input>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						</b-form-row>
-
+						
 					 </b-form-group>
-
+					 
 				  </b-col>
-
+				  
 				</b-form-row>
-
+				
 			 </b-card>
 			 
 			 <b-card
@@ -273,7 +337,7 @@
 							 </b-form-group>
 						  </b-col>
 						  
-						  <b-col v-if="uzytek.badania == true">
+						  <b-col>
 							 <b-form-group
 								label="badanie przeprowadzone"
 								label-for="nminsezon"
@@ -399,8 +463,8 @@
 								  v-model="uzytek.wspwykorzystania_id"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-
-
+						  
+						  
 						  <b-col>
 							 <b-form-group
 								label="kg N/ha"
@@ -415,9 +479,9 @@
 								  :formatter="formatter_decimal"></b-form-input>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						</b-form-row>
-
+						
 						<b-form-row v-if="zlecenie.typ == true">
 						  
 						  <b-col>
@@ -451,15 +515,15 @@
 						  </b-col>
 						  
 						</b-form-row>
-
-					 </b-form-group>
-
-				  </b-col>
-
-				</b-form-row>
-
-			 </b-card>
 						
+					 </b-form-group>
+					 
+				  </b-col>
+				  
+				</b-form-row>
+				
+			 </b-card>
+			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">
@@ -471,7 +535,7 @@
 					 <b-form-group
 						label="Roślina na przedplon"
 						label-class="font-weight-bold">
-
+						
 						<b-form-row>
 						  
 						  <b-col v-if="zlecenie.typ == true">
@@ -503,7 +567,7 @@
 								  v-model="uzytek.roslinaprzedplon_id"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						  <b-col
 							 v-if="(uzytek.roslinaprzedplon_id > 1) && (zlecenie.typ == true)">
 							 <b-form-group
@@ -521,15 +585,15 @@
 						  </b-col>
 						  
 						</b-form-row>
-
+						
 					 </b-form-group>
-
+					 
 				  </b-col>
-
+				  
 				</b-form-row>
-
+				
 			 </b-card>
-
+			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">
@@ -543,7 +607,7 @@
 						label-class="font-weight-bold">
 						
 						<b-form-row>
-
+						  
 						  <b-col>
 							 <b-form-group
 								label="zastosowana roślina bobowata"
@@ -558,21 +622,114 @@
 								  v-model="uzytek.bobowata_id"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						</b-form-row>
-
+						
 					 </b-form-group>
-
+					 
 				  </b-col>
-
+				  
 				</b-form-row>
-
+				
 			 </b-card>
 			 
 		  </b-tab>
-		  		  
+		  
 		  <b-tab title="nawóz naturalny" :disabled="uzytek.id==null">
 			 <uprawanaturalny></uprawanaturalny>
+		  </b-tab>
+		  
+		  <b-tab
+			 title="własne dawki"
+			 :disabled="uzytek.id==null">
+			 
+			 <b-card
+				bg-variant="light">
+				
+				<b-form-group
+				  label="Podaj własne zalecane dawki do zastosowania"
+				  label-class="font-weight-bold"
+				  description="Uwaga! Wpisz własne zalecane dawki jeśli na podstawie danych w bazie nie można wyliczyć odpowiednich wartości. Jednakże, jeśli wyliczenia mają być automatyczne, pola koniecznie muszą być puste!">
+				  
+				  <b-form-row>
+				  	 
+					 <b-col>
+						<b-form-group
+						  label="N"
+						  label-for="korekta_azot"
+						  label-size="sm"
+						  description="dawka N mineralnego w nawozie kg/ha">
+						  <b-form-input
+							 id="korekta_azot"
+							 size="sm"
+							 v-model="uzytek.korekta_azot"
+							 :formatter="formatter_decimal"></b-form-input>
+						</b-form-group>
+					 </b-col>
+					 
+					 <template v-if="zlecenie.typ == true">
+						<b-col>
+						  <b-form-group
+							 label="P<sub>2</sub>O<sub>5</sub>"
+							 label-for="korekta_fosfor"
+							 label-size="sm"
+							 description="dawka P<sub>2</sub>O<sub>5</sub> kg/ha">
+							 <b-form-input
+								id="korekta_fosfor"
+								size="sm"
+								v-model="uzytek.korekta_fosfor"
+								:formatter="formatter_decimal"></b-form-input>
+						  </b-form-group>
+						</b-col>
+						
+						<b-col>
+						  <b-form-group
+							 label="K<sub>2</sub>O"
+							 label-for="korekta_potas"
+							 label-size="sm"
+							 description="dawka K<sub>2</sub>O kg/ha">
+							 <b-form-input
+								id="korekta_potas"
+								size="sm"
+								v-model="uzytek.korekta_potas"
+								:formatter="formatter_decimal"></b-form-input>
+						  </b-form-group>
+						</b-col>
+						
+						<b-col>
+						  <b-form-group
+							 label="MgO"
+							 label-for="korekta_magnez"
+							 label-size="sm"
+							 description="dawka KgO kg/ha">
+							 <b-form-input
+								id="korekta_magnez"
+								size="sm"
+								v-model="uzytek.korekta_magnez"
+								:formatter="formatter_decimal"></b-form-input>
+						  </b-form-group>
+						</b-col>
+						
+						<b-col>
+						  <b-form-group
+							 label="CaO"
+							 label-for="korekta_wapn"
+							 label-size="sm"
+							 description="dawka CaO t/ha">
+							 <b-form-input
+								id="korekta_wapn"
+								size="sm"
+								v-model="uzytek.korekta_wapn"
+								:formatter="formatter_decimal"></b-form-input>
+						  </b-form-group>
+						</b-col>
+					 </template>
+				  </b-form-row>
+				  
+				</b-form-group>
+
+			 </b-card>
+			 
 		  </b-tab>
 		  
 		</b-tabs>
@@ -690,6 +847,7 @@ export default {
 											+ this.uzytek.id + ".json",
 											{ uzytek: this.uzytek }, {})
 						  .then((res) => {
+								this.uzytek = res.body
 								if (reaction) {
 									 this.uprawamodal.hide()
 								}

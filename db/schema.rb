@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190304213051) do
+ActiveRecord::Schema.define(version: 20190305193448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -425,6 +425,11 @@ ActiveRecord::Schema.define(version: 20190304213051) do
     t.decimal  "plonprzedplonowej"
     t.integer  "lp"
     t.boolean  "stanprzedplonu",      default: false, null: false
+    t.decimal  "korekta_azot"
+    t.decimal  "korekta_fosfor"
+    t.decimal  "korekta_potas"
+    t.decimal  "korekta_magnez"
+    t.decimal  "korekta_wapn"
     t.index ["bobowata_id"], name: "index_uzytki_on_bobowata_id", using: :btree
     t.index ["bobowate_id"], name: "index_uzytki_on_bobowate_id", using: :btree
     t.index ["grunt_id"], name: "index_uzytki_on_grunt_id", using: :btree

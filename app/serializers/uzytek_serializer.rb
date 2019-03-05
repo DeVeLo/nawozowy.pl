@@ -10,8 +10,13 @@ class UzytekSerializer < ActiveModel::Serializer
              :azot_mineralny_pole, :azot_naturalny_pole, :azot_pole, :nawoznaturalnyzastosowany, :grunt_id,
              :ph, :azot_w_nawozie, :cao, :cao_ha, :cao_pole, :weglanowa, :fosfor, :potas, :magnez,
              :przedplonfosfor, :przedplonpotas, :wspwykorzystania_id, :plonprzedplonowej, :wynik_fosfor, :wynik_potas,
-             :lp, :stanprzedplonu
+             :lp, :stanprzedplonu, :zasob, :mg_wynik_ha, :korekta_azot, :korekta_fosfor, :korekta_potas, :korekta_magnez,
+             :korekta_wapn
 
+  def zasob
+    object.kategoria.zasob
+  end
+  
   def nawozynaturalne_attributes
     nawozy = []
     
@@ -21,7 +26,8 @@ class UzytekSerializer < ActiveModel::Serializer
       
       custom[:sezon_name] = nawoz.sezon.name
       custom[:grupa] = nawoz.animalgroup.animalsname
-
+      custom[:ilosc_na_pole] = nawoz.nawozywykorzystane.sum(:ilosc_na_pole)
+      
       nawozy.push(custom)
     end
     

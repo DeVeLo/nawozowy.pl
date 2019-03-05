@@ -25,6 +25,12 @@
   </template>
   <template v-else>
 	 na podstawie tabeli 12
+	 <i v-if="uzytek.nminsezon == false">
+		wiosną
+	 </i>
+	 <i v-else>
+		jesienią ({{ uzytek.zasob }}&nbsp;kg&nbsp;N/ha&nbsp;*&nbsp;{{ uzytek.przelicznik }})
+	 </i>
   </template>
   <br />
 

@@ -97,12 +97,22 @@ class Uzytek::Potas
     potas
   end
 
+  # 9) jeśli przedplon przyorany podajemy potrzeby nawozowe,
+  #    jeśli natomiast zebrany to przemnażamy przez 1.2
+  def potrzeby_nawozowe_przedplon
+    if @u.roslinaprzedplon.id > 1 and @u.stanprzedplonu
+      potrzeby_nawozowe * 1.7
+    else
+      potrzeby_nawozowe
+    end
+  end
+  
   # 9) dodajemy zapasy i odejmujemy zapotrzebowanie
   def wynik
     if zapasy_nawoz_ii.nil? or potrzeby_nawozowe.nil?
       nil
     else
-      potrzeby_nawozowe - (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
+      potrzeby_nawozowe_przedplon - (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
     end
   end
   

@@ -38,6 +38,55 @@ class Animalgroup < ApplicationRecord
     return pozostaly
   end
 
+  def produkcja_azot
+    azot = 0
+    self.animals.each do |a|
+      azot += a.azot
+    end
+    return azot
+  end
+
+  def pozostaly_azot
+    pozostaly = 0
+    self.animals.each do |a|
+      pozostaly += a.pozostalyazot
+    end
+    return pozostaly
+  end
+
+  def produkcja_fosfor
+    fosfor = 0
+    self.animals.each do |a|
+      fosfor += a.produkcja_fosfor
+    end
+    return fosfor
+  end
+
+  def pozostaly_fosfor
+    pozostaly = 0
+    self.animals.each do |a|
+      pozostaly += a.pozostaly_fosfor
+    end
+    return pozostaly
+  end
+
+  def produkcja_potas
+    potas = 0
+    self.animals.each do |a|
+      potas += a.produkcja_potas
+    end
+    return potas
+  end
+
+  def pozostaly_potas
+    pozostaly = 0
+    self.animals.each do |a|
+      pozostaly += a.pozostaly_potas
+    end
+    return pozostaly
+  end
+
+  
   # ustawia domyślną nazwę grupy
   def set_name
     self.name = "grupa " + (self.zlecenie.animalgroups.count + 1).to_s

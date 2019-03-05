@@ -68,7 +68,7 @@ class Uzytek < ApplicationRecord
   end
 
   def azot_w_nawozie
-    azot_naturalny_ha + azot_mineralny_ha_w_nawozie
+      azot_naturalny_ha + azot_mineralny_ha_w_nawozie
   end
   
   # ewentualne saldo N
@@ -95,11 +95,15 @@ class Uzytek < ApplicationRecord
   # azot mineralny do zastosowania
   # SUMA AZOTU MINERALNEGO DO ZASTOSOWANIA
   def azot_mineralny_ha
-    podsumowanie = zapotrzebowanie_ha - azot_naturalny_ha
-    if podsumowanie > 0
-      podsumowanie
+    if self.korekta_azot.nil?
+      podsumowanie = zapotrzebowanie_ha - azot_naturalny_ha
+      if podsumowanie > 0
+        podsumowanie
+      else
+        0
+      end
     else
-      0
+      self.korekta_azot * 0.7
     end
   end
   
@@ -209,10 +213,23 @@ class Uzytek < ApplicationRecord
     if badania
       nmin_sezon
     else
+      zasobsezon
+    end
+  end
+
+  def zasobsezon
+    # jeśli true to jesień i trzeba przeliczyć na podstawie przelicznika
+    # zależnego od kategorii gleby
+    if nminsezon
+      kategoria.zasob * przelicznik
+      
+    # jeśli false to wiosna
+    else
       kategoria.zasob
     end
   end
 
+    
   # przelicznik jeżeli na podstawie badania
   # przeprowadzonego jesienią
   def przelicznik
@@ -225,7 +242,7 @@ class Uzytek < ApplicationRecord
     # jeśli true to jesień i trzeba przeliczyć na podstawie przelicznika
     # zależnego od kategorii gleby
     if nminsezon
-      nmin * kategoria.przelicznik
+      nmin * przelicznik
       
     # jeśli false to wiosna
     else
@@ -245,10 +262,14 @@ class Uzytek < ApplicationRecord
   end
 
   def cao_ha
-    unless cao.nil?
-      cao.dawka
+    if self.korekta_wapn.nil?
+      unless cao.nil?
+        cao.dawka
+      else
+        nil
+      end
     else
-      nil
+      self.korekta_wapn
     end
   end
   
@@ -270,10 +291,14 @@ class Uzytek < ApplicationRecord
   end
   
   def mg_wynik_ha
-    unless mg_rownowaznik.nil? or mg_potrzeby.nil?
-      mg_potrzeby + mg_rownowaznik
+    if self.korekta_magnez.nil?
+      unless mg_rownowaznik.nil? or mg_potrzeby.nil?
+        mg_potrzeby + mg_rownowaznik
+      else
+        nil
+      end
     else
-      nil
+      self.korekta_magnez
     end
   end
   
@@ -304,11 +329,19 @@ class Uzytek < ApplicationRecord
   end
   
   def wynik_fosfor
-    Uzytek::Fosfor.new(self).wynik
+    if self.korekta_fosfor.nil?
+      Uzytek::Fosfor.new(self).wynik
+    else
+      self.korekta_fosfor
+    end
   end
 
   def wynik_potas
-    Uzytek::Potas.new(self).wynik
+    if self.korekta_potas.nil?
+      Uzytek::Potas.new(self).wynik
+    else
+      self.korekta_potas
+    end
   end
 
 end
