@@ -19,14 +19,6 @@ class Zlecenie::Nawoz
     produkcja
   end
 
-  def azot
-    azot = 0
-    @zlecenie.animals.each do |animal|
-      azot += animal.azot
-    end
-    azot
-  end
-
   def pozostala_nawoz
     produkcja = 0
     @zlecenie.animals.each do |animal|
@@ -35,12 +27,53 @@ class Zlecenie::Nawoz
     produkcja
   end
 
+  
+  def azot
+    azot = 0
+    @zlecenie.animals.each do |animal|
+      azot += animal.azot
+    end
+    azot
+  end
+
   def pozostaly_azot
     azot = 0
     @zlecenie.animals.each do |animal|
       azot += animal.pozostalyazot
     end
     azot
+  end
+
+  def fosfor
+    fosfor = 0
+    @zlecenie.animals.each do |animal|
+      fosfor += animal.produkcja_fosfor
+    end
+    fosfor
+  end
+
+  def pozostaly_fosfor
+    fosfor = 0
+    @zlecenie.animals.each do |animal|
+      fosfor += animal.pozostaly_fosfor
+    end
+    fosfor
+  end
+
+  def potas
+    potas = 0
+    @zlecenie.animals.each do |animal|
+      potas += animal.produkcja_potas
+    end
+    potas
+  end
+
+  def pozostaly_potas
+    potas = 0
+    @zlecenie.animals.each do |animal|
+      potas += animal.pozostaly_potas
+    end
+    potas
   end
   
 end

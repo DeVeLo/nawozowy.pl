@@ -657,6 +657,8 @@ export default {
 		  focus() {
 				if (!this.uzytek.id) {
 					 this.clear()
+				} else {
+					 this.pobierzUzytek()
 				}
 
 				this.$refs.uzytek_name.focus()

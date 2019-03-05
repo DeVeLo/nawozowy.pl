@@ -24,7 +24,7 @@ class Nawoznaturalny < ApplicationRecord
       ilosc = (self.ilosc * wspolczynnik)
       ilosc_na_pole = (self.ilosc * wspolczynnik) * self.uzytek.powierzchnia
       self.nawozywykorzystane.create({animal_id: animal.id, ilosc: ilosc, ilosc_na_pole: ilosc_na_pole})
-    end
+    end    
   end    
   
 end

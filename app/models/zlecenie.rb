@@ -62,14 +62,14 @@ class Zlecenie < ApplicationRecord
     zn.produkcja.round(2)
   end
 
-  def produkcja_azotu
-    zn = Zlecenie::Nawoz.new(self)
-    zn.azot.round(2)
-  end
-
   def pozostaly_nawoz
     zn = Zlecenie::Nawoz.new(self)
     zn.pozostala_nawoz.round(2)
+  end
+
+  def produkcja_azotu
+    zn = Zlecenie::Nawoz.new(self)
+    zn.azot.round(2)
   end
 
   def pozostaly_azot
@@ -77,5 +77,25 @@ class Zlecenie < ApplicationRecord
     zn.pozostaly_azot.round(2)
   end
 
+  def produkcja_fosforu
+    zn = Zlecenie::Nawoz.new(self)
+    zn.fosfor.round(2)
+  end
+
+  def pozostaly_fosfor
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostaly_fosfor.round(2)
+  end
+
+  def produkcja_potasu
+    zn = Zlecenie::Nawoz.new(self)
+    zn.potas.round(2)
+  end
+
+  def pozostaly_potas
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostaly_potas.round(2)
+  end
+  
   
 end

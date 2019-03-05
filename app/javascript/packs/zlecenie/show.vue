@@ -54,6 +54,24 @@
 				  <b>{{ zlecenie.produkcja_azotu }}</b> kg/rok / <b>{{ zlecenie.pozostaly_azot }}</b> kg
 				</b-card>
 			 </b-col>
+
+			 <b-col class="mt-2">
+				<b-card
+				  bg-variant="light"
+				  title="Fosfor"
+				  sub-title="produkcja / pozostały">
+				  <b>{{ zlecenie.produkcja_fosforu }}</b> kg/rok / <b>{{ zlecenie.pozostaly_fosfor }}</b> kg
+				</b-card>
+			 </b-col>
+
+			 <b-col class="mt-2">
+				<b-card
+				  bg-variant="light"
+				  title="Potas"
+				  sub-title="produkcja / pozostały">
+				  <b>{{ zlecenie.produkcja_potasu }}</b> kg/rok / <b>{{ zlecenie.pozostaly_potas }}</b> kg
+				</b-card>
+			 </b-col>
 		  </b-form-row>
 
 		  <b-form-row class="mt-2">

@@ -64,9 +64,38 @@ class Animal < ApplicationRecord
   # pozostały nawóz
   def pozostalyazot
     # ilość azotu w nawozie pozostałym po
+    # zastosowaniu na użytkach
     self.pozostalynawoz * self.zawartosc_wynikowa
   end
 
+  # ilość wyprodukowanego fosforu w ciągu roku
+  def produkcja_fosfor
+    self.produkt * self.fosfor
+  end
+  
+  # pozostały fosfor po zastosowanu na użytkach
+  def pozostaly_fosfor
+    unless self.fosfor.nil?
+      self.pozostalynawoz * self.fosfor
+    else
+      0
+    end
+  end
+
+  # ilość wyprodukowanego fosforu w ciągu roku
+  def produkcja_potas
+    self.produkt * self.potas
+  end
+  
+  # pozostały potas po zastosowanu na użytkach
+  def pozostaly_potas
+    unless self.potas.nil?
+      self.pozostalynawoz * self.potas
+    else
+      0
+    end
+  end
+  
   # równoważnik
   def getrownowaznik(sezon)
     if sezon == 1
@@ -77,6 +106,7 @@ class Animal < ApplicationRecord
       1
     end
   end
+
   
   
 end

@@ -89,6 +89,23 @@ export default {
 	 },
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
+		  pobierzUzytek() {
+				this.$http.get('/instytucje/'
+									+ gon.instytucja_id
+									+ '/rolnicy/'
+									+ gon.rolnik_id
+									+ '/zlecenia/'
+									+ gon.id
+									+ '/uzytki/'
+									+ this.uzytek.id
+									+ '.json')
+					 .then((result) => {
+						  for (var k in result.body) {
+								this.uzytek[k] = result.body[k]
+						  }
+					 })
+					 .catch((error) => { console.log(error) })
+		  },
 		  save() {
 				this.$http.post('/instytucje/'
 										  + gon.instytucja_id
@@ -106,7 +123,8 @@ export default {
 									 },
 									 {})
 					 .then((result) => {
-						  this.uzytek.nawozynaturalne_attributes.push(result.body)
+						  // this.uzytek.nawozynaturalne_attributes.push(result.body)
+						  this.pobierzUzytek()
 						  this.wyczyscNawoz()
 						  this.pobierz()
 					 })
