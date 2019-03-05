@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.6 (Ubuntu 10.6-0ubuntu0.18.10.1)
--- Dumped by pg_dump version 10.6 (Ubuntu 10.6-0ubuntu0.18.10.1)
+-- Dumped from database version 10.6 (Ubuntu 10.6-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.6 (Ubuntu 10.6-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -524,7 +524,8 @@ CREATE TABLE public.nawozywykorzystane (
     nawoznaturalny_id integer,
     ilosc numeric,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    ilosc_na_pole numeric
 );
 
 
@@ -1777,8 +1778,17 @@ ALTER TABLE ONLY public.zwierzeta ALTER COLUMN id SET DEFAULT nextval('public.zw
 --
 
 COPY public.animalgroups (id, name, instytucja_id, rolnik_id, zlecenie_id, created_at, updated_at) FROM stdin;
-2caa85f5-aaed-47ba-8e75-16521d3b3c3b	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	2019-03-02 20:08:59.052281	2019-03-02 20:08:59.052281
-6f94a6bc-8a43-4705-97cf-88c162090d47	grupa 2	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	2019-03-03 07:30:07.228628	2019-03-03 07:30:07.228628
+4b70ec1c-3a2a-4e99-a383-dd2e9aa2a276	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	2019-03-03 22:17:34.916601	2019-03-03 22:17:34.916601
+3c75c67e-3552-4546-901e-52ab4be13577	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	0a6a674c-7b8a-40d2-abb4-fcf9031657fb	2019-03-04 22:08:13.096208	2019-03-04 22:08:13.096208
+7900c701-3514-4376-936a-5eec23eeb720	grupa 2	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	2019-03-05 07:58:22.55597	2019-03-05 07:58:22.55597
+4a56b910-4d53-463f-8736-b5310e89f476	grupa 4	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	2019-03-05 07:59:17.357343	2019-03-05 07:59:17.357343
+30275ff9-4cdb-407e-b667-ef59d2bffb9e	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	d4e970d4-2791-4e7c-bc10-ace9c5f7816b	16cd2461-a8f7-4c99-9269-4c4d18d603ce	2019-03-05 08:15:27.758932	2019-03-05 08:15:27.758932
+27568727-b574-4428-8291-d770b6a3e947	grupa 2	d04e8915-2ce7-45ee-b161-a7dcce79f65a	d4e970d4-2791-4e7c-bc10-ace9c5f7816b	16cd2461-a8f7-4c99-9269-4c4d18d603ce	2019-03-05 08:23:27.084976	2019-03-05 08:23:27.084976
+6a1390e7-367e-4df8-9895-0abd8809891b	grupa 4	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	2019-03-05 10:35:22.639057	2019-03-05 10:35:22.639057
+d4595c12-e224-408a-9525-ce73c3af358e	grupa 5	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	2019-03-05 10:35:24.250051	2019-03-05 10:35:24.250051
+9c95d368-9031-4a39-acf4-290af44cc28c	grupa 1	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	2019-03-05 10:43:47.916069	2019-03-05 10:43:47.916069
+e45148f2-d949-4e89-8eb4-d974084ba8c2	grupa 2	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	2019-03-05 10:44:34.574216	2019-03-05 10:44:34.574216
+2fb969ac-7b16-4f3f-bc20-07ca935e9e16	grupa 3	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	2019-03-05 10:45:43.181421	2019-03-05 10:45:43.181421
 \.
 
 
@@ -1787,10 +1797,13 @@ COPY public.animalgroups (id, name, instytucja_id, rolnik_id, zlecenie_id, creat
 --
 
 COPY public.animals (id, instytucja_id, rolnik_id, zlecenie_id, zwierze_id, nazwautrzymania_id, systemutrzymania_id, sztuk, created_at, updated_at, specjalnezywienie, badania, zawartosc, rownowaznik_id, animalgroup_id, fosfor, potas, magnez, wapn, zrodlo) FROM stdin;
-182	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	709	1	199	56.0	2019-03-02 20:59:51.102353	2019-03-02 21:27:34.101715	f	f	0.0	650	2caa85f5-aaed-47ba-8e75-16521d3b3c3b	0.0	0.0	\N	\N	f
-183	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	658	1	134	33.0	2019-03-02 21:27:27.403502	2019-03-02 21:27:55.901649	f	t	3.0	581	2caa85f5-aaed-47ba-8e75-16521d3b3c3b	3.0	4.0	\N	\N	f
-184	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	691	1	182	8.0	2019-03-02 21:37:56.878692	2019-03-02 21:37:56.878692	f	t	6.6	633	2caa85f5-aaed-47ba-8e75-16521d3b3c3b	0.0	0.0	\N	\N	f
-185	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	621	3	43	4.0	2019-03-03 07:31:28.712062	2019-03-03 20:58:36.968331	f	f	0.0	483	6f94a6bc-8a43-4705-97cf-88c162090d47	5.0	5.0	\N	\N	f
+186	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	0a6a674c-7b8a-40d2-abb4-fcf9031657fb	618	1	29	100.0	2019-03-04 22:08:24.655373	2019-03-04 22:08:24.655373	f	f	0.0	469	3c75c67e-3552-4546-901e-52ab4be13577	0.0	0.0	\N	\N	t
+189	d04e8915-2ce7-45ee-b161-a7dcce79f65a	d4e970d4-2791-4e7c-bc10-ace9c5f7816b	16cd2461-a8f7-4c99-9269-4c4d18d603ce	656	1	130	100.0	2019-03-05 08:16:46.74305	2019-03-05 08:17:13.635515	f	f	0.0	573	30275ff9-4cdb-407e-b667-ef59d2bffb9e	5.0	4.0	\N	\N	f
+190	d04e8915-2ce7-45ee-b161-a7dcce79f65a	d4e970d4-2791-4e7c-bc10-ace9c5f7816b	16cd2461-a8f7-4c99-9269-4c4d18d603ce	659	1	135	200.0	2019-03-05 08:18:03.985028	2019-03-05 08:18:03.985028	f	f	0.0	586	30275ff9-4cdb-407e-b667-ef59d2bffb9e	5.0	6.0	\N	\N	f
+187	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	658	1	134	1000.0	2019-03-05 07:58:54.939498	2019-03-05 09:47:33.743717	f	t	20.0	581	4b70ec1c-3a2a-4e99-a383-dd2e9aa2a276	10.0	10.0	\N	\N	f
+192	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	626	4	58	100.0	2019-03-05 10:44:31.004438	2019-03-05 11:48:33.419628	f	f	0.0	498	9c95d368-9031-4a39-acf4-290af44cc28c	0.0	0.0	\N	\N	f
+193	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	630	4	74	100.0	2019-03-05 10:45:39.301105	2019-03-05 11:48:43.872487	f	f	0.0	514	e45148f2-d949-4e89-8eb4-d974084ba8c2	0.0	0.0	\N	\N	f
+194	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	628	4	66	100.0	2019-03-05 10:46:42.444021	2019-03-05 11:49:01.526947	f	f	0.0	506	2fb969ac-7b16-4f3f-bc20-07ca935e9e16	0.0	0.0	\N	\N	f
 \.
 
 
@@ -5854,7 +5867,8 @@ COPY public.kategorie (id, name, zasob, created_at, updated_at, przelicznik) FRO
 --
 
 COPY public.nawozynaturalne (id, uzytek_id, animal_id, sezon_id, produkcja, n, created_at, updated_at, ilosc, animalgroup_id) FROM stdin;
-207	81	\N	1	\N	\N	2019-03-03 20:57:52.62912	2019-03-03 20:57:52.62912	5.0	6f94a6bc-8a43-4705-97cf-88c162090d47
+213	86	\N	1	\N	\N	2019-03-05 09:49:11.802762	2019-03-05 09:49:11.802762	10.0	4b70ec1c-3a2a-4e99-a383-dd2e9aa2a276
+231	87	\N	1	\N	\N	2019-03-05 11:51:54.204815	2019-03-05 11:51:54.204815	42.0	9c95d368-9031-4a39-acf4-290af44cc28c
 \.
 
 
@@ -5862,8 +5876,9 @@ COPY public.nawozynaturalne (id, uzytek_id, animal_id, sezon_id, produkcja, n, c
 -- Data for Name: nawozywykorzystane; Type: TABLE DATA; Schema: public; Owner: azotanowy_pl
 --
 
-COPY public.nawozywykorzystane (id, animal_id, nawoznaturalny_id, ilosc, created_at, updated_at) FROM stdin;
-189	185	207	5.0	2019-03-03 20:57:52.642505	2019-03-03 20:57:52.642505
+COPY public.nawozywykorzystane (id, animal_id, nawoznaturalny_id, ilosc, created_at, updated_at, ilosc_na_pole) FROM stdin;
+199	187	213	10.0	2019-03-05 09:49:11.808345	2019-03-05 09:49:11.808345	10.0
+217	192	231	42.0	2019-03-05 11:51:54.211594	2019-03-05 11:51:54.211594	420.0
 \.
 
 
@@ -6477,7 +6492,9 @@ COPY public.rodzajeupraw (id, name, created_at, updated_at) FROM stdin;
 --
 
 COPY public.rolnicy (id, name, lname, gname, wojewodztwo_id, powiat_id, gmina_id, miejscowosc, nrdom, nrmieszkania, nip, nig, ulica, created_at, updated_at, instytucja_id, kod, poczta, tel, kom, mail) FROM stdin;
-51e4c13e-f80a-40b0-96aa-29d40c771ba0	Julina	Śruba	dddd	3	62	3106	Snopków	20		3	3	\N	2019-03-02 20:07:12.466747	2019-03-03 07:33:13.677487	d04e8915-2ce7-45ee-b161-a7dcce79f65a	21-002	Jastków	\N	\N	\N
+d4e970d4-2791-4e7c-bc10-ace9c5f7816b	Bartosz	Sidorowski	Sidorowskie Obory	3	62	3106	Snopków	50	\N	384763487678	48763487	\N	2019-03-05 08:14:12.960753	2019-03-05 08:14:12.960753	d04e8915-2ce7-45ee-b161-a7dcce79f65a	20-456	Jastków	\N	\N	\N
+51e4c13e-f80a-40b0-96aa-29d40c771ba0	Julia	Śruba	Gospodarstwo Rolne Julia Śruba	3	62	3106	Snopków	272		712-10-10-712	33333333333333	\N	2019-03-02 20:07:12.466747	2019-03-05 09:26:33.116048	d04e8915-2ce7-45ee-b161-a7dcce79f65a	21-002	Jastków	817426301	608608608	juli@onet.pl
+be906921-1ae4-4be7-a5c6-5202d5db4651	Kowalski 	Karol	Gospodarstwo Rolne Kowalski Karol	3	54	2982	Janów	5	\N	712-10-10-712	102010201	\N	2019-03-05 10:38:15.482019	2019-03-05 10:38:15.482019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	20-200	Janów	8344444444	608608608	kowalski@onet.pl
 \.
 
 
@@ -6921,6 +6938,7 @@ COPY public.schema_migrations (version) FROM stdin;
 20190302161245
 20190302192546
 20190303202910
+20190304213051
 \.
 
 
@@ -7157,10 +7175,15 @@ COPY public.systemyutrzymania (id, produkcja, zawartosc, jednostkautrzymania_id,
 --
 
 COPY public.uzytki (id, name, kategoria_id, rodzajuprawy_id, nmin, prognoza, created_at, updated_at, instytucja_id, rolnik_id, zlecenie_id, badania, bobowate_id, roslina_id, plon, powierzchnia, nminsezon, przedplon, roslinaprzedplon_id, bobowata_id, grunt_id, ph, weglanowa, fosfor, potas, magnez, przedplonfosfor, przedplonpotas, wspwykorzystania_id, plonprzedplonowej, lp, stanprzedplonu) FROM stdin;
-78	sdfsd	1	2	\N	\N	2019-03-03 07:29:42.974784	2019-03-03 07:29:57.819444	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	f	\N	175	2.0	3.0	f	3.0	1	1	2	\N	f	\N	\N	\N	\N	\N	\N	\N	1	f
-79	sdgdfg	1	2	\N	\N	2019-03-03 08:06:40.875591	2019-03-03 08:06:40.875591	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	f	\N	175	3.0	3.0	f	3.0	1	1	3	\N	f	\N	\N	\N	\N	\N	\N	\N	2	f
-80	3	1	2	\N	\N	2019-03-03 08:06:55.72921	2019-03-03 08:06:55.737205	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	f	\N	175	3.0	3.0	f	4.0	1	1	2	\N	f	\N	\N	\N	\N	\N	\N	\N	3	f
-81	ad	3	1	\N	\N	2019-03-03 18:45:19.311428	2019-03-03 20:59:14.776709	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	c68d1db4-d46c-4c07-97ce-a06f2fe11282	f	\N	170	3.0	2.0	f	23.0	1	1	1	4.0	t	5.0	5.0	5.0	4.0	4.0	3	4.0	4	f
+87	A	1	1	50.1	\N	2019-03-05 10:40:13.1343	2019-03-05 16:12:15.279962	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	f	\N	170	8.0	10.0	t	0.0	1	1	1	\N	f	\N	\N	\N	\N	\N	\N	\N	1	f
+84	1	3	3	\N	\N	2019-03-05 08:19:56.262462	2019-03-05 08:25:05.781022	d04e8915-2ce7-45ee-b161-a7dcce79f65a	d4e970d4-2791-4e7c-bc10-ace9c5f7816b	16cd2461-a8f7-4c99-9269-4c4d18d603ce	f	\N	185	3.5	100.0	f	0.0	5	8	2	4.0	t	5.0	6.0	3.0	0.0	0.0	2	5.0	1	f
+82	c	3	1	10.0	\N	2019-03-05 06:26:22.263265	2019-03-05 09:21:44.557892	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	f	\N	170	5.0	1.0	f	0.0	1	1	1	5.0	f	15.0	15.0	5.0	0.0	0.0	1	5.0	1	f
+83	2	3	1	\N	\N	2019-03-05 07:41:34.370875	2019-03-05 09:30:09.783469	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	f	\N	170	5.0	1.0	f	0.0	3	2	1	5.0	f	15.0	15.0	5.0	0.0	0.0	1	5.0	2	f
+85	3	3	1	\N	\N	2019-03-05 09:36:48.196907	2019-03-05 09:39:30.522843	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	f	\N	170	5.0	1.0	f	80.0	1	1	1	5.0	f	15.0	15.0	5.0	40.0	40.0	1	0.0	3	f
+86	4	3	1	\N	\N	2019-03-05 09:43:58.888808	2019-03-05 09:43:58.888808	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	68131bef-ea53-4cfc-811a-bda7a0565f18	f	\N	170	5.0	1.0	f	0.0	1	1	1	5.0	f	15.0	15.0	5.0	0.0	0.0	1	5.0	4	f
+88	B	3	3	\N	\N	2019-03-05 10:40:53.860722	2019-03-05 10:40:53.860722	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	f	\N	241	4.0	10.0	f	0.0	1	1	1	\N	f	\N	\N	\N	\N	\N	\N	\N	2	f
+89	C	3	4	\N	\N	2019-03-05 10:41:58.113567	2019-03-05 10:41:58.113567	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	f	\N	190	50.0	10.0	f	0.0	1	1	1	\N	f	\N	\N	\N	\N	\N	\N	\N	3	f
+90	D	3	8	\N	\N	2019-03-05 10:43:28.865156	2019-03-05 10:43:28.865156	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	f	\N	229	40.0	10.0	f	0.0	1	1	1	\N	f	\N	\N	\N	\N	\N	\N	\N	4	f
 \.
 
 
@@ -7214,7 +7237,10 @@ COPY public.wspiwykorzystania (id, name, wsp_fosfor_i_rok, wsp_potas_i_rok, wsp_
 --
 
 COPY public.zlecenia (id, name, instytucja_id, rolnik_id, wariant_id, podstawainna, sprawa, podstawa_id, created_at, updated_at, wojewodztwo_id, powiat_id, gmina_id, miejscowosc, powierzchnia, datawplywu, lp, rejestr, typ) FROM stdin;
-c68d1db4-d46c-4c07-97ce-a06f2fe11282	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	1	\N	\N	\N	2019-03-02 20:07:37.782553	2019-03-03 20:56:13.137125	3	62	3106	Snopków	\N	2019-03-02	1	1	t
+0a6a674c-7b8a-40d2-abb4-fcf9031657fb	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	1	\N	\N	\N	2019-03-03 22:16:40.118491	2019-03-03 22:16:40.126563	3	62	3106	Snopków	\N	2019-03-03	1	1	f
+68131bef-ea53-4cfc-811a-bda7a0565f18	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	51e4c13e-f80a-40b0-96aa-29d40c771ba0	1	\N	\N	\N	2019-03-03 22:16:57.457432	2019-03-03 22:16:57.465049	3	62	3106	Snopków	\N	2019-03-03	2	2	t
+16cd2461-a8f7-4c99-9269-4c4d18d603ce	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	d4e970d4-2791-4e7c-bc10-ace9c5f7816b	1	\N	\N	\N	2019-03-05 08:15:12.182413	2019-03-05 08:21:26.015999	3	62	3106	Snopków	\N	2019-03-05	2	4	f
+09ad7c65-2cf2-4dfa-8ecb-f28c88e26bf5	2018/2019	d04e8915-2ce7-45ee-b161-a7dcce79f65a	be906921-1ae4-4be7-a5c6-5202d5db4651	1	\N	\N	\N	2019-03-05 10:38:50.365822	2019-03-05 10:38:50.37244	3	54	2982	Janów	\N	2019-03-05	1	5	f
 \.
 
 
@@ -7330,7 +7356,7 @@ COPY public.zwierzeta (id, name, gatunek_id, wspolczynnik, created_at, updated_a
 -- Name: animals_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.animals_id_seq', 185, true);
+SELECT pg_catalog.setval('public.animals_id_seq', 194, true);
 
 
 --
@@ -7386,14 +7412,14 @@ SELECT pg_catalog.setval('public.kategorie_id_seq', 5, true);
 -- Name: nawozynaturalne_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.nawozynaturalne_id_seq', 207, true);
+SELECT pg_catalog.setval('public.nawozynaturalne_id_seq', 231, true);
 
 
 --
 -- Name: nawozywykorzystane_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.nawozywykorzystane_id_seq', 189, true);
+SELECT pg_catalog.setval('public.nawozywykorzystane_id_seq', 217, true);
 
 
 --
@@ -7526,7 +7552,7 @@ SELECT pg_catalog.setval('public.systemyutrzymania_id_seq', 200, true);
 -- Name: uzytki_id_seq; Type: SEQUENCE SET; Schema: public; Owner: azotanowy_pl
 --
 
-SELECT pg_catalog.setval('public.uzytki_id_seq', 81, true);
+SELECT pg_catalog.setval('public.uzytki_id_seq', 90, true);
 
 
 --
