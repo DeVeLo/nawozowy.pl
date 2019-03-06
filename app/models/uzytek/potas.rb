@@ -56,6 +56,7 @@ class Uzytek::Potas
     if @u.plonprzedplonowej.nil?
       0
     else
+      
       @u.plonprzedplonowej * @u.roslinaprzedplon.potas * @u.roslinaprzedplon.mnoznik
     end
   end
@@ -66,7 +67,7 @@ class Uzytek::Potas
   #    dla roślin następczych w kg z 1 tony przyoranego produktu ubocznego
   #    wg. T. Jadczyszyn
   def zapas
-    if resztki.nil? or @u.roslinaprzedplon.wsp_potas_i_rok.nil?
+    if resztki.nil? or @u.roslinaprzedplon.wsp_potas_i_rok.nil? or @u.stanprzedplonu
       0
     else
       resztki * @u.roslinaprzedplon.wsp_potas_i_rok
@@ -106,14 +107,30 @@ class Uzytek::Potas
       potrzeby_nawozowe
     end
   end
+
+  def wszystkie_zapasy
+    (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
+  end
   
   # 9) dodajemy zapasy i odejmujemy zapotrzebowanie
-  def wynik
+  def wynik_przed
     if zapasy_nawoz_ii.nil? or potrzeby_nawozowe.nil?
       nil
     else
-      potrzeby_nawozowe_przedplon - (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
+      potrzeby_nawozowe_przedplon - wszystkie_zapasy
     end
   end
-  
+
+  def wynik
+    unless wynik_przed.nil?
+      if wynik_przed < 0
+        0
+      else
+        wynik_przed
+      end
+    else
+      nil
+    end
+  end
+    
 end

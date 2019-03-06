@@ -66,7 +66,7 @@ class Uzytek::Fosfor
   #    dla roślin następczych w kg z 1 tony przyoranego produktu ubocznego
   #    wg. T. Jadczyszyn
   def zapas
-    if resztki.nil? or @u.roslinaprzedplon.wsp_fosfor_i_rok.nil?
+    if resztki.nil? or @u.roslinaprzedplon.wsp_fosfor_i_rok.nil? or @u.stanprzedplonu
       0
     else
       resztki * @u.roslinaprzedplon.wsp_fosfor_i_rok
@@ -106,13 +106,35 @@ class Uzytek::Fosfor
       potrzeby_nawozowe
     end
   end
+
+  def wszystkie_zapasy
+    (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
+  end
   
   # 10) dodajemy zapasy i odejmujemy zapotrzebowanie
-  def wynik
+  def wynik_przed
     if zapasy_nawoz_ii.nil? or potrzeby_nawozowe.nil?
       nil
     else
-      potrzeby_nawozowe_przedplon - (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
+      potrzeby_nawozowe_przedplon - wszystkie_zapasy
+    end
+  end
+
+  def wynik
+    unless wynik_przed.nil?
+      if @u.kategoria_id < 5 and ! @u.weglanowa and @u.fosfor > 40
+        0
+      elsif @u.kategoria_id < 5 and @u.weglanowa and @u.fosfor > 80
+        0
+      elsif @u.kategoria_id == 5 and @u.fosfor > 120
+        0
+      elsif wynik_przed < 0
+        0
+      else
+        wynik_przed
+      end
+    else
+      nil
     end
   end
   

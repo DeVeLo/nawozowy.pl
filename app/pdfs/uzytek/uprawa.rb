@@ -10,7 +10,7 @@ class Uzytek::Uprawa
 
     @uprawa = []
     uprawa
-    przedplon
+    # przedplon
     bobowata
     
     @o.table([
@@ -23,35 +23,71 @@ class Uzytek::Uprawa
                  { content: wyniki,
                    border_width: [ 0, 0.2.mm, 0.2.mm, 0.2.mm ] },
                ],
-               [
-                 { content: podsumowanie,
-                   border_width: [ 0, 0.2.mm, 0.2.mm, 0.2.mm ] },
-               ],
+               # [
+               #   { content: podsumowanie,
+               #     border_width: [ 0, 0.2.mm, 0.2.mm, 0.2.mm ] },
+               # ],
              ])
 
-    @o.move_down 15.pt
+    @o.move_down 5.pt
 
-    @o.text 'Azot stosujemy z podziałem na dawki.'
+    # @o.text 'Azot stosujemy z podziałem na dawki.'
 
-    @o.move_down 15.pt
+    # @o.move_down 15.pt
 
 
-    if @uzytek.nawozywykorzystane.count > 0
-      @o.text 'Zastosowany nawóz naturalny pod roślinę:'
-    end
-
+    # if @uzytek.nawozywykorzystane.count > 0
+    #   @o.text 'Zastosowany nawóz naturalny pod roślinę:'
+    # end
+    
     lp = 0
-    @uzytek.nawozywykorzystane.each do |nw|
+    @uzytek.nawozynaturalne.each do |nn|
+
+      @o.move_down 10.pt
       lp = lp + 1
-      @o.text ++lp.to_s + ') ' + nw.animal.nazwautrzymania.name + ' - ' + nw.animal.name + ' - ' + nw.ilosc_na_pole.round(0).to_i.to_s + ' t/pole - ' + nw.nawoznaturalny.sezon.name
+      @o.text ++lp.to_s + ') Nawóz naturalny - ' + nn.animalgroup.animalsname.downcase + ' - ' + nn.sezon.name + ':'
+      @o.table([
+                 [
+                   {
+                     content: "•",
+                     border_width: 0,
+                     padding: [1.mm, 0, 0, 9.mm ]
+                   },
+                   {
+                     content: nn.ilosc.round.to_s + ' t/ha (' +
+                       nn.wykorzystany_azot.round(1).to_s + ' kg N/ha ' +
+                       'w tym działający ' + nn.wykorzystany_azot_dzialajacy.round(1).to_s +
+                       ' kg N/ ha' +
+                       ')',
+                     border_width: 0,
+                     padding: [1.mm, 0, 0, 3.mm ]
+                   }
+                 ],
+                 [
+                   {
+                     content: "•",
+                     border_width: 0,
+                     padding: [1.mm, 0, 0, 9.mm ]
+                   },
+                   {
+                     content: (nn.ilosc * @uzytek.powierzchnia).round.to_s +
+                       ' t/' + @uzytek.powierzchnia.round(1).to_s +
+                       ' ha (pole) - (' +
+                       (nn.wykorzystany_azot * @uzytek.powierzchnia).round(1).to_s + ' kg N/ ' + @uzytek.powierzchnia.round(1).to_s + ' ha (pole) ' +
+                       'w tym działający ' + (nn.wykorzystany_azot_dzialajacy * @uzytek.powierzchnia).round(1).to_s +
+                       ' kg N/' + @uzytek.powierzchnia.round(1).to_s + ' ha (pole)' +
+                       ')',
+                     border_width: 0,
+                     padding: [1.mm, 0, 0, 3.mm ]
+                   }
+                 ],
+               ])
       #zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa * nw.animal.getrownowaznik(nw.nawoznaturalny.sezon_id))
     end
 
-    @o.move_down 15.pt
+    # @o.move_down 15.pt
     
-	 @o.text 'Ilość azotu działającego z nawozu naturalnego + z pozostałych źródeł ' + @uzytek.zanimalsami.round(0).to_i.to_s + ' kg N/ha'
-    
-    
+	 # @o.text 'Ilość azotu działającego z nawozu naturalnego + z pozostałych źródeł ' + @uzytek.zanimalsami.round(0).to_i.to_s + ' kg N/ha'  
   end
 
   # podsumowanie
@@ -103,11 +139,11 @@ class Uzytek::Uprawa
     [
       [
         {
-          content: "<b>N działający</b>",
+          content: "<b>N działający\nz nawozów min.</b>",
           border_width: [ 0, 0, 0.2.mm, 0],
           height: 10.8.mm,
           size: 8.pt,
-          padding: 3.5.mm,
+          padding: 2.mm,
           width: @o.bounds.width/5,
           inline_format: true,
           align: :center,

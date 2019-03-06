@@ -85,6 +85,7 @@ export default {
 	 props: ['animalgroup'],
 	 data() {
 		  return {
+				// animals: [],
 				gon: gon,
 				naglowki: [
 					 { key: 'zwierze', label: 'zwierzę' },
@@ -103,8 +104,8 @@ export default {
 				set(v) { this.$store.commit('animal', v) }
 		  },
 		  animals: {
-				get() { return this.$store.state.animals },
-				set(v) { this.$store.commit('animals', v) }
+		  		get() { return this.$store.state.animals },
+		  		set(v) { this.$store.commit('animals', v) }
 		  },
 		  ...mapGetters(['animalmodal']),
 	 },
@@ -122,7 +123,11 @@ export default {
 										+ '/animals/'
 										+ id + '.json')
 					 .then((result) => {
-						  this.animals.splice(index,1)
+						  for (var i=0; i < this.animals.length; i++) {
+								if (this.animals[i].id === id) {
+									 this.animals.splice(i,1)
+								}
+						  }
 						  this.pobierz()
 					 })
 					 .catch((error) => { console.log(error) })

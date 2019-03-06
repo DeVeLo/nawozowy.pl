@@ -24,7 +24,7 @@
 		  <b-col>
 			 <dl>
 				<dt>N działający</dt>
-				<dd>{{ uzytek.azot_mineralny_ha }} kg/ha</dd>
+				<dd>{{ Math.round(10*uzytek.azot_mineralny_ha)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  
@@ -45,7 +45,7 @@
 		  <b-col v-if="zlecenie.typ == true">
 			 <dl>
 				<dt>K<sub>2</sub>O</dt>
-				<dd>{{ Math.round(10*uzytek.wynik_potas)/10 }} ka/ha</dd>
+				<dd>{{ Math.round(10*uzytek.wynik_potas)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  

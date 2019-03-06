@@ -1,5 +1,73 @@
 <template>
-<b-container class="text-left m-0 p-0">
+<div>
+  <b-card
+	 bg-variant="light"
+	 class="m-0 mt-2">
+	 
+	 <b-form-row
+		class="m-0 mb-2">
+		
+		<b-col>
+		  
+		  <b-form-group
+			 label="Zastosowany nawóz naturalny"
+			 label-class="font-weight-bold">
+			 
+			 <b-form-row>
+				
+				<b-col>
+				  
+				  <b-table
+					 class="m-0 p-0 small"
+					 thead-class="thead-dark"
+					 size="sm"
+					 striped
+					 hover
+					 outlined
+					 show-empty
+					 small
+					 :empty-text="'Nie ma jeszcze dodanego nawozu naturalnego do użytku.'"
+					 :fields="naglowki"
+					 :items="uzytek.nawozynaturalne_attributes">
+					 <template slot="ilosc" slot-scope="row">
+						{{ Math.round(10*row.item.ilosc)/10 }}&nbsp;t/ha<br>
+						N&nbsp;{{ Math.round(10*row.item.wykorzystany_azot)/10 }}&nbsp;kg/ha<br>
+						Nd&nbsp;{{ Math.round(10*row.item.wykorzystany_azot_dzialajacy)/10 }}&nbsp;kg/ha<br>
+						P<sub>2</sub>O<sub>5</sub>&nbsp;{{ Math.round(10*row.item.wykorzystany_fosfor)/10 }}&nbsp;kg/ha<br>
+						K<sub>2</sub>O&nbsp;{{ Math.round(10*row.item.wykorzystany_potas)/10 }}&nbsp;kg/ha<br>
+					 </template>
+					 
+					 <template slot="ilosc_na_pole" slot-scope="row">
+						{{ Math.round(10*row.item.ilosc_na_pole)/10 }}&nbsp;t<br>
+						N&nbsp;{{ Math.round(10*row.item.wykorzystany_azot_pole)/10 }}&nbsp;kg/pole<br>
+						Nd&nbsp;{{ Math.round(10*row.item.wykorzystany_azot_dzialajacy_pole)/10 }}&nbsp;kg/pole<br>
+						P<sub>2</sub>O<sub>5</sub>&nbsp;{{ Math.round(10*row.item.wykorzystany_fosfor_pole)/10 }}&nbsp;kg/pole<br>
+						K<sub>2</sub>O&nbsp;{{ Math.round(10*row.item.wykorzystany_potas_pole)/10 }}&nbsp;kg/pole<br>
+					 </template>
+					 
+					 <template slot="przyciski" slot-scope="row">
+						<b-button
+						  variant="danger"
+						  size="sm"
+						  @click="destroy(row.item.id, row.index)">
+						  usuń
+						</b-button>
+					 </template>
+					 
+				  </b-table>
+				  
+				</b-col>
+				
+			 </b-form-row>
+			 
+		  </b-form-group>
+		  
+		</b-col>
+		
+	 </b-form-row>
+	 
+  </b-card>
+  
   <b-card
 	 bg-variant="light"
 	 class="mt-2">
@@ -11,33 +79,9 @@
 		  <b-form-group
 			 label="Rozdysponuj nawóz naturalny"
 			 label-class="font-weight-bold">
-
-			 <b-form-row v-for="group in animalgroups">
-				<b-col>
-				  <dl>
-					 <dt>{{ group.animalsname }}</dt>
-					 <dd>
-						produkcja: {{ group.produkt }} t(m<sup>3</sup>)	/
-						pozostało: {{ group.pozostalynawoz }} t(m<sup>3</sup>)
-					 </dd>
-					 <dd>
-						produkcja N: {{ group.produkcja_azot }} kg /
-						pozostały N: {{ group.pozostaly_azot }} kg
-					 </dd>
-					 <dd>
-						produkcja P<sub>2</sub>O<sub>5</sub>: {{ group.produkcja_fosfor }} kg /
-						pozostały P<sub>2</sub>O<sub>5</sub>: {{ group.pozostaly_fosfor }} kg
-					 </dd>
-					 <dd>
-						produkcja K<sub>2</sub>O: {{ group.produkcja_potas }} kg /
-						pozostały K<sub>2</sub>O: {{ group.pozostaly_potas }} kg
-					 </dd>
-				  </dl>
-				</b-col>
-			 </b-form-row>
 			 
 			 <b-form-row>
-  
+				
 				<b-col cols="6">
 				  <b-form-group
 					 label="wybierz nawóz"
@@ -47,11 +91,11 @@
 						size="sm"
 						id="animalgroups"
 						:options="animalgroups"
-						@input="pobierzAnimalgroup(animalgroup_id)"
+						@input="pobierzAnimalgroup(animalgroup_id); $root.$emit('bv::toggle::collapse', ('a' + animalgroup_id).substr(0,7))"
 						v-model="animalgroup_id"></b-form-select>
 				  </b-form-group>
 				</b-col>
-	 
+				
 				<b-col cols="3">
 				  <b-form-group
 					 label="sezon"
@@ -89,43 +133,129 @@
 						@click="save()">dodaj</b-button>
 				  </b-form-group>
 				</b-col>
-
+				
 			 </b-form-row>
 			 
-		  </b-form-group>
+			 <b-form-row>
+				<b-col role="tablist">
+				  <b-card no-body v-for="group in animalgroups" :key="group.id">
+					 <b-card-header
+						header-tag="header"
+						role="tab"
+						class="m-0 p-0">
+						<b-button
+						  block
+						  @click="animalgroup_id = group.id"
+						  variant="info"
+						  size="sm">
+						  {{ group.animalsname }}
+						</b-button>
+					 </b-card-header>
+					 
+					 <b-collapse
+						:id="'a' + group.id.substr(0,6)"
+						accordion="animalgroups-accordion"
+						role="tabpanel">
+						<b-card-body class="m-0 p-0">
+						  <b-form-row class="mt-2 mb-0">
+							 <b-col class="text-center">
+								<dl>
+								  <dt>prod./dost. t(m<sup>3</sup>)</dt>
+								  <dd>{{ Math.round(100*group.produkt)/100 }} / {{ Math.round(100*group.pozostalynawoz)/100 }}</dd>
+								</dl>
+							 </b-col>
+							 
+							 <b-col class="text-center">
+								<dl>
+								  <dt>N kg</dt>
+								  <dd>{{ Math.round(100*group.produkcja_azot)/100 }} /	{{ Math.round(100*group.pozostaly_azot)/100 }}</dd>
+								</dl>
+							 </b-col>
+							 
+							 <b-col class="text-center">
+								<dl>
+								  <dt>P<sub>2</sub>O<sub>5</sub> kg</dt>
+								  <dd>{{ Math.round(100*group.produkcja_fosfor)/100 }} / {{ Math.round(100*group.pozostaly_fosfor)/100 }}</dd>
+								</dl>
+							 </b-col>
+							 
+							 <b-col class="text-center">
+								<dl>
+								  <dt>K<sub>2</sub>O kg</dt>
+								  <dd>{{ Math.round(100*group.produkcja_potas)/100 }} / {{ Math.round(100*group.pozostaly_potas)/100 }}</dd>
+								</dl>
+							 </b-col>
+						  </b-form-row>
 
-		</b-col>
-
-	 </b-form-row>
-
-  </b-card>
+						  <b-form-row>
+							 <b-col class="ml-3 mb-1">
+								Maksymalna dawka do zastosowania {{ Math.round(100*group.maksymalna_dawka)/100 }} t/ha
+							 </b-col>
+						  </b-form-row>
+						  
+						</b-card-body>
+					 </b-collapse>
+					 
+				  </b-card>
+				  
+				</b-col>
+				
+			 </b-form-row>			 
 			 
-  <b-table
-	 class="m-0 p-0"
-	 thead-class="thead-light"
-	 striped
-	 hover
-	 outlined
-	 show-empty
-	 small
-	 :empty-text="'W tej chwili nie ma tutaj nic do wyświetlenia. '"
-	 :fields="naglowki"
-	 :items="uzytek.nawozynaturalne_attributes">
-	 <template slot="ilosc" slot-scope="row">
-		{{ row.item.ilosc }}&nbsp;t/ha
-	 </template>
-
-	 <template slot="ilosc_na_pole" slot-scope="row">
-		{{ row.item.ilosc_na_pole }}&nbsp;t
-	 </template>
+		  </b-form-group>
+		  
+		</b-col>
+		
+	 </b-form-row>
 	 
-	 <template slot="przyciski" slot-scope="row">
-		<b-button variant="danger" @click="destroy(row.item.id, row.index)">[&nbsp;-&nbsp;]</b-button>
-	 </template>
-	 
-  </b-table>
+  </b-card>		 
   
-</b-container>
+  <b-card
+	 bg-variant="light"
+	 class="mt-2 mb-0">
+	 
+	 <b-form-group
+		label="Podusmowanie produkcji"
+		label-class="font-weight-bold"
+		description="Podsumowanie produkcji oraz wykorzystania nawozów naturalnych w gospodarstwie">
+		
+		<b-form-row>
+		  
+		  <b-col class="text-center">
+			 <dl>
+				<dt>prod./dost. t(m<sup>3</sup>)/rok</dt>
+				<dd>{{ zlecenie.produkcja_nawozu }} / {{ zlecenie.pozostaly_nawoz }}</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col class="text-center">
+			 <dl>
+				<dt>N kg/rok</dt>
+				<dd>{{ zlecenie.produkcja_azotu }} / {{ zlecenie.pozostaly_azot }}</dd>
+			 </dl>
+		  </b-col>
+		  
+		  <b-col class="text-center">
+			 <dl>
+				<dt>P<sub>2</sub>O<sub>5</sub> kg/rok</dt>
+				<dd>{{ zlecenie.produkcja_fosforu }} / {{ zlecenie.pozostaly_fosfor }}</dd>
+			 </dl>
+		  </b-col>
+				
+		  <b-col class="text-center">
+			 <dl>
+				<dt>K<sub>2</sub>O kg/rok</dt>
+				<dd>{{ zlecenie.produkcja_potasu }} / {{ zlecenie.pozostaly_potas }}</dd>
+			 </dl>
+		  </b-col>
+		  
+		</b-form-row>
+
+	 </b-form-group>
+		
+  </b-card>
+
+</div>
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex'
@@ -143,7 +273,7 @@ export default {
 					 { key: 'grupa', label: 'grupa zwierząt' },
 					 { key: 'sezon_name', label: 'sezon' },
 					 { key: 'ilosc', label: 'ilość' },
-					 { key: 'ilosc_na_pole', label: 'ilość na pole' },
+					 { key: 'ilosc_na_pole', label: 'il./pole' },
 					 { key: 'przyciski', label: '' },
 				],
 				confirm: false,
@@ -243,7 +373,7 @@ export default {
 		  wyczyscNawoz() {
 				this.ilosc = ""
 				this.sezon_id = false
-				this.animalgroup_id = false
+				// this.animalgroup_id = false
 		  },
 		  formatter_decimal(v,e) {
 				if (v !== null) {
@@ -281,6 +411,7 @@ export default {
 		  
 	 },
 	 computed: {
+		  ...mapGetters(['zlecenie']),
 		  animals: {
 				get() { return this.$store.state.animals },
 				set(v) { this.$store.commit('animals', v) }

@@ -10,7 +10,7 @@
 		  header-text-variant="white">
 		  
 		  <b-row slot="header">
-			 <b-col>
+			 <b-col cols="4">
 				<b-button @click="createAnimal(animalgroup.id)" variant="primary" size="sm">dodaj zwierzę</b-button>
 
 				<b-button v-if="confirm!=animalgroup.id" type="button" variant="danger" size="sm" @click="confirm=animalgroup.id">usuń grupę</b-button>
@@ -19,6 +19,12 @@
 				  <b-button type="button" variant="danger" size="sm" @click="usunGrupe(animalgroup.id, index)">tak</b-button>
 				  <b-button type="button" size="sm" @click="confirm=false">nie</b-button>
 				</span>
+			 </b-col>
+			 <b-col class="text-right">
+				produkcja: {{ animalgroup.produkt }} t(m<sup>3</sup>) &raquo;
+				N: {{ animalgroup.produkcja_azot }} kg &raquo;
+				P<sub>2</sub>O<sub>5</sub>: {{ animalgroup.produkcja_fosfor }} kg &raquo;
+				K<sub>2</sub>O: {{ animalgroup.produkcja_potas }} kg
 			 </b-col>
 		  </b-row>
 
@@ -43,6 +49,7 @@ export default {
 	 data() {
 		  return {
 				confirm: false,
+				keyadd: 0,
 		  }
 	 },
 	 components: {
@@ -65,7 +72,7 @@ export default {
 	 watch: {
 		  animals: function() {
 				this.pobierzAnimalgroups()
-		  }
+		  },
 	 },
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
@@ -88,7 +95,10 @@ export default {
 									+ '/zlecenia/'
 									+ gon.id
 									+ '/animalgroups.json')
-					 .then((result) => { this.animalgroups = result.body })
+					 .then((result) => {
+						  this.animalgroups = result.body
+						  
+					 })
 					 .catch((error) => { console.log(error)} )
 		  },
 		  usunGrupe(id, index) {

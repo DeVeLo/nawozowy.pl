@@ -32,11 +32,13 @@ class UzytkiPdf < Prawn::Document
 
       if ((index + 1) < zlecenie.uzytki.count)
         move_down 15.pt
-        stroke_horizontal_rule
-        move_down 15.pt
+    #    stroke_horizontal_rule
+    #    move_down 15.pt
       end
     end
-  end
+
+    number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true    
+end
 
   # nagłówek
   def naglowek

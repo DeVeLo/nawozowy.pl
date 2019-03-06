@@ -26,5 +26,37 @@ class Nawoznaturalny < ApplicationRecord
       self.nawozywykorzystane.create({animal_id: animal.id, ilosc: ilosc, ilosc_na_pole: ilosc_na_pole})
     end    
   end    
+
+  def wykorzystany_azot
+    suma = 0
+    self.nawozywykorzystane.each do |nw|
+      suma += nw.wykorzystany_azot
+    end
+    suma
+  end
+
+  def wykorzystany_azot_dzialajacy
+    suma = 0
+    self.nawozywykorzystane.each do |nw|
+      suma += nw.wykorzystany_azot_dzialajacy
+    end
+    suma
+  end
+  
+  def wykorzystany_fosfor
+    suma = 0
+    self.nawozywykorzystane.each do |nw|
+      suma += nw.wykorzystany_fosfor
+    end
+    suma
+  end
+
+  def wykorzystany_potas
+    suma = 0
+    self.nawozywykorzystane.each do |nw|
+      suma += nw.wykorzystany_potas
+    end
+    suma
+  end
   
 end

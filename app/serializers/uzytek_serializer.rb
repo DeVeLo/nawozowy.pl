@@ -27,6 +27,15 @@ class UzytekSerializer < ActiveModel::Serializer
       custom[:sezon_name] = nawoz.sezon.name
       custom[:grupa] = nawoz.animalgroup.animalsname
       custom[:ilosc_na_pole] = nawoz.nawozywykorzystane.sum(:ilosc_na_pole)
+      custom[:wykorzystany_azot] = nawoz.wykorzystany_azot
+      custom[:wykorzystany_azot_dzialajacy] = nawoz.wykorzystany_azot_dzialajacy
+      custom[:wykorzystany_fosfor] = nawoz.wykorzystany_fosfor
+      custom[:wykorzystany_potas] = nawoz.wykorzystany_potas
+
+      custom[:wykorzystany_azot_pole] = nawoz.wykorzystany_azot * object.powierzchnia
+      custom[:wykorzystany_azot_dzialajacy_pole] = nawoz.wykorzystany_azot_dzialajacy * object.powierzchnia
+      custom[:wykorzystany_fosfor_pole] = nawoz.wykorzystany_fosfor * object.powierzchnia
+      custom[:wykorzystany_potas_pole] = nawoz.wykorzystany_potas * object.powierzchnia
       
       nawozy.push(custom)
     end

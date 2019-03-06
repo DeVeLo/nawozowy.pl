@@ -20,7 +20,25 @@ class Animalgroup < ApplicationRecord
       self.nazwyutrzymania.distinct.pluck(:name).join(', ')
   end
 
-  # produkt całkowityw grupie
+  def srednia_zawartosc
+    srednia = 0
+    w = 0
+    self.animals.each do |z|
+      w = z.produkt / produkt
+      srednia = srednia + w * z.zawartosc_wynikowa
+    end
+    srednia
+  end
+  
+  def maksymalna_dawka
+    if srednia_zawartosc > 0
+      170 / srednia_zawartosc
+    else
+      0
+    end
+  end
+  
+  # produkt całkowity w grupie
   def produkt
     produkt = 0
     self.animals.each do |p|

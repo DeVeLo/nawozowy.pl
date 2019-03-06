@@ -31,6 +31,7 @@ class UzytekPdf < Prawn::Document
     # dane użytku
     Uzytek::Uprawa.new(self, @uzytek)
     
+    number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true    
   end
 
   # nagłówek
