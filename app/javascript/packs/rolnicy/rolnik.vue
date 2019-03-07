@@ -1,6 +1,6 @@
 <template>
-<b-container fluid>
-
+<div>  
+  
   <b-navbar toggleable="md" type="dark" variant="dark" sticky>
 	 <b-navbar-brand href="https://nawozowy.pl/">nawozowy.pl</b-navbar-brand>
 	 <b-navbar-toggle target="nav_collapse" />
@@ -14,70 +14,72 @@
 		</b-navbar-nav>
 	 </b-collapse>
   </b-navbar>
-
   
-  <b-form-row>
-	 <b-col>
-		<b-row class="mt-3">
-		  <b-col>
-			 <h2>lista rolników</h2>
-		  </b-col>
-		</b-row>
-		
-		<b-row>
+  <b-container fluid>
+	 
+	 <b-form-row>
+		<b-col>
+		  <b-row class="mt-3">
+			 <b-col>
+				<h2>lista rolników</h2>
+			 </b-col>
+		  </b-row>
 		  
-		  <cform></cform>
-		  
-		  <b-table
-			 thead-class="thead-dark"
-			 tfoot-class="thead-dark"
-			 striped
-			 hover
-			 foot-clone
-			 outlined
-			 empty-text="W tej chwili nie ma tutaj nic do wyświetlenia."
-			 show-empty
-			 :fields="naglowki"
-			 :items="rolnicy">
+		  <b-row>
 			 
-			 <span slot="id" slot-scope="row">{{ row.value.substr(1,12) }}&nbsp;&#8230;</span>
+			 <cform></cform>
 			 
-			 <template slot="lname" slot-scope="row">{{ row.item.name }} {{ row.item.lname }}</template>
-			 
-			 <template slot="przyciski" slot-scope="row">
-				<b-container fluid>
-				  <b-row>
-					 <b-col class="text-center">
-						<b-button size="sm" @click="edit(row.item)">
-						  edytuj
-						</b-button>
-					 </b-col>
-					 
-					 <b-col class="text-center">
-						<b-button v-show="row.item.id != confirm" @click="confirm = row.item.id" variant="danger" size="sm">
-						  usuń
-						</b-button>
+			 <b-table
+				thead-class="thead-dark"
+				tfoot-class="thead-dark"
+				striped
+				hover
+				foot-clone
+				outlined
+				empty-text="W tej chwili nie ma tutaj nic do wyświetlenia."
+				show-empty
+				:fields="naglowki"
+				:items="rolnicy">
+				
+				<span slot="id" slot-scope="row">{{ row.value.substr(1,12) }}&nbsp;&#8230;</span>
+				
+				<template slot="lname" slot-scope="row">{{ row.item.name }} {{ row.item.lname }}</template>
+				
+				<template slot="przyciski" slot-scope="row">
+				  <b-container fluid>
+					 <b-row>
+						<b-col class="text-center">
+						  <b-button size="sm" @click="edit(row.item)">
+							 edytuj
+						  </b-button>
+						</b-col>
 						
-						<span v-show="row.item.id == confirm">
-						  <p>na pewno?</p>
-						  <b-button @click="usun_rolnika(row.item.id, row.index)" variant="danger" size="sm">tak</b-button>
-						  <b-button @click="confirm = false" variant="secondary" size="sm">nie</b-button>
-						</span>
-					 </b-col>
-					 <b-col class="text-center">
-						<b-button :href="'/instytucje/' + row.item.instytucja_id + '/rolnicy/' + row.item.id + '/zlecenia'" size="sm" variant="primary">
-						  zlecenia
-						</b-button>
-					 </b-col>
-				  </b-row>		  
-				</b-container>
-			 </template>
-			 
-		  </b-table>
-		</b-row>
+						<b-col class="text-center">
+						  <b-button v-show="row.item.id != confirm" @click="confirm = row.item.id" variant="danger" size="sm">
+							 usuń
+						  </b-button>
+						  
+						  <span v-show="row.item.id == confirm">
+							 <p>na pewno?</p>
+							 <b-button @click="usun_rolnika(row.item.id, row.index)" variant="danger" size="sm">tak</b-button>
+							 <b-button @click="confirm = false" variant="secondary" size="sm">nie</b-button>
+						  </span>
+						</b-col>
+						<b-col class="text-center">
+						  <b-button :href="'/instytucje/' + row.item.instytucja_id + '/rolnicy/' + row.item.id + '/zlecenia'" size="sm" variant="primary">
+							 zlecenia
+						  </b-button>
+						</b-col>
+					 </b-row>		  
+				  </b-container>
+				</template>
+				
+			 </b-table>
+		  </b-row>
 	 </b-col>
   </b-form-row>
 </b-container>
+</div>
 </template>
 
 <script>

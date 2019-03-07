@@ -24,7 +24,7 @@
   </template>
   
   <template slot="zapotrzebowanie" slot-scope="row">
-	 <span :id="'uzytki_zapotrzebowanie_' + row.item.id">{{ row.item.zapotrzebowanie }}&nbsp;kg N</span>
+	 <span :id="'uzytki_zapotrzebowanie_' + row.item.id">{{ row.item.zapotrzebowanie_ha }}kg N/ha / {{ row.item.zapotrzebowanie }}&nbsp;kg N/pole</span>
 	 <b-tooltip :target="'uzytki_zapotrzebowanie_' + row.item.id">
 		<strong>sposób liczenia:</strong> powierzchnia&nbsp;{{ row.item.powierzchnia }}&nbsp;ha&nbsp;*&nbsp;plon&nbsp;{{ row.item.plon }}&nbsp;t&nbsp;*&nbsp;pobranie&nbsp;{{ row.item.roslina.pobranie }}&nbsp;kg&nbsp;N/ha
 	 </b-tooltip>
@@ -46,13 +46,21 @@
 		  </b-col>
 
 		  <b-col class="text-center">
-			 <b-button variant="primary" class="mt-1" size="sm" @click="zrodla(row.item)">
+			 <b-button
+				variant="primary"
+				class="mt-1"
+				size="sm"
+				@click="zrodla(row.item)">
 				źródła&nbsp;N
 			 </b-button>
 		  </b-col>
 
 		  <b-col class="text-center">
-			 <b-button class="mt-1" size="sm" @click="edit(row.item)">
+			 <b-button
+				class="mt-1"
+				size="sm"
+				@click="edit(row.item)"
+				:variant="row.item.nawozynaturalne.length > 0 ? 'success' : 'secondary'">
 				edytuj
 			 </b-button>
 		  </b-col>

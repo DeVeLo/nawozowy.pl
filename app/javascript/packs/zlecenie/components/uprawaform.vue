@@ -23,42 +23,42 @@
 		  
 		  <b-col>
 			 <dl>
-				<dt>N działający</dt>
+				<dt>dawka Nd z naw. min.</dt>
 				<dd>{{ Math.round(10*uzytek.azot_mineralny_ha)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  
 		  <b-col>
 			 <dl>
-				<dt>N mineralny</dt>
+				<dt>dawka N z naw. min.</dt>
 				<dd>{{ Math.round(10*uzytek.azot_mineralny_ha_w_nawozie)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  
 		  <b-col v-if="zlecenie.typ == true">
 			 <dl>
-				<dt>P<sub>2</sub>O<sub>5</sub></dt>
+				<dt>dawka P<sub>2</sub>O<sub>5</sub></dt>
 				<dd>{{ Math.round(10*uzytek.wynik_fosfor)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  
 		  <b-col v-if="zlecenie.typ == true">
 			 <dl>
-				<dt>K<sub>2</sub>O</dt>
+				<dt>dawka K<sub>2</sub>O</dt>
 				<dd>{{ Math.round(10*uzytek.wynik_potas)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  
 		  <b-col v-if="zlecenie.typ == true">
 			 <dl>
-				<dt>MgO</dt>
+				<dt>dawka MgO</dt>
 				<dd>{{ Math.round(10*uzytek.mg_wynik_ha)/10 }} kg/ha</dd>
 			 </dl>
 		  </b-col>
 		  
 		  <b-col v-if="zlecenie.typ == true">
 			 <dl>
-				<dt>CaO</dt>
+				<dt>dawka CaO</dt>
 				<dd>{{ Math.round(10*uzytek.cao_ha)/10 }} t/ha</dd>
 			 </dl>
 		  </b-col>
@@ -131,6 +131,25 @@
 								
 							 </b-form-group>
 						  </b-col>
+
+						  <b-col>
+							 <b-form-group
+								label="powierzchnia ha"
+								label-for="powierzchnia"
+								label-size="sm"
+								description="powierzchnia użytku w hektarach">
+								<b-form-input
+								  id="powierzchnia"
+								  size="sm"
+								  required
+								  v-model="uzytek.powierzchnia"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						</b-form-row>
+						
+						<b-form-row>
 						  
 						  <b-col>
 							 <b-form-group
@@ -162,11 +181,7 @@
 								  v-model="uzytek.weglanowa"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-						  
-						</b-form-row>
-						
-						<b-form-row>
-						  
+
 						  <b-col>
 							 <b-form-group
 								label="rodzaj gruntu"
@@ -187,7 +202,7 @@
 								label="Ph"
 								label-for="ph"
 								label-size="sm"
-								description="odczyt Ph gleby">
+								description="odczyn Ph gleby">
 								<b-form-input
 								  required
 								  id="ph"
@@ -196,22 +211,7 @@
 								  :formatter="formatter_decimal"></b-form-input>
 							 </b-form-group>
 						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label="powierzchnia ha"
-								label-for="powierzchnia"
-								label-size="sm"
-								description="powierzchnia użytku w hektarach">
-								<b-form-input
-								  id="powierzchnia"
-								  size="sm"
-								  required
-								  v-model="uzytek.powierzchnia"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
+						  						  
 						</b-form-row>
 						
 					 </b-form-group>
@@ -435,7 +435,6 @@
 			 </b-card>
 			 
 			 <b-card
-				v-if="zlecenie.typ == true"
 				bg-variant="light"
 				class="mt-2">
 				
@@ -449,7 +448,8 @@
 						
 						<b-form-row>
 						  
-						  <b-col>
+						  <b-col
+								v-if="zlecenie.typ == true">
 							 <b-form-group
 								label="rodzaj nawozu"
 								label-for="wspwykorzystania"
