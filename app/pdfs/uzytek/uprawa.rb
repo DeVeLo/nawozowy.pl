@@ -464,7 +464,7 @@ class Uzytek::Uprawa
   end
   
   def cao_ha
-    unless @uzytek.cao.nil?
+    unless @uzytek.cao_ha.nil?
       @uzytek.cao_ha.round(1).to_s
     else
       '-'
@@ -472,7 +472,7 @@ class Uzytek::Uprawa
   end
 
   def cao_pole
-    unless @uzytek.cao.nil?
+    unless @uzytek.cao_ha.nil?
       @uzytek.cao_pole.round(1).to_s
     else
       '-'
