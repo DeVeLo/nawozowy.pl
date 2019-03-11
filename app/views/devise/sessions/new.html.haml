@@ -1,0 +1,29 @@
+.container.mt-5
+  .row.h-100.align-items-center
+    .col-sm.text-center
+
+      %h2 logowanie
+
+      = form_for(resource,
+        as: resource_name,
+        url: session_path(resource_name),
+        html: { class: "needs-validation", novalidate: '' } ) do |f|
+        .form-row.mt-5
+          .col-xl-4.offset-xl-4.text-center
+            = f.label :email, 'adres email'
+            = f.email_field :email, autofocus: true, autocomplete: "email",  class: 'form-control form-control-sm text-center', placeholder: 'wpisz swój adres email'
+        .form-row.mt-3
+          .col-xl-4.offset-xl-4.text-center
+            = f.label :password, 'hasło'
+            = f.password_field :password, autocomplete: "current-password", class: 'form-control form-control-sm text-center', placeholder: 'wpisz hasło'
+        - if devise_mapping.rememberable?
+          .form-row.mt-3
+            .col-xl-4.offset-xl-4.text-center
+              = f.check_box :remember_me
+              = f.label :remember_me, 'zapmiętaj mnie'
+        .form-row.mt-4
+          .col-xl-4.offset-xl-4.text-center
+            = f.submit "zaloguj mnie", class: 'form-control btn btn-primary'
+        .form-row.mt-4
+          .col-xl-4.offset-xl-4.text-center
+      = render "devise/shared/links"

@@ -1,5 +1,6 @@
 class ZleceniaController < ApplicationController
-  before_action :set_zlecenie, only: [:show, :update, :show, :destroy]
+  before_action :authenticate_user!
+  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne]
   before_action :set_instytucja
   before_action :set_rolnik
 
@@ -65,6 +66,12 @@ class ZleceniaController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # usuwa wszystkie nawozy naturalne w zleceniu
+  def destroy_nawozynaturalne
+    @zlecenie.nawozynaturalne.destroy_all
+    render json: @zlecenie
+  end
   
   private
   def zlecenie_params
@@ -83,7 +90,13 @@ class ZleceniaController < ApplicationController
   end
 
   def set_instytucja
-    @instytucja = Instytucja.find(params[:instytucja_id])
+    if (current_user.role? :specjalista and params[:instytucja_id] == current_user.instytucja_id) or current_user.role? :admin
+      @instytucja = Instytucja.find(params[:instytucja_id])
+    elsif (current_user.role? :specjalista and params[:instytucja_id] != current_user.instytucja_id)
+      redirect_to instytucja_rolnicy_path(instytucja_id: current_user.instytucja_id)
+    else
+      redirect_to zabroniony_path
+    end
   end
   
 end

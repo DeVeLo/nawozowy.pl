@@ -1,11 +1,13 @@
 class RolnicyController < ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_rolnik, only: [:update, :show, :destroy]
   before_action :set_instytucja
 
-  def index
+  def index    
     respond_to do |f|
       f.html { gon.instytucja_id = @instytucja.id }
-      f.json { render json: @instytucja.rolnicy.order(id: :DESC) }
+      f.json { render json: @instytucja.rolnicy.accessible_by(current_ability).order(id: :DESC) }
     end
   end
 
@@ -14,7 +16,7 @@ class RolnicyController < ApplicationController
   end
 
   def create
-    @rolnik = @instytucja.rolnicy.new(rolnik_params)
+    @rolnik = @instytucja.rolnicy.accessible_by(current_ability).new(rolnik_params)
 
     respond_to do |format|
       if @rolnik.save
@@ -52,7 +54,13 @@ class RolnicyController < ApplicationController
   end
 
   def set_instytucja
-    @instytucja = Instytucja.find(params[:instytucja_id])
+    if (current_user.role? :specjalista and params[:instytucja_id] == current_user.instytucja_id) or current_user.role? :admin
+      @instytucja = Instytucja.find(params[:instytucja_id])
+    elsif (current_user.role? :specjalista and params[:instytucja_id] != current_user.instytucja_id)
+      redirect_to instytucja_rolnicy_path(instytucja_id: current_user.instytucja_id)
+    else
+      redirect_to zabroniony_path
+    end
   end
   
 end

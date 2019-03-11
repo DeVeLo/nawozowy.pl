@@ -10,6 +10,7 @@
 		  
 		  <b-nav-item :href="'/instytucje/' + gon.instytucja_id + '/rolnicy'">{{ instytucja.name }}</b-nav-item>
 		  <b-nav-item @click="create">Dodaj Rolnika</b-nav-item>
+		  <b-nav-item @click="logout">Wyloguj</b-nav-item>
 		  
 		</b-navbar-nav>
 	 </b-collapse>
@@ -143,6 +144,15 @@ export default {
 				this.$store.commit('attr', item)
 				this.$store.state.modalForm.show()
 		  },
+		  logout() {
+				this.$http.delete('/users/sign_out')
+					 .then((r) => {
+						  window.history.go()
+					 })
+					 .catch((e) => {
+						  console.log(e)
+					 })
+		  }
 	 },
 	 mounted() {
 		  this.pobierz_instytucje()

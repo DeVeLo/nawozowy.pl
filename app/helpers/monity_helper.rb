@@ -1,0 +1,2 @@
+module MonityHelper
+end

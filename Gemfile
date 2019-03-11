@@ -66,3 +66,7 @@ gem 'responders'
 gem 'prawn_rails'
 gem 'prawn-table'
 gem 'prawn-svg'
+
+gem 'devise'
+gem 'rails-i18n'
+gem 'cancancan'

@@ -12,6 +12,7 @@
 		  <b-nav-item-dropdown :text="zlecenie.rejestr + '/' + typ[zlecenie.typ] + '/' + datawplywu.substr(0,4)" left>
 			 <b-dropdown-item @click="modalForm.show()" left>edytuj</b-dropdown-item>
 		  </b-nav-item-dropdown>
+		  <b-nav-item @click="logout">Wyloguj</b-nav-item>
 		  
 		</b-navbar-nav>
 	 </b-collapse>
@@ -98,6 +99,24 @@
 								:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki.pdf'"
 								variant="warning">Plany PDF</b-button>
 							 <b-button @click="createUprawa()">dodaj użytek</b-button>
+							 <b-button
+								v-if="zlecenie.nawozynaturalne && zlecenie.nawozynaturalne.length > 0 && ! resetujnawozyconfirm"
+								@click="resetujnawozyconfirm = true"
+								variant="danger">
+								cofnij rozdysponowanie</b-button>
+							 <template
+								v-if="resetujnawozyconfirm && zlecenie.nawozynaturalne.length > 0">
+								Czy na pewno cofnąć rozdysponowanie nawozu naturalnego z użytków?
+								<b-button
+								  variant="danger"
+								  @click="resetujNawozy()">
+								  TAK
+								</b-button>
+								<b-button
+								  @click="resetujnawozyconfirm=false">
+								  NIE
+								</b-button>
+							 </template>
 							 <uprawaform></uprawaform>
 							 <uprawazrodla></uprawazrodla>
 							 <uprawatable></uprawatable>
@@ -143,6 +162,7 @@ export default {
 		  return {
 				typ: {false: 'PA', true: 'PP'},
 				gon: gon,
+				resetujnawozyconfirm: false,
 		  }
 	 },
 	 computed: {
@@ -202,6 +222,31 @@ export default {
 				this.ilosc = []
 				this.uprawamodal.show()
 		  },
+		  resetujNawozy() {
+				this.$http.delete("/instytucje/" +
+										this.gon.instytucja_id +
+										"/rolnicy/" +
+										this.gon.rolnik_id +
+										"/zlecenia/" +
+										this.gon.id +
+										"/destroy_nawozynaturalne.json")
+					 .then((r) => {
+						  this.zlecenie = r.body
+						  this.uzytki = this.zlecenie.uzytki
+					 })
+					 .catch((e) => {
+						  console.log(e)
+					 })
+		  },
+		  logout() {
+				this.$http.delete('/users/sign_out')
+					 .then((r) => {
+						  window.history.go()
+					 })
+					 .catch((e) => {
+						  console.log(e)
+					 })
+		  }
 	 },
 	 created() {
 		  this.pobierz()

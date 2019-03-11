@@ -1,0 +1,13 @@
+pl:
+  activerecord:
+    attributes:
+      user:
+        email: 'pole "adres email"'
+        password: 'pole "hasło"'
+  errors:
+    messages:
+      not_saved:
+        one: "dane nie zostały gdyż wystapił poniższy błąd"
+        few:  "dane nie zostały gdyż wystapiły poniższe %{count} błedy"
+        other: "dane nie zostały gdyż wystapiły poniższe %{count} błedy"
+      

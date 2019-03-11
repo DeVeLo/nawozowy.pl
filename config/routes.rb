@@ -1,14 +1,18 @@
 # coding: utf-8
 Rails.application.routes.draw do
 
+  get "/monity/zabroniony", action: :zabroniony, controller: :monity, as: :zabroniony
+  
+  devise_for :users
   resources :wspiwykorzystania
   resources :nawozywykorzystane
   resources :animalgroups
   resources :roslinaprzedplony
   resources :bobowate
   resources :zlecenia
+  
   # na razie domyślnie wyświetlaj rolników z OSChR Lublin
-  root "rolnicy#index", instytucja_id: "d04e8915-2ce7-45ee-b161-a7dcce79f65a"
+  root "application#welcome"
   
   # instytucje: Okręgowe Stacje / CDRy
   resources :instytucje, only: [:show] do
@@ -21,6 +25,10 @@ Rails.application.routes.draw do
       # zlecenia w ramach instytucji
       resources :zlecenia do
 
+        member do
+          delete :destroy_nawozynaturalne
+        end
+        
         # grupy zwierząt (w ramach grup nawóz naturalny jest zmieszany)
         resources :animalgroups do
           

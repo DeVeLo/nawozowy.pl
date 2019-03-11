@@ -274,7 +274,7 @@ class Uzytek < ApplicationRecord
   end
   
   def cao_pole
-    unless cao.nil?
+    unless cao_ha.nil?
       cao_ha * powierzchnia
     else
       nil

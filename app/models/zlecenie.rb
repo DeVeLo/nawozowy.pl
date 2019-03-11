@@ -7,10 +7,11 @@ class Zlecenie < ApplicationRecord
   belongs_to :gmina
   belongs_to :powiat
   belongs_to :wojewodztwo
-  
+
   has_many :animalgroups, dependent: :destroy
   has_many :animals, dependent: :destroy
   has_many :uzytki, dependent: :destroy
+  has_many :nawozynaturalne, through: :uzytki
   
   # automagiczna numeracja porządkowa
   after_create :set_lp

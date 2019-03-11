@@ -5,7 +5,7 @@ import Resource from 'vue-resource'
 import { store } from './rolnicy/store/store'
 import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 Vue.use(Resource)
 Vue.use(TurbolinksAdapter)
 

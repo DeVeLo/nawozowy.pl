@@ -52,4 +52,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'ocenapotas', 'ocenypotas'
   inflect.irregular 'ocenamagnez', 'ocenymagnez'
   inflect.irregular 'wspwykorzystania', 'wspiwykorzystania'
+  inflect.irregular 'monit', 'monity'
 end
