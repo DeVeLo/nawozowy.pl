@@ -4,7 +4,7 @@
 - if devise_mapping.registerable? && controller_name != 'registrations'
   = link_to "zarejestruj mnie", new_registration_path(resource_name)
   %br/
-- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+-# if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
   = link_to "zapomniałem hasła", new_password_path(resource_name)
   %br/
 - if devise_mapping.confirmable? && controller_name != 'confirmations'
@@ -17,3 +17,10 @@
   - resource_class.omniauth_providers.each do |provider|
     = link_to "zaloguj z #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider)
     %br/
+%br
+%span.text-primary
+  kontakt z autorem programu:
+  %br
+  kom: 608635446
+  %br
+  email: konrad@snopkow.eu
