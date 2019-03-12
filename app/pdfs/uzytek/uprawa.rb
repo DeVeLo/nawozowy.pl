@@ -387,7 +387,7 @@ class Uzytek::Uprawa
     unless @uzytek.wynik_fosfor.nil?
       'P<sub>2</sub>O<sub>5</sub>'
     else
-      '<strikethrough>P<sub>2</sub>O<sub>5</sub></strikethrough>'
+      'P<sub>2</sub>O<sub>5</sub>'
     end
   end
 
@@ -395,7 +395,7 @@ class Uzytek::Uprawa
     unless @uzytek.wynik_potas.nil?
       'K<sub>2</sub>O'
     else
-      '<strikethrough>K<sub>2</sub>O</strikethrough>'
+      'K<sub>2</sub>O'
     end
   end
 
@@ -403,7 +403,7 @@ class Uzytek::Uprawa
     unless @uzytek.mg_wynik_ha.nil?
       'MgO'
     else
-      '<strikethrough>MgO</strikethrough>'
+      'MgO'
     end
   end
   
@@ -411,7 +411,7 @@ class Uzytek::Uprawa
     unless @uzytek.mg_wynik_ha.nil?
       @uzytek.mg_wynik_ha.round(1).to_s
     else
-      '-'
+      '0'
     end
   end
 
@@ -419,7 +419,7 @@ class Uzytek::Uprawa
     unless @uzytek.mg_wynik_ha.nil?
       @uzytek.mg_wynik_pole.round(1).to_s
     else
-      '-'
+      '0'
     end
   end
   
@@ -427,7 +427,7 @@ class Uzytek::Uprawa
     unless @uzytek.cao.nil?
       'CaO'
     else
-      '<strikethrough>CaO</strikethrough>'
+      'CaO'
     end
   end
 
@@ -435,7 +435,7 @@ class Uzytek::Uprawa
     unless @uzytek.wynik_fosfor.nil?
       @uzytek.wynik_fosfor.round(1).to_s
     else
-      '-'
+      '0'
     end
   end
 
@@ -443,7 +443,7 @@ class Uzytek::Uprawa
     unless @uzytek.wynik_potas.nil?
       @uzytek.wynik_potas.round(1).to_s
     else
-      '-'
+      '0'
     end
   end
 
@@ -451,7 +451,7 @@ class Uzytek::Uprawa
     unless @uzytek.wynik_fosfor.nil?
       (@uzytek.wynik_fosfor * @uzytek.powierzchnia).round(1).to_s
     else
-      '-'
+      '0'
     end
   end
 
@@ -459,7 +459,7 @@ class Uzytek::Uprawa
     unless @uzytek.wynik_potas.nil?
       (@uzytek.wynik_potas * @uzytek.powierzchnia).round(1).to_s
     else
-      '-'
+      '0'
     end
   end
   
@@ -467,7 +467,7 @@ class Uzytek::Uprawa
     unless @uzytek.cao_ha.nil?
       @uzytek.cao_ha.round(1).to_s
     else
-      '-'
+      '0'
     end
   end
 
@@ -475,7 +475,7 @@ class Uzytek::Uprawa
     unless @uzytek.cao_ha.nil?
       @uzytek.cao_pole.round(1).to_s
     else
-      '-'
+      '0'
     end
   end
   
