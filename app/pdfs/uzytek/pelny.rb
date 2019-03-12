@@ -1,5 +1,5 @@
 # coding: utf-8
-class Uzytek::Uprawa
+class Uzytek::Pelny
 
   def initialize(o, uzytek)
 
@@ -23,29 +23,18 @@ class Uzytek::Uprawa
                  { content: wyniki,
                    border_width: [ 0, 0.2.mm, 0.2.mm, 0.2.mm ] },
                ],
-               # [
-               #   { content: podsumowanie,
-               #     border_width: [ 0, 0.2.mm, 0.2.mm, 0.2.mm ] },
-               # ],
+               [
+                 { content: if @zlecenie.bilansn then podsumowanie else '' end,
+                   border_width: 0 },
+               ],
              ], {
                header: true
              })
 
-    @o.move_down 5.pt
-
-    # @o.text 'Azot stosujemy z podziałem na dawki.'
-
-    # @o.move_down 15.pt
-
-
-    # if @uzytek.nawozywykorzystane.count > 0
-    #   @o.text 'Zastosowany nawóz naturalny pod roślinę:'
-    # end
-    
     lp = 0
     @uzytek.nawozynaturalne.each do |nn|
 
-      @o.move_down 10.pt
+#      @o.move_down 10.pt
       lp = lp + 1
       @o.text ++lp.to_s + ') Nawóz naturalny - ' + nn.animalgroup.animalsname.downcase + ' - ' + nn.sezon.name + ':'
       @o.table([
@@ -84,22 +73,15 @@ class Uzytek::Uprawa
                    }
                  ],
                ])
-      #zanimalsami += (nw.ilosc * nw.animal.zawartosc_wynikowa * nw.animal.getrownowaznik(nw.nawoznaturalny.sezon_id))
     end
-
-    # @o.move_down 15.pt
-    
-	 # @o.text 'Ilość azotu działającego z nawozu naturalnego + z pozostałych źródeł ' + @uzytek.zanimalsami.round(0).to_i.to_s + ' kg N/ha'  
+  
   end
 
   # podsumowanie
   def podsumowanie
     [
       [
-        { content: 'Nawożenie azotem (kg N/ha/rok): <b>' + @uzytek.azot.round(0).to_i.to_s + "</b> " +
-          "(z nawozów mineralnych " + @uzytek.azot_mineralny_ha_w_nawozie.round(0).to_i.to_s + ", z nawozów nat. i organicznych " +
-          @uzytek.nawoznaturalny.round(0).to_i.to_s + ")", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width/3*2 },
-        { content: 'saldo N: <b>' + @uzytek.saldo_n.round(1).to_s + '</b> ha', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width/3, inline_format: true }
+        { content: 'bilans azotu <b>' + @uzytek.saldo_n.round(1).to_s + '</b>', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width, inline_format: true }
       ]
     ]
   end

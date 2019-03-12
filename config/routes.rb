@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   resources :animalgroups
   resources :roslinaprzedplony
   resources :bobowate
-  resources :zlecenia
   
   # na razie domyślnie wyświetlaj rolników z OSChR Lublin
   root "application#welcome"
@@ -27,6 +26,7 @@ Rails.application.routes.draw do
 
         member do
           delete :destroy_nawozynaturalne
+          get :bilans
         end
         
         # grupy zwierząt (w ramach grup nawóz naturalny jest zmieszany)

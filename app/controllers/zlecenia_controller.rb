@@ -1,6 +1,6 @@
 class ZleceniaController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne]
+  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne, :bilans]
   before_action :set_instytucja
   before_action :set_rolnik
 
@@ -38,6 +38,18 @@ class ZleceniaController < ApplicationController
     end  
   end       
 
+  def bilans
+    respond_to do |f|
+      f.pdf do
+        pdf = BilansPdf.new(@zlecenie)
+        send_data pdf.render,
+                  filename: "bilans-#{@zlecenie.id}",
+                  type: 'application/pdf',
+                  disposition: 'download'
+      end
+    end
+  end
+  
   def create
     @zlecenie = @rolnik.zlecenia.new(zlecenie_params)
 
@@ -78,7 +90,7 @@ class ZleceniaController < ApplicationController
     params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id,
                                      :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc,
                                      :powierzchnia, :podstawa_id, :podstawainna, :datawplywu, :lp,
-                                     :rejestr, :typ)
+                                     :rejestr, :typ, :bilansn)
   end
   
   def set_zlecenie

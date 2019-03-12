@@ -153,6 +153,22 @@
 						  v-model="attr.podstawainna"></b-form-input>
 					 </b-form-group>
 				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="bilans azotu"
+						label-for="bilansn"
+						label-size="sm"
+						description="pokaż bilans N na wydrukach">
+						<b-form-select
+						  required
+						  id="bilansn"
+						  :options="bilansen"
+						  size="sm"
+						  v-model="attr.bilansn">
+						</b-form-select>
+					 </b-form-group>
+				  </b-col>
 				  
 				</b-form-row>
 				
@@ -276,6 +292,10 @@ export default {
 				typy: [
 					 { text: 'plan azotanowy', value: false },
 					 { text: 'plan pełny', value: true }
+				],
+				bilansen: [
+					 { text: 'nie pokazuj', value: false },
+					 { text: 'pokaż', value: true }
 				],
 		  }
 	 },

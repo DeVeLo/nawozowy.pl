@@ -12,11 +12,11 @@ class Instytucja::Title
   end  
 
   # informacja o instytucji
-  def firma
+  def firma (width = @o.bounds.width)
     { content: [
         # [miejscowosc_data],
         [
-          nazwa,
+          nazwa(width),
         ],
         [adres],
         [kod_poczta],
@@ -26,10 +26,10 @@ class Instytucja::Title
   end
 
   # instytucja name
-  def nazwa
+  def nazwa(width)
     { content: @instytucja.name,
       border_width: 0,
-      width: @o.bounds.width,
+      width: width,
       align: :center,
       padding: [ 0.mm, 0, 0, 0 ] }
   end

@@ -96,6 +96,11 @@
 							 <b-button
 								v-if="uzytki.length > 0"
 								target="_blank"
+								:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/bilans.pdf'"
+								variant="warning">Bilans PDF</b-button>
+							 <b-button
+								v-if="uzytki.length > 0"
+								target="_blank"
 								:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki.pdf'"
 								variant="warning">Plany PDF</b-button>
 							 <b-button @click="createUprawa()">dodaj użytek</b-button>
@@ -109,7 +114,7 @@
 								Czy na pewno cofnąć rozdysponowanie nawozu naturalnego z użytków?
 								<b-button
 								  variant="danger"
-								  @click="resetujNawozy()">
+								  @click="resetujNawozy(); resetujnawozyconfirm = false;">
 								  TAK
 								</b-button>
 								<b-button
