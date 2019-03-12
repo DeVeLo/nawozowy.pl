@@ -69,7 +69,7 @@ class ZleceniaController < ApplicationController
 
   # usuwa wszystkie nawozy naturalne w zleceniu
   def destroy_nawozynaturalne
-    @zlecenie.nawozynaturalne.destroy_all
+    Nawoznaturalny.where(uzytek: @zlecenie.uzytki).destroy_all
     render json: @zlecenie
   end
   

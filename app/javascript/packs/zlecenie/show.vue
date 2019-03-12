@@ -166,11 +166,9 @@ export default {
 		  }
 	 },
 	 computed: {
-		  ...mapGetters([ 'zlecenie',
-								'modalForm',
+		  ...mapGetters([	'modalForm',
 								'animalmodal',
 								'uprawamodal',
-								'uzytki',
 								'rolnik',
 								'instytucja',
 								'datawplywu',
@@ -185,6 +183,10 @@ export default {
 						set(v) { this.$store.commit('ilosc', v) }	},
 		  animalgroups: {	get() { return this.$store.state.animalgroups },
 								set(v) { this.$store.commit('animalgroups', v) }	},
+		  zlecenie: {	get() { return this.$store.state.zlecenie },
+								set(v) { this.$store.commit('zlecenie', v) }	},
+		  uzytki: {	get() { return this.$store.state.uzytki },
+								set(v) { this.$store.commit('uzytki', v) }	},
 	 },
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
@@ -222,6 +224,17 @@ export default {
 				this.ilosc = []
 				this.uprawamodal.show()
 		  },
+		  pobierzUzytki() {
+				this.$http.get('/instytucje/'
+									+ gon.instytucja_id
+									+ '/rolnicy/'
+									+ gon.rolnik_id
+									+ '/zlecenia/'
+									+ gon.id
+									+ '/uzytki.json')
+					 .then((result) => { this.uzytki = result.body })
+					 .catch((error) => { console.log(error) } )
+		  },
 		  resetujNawozy() {
 				this.$http.delete("/instytucje/" +
 										this.gon.instytucja_id +
@@ -232,7 +245,7 @@ export default {
 										"/destroy_nawozynaturalne.json")
 					 .then((r) => {
 						  this.zlecenie = r.body
-						  this.uzytki = this.zlecenie.uzytki
+						  this.pobierzUzytki()
 					 })
 					 .catch((e) => {
 						  console.log(e)
@@ -246,7 +259,7 @@ export default {
 					 .catch((e) => {
 						  console.log(e)
 					 })
-		  }
+		  },
 	 },
 	 created() {
 		  this.pobierz()
