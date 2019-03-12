@@ -27,7 +27,9 @@ class Uzytek::Uprawa
                #   { content: podsumowanie,
                #     border_width: [ 0, 0.2.mm, 0.2.mm, 0.2.mm ] },
                # ],
-             ])
+             ], {
+               header: true
+             })
 
     @o.move_down 5.pt
 

@@ -808,7 +808,7 @@ export default {
 				} else { return '' }
 		  },
 		  title() {
-				if (this.uzytek.id) { return 'edytuj użytki' }
+				if (this.uzytek.id) { return 'edytuj użytek nr ' + this.uzytek.lp }
 				else { return 'dodaj użytek' }
 		  },
 		  focus() {
