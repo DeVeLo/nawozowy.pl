@@ -17,7 +17,7 @@
 		v-if="uzytek.id"
 		bg-variant="light"
 		class="mb-2 text-center"
-		header="zalecane dawki do zastosowania">
+		:header="uzytek.lp + '. zalecane dawki do zastosowania'">
 		
 		<b-form-row class="text-center">
 		  
