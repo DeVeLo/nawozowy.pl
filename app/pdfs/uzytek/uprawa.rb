@@ -106,8 +106,8 @@ class Uzytek::Uprawa
   def ogolne
     [
       [
-        { content: 'oznaczenie pola: <b>' + @uzytek.name + "</b>", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width*3/4 },
-        { content: 'powierzchnia: <b>' + @uzytek.powierzchnia.round(1).to_s + '</b> ha', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width/4, inline_format: true }
+        { content: @uzytek.lp.to_s + '. oznaczenie pola: <b>' + @uzytek.name + "</b>", border_width: 0, inline_format: true, padding: [ 1.mm, 1.mm, 1.mm, 2.mm ], width: @o.bounds.width*3/4 },
+        { content: 'powierzchnia: <b>' + sprintf("%.2f", @uzytek.powierzchnia.round(2)).to_s + '</b> ha', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width/4, inline_format: true }
       ]
     ]
   end
@@ -119,12 +119,12 @@ class Uzytek::Uprawa
         {
           content: uprawy,
           border_width: [0, 0.2.mm, 0, 0],
-          width: @o.bounds.width/5
+          width: @o.bounds.width/5*1.5
         },
         {
           content: azot_dzialajacy,
           border_width: [0, 0.2.mm, 0, 0],
-          width: @o.bounds.width/5
+          width: @o.bounds.width/5*3/5
         },
         {
           content: zalecane_dawki,
@@ -144,7 +144,7 @@ class Uzytek::Uprawa
           height: 10.8.mm,
           size: 8.pt,
           padding: 2.mm,
-          width: @o.bounds.width/5,
+          width: @o.bounds.width/5*3/5,
           inline_format: true,
           align: :center,
         },
@@ -154,7 +154,7 @@ class Uzytek::Uprawa
           content: ha_pole,
           border_width: 0,
           height: 5.4.mm,
-          width: @o.bounds.width/5
+          width: @o.bounds.width/5*3/5
         },
       ],
       [
@@ -162,7 +162,7 @@ class Uzytek::Uprawa
           content: ha_pole_azot_dzialajacy,
           border_width: 0,
           height: 5.4.mm,
-          width: @o.bounds.width/5
+          width: @o.bounds.width/5*3/5
         },
       ]
     ]
@@ -178,7 +178,7 @@ class Uzytek::Uprawa
           size: 8.pt,
           align: :center,
           border_width: [0, 0.2.mm, 0.2.mm, 0],
-          width: @o.bounds.width/5/2
+          width: @o.bounds.width/5*1.5/5
         },
         {
           content: "kg/pole",
@@ -187,7 +187,7 @@ class Uzytek::Uprawa
           size: 8.pt,
           align: :center,
           border_width: [0, 0, 0.2.mm, 0],
-          width: @o.bounds.width/5/2
+          width: @o.bounds.width/5*1.5/5
         },
       ]
     ]
@@ -203,7 +203,7 @@ class Uzytek::Uprawa
           size: 8.pt,
           align: :center,
           border_width: [0, 0, 0, 0],
-          width: @o.bounds.width/5/2
+          width: @o.bounds.width/5*1.5/5
         },
         {
           content: @uzytek.azot_mineralny_pole.round(1).to_s,
@@ -212,7 +212,7 @@ class Uzytek::Uprawa
           size: 8.pt,
           align: :center,
           border_width: [0, 0, 0, 0],
-          width: @o.bounds.width/5/2
+          width: @o.bounds.width/5*1.5/5
         },
       ]
     ]
@@ -228,15 +228,15 @@ class Uzytek::Uprawa
           inline_format: true,
           align: :center,
           size: 8.pt,
-          border_width: [ 0, 0.2.mm, 0.2.mm, 0 ],
+          border_width: [ 0, 0.mm, 0.2.mm, 0 ],
           height: 10.8.mm,
-          width: @o.bounds.width/5,
+          width: @o.bounds.width/5*1.4,
         },
       ],
       [
         {
           content: @uprawa,
-          border_width: [ 0, 0.2.mm, 0.mm, 0 ]
+          border_width: [ 0, 0.mm, 0.mm, 0 ]
         },
       ]
     ]
@@ -246,7 +246,7 @@ class Uzytek::Uprawa
     [
       [
         {
-        content: '<b>zalecane dawki do zastosowania</b>',
+        content: '<b>zalecane dawki nawozów mineralnych w czystym składniku do zastosowania</b>',
         padding: [ 1.mm, 0, 1.5.mm, 0 ],
         inline_format: true,
         align: :center,
@@ -647,7 +647,7 @@ class Uzytek::Uprawa
           inline_format: true,
           size: 8.pt,
           border_width: [ 0, 0.mm, 0, 0 ],
-          width: @o.bounds.width/5 }
+          width: @o.bounds.width/5*1.4 }
       ]
     )
   end

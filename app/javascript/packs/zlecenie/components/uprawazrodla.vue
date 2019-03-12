@@ -1,6 +1,6 @@
 <template>
 <b-modal
-  :title="'źródła azotu - użytek ' + uzytek.name"
+  :title="uzytek.lp + '. źródła azotu - użytek ' + uzytek.name"
   centered
   id="uprawazrodla"
   ref="uprawazrodla"
