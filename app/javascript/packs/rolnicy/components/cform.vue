@@ -53,6 +53,7 @@
 				label="nazwa przedsiębiorstwa"
 				label-for="gname">
 				<b-form-input
+				  required
 				  id="gname"
 				  v-model="attr.gname">
 				</b-form-input>
@@ -63,9 +64,10 @@
 		<b-form-row>
 		  <b-col>
 			 <b-form-group
-				label="NIP"
+				label="NIP/PESEL"
 				label-for="nip">
 				<b-form-input
+				  required
 				  id="nip"
 				  v-model="attr.nip">
 				</b-form-input>
@@ -76,6 +78,7 @@
 				label="NIG"
 				label-for="nig">
 				<b-form-input
+				  required
 				  id="nig"
 				  v-model="attr.nig">
 				</b-form-input>
