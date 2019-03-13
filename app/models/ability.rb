@@ -10,7 +10,8 @@ class Ability
 
     if user.role? :specjalista
       can :read, Instytucja, id: user.instytucja_id
-      can :manage, Rolnik, #, instytucja: { id: user.instytucja_id }
+      can :manage, Rolnik
+          #, instytucja: { id: user.instytucja_id }
       can :manage, Zlecenie, instytucja: { id: user.instytucja_id }
       can :manage, Uzytek, instytucja: { id: user.instytucja_id }
       can :manage, Animal, instytucja: { id: user.instytucja_id }
