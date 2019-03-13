@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312162724) do
+ActiveRecord::Schema.define(version: 20190313201311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,8 +72,9 @@ ActiveRecord::Schema.define(version: 20190312162724) do
     t.decimal  "do"
     t.decimal  "dawka"
     t.integer  "potrzeba_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "sad",          default: false
     t.index ["grunt_id"], name: "index_dawkicao_on_grunt_id", using: :btree
     t.index ["kategoria_id"], name: "index_dawkicao_on_kategoria_id", using: :btree
     t.index ["potrzeba_id"], name: "index_dawkicao_on_potrzeba_id", using: :btree
@@ -221,8 +222,9 @@ ActiveRecord::Schema.define(version: 20190312162724) do
     t.boolean  "weglanowa"
     t.decimal  "powyzej"
     t.decimal  "ponizej"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "sad",          default: false
     t.index ["kategoria_id"], name: "index_ocenyfosfor_on_kategoria_id", using: :btree
     t.index ["ocena_id"], name: "index_ocenyfosfor_on_ocena_id", using: :btree
   end
@@ -232,9 +234,10 @@ ActiveRecord::Schema.define(version: 20190312162724) do
     t.integer  "kategoria_id"
     t.decimal  "powyzej"
     t.decimal  "ponizej"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "rownowaznik"
+    t.boolean  "sad",          default: false
     t.index ["kategoria_id"], name: "index_ocenymagnez_on_kategoria_id", using: :btree
     t.index ["ocena_id"], name: "index_ocenymagnez_on_ocena_id", using: :btree
   end
@@ -244,8 +247,9 @@ ActiveRecord::Schema.define(version: 20190312162724) do
     t.integer  "kategoria_id"
     t.decimal  "powyzej"
     t.decimal  "ponizej"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "sad",          default: false
     t.index ["kategoria_id"], name: "index_ocenypotas_on_kategoria_id", using: :btree
     t.index ["ocena_id"], name: "index_ocenypotas_on_ocena_id", using: :btree
   end
@@ -347,6 +351,7 @@ ActiveRecord::Schema.define(version: 20190312162724) do
     t.decimal  "fosfor"
     t.decimal  "potas"
     t.decimal  "magnez"
+    t.boolean  "sad",             default: false
     t.index ["rodzajuprawy_id"], name: "index_rosliny_on_rodzajuprawy_id", using: :btree
   end
 

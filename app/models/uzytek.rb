@@ -256,6 +256,7 @@ class Uzytek < ApplicationRecord
     Dawkacao.where(
       kategoria_id: kategoria_id,
       grunt_id: grunt_id,
+      sad: roslina.sad,
     )
       .where('"od" < ?', ph)
       .where('"do" >= ?', ph).first

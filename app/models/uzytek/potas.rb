@@ -13,8 +13,9 @@ class Uzytek::Potas
   def wspolczynnik
     r = Ocenapotas.where(
       kategoria_id: @u.kategoria_id)
-      .where('powyzej < ?', @u.potas)
-      .where('ponizej >= ?', @u.potas).first
+          .where(sad: @u.roslina.sad)
+          .where('powyzej < ?', @u.potas)
+          .where('ponizej >= ?', @u.potas).first
     
     if r.nil?
       nil

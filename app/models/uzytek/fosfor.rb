@@ -13,6 +13,7 @@ class Uzytek::Fosfor
   def wspolczynnik
     r = Ocenafosfor.where(kategoria_id: @u.kategoria_id)
           .where(weglanowa: @u.weglanowa)
+          .where(sad: @u.roslina.sad)
           .where('powyzej < ?', @u.fosfor)
           .where('ponizej >= ?', @u.fosfor).first
     

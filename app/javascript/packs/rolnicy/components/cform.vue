@@ -19,7 +19,19 @@
 
 		  <input type="hidden" id="id" v-model="attr.id"></input>
 		  <input type="hidden" id="instytucja_id" v-model="attr.instytucja_id"></input>
-			 
+			 			 
+			 <b-col>
+				<b-form-group
+				  label="nazwisko"
+				  label-for="lname">
+				  <b-form-input
+					 required
+					 id="lname"
+					 v-model="attr.lname">
+				  </b-form-input>
+				</b-form-group>
+			 </b-col>
+
 			 <b-col>
 				<b-form-group
 				  label="imię"
@@ -32,18 +44,7 @@
 				  </b-form-input>
 				</b-form-group>
 			 </b-col>
-			 
-			 <b-col>
-				<b-form-group
-				  label="nazwisko"
-				  label-for="lname">
-				  <b-form-input
-					 required
-					 id="lname"
-					 v-model="attr.lname">
-				  </b-form-input>
-				</b-form-group>
-			 </b-col>
+
 		</b-form-row>
 		
 		<b-form-row>

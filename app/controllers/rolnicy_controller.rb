@@ -7,7 +7,7 @@ class RolnicyController < ApplicationController
   def index    
     respond_to do |f|
       f.html { gon.instytucja_id = @instytucja.id }
-      f.json { render json: @instytucja.rolnicy.accessible_by(current_ability).order(id: :DESC) }
+      f.json { render json: @instytucja.rolnicy.accessible_by(current_ability).order(lname: :ASC) }
     end
   end
 

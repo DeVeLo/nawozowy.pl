@@ -10,6 +10,7 @@ class Uzytek::Magnez
   # 1) ustalamy ocenę zawartości gleby
   def ocena
     Ocenamagnez.where(kategoria_id: @u.kategoria_id)
+      .where(sad: @u.roslina.sad)
       .where('powyzej < ?', @u.magnez)
       .where('ponizej >= ?', @u.magnez).first
   end
