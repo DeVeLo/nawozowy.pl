@@ -41,6 +41,7 @@ class Zlecenie < ApplicationRecord
   def next_rejestr
     z = Zlecenie.where('rejestr IS NOT NULL')
           .where(datawplywu: self.datawplywu.beginning_of_year..self.datawplywu.end_of_year)
+          .where(instytucja_id: self.instytucja_id)
           .order(rejestr: :ASC)
           .last
     if z.nil?
