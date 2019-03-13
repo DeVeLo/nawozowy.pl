@@ -254,11 +254,11 @@ class Uzytek < ApplicationRecord
   # wapń
   def cao
     Dawkacao.where(
-      kategoria_id: self.kategoria_id,
-      grunt_id: self.grunt_id,
+      kategoria_id: kategoria_id,
+      grunt_id: grunt_id,
     )
-      .where('"od" < ?', self.ph)
-      .where('"do" >= ?', self.ph).first
+      .where('"od" < ?', ph)
+      .where('"do" >= ?', ph).first
   end
 
   def cao_ha
@@ -281,55 +281,18 @@ class Uzytek < ApplicationRecord
     end
   end
 
-  # magnez
-  def mg_wynik_pole
-    unless mg_potrzeby.nil?
-      mg_wynik_ha * powierzchnia
-    else
-      nil
-    end
-  end
-  
+  # wynik - magnez / ha
   def mg_wynik_ha
-    if self.korekta_magnez.nil?
-      unless mg_rownowaznik.nil? or mg_potrzeby.nil?
-        mg_potrzeby + mg_rownowaznik
-      else
-        nil
-      end
-    else
-      self.korekta_magnez
-    end
+    Uzytek::Magnez.new(self).wynik
   end
-  
-  def mg_potrzeby
-    unless mg_pobranie.nil?
-      1.658 * mg_pobranie * self.plon
-    else
-      nil
-    end
+    
+  # wynik - magnez / pole
+  def mg_wynik_pole
+    Uzytek::Magnez.new(self).wynik_pole
   end
-  
-  def mg_pobranie
-    self.roslina.magnez
-  end
-
-  def mg_rownowaznik
-    unless mg_ocena.nil?
-      mg_ocena.rownowaznik
-    else
-      nil
-    end
-  end
-  
-  def mg_ocena
-    Ocenamagnez.where(kategoria_id: self.kategoria_id)
-      .where('powyzej < ?', self.magnez)
-      .where('ponizej >= ?', self.magnez).first
-  end
-  
+    
   def wynik_fosfor
-    if self.korekta_fosfor.nil?
+    if korekta_fosfor.nil?
       Uzytek::Fosfor.new(self).wynik
     else
       self.korekta_fosfor
@@ -337,7 +300,7 @@ class Uzytek < ApplicationRecord
   end
 
   def wynik_potas
-    if self.korekta_potas.nil?
+    if korekta_potas.nil?
       Uzytek::Potas.new(self).wynik
     else
       self.korekta_potas
