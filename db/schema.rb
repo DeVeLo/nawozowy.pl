@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190313201311) do
+ActiveRecord::Schema.define(version: 20190314212908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -352,6 +352,7 @@ ActiveRecord::Schema.define(version: 20190313201311) do
     t.decimal  "potas"
     t.decimal  "magnez"
     t.boolean  "sad",             default: false
+    t.boolean  "tyton",           default: false
     t.index ["rodzajuprawy_id"], name: "index_rosliny_on_rodzajuprawy_id", using: :btree
   end
 

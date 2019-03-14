@@ -15,7 +15,24 @@ class Uzytek::Magnez
       .where('ponizej >= ?', @u.magnez).first
   end
 
-  # 2) wyznaczamy równoważnik na podstawie oceny
+  # 2) wyznaczamy współczynnik na podstawie oceny
+  #     używamy dla tytoniu
+  def wspolczynnik
+    unless ocena.nil?
+      # tylko rośliny oznaczone jako tytoń
+      # mnożymy przez współczynnik - podobno tymczasowo (wg Moniki)
+      if tyton
+        ocena.wspolczynnik
+      else
+        # reszt pozostaje neutralna
+        1
+      end
+    else
+      nil
+    end
+  end
+  
+  # 2a) wyznaczamy równoważnik na podstawie oceny
   def rownowaznik
     unless ocena.nil?
       ocena.rownowaznik
@@ -43,7 +60,7 @@ class Uzytek::Magnez
   def faktyczny_wynik 
     if @u.korekta_magnez.nil?
       unless rownowaznik.nil? or potrzeby.nil?
-        potrzeby + rownowaznik
+        potrzeby * wspolczynnik + rownowaznik
       else
         0
       end
