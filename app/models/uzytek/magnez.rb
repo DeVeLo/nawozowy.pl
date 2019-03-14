@@ -28,7 +28,7 @@ class Uzytek::Magnez
         1
       end
     else
-      nil
+      1
     end
   end
   
