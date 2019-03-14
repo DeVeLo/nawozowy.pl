@@ -21,7 +21,7 @@ class Uzytek::Magnez
     unless ocena.nil?
       # tylko rośliny oznaczone jako tytoń
       # mnożymy przez współczynnik - podobno tymczasowo (wg Moniki)
-      if tyton
+      if @u.roslina.tyton
         ocena.wspolczynnik
       else
         # reszt pozostaje neutralna
