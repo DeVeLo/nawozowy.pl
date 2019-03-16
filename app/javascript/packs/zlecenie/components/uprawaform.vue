@@ -223,6 +223,77 @@
 			 </b-card>
 			 
 			 <b-card
+				v-if="zlecenie.typ == true"
+				bg-variant="light"
+				class="mt-2">
+				
+				<b-form-row>
+				  
+				  <b-col>
+					 
+					 <b-form-group
+						label="Zawartość pozostałych pierwiastów w glebie"
+						label-class="font-weight-bold"
+						description="Zawartość pierwiastków na podstawie przeprowadzonych badań">
+						
+						<b-form-row>
+						  
+						  <b-col>
+							 <b-form-group
+								label="P<sub>2</sub>O<sub>5</sub>"
+								label-for="fosfor"
+								label-size="sm"
+								description="zawartość fosforu">
+								<b-form-input
+								  required
+								  size="sm"
+								  id="fosfor"
+								  v-model="uzytek.fosfor"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col>
+							 <b-form-group
+								label-size="sm"
+								description="zawartość potasu"
+								label="K<sub>2</sub>O"
+								label-for="potas">
+								<b-form-input
+								  required
+								  size="sm"
+								  id="potas"
+								  v-model="uzytek.potas"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col>
+							 <b-form-group
+								label-size="sm"
+								description="zawartość magnezu"
+								label="MgO"
+								label-for="magnez">
+								<b-form-input
+								  size="sm"
+								  required
+								  id="magnez"
+								  v-model="uzytek.magnez"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						</b-form-row>
+						
+					 </b-form-group>
+					 
+				  </b-col>
+				  
+				</b-form-row>
+				
+			 </b-card>
+
+			 <b-card
 				bg-variant="light"
 				class="mt-2">
 				
@@ -362,78 +433,7 @@
 				</b-form-row>
 				
 			 </b-card>
-			 
-			 <b-card
-				v-if="zlecenie.typ == true"
-				bg-variant="light"
-				class="mt-2">
-				
-				<b-form-row>
-				  
-				  <b-col>
-					 
-					 <b-form-group
-						label="Zawartość pozostałych pierwiastów w glebie"
-						label-class="font-weight-bold"
-						description="Zawartość pierwiastków na podstawie przeprowadzonych badań">
-						
-						<b-form-row>
-						  
-						  <b-col>
-							 <b-form-group
-								label="P<sub>2</sub>O<sub>5</sub>"
-								label-for="fosfor"
-								label-size="sm"
-								description="zawartość fosforu">
-								<b-form-input
-								  required
-								  size="sm"
-								  id="fosfor"
-								  v-model="uzytek.fosfor"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label-size="sm"
-								description="zawartość potasu"
-								label="K<sub>2</sub>O"
-								label-for="potas">
-								<b-form-input
-								  required
-								  size="sm"
-								  id="potas"
-								  v-model="uzytek.potas"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label-size="sm"
-								description="zawartość magnezu"
-								label="MgO"
-								label-for="magnez">
-								<b-form-input
-								  size="sm"
-								  required
-								  id="magnez"
-								  v-model="uzytek.magnez"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						</b-form-row>
-						
-					 </b-form-group>
-					 
-				  </b-col>
-				  
-				</b-form-row>
-				
-			 </b-card>
-			 
+			 			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">

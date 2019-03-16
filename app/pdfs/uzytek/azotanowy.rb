@@ -184,7 +184,7 @@ class Uzytek::Azotanowy
     [
       [
         {
-          content: @uzytek.azot_mineralny_ha.round(1).to_s,
+          content: @uzytek.azot_mineralny_ha.round.to_s,
           height: 5.4.mm,
           padding: 1.mm,
           size: 8.pt,
@@ -193,7 +193,7 @@ class Uzytek::Azotanowy
           width: @o.bounds.width/6
         },
         {
-          content: @uzytek.azot_mineralny_pole.round(1).to_s,
+          content: @uzytek.azot_mineralny_pole.round.to_s,
           height: 5.4.mm,
           padding: 1.mm,
           size: 8.pt,
@@ -233,7 +233,7 @@ class Uzytek::Azotanowy
     [
       [
         {
-        content: "<b>zalecane dawki nawozów mineralnych\nw czystym składniku do zastosowania</b>",
+        content: "<b>Zalecane dawki nawozów mineralnych\nw czystym składniku do zastosowania</b>",
         inline_format: true,
         align: :center,
         padding: 2.mm,
@@ -342,7 +342,7 @@ class Uzytek::Azotanowy
     [
       [
         {
-          content: @uzytek.azot_mineralny_ha_w_nawozie.round(1).to_s,
+          content: @uzytek.azot_mineralny_ha_w_nawozie.round.to_s,
           align: :center,
           size: 8.pt,
           padding: [ 1.mm, 0, 0, 0 ],
@@ -358,7 +358,7 @@ class Uzytek::Azotanowy
     [
       [
         {
-          content: @uzytek.azot_mineralny_pole_w_nawozie.round(1).to_s,
+          content: @uzytek.azot_mineralny_pole_w_nawozie.round.to_s,
           align: :center,
           size: 8.pt,
           padding: 1.mm,

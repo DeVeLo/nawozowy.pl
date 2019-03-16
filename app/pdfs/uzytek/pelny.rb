@@ -181,7 +181,7 @@ class Uzytek::Pelny
     [
       [
         {
-          content: @uzytek.azot_mineralny_ha.round(1).to_s,
+          content: @uzytek.azot_mineralny_ha.round.to_s,
           height: 5.4.mm,
           padding: 1.mm,
           size: 8.pt,
@@ -190,7 +190,7 @@ class Uzytek::Pelny
           width: @o.bounds.width/5*1.5/5
         },
         {
-          content: @uzytek.azot_mineralny_pole.round(1).to_s,
+          content: @uzytek.azot_mineralny_pole.round.to_s,
           height: 5.4.mm,
           padding: 1.mm,
           size: 8.pt,
@@ -230,7 +230,7 @@ class Uzytek::Pelny
     [
       [
         {
-        content: '<b>zalecane dawki nawozów mineralnych w czystym składniku do zastosowania</b>',
+        content: '<b>Zalecane dawki nawozów mineralnych w czystym składniku do zastosowania</b>',
         padding: [ 1.mm, 0, 1.5.mm, 0 ],
         inline_format: true,
         align: :center,
@@ -393,7 +393,7 @@ class Uzytek::Pelny
   
   def mg_ha
     unless @uzytek.mg_wynik_ha.nil?
-      @uzytek.mg_wynik_ha.round(1).to_s
+      @uzytek.mg_wynik_ha.round.to_s
     else
       '0'
     end
@@ -401,7 +401,7 @@ class Uzytek::Pelny
 
   def mg_pole
     unless @uzytek.mg_wynik_ha.nil?
-      @uzytek.mg_wynik_pole.round(1).to_s
+      @uzytek.mg_wynik_pole.round.to_s
     else
       '0'
     end
@@ -417,7 +417,7 @@ class Uzytek::Pelny
 
   def fosfor_wynik_ha
     unless @uzytek.wynik_fosfor.nil?
-      @uzytek.wynik_fosfor.round(1).to_s
+      @uzytek.wynik_fosfor.round.to_s
     else
       '0'
     end
@@ -425,7 +425,7 @@ class Uzytek::Pelny
 
   def potas_wynik_ha
     unless @uzytek.wynik_potas.nil?
-      @uzytek.wynik_potas.round(1).to_s
+      @uzytek.wynik_potas.round.to_s
     else
       '0'
     end
@@ -433,7 +433,7 @@ class Uzytek::Pelny
 
   def fosfor_wynik_pole
     unless @uzytek.wynik_fosfor.nil?
-      (@uzytek.wynik_fosfor * @uzytek.powierzchnia).round(1).to_s
+      (@uzytek.wynik_fosfor * @uzytek.powierzchnia).round.to_s
     else
       '0'
     end
@@ -441,7 +441,7 @@ class Uzytek::Pelny
 
   def potas_wynik_pole
     unless @uzytek.wynik_potas.nil?
-      (@uzytek.wynik_potas * @uzytek.powierzchnia).round(1).to_s
+      (@uzytek.wynik_potas * @uzytek.powierzchnia).round.to_s
     else
       '0'
     end
@@ -449,7 +449,7 @@ class Uzytek::Pelny
   
   def cao_ha
     unless @uzytek.cao_ha.nil?
-      @uzytek.cao_ha.round(1).to_s
+      @uzytek.cao_ha.round.to_s
     else
       '0'
     end
@@ -457,7 +457,7 @@ class Uzytek::Pelny
 
   def cao_pole
     unless @uzytek.cao_ha.nil?
-      @uzytek.cao_pole.round(1).to_s
+      @uzytek.cao_pole.round.to_s
     else
       '0'
     end
@@ -521,7 +521,7 @@ class Uzytek::Pelny
     [
       [
         {
-          content: @uzytek.azot_mineralny_ha_w_nawozie.round(1).to_s,
+          content: @uzytek.azot_mineralny_ha_w_nawozie.round.to_s,
           align: :center,
           size: 8.pt,
           padding: [ 1.mm, 0, 0, 0 ],
@@ -573,7 +573,7 @@ class Uzytek::Pelny
     [
       [
         {
-          content: @uzytek.azot_mineralny_pole_w_nawozie.round(1).to_s,
+          content: @uzytek.azot_mineralny_pole_w_nawozie.round.to_s,
           align: :center,
           size: 8.pt,
           padding: 1.mm,
