@@ -10,7 +10,7 @@ class UzytekPdf < Prawn::Document
     
     super(:page_size => "A4",
           :page_layout => if @zlecenie.typ then :landscape else :portrait end,
-          :left_margin => 12.7.mm,
+          :left_margin => 35.0.mm,
           :right_margin => 12.7.mm,
           :top_margin => 12.7.mm,
           :bottom_margin => 12.7.mm)
@@ -24,7 +24,11 @@ class UzytekPdf < Prawn::Document
     move_down 10.mm
     
     # dane rolnika i adres ze zlecenia
-    Rolnik::Dane.new(self)
+    if @zlecenie.typ
+      Rolnik::Dane.new(self).pelny
+    else
+      Rolnik::Dane.new(self).azotanowy
+    end
 
     move_down 5.mm
     
