@@ -71,11 +71,11 @@
 				  
 				  <b-col>
 					 <b-form-group
-						label="znak"
+						label="oznaczenie"
 						label-for="name"
 						label-size="sm"
 						label-cols-sm="4"
-						description="oznaczenie zlecenia">
+						description="rok gospodarczy">
 						<b-form-input
 						  required
 						  id="name"
