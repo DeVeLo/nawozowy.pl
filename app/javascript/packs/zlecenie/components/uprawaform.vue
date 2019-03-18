@@ -850,7 +850,6 @@ export default {
 								this.uzytek = res.body
 								let index = this.uzytki.findIndex(x => x.id === res.body.id)
 								this.$set(this.uzytki, index, res.body)
-								console.log(this.uzytki)
 								if (reaction) {
 									 this.uprawamodal.hide()
 								}
