@@ -97,12 +97,20 @@
 								v-if="uzytki.length > 0"
 								target="_blank"
 								:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/bilans.pdf'"
-								variant="warning">Bilans PDF</b-button>
+								variant="warning">wydruk główny</b-button>
 							 <b-button
 								v-if="uzytki.length > 0"
 								target="_blank"
 								:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki.pdf'"
-								variant="warning">Plany PDF</b-button>
+								variant="warning">
+								<template v-if="zlecenie.typ">
+								  pełny
+								</template>
+								plan
+								<template v-if="!zlecenie.typ">
+								  azotanowy
+								</template>
+							 </b-button>
 							 <b-button @click="createUprawa()">dodaj użytek</b-button>
 							 <b-button
 								v-if="zlecenie.nawozynaturalne && zlecenie.nawozynaturalne.length > 0 && ! resetujnawozyconfirm"

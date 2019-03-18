@@ -16,6 +16,10 @@ class Zlecenie < ApplicationRecord
   # automagiczna numeracja porządkowa
   after_create :set_lp
   after_create :set_rejestr
+
+  def nr_zlecenia
+    rejestr.to_s + "/" + (typ ? "PP" : "PA") + "/" + datawplywu.year.to_s
+  end
   
   # ustal następny nr porządkowy
   def next_lp
@@ -98,6 +102,38 @@ class Zlecenie < ApplicationRecord
     zn = Zlecenie::Nawoz.new(self)
     zn.pozostaly_potas.round(2)
   end
-  
+
+  # dane do wydruku głównego
+  def liczba_roslino_dzialek
+    uzytki.count
+  end
+
+  def suma_powierzchni_uzytkow
+    uzytki.sum(:powierzchnia)
+  end
+
+  def powierzchnia_gruntow_ornych
+    uzytki.where(grunt_id: 1).sum(:powierzchnia)
+  end
+
+  def powierzchnia_uzytkow_zielonych
+    uzytki.where(grunt_id: 4).sum(:powierzchnia)
+  end
+
+  def powierzchnia_uzytkow_wieloletnich
+    uzytki.where(grunt_id: [2,3]).sum(:powierzchnia)
+  end
+
+  def ilosc_nawozow_zastosowanych
+    produkcja_nawozu - pozostaly_nawoz
+  end
+
+  def ilosc_azotu_zastosowanego
+    produkcja_azotu - pozostaly_azot
+  end
+
+  def ilosc_azotu_dzialajacego
+    ilosc_azotu_zastosowanego * 0.7
+  end
   
 end
