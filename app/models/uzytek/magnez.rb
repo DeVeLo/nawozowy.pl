@@ -46,10 +46,21 @@ class Uzytek::Magnez
     @u.roslina.magnez
   end
 
+  # 4a) mnożymy przez 1.658 wszystko oprócz tytoniu
+  def mnoznik1658
+      if @u.roslina.tyton
+        # tytoń pozostaje neutralny
+        1
+      else
+        # resztę mnożymy
+        1.658
+      end
+  end
+  
   # 4) wyliczamy potrzeby rośliny
   def potrzeby
     unless pobranie.nil?
-      1.658 * pobranie * @u.plon
+      mnoznik1658 * pobranie * @u.plon
     else
       nil
     end
