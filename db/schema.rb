@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316211020) do
+ActiveRecord::Schema.define(version: 20190319164032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20190316211020) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "wspwykorzystania_id"
+    t.string   "sname"
     t.index ["wspwykorzystania_id"], name: "index_nazwyutrzymania_on_wspwykorzystania_id", using: :btree
   end
 
