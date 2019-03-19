@@ -1,6 +1,7 @@
 class Nawozwykorzystany < ApplicationRecord
   belongs_to :animal
   belongs_to :nawoznaturalny
+  has_many :systemyutrzymania, through: :animal
 
   def wykorzystany_azot
     self.ilosc * self.animal.zawartosc_wynikowa    

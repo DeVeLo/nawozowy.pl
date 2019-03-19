@@ -9,9 +9,9 @@ class Uzytek < ApplicationRecord
   belongs_to :rolnik
   belongs_to :grunt
   belongs_to :wspwykorzystania
-  has_many :nawozynaturalne, inverse_of: :uzytek, dependent: :destroy
   has_many :animalgroups
   has_many :animals, through: :animalgroups
+  has_many :nawozynaturalne, inverse_of: :uzytek, dependent: :destroy
   has_many :nawozywykorzystane, through: :nawozynaturalne
 
   accepts_nested_attributes_for :nawozynaturalne, allow_destroy: true
@@ -307,5 +307,5 @@ class Uzytek < ApplicationRecord
       self.korekta_potas
     end
   end
-
+  
 end

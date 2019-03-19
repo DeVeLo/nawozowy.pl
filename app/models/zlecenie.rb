@@ -12,6 +12,7 @@ class Zlecenie < ApplicationRecord
   has_many :animals, dependent: :destroy
   has_many :uzytki, dependent: :destroy
   has_many :nawozynaturalne, through: :uzytki
+  has_many :nawozywykorzystane, through: :animals
   
   # automagiczna numeracja porządkowa
   after_create :set_lp
@@ -63,6 +64,93 @@ class Zlecenie < ApplicationRecord
   end
 
   # dane dotyczące nawozu naturalnego #############
+  def produkcja_obornika
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja_obornika.round(2)
+  end
+
+  def produkcja_gnojowki
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja_gnojowki.round(2)
+  end
+
+  def produkcja_gnojowicy
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja_gnojowicy.round(2)
+  end
+
+  def produkcja_obornika_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja_obornika_azot.round(2)
+  end
+
+  def produkcja_gnojowki_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja_gnojowki_azot.round(2)
+  end
+
+  def produkcja_gnojowicy_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.produkcja_gnojowicy_azot.round(2)
+  end
+
+  def pozostaly_obornik
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostaly_obornik.round(2)
+  end
+
+  def pozostala_gnojowka
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostala_gnojowka.round(2)
+  end
+
+  def pozostala_gnojowica
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostala_gnojowica.round(2)
+  end
+
+  def pozostaly_obornik_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostaly_obornik_azot.round(2)
+  end
+
+  def pozostala_gnojowka_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostala_gnojowka_azot.round(2)
+  end
+
+  def pozostala_gnojowica_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.pozostala_gnojowica_azot.round(2)
+  end
+
+
+  def zastosowany_obornik
+    produkcja_obornika - pozostaly_obornik
+  end
+
+  def zastosowana_gnojowka
+    produkcja_gnojowki - pozostala_gnojowka
+  end
+
+  def zastosowana_gnojowica
+    produkcja_gnojowicy - pozostala_gnojowica
+  end
+
+  def zastosowany_obornik_azot
+    produkcja_obornika_azot - pozostaly_obornik_azot
+  end
+
+  def zastosowana_gnojowka_azot
+    produkcja_gnojowki_azot - pozostala_gnojowka_azot
+  end
+
+  def zastosowana_gnojowica_azot
+    produkcja_gnojowicy_azot - pozostala_gnojowica_azot
+  end
+  
+
+  
   def produkcja_nawozu
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja.round(2)
