@@ -2,6 +2,7 @@
 class UzytekPdf < Prawn::Document
 
   include ActionView::Helpers::NumberHelper
+  include ActionView::Helpers::TranslationHelper 
 
   def initialize(uzytek)
     @uzytek = uzytek
@@ -10,27 +11,95 @@ class UzytekPdf < Prawn::Document
     
     super(:page_size => "A4",
           :page_layout => if @zlecenie.typ then :landscape else :portrait end,
-          :left_margin => 35.0.mm,
+          :left_margin => if @zlecenie.typ then 12.7.mm else 28.0.mm end,
           :right_margin => 12.7.mm,
-          :top_margin => 12.7.mm,
+          :top_margin => if @zlecenie.typ then 70.mm else 50.mm end,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
     Defaults::Fonts.new(self)
 
-    # nagłówek pisma
-    naglowek
+    # header
+    repeat :all do
+      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 44.mm end], width: bounds.width do
+
+        # nagłówek pisma
+        naglowek
+
+        move_down 10.mm
+
+        if @zlecenie.typ
+          naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) na rok gospodarczy " +
+                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+        else
+          naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
+                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+        end
+        
+        text naglowek_a, size: 12.5.pt, align: :center, style: :bold
+
+      end
+    end
 
     move_down 10.mm
     
     # dane rolnika i adres ze zlecenia
-    if @zlecenie.typ
-      Rolnik::Dane.new(self).pelny
-    else
-      Rolnik::Dane.new(self).azotanowy
-    end
+    table([
+            [
+              { content: "Dane zleceniodawcy:",
+                size: 12.pt,
+                font_style: :bold,
+                border_width: 0,
+                padding: 0
+              }
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.gname,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.miejscowosc +
+                  if ! @zlecenie.rolnik.ulica.nil? && @zlecenie.rolnik.ulica != '' then ', ' + @zlecenie.rolnik.ulica else ' ' end +
+                  @zlecenie.rolnik.nrdom.to_s +
+                if ! @zlecenie.rolnik.nrmieszkania.nil? && @zlecenie.rolnik.nrmieszkania != '' then '/' + @zlecenie.rolnik.nrmieszkania.to_s else '' end,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.kod + ' ' + @zlecenie.rolnik.poczta,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: 'NIG: ' + @zlecenie.rolnik.nig,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+          ])
 
-    move_down 5.mm
+    
+    move_down 10.mm
     
     # dane użytku
     if @zlecenie.typ
@@ -47,7 +116,20 @@ class UzytekPdf < Prawn::Document
     # dane instytucji
     table([
             [
-              Instytucja::Title.new(self).firma,
+              {
+                border_width: 0,
+                padding: 0,
+                width: bounds.width/4
+              },
+              Instytucja::Title.new(self).firma(bounds.width/2),
+              {
+                content: @zlecenie.instytucja.miejscowosc +
+                ', ' + if @zlecenie.zmiendatewydruku && ! @zlecenie.datawydruku.nil? then (l @zlecenie.datawydruku) else (l Date.today) end + ' r.',
+                width: bounds.width/4,
+                border_width: 0,
+                padding: 0,
+                align: :right,
+              }
             ]
           ],
           {

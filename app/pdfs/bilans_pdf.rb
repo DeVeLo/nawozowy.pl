@@ -11,9 +11,9 @@ class BilansPdf < Prawn::Document
     
     super(:page_size => "A4",
           :page_layout => :portrait,
-          :left_margin => 25.0.mm,
+          :left_margin => 28.0.mm,
           :right_margin => 12.7.mm,
-          :top_margin => 40.0.mm,
+          :top_margin => 50.0.mm,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
@@ -21,58 +21,159 @@ class BilansPdf < Prawn::Document
 
     # header
     repeat :all do
-      bounding_box [bounds.left, bounds.top + 29.mm], width: bounds.width do
-        table([
-                [
-                  {
-                    content: "",
-                    border_width: 0,
-                    width: bounds.width/10
-                  },
-                  {
-                    content: instytucja,
-                    border_width: 0,
-                    width: bounds.width/10*6
-                  },
-                  {
-                    content: @instytucja.miejscowosc + ', ' + (l Date.today) + ' r.',
-                    border_width: 0,
-                    width: bounds.width/10*3,
-                    align: :right,
-                    size: 9.pt,
-                    padding: 0,
-                  }
-                ]
-              ])
+      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 44.mm end], width: bounds.width do
+
+        # nagłówek pisma
+        naglowek
+
+        move_down 10.mm
+
+        if @zlecenie.typ
+          naglowek_a = "Pełny plan nawożenia\n(azotem, fosforem, potasem, magnezem, wapnowania)\nna rok gospodarczy " +
+                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+        else
+          naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
+                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+        end
+        
+        text naglowek_a, size: 12.5.pt, align: :center, style: :bold
+
       end
     end
     
-    # nagłówek pisma
-    if @zlecenie.typ
-      naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) na rok gospodarczy " +
-                   @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia + " z " + ( l Date.today )
-    else
-      naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
-                   @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia + " z " + ( l Date.today )
-    end
-    
-    text naglowek_a, size: 8, align: :center, style: :bold
-
-    move_down 5.mm
-
-    # nagłówek pisma
-    # naglowek
-
-    move_down 5.mm
+    move_down 10.mm
     
     # dane rolnika i adres ze zlecenia
-    Rolnik::Dane.new(self).azotanowy
-    
-    # dane rolnika i adres ze zlecenia
-    # Rolnik::Dane.new(self)
+    table([
+            [
+              { content: "Dane zleceniodawcy:",
+                size: 12.pt,
+                font_style: :bold,
+                border_width: 0,
+                padding: 0
+              }
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.gname,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.miejscowosc +
+                  if ! @zlecenie.rolnik.ulica.nil? && @zlecenie.rolnik.ulica != '' then ', ' + @zlecenie.rolnik.ulica else ' ' end +
+                  @zlecenie.rolnik.nrdom.to_s +
+                if ! @zlecenie.rolnik.nrmieszkania.nil? && @zlecenie.rolnik.nrmieszkania != '' then '/' + @zlecenie.rolnik.nrmieszkania.to_s else '' end,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.kod + ' ' + @zlecenie.rolnik.poczta,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: 'NIG: ' + @zlecenie.rolnik.nig,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+          ])
 
     move_down 8.mm
 
+    # położenie gospodarstwa
+    table([
+            [
+              { content: "Położenie gruntów:",
+                size: 12.pt,
+                font_style: :bold,
+                border_width: 0,
+                padding: 0,
+              }
+            ],
+            [
+              {
+                content: "Miejscowość:",
+                padding: 0,
+                size: 11.pt,
+                border_width: 0
+              },
+              {
+                content: if ! @zlecenie.miejscowosc.nil? && @zlecenie.miejscowosc != '' then @zlecenie.miejscowosc else '' end,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+              },
+            ],
+            [
+              {
+                content: "Gmina:",
+                padding: 0,
+                size: 11.pt,
+                border_width: 0
+              },
+              {
+                content: @zlecenie.gmina.name,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+              },
+            ],
+            [
+              {
+                content: "Powiat:",
+                padding: 0,
+                size: 11.pt,
+                border_width: 0
+              },
+              {
+                content: @zlecenie.powiat.name,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+              },
+            ],
+            [
+              {
+                content: "Województwo:",
+                padding: 0,
+                size: 11.pt,
+                border_width: 0
+              },
+              {
+                content: @zlecenie.wojewodztwo.name,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+              },
+            ],
+          ])
+    
+    move_down 8.mm
+    
     table([
             [
               {
@@ -81,27 +182,27 @@ class BilansPdf < Prawn::Document
             ],
             [
               {
-                content: "Liczba roślinopól/działek ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Liczba roślinopól/działek ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.liczba_roslino_dzialek.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: @zlecenie.liczba_roslino_dzialek.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               }
             ],
             [
-              { content: "Powierzchnia użytków rolnych ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
-              { content: sprintf("%.2f", @zlecenie.suma_powierzchni_uzytkow).to_s + " ha", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
+              { content: "Powierzchnia użytków rolnych ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
+              { content: sprintf("%.2f", @zlecenie.suma_powierzchni_uzytkow).to_s + " ha", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
             ],
             [
-              { content: "Powierzchnia gruntów ornych ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
-              { content: sprintf("%.2f", @zlecenie.powierzchnia_gruntow_ornych).to_s + " ha", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
+              { content: "Powierzchnia gruntów ornych ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
+              { content: sprintf("%.2f", @zlecenie.powierzchnia_gruntow_ornych).to_s + " ha", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
             ],
             [
-              { content: "Powierzchnia użytków zielonych ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
-              { content: sprintf("%.2f", @zlecenie.powierzchnia_uzytkow_zielonych).to_s + " ha", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
+              { content: "Powierzchnia użytków zielonych ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
+              { content: sprintf("%.2f", @zlecenie.powierzchnia_uzytkow_zielonych).to_s + " ha", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
             ],
             [
-              { content: "Powierzchnia użytków wieloletnich ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
-              { content: sprintf("%.2f", @zlecenie.powierzchnia_uzytkow_wieloletnich).to_s + " ha", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
+              { content: "Powierzchnia użytków wieloletnich ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 },
+              { content: sprintf("%.2f", @zlecenie.powierzchnia_uzytkow_wieloletnich).to_s + " ha", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2 }
             ]
           ])
 
@@ -113,46 +214,46 @@ class BilansPdf < Prawn::Document
     table([
             [
               {
-                content:  "Ilość produkowanych w gospodarstwie ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content:  "Produkowane w gospodarstwie ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: "ton nawozu", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: "kg N", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Obornik ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.produkcja_obornika.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.produkcja_obornika.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.produkcja_obornika_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.produkcja_obornika_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Gnojówka ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.produkcja_gnojowki.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.produkcja_gnojowki.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.produkcja_gnojowki_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.produkcja_gnojowki_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Gnojowica ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.produkcja_gnojowicy.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.produkcja_gnojowicy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.produkcja_gnojowicy_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.produkcja_gnojowicy_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
           ])
@@ -160,46 +261,58 @@ class BilansPdf < Prawn::Document
     table([
             [
               {
-                content:  "Ilość zastosowanych ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content:  "Zastosowane na polach gospodarstwa ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: "ton nawozu", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: "kg N", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+              },
+              {
+                content: "kg N działającego", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Obornik ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.zastosowany_obornik.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.zastosowany_obornik.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.zastosowany_obornik_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.zastosowany_obornik_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+              },
+              {
+                content: @zlecenie.zastosowany_obornik_azot_dzialajacy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Gnojówka ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.zastosowana_gnojowka.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.zastosowana_gnojowka.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.zastosowana_gnojowka_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.zastosowana_gnojowka_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+              },
+              {
+                content: @zlecenie.zastosowana_gnojowka_azot_dzialajacy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Gnojowica ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.zastosowana_gnojowica.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.zastosowana_gnojowica.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.zastosowana_gnojowica_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.zastosowana_gnojowica_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+              },
+              {
+                content: @zlecenie.zastosowana_gnojowica_azot_dzialajacy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
           ])
@@ -207,52 +320,61 @@ class BilansPdf < Prawn::Document
     table([
             [
               {
-                content:  "Ilość pozostałych do zagospodarowania ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content:  "Pozostałe do zagospodarowania ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: "ton nawozu", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: "kg N", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Obornik ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.pozostaly_obornik.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.pozostaly_obornik.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.pozostaly_obornik_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.pozostaly_obornik_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Gnojówka ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.pozostala_gnojowka.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.pozostala_gnojowka.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.pozostala_gnojowka_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.pozostala_gnojowka_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
             [
               {
-                content: "Gnojowica ", size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
               },
               {
-                content: @zlecenie.pozostala_gnojowica.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.pozostala_gnojowica.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               },
               {
-                content: @zlecenie.pozostala_gnojowica_azot.round.to_s, size: 9.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                content: @zlecenie.pozostala_gnojowica_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
               }
             ],
           ])
     
 
-    
+    table([
+            [
+              {
+                content:  "Średni bilans azotu w gospodarstwie ", size: 12.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+              },
+              {
+                content: @zlecenie.sredni_bilans.round.to_s, size: 12.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+              },
+            ]
+          ])
     
     # move_down 3.mm
 
@@ -293,14 +415,27 @@ class BilansPdf < Prawn::Document
     # dane instytucji
     table([
             [
-              Instytucja::Title.new(self).firma,
+              {
+                border_width: 0,
+                padding: 0,
+                width: bounds.width/4
+              },
+              Instytucja::Title.new(self).firma(bounds.width/2),
+              {
+                content: @zlecenie.instytucja.miejscowosc +
+                ', ' + if @zlecenie.zmiendatewydruku && ! @zlecenie.datawydruku.nil? then (l @zlecenie.datawydruku) else (l Date.today) end + ' r.',
+                width: bounds.width/4,
+                border_width: 0,
+                padding: 0,
+                align: :right,
+              }
             ]
           ],
           {
             width: bounds.width,
           } )
   end
-
+  
   # methods for children classes
   def zlecenie
     @zlecenie

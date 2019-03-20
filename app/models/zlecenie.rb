@@ -148,6 +148,18 @@ class Zlecenie < ApplicationRecord
   def zastosowana_gnojowica_azot
     produkcja_gnojowicy_azot - pozostala_gnojowica_azot
   end
+
+  def zastosowany_obornik_azot_dzialajacy
+    zastosowany_obornik_azot * 0.7
+  end
+
+  def zastosowana_gnojowka_azot_dzialajacy
+    zastosowana_gnojowka_azot * 0.7
+  end
+
+  def zastosowana_gnojowica_azot_dzialajacy
+    zastosowana_gnojowica_azot * 0.7
+  end
   
 
   
@@ -222,6 +234,19 @@ class Zlecenie < ApplicationRecord
 
   def ilosc_azotu_dzialajacego
     ilosc_azotu_zastosowanego * 0.7
+  end
+
+  def sredni_bilans
+    suma = 0
+    uzytki.each do |u|
+      suma += u.saldo_n
+    end
+    
+    if uzytki.count > 0
+      suma / uzytki.count
+    else
+      0
+    end
   end
   
 end
