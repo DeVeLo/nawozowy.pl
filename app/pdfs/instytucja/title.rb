@@ -11,6 +11,14 @@ class Instytucja::Title
 
   end  
 
+  def bilans_firma_naglowek
+    [
+      [
+        "ss"
+      ]
+    ]
+  end
+  
   # informacja o instytucji
   def firma (width = @o.bounds.width)
     { content: [
