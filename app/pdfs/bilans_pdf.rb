@@ -13,12 +13,40 @@ class BilansPdf < Prawn::Document
           :page_layout => :portrait,
           :left_margin => 25.0.mm,
           :right_margin => 12.7.mm,
-          :top_margin => 12.7.mm,
+          :top_margin => 40.0.mm,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
     Defaults::Fonts.new(self)
 
+    # header
+    repeat :all do
+      bounding_box [bounds.left, bounds.top + 29.mm], width: bounds.width do
+        table([
+                [
+                  {
+                    content: "",
+                    border_width: 0,
+                    width: bounds.width/10
+                  },
+                  {
+                    content: instytucja,
+                    border_width: 0,
+                    width: bounds.width/10*6
+                  },
+                  {
+                    content: @instytucja.miejscowosc + ', ' + (l Date.today) + ' r.',
+                    border_width: 0,
+                    width: bounds.width/10*3,
+                    align: :right,
+                    size: 9.pt,
+                    padding: 0,
+                  }
+                ]
+              ])
+      end
+    end
+    
     # nagłówek pisma
     if @zlecenie.typ
       naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) na rok gospodarczy " +
@@ -33,7 +61,7 @@ class BilansPdf < Prawn::Document
     move_down 5.mm
 
     # nagłówek pisma
-    naglowek
+    # naglowek
 
     move_down 5.mm
     
@@ -244,6 +272,22 @@ class BilansPdf < Prawn::Document
     number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true    
   end
 
+  def instytucja
+    [
+      [
+        {
+          content: @instytucja.name,
+          width: bounds.width/10*5,
+          border_width: 0,
+          padding: 0,
+          height: 40.mm,
+          size: 10.pt,
+          font_style: :bold,
+        }
+      ]
+    ]
+  end
+  
   # nagłówek
   def naglowek
     # dane instytucji
