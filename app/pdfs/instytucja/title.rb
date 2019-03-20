@@ -7,7 +7,7 @@ class Instytucja::Title
     @o = o
     @instytucja = @o.zlecenie.instytucja
     
-    @o.font_size 9.pt
+    @o.font_size 10.pt
 
   end  
 
@@ -20,6 +20,8 @@ class Instytucja::Title
         ],
         [adres],
         [kod_poczta],
+        [tel],
+        [mail]
       ],
       border_width: 0,
     }
@@ -31,7 +33,9 @@ class Instytucja::Title
       border_width: 0,
       width: width,
       align: :center,
-      padding: [ 0.mm, 0, 0, 0 ] }
+      padding: [ 0.mm, 0, 0, 0 ],
+      font_style: :bold,
+    }
   end
   
   # adres instytucji
@@ -43,8 +47,10 @@ class Instytucja::Title
       if (@instytucja.nrm != '') && (!@instytucja.nrm.nil?) then ("/" + @instytucja.nrm) else "" end,
       border_width: 0,
       padding: [ 1.mm, 0, 0, 0 ],
-      size: 7.pt,
-      align: :center }
+      size: 10.pt,
+      align: :center,
+      font_style: :bold,
+    }
   end
 
   # instytucja kod i poczta
@@ -54,8 +60,32 @@ class Instytucja::Title
       @instytucja.poczta,
       border_width: 0,
       padding: [ 3.pt, 0, 0, 0 ],
-      size: 7.pt,
-      align: :center }
+      size: 10.pt,
+      align: :center,
+      font_style: :bold,
+    }
+  end  
+
+  def tel
+    { content: 'tel. ' + @instytucja.tel,
+      border_width: 0,
+      padding: [ 3.pt, 0, 0, 0 ],
+      size: 10.pt,
+      align: :center,
+      font_style: :bold,
+    }
+  end  
+  
+  def mail
+    { content: @instytucja.www +
+      ", " +
+      @instytucja.mail,
+      border_width: 0,
+      padding: [ 3.pt, 0, 0, 0 ],
+      size: 10.pt,
+      align: :center,
+      font_style: :bold,
+    }
   end  
   
 end

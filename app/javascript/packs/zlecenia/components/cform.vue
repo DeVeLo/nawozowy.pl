@@ -169,6 +169,40 @@
 						</b-form-select>
 					 </b-form-group>
 				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						label="data wydruku"
+						label-for="zmiendatewydruku"
+						label-size="sm"
+						description="czy zmienić datę wydruków?">
+						<b-form-select
+						  required
+						  id="zmiendatewydruku"
+						  :options="zmiendatewydrukus"
+						  size="sm"
+						  v-model="attr.zmiendatewydruku">
+						</b-form-select>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col>
+					 <b-form-group
+						v-if="attr.zmiendatewydruku"
+						label="podaj datę wydruków"
+						label-for="datawydruku"
+						label-size="sm"
+						label-cols-sm="4"
+						description="podaj datę dla wydruków">
+						<datepicker
+						  bootstrap-styling
+						  required
+						  :language="pl"
+						  id="datawydruku"
+						  input-class="form-control-sm"
+						  v-model="attr.datawydruku"></datepicker>
+					 </b-form-group>
+				  </b-col>				  
 				  
 				</b-form-row>
 				
@@ -296,6 +330,10 @@ export default {
 				bilansen: [
 					 { text: 'nie pokazuj', value: false },
 					 { text: 'pokaż', value: true }
+				],
+				zmiendatewydrukus: [
+					 { text: 'nie', value: false },
+					 { text: 'tak', value: true }
 				],
 		  }
 	 },

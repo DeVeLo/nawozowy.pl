@@ -81,7 +81,7 @@ class Uzytek::Pelny
   def podsumowanie
     [
       [
-        { content: 'bilans azotu <b>' + @uzytek.saldo_n.round(1).to_s + '</b>', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width, inline_format: true }
+        { content: 'Bilans azotu <b>' + @uzytek.saldo_n.round.to_s + '</b>', border_width: 0, padding: [ 1.mm, 2.mm, 1.mm, 1.mm ], align: :right, width: @o.bounds.width, inline_format: true }
       ]
     ]
   end

@@ -12,9 +12,9 @@ class UzytkiPdf < Prawn::Document
     
     super(:page_size => "A4",
           :page_layout => if @zlecenie.typ then :landscape else :portrait end,
-          :left_margin => 35.0.mm,
+          :left_margin => if @zlecenie.typ then 12.7.mm else 28.0.mm end,
           :right_margin => 12.7.mm,
-          :top_margin => if @zlecenie.typ then 50.mm else 60.mm end,
+          :top_margin => if @zlecenie.typ then 70.mm else 50.mm end,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
@@ -22,35 +22,85 @@ class UzytkiPdf < Prawn::Document
 
     # header
     repeat :all do
-      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 54.mm end], width: bounds.width do
-
-        if @zlecenie.typ
-          naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) na rok gospodarczy " +
-                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia + " z " + ( l Date.today )
-        else
-          naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
-                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia + " z " + ( l Date.today )
-        end
-        
-        text naglowek_a, size: 9, align: :center, style: :bold
-
-        move_down 5.mm
+      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 44.mm end], width: bounds.width do
 
         # nagłówek pisma
         naglowek
 
-        move_down 5.mm
-        
-        # dane rolnika i adres ze zlecenia
+        move_down 10.mm
+
         if @zlecenie.typ
-          Rolnik::Dane.new(self).pelny
+          naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) na rok gospodarczy " +
+                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
         else
-          Rolnik::Dane.new(self).azotanowy
+          naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
+                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
         end
+        
+        text naglowek_a, size: 12.5.pt, align: :center, style: :bold
+
       end
     end
 
-    move_down 5.mm
+
+    move_down 10.mm
+        
+    # dane rolnika i adres ze zlecenia
+    table([
+            [
+              { content: "Dane zleceniodawcy:",
+                size: 12.pt,
+                font_style: :bold,
+                border_width: 0,
+                padding: 0
+              }
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.gname,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.miejscowosc +
+                  if @zlecenie.rolnik.ulica then ', ' + @zlecenie.rolnik.ulica else ' ' end +
+                  @zlecenie.rolnik.nrdom.to_s +
+                if @zlecenie.rolnik.nrmieszkania then '/' + @zlecenie.rolnik.nrmieszkania.to_s end,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: @zlecenie.rolnik.kod + ' ' + @zlecenie.rolnik.poczta,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+            [
+              {
+                content: 'NIG: ' + @zlecenie.rolnik.nig,
+                size: 11.pt,
+                font_style: :normal,
+                border_width: 0,
+                padding: [0.5.mm, 0, 0, 0],
+                width: bounds.width
+              },
+            ],
+          ])
+    
+    move_down 10.mm
     
     zlecenie.uzytki.order(created_at: :ASC).each_with_index do |uzytek, index|
       # dane użytku
@@ -81,7 +131,20 @@ end
     # dane instytucji
     table([
             [
-              Instytucja::Title.new(self).firma,
+              {
+                border_width: 0,
+                padding: 0,
+                width: bounds.width/4
+              },
+              Instytucja::Title.new(self).firma(bounds.width/2),
+              {
+                content: @zlecenie.instytucja.miejscowosc +
+                ', ' + if @zlecenie.zmiendatewydruku && ! @zlecenie.datawydruku.nil? then (l @zlecenie.datawydruku) else (l Date.today) end + ' r.',
+                width: bounds.width/4,
+                border_width: 0,
+                padding: 0,
+                align: :right,
+              }
             ]
           ],
           {

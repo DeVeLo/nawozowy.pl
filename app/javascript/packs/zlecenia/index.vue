@@ -93,6 +93,7 @@ export default {
 					 gmina_id: gon.gmina_id,
 					 miejscowosc: gon.miejscowosc,
 					 datawplywu: new Date,
+					 datawydruku: new Date,
 					 bilansn: false,
 				}
 				this.modalForm.show()
