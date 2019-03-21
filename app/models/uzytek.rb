@@ -115,7 +115,7 @@ class Uzytek < ApplicationRecord
 
   # zapotrzebowanie rośliny w kg N/1 ha
   def zapotrzebowanie_ha
-    plon * roslina.pobranie + if roslinaprzedplon.id > 2 then 21 else 0 end
+    plon * roslina.pobranie + if roslinaprzedplon.id > 2 then roslinaprzedplon.n else 0 end
   end
 
   # PRAWA STRONA
@@ -163,9 +163,9 @@ class Uzytek < ApplicationRecord
     end
   end
   
-  # dodajemy azot z rośliny (przyorana słoma lub korzenie roślin korzeniowych)
+  # dodajemy azot z rośliny dla korzenie roślin korzeniowych
   def zroslinaprzedplon
-    if roslinaprzedplon_id > 1
+    if roslinaprzedplon_id == 2
       zprzedplonem + roslinaprzedplon.n
     else
       zprzedplonem

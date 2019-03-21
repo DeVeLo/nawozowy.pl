@@ -59,7 +59,7 @@
   <span class="text-danger">Suma (2+3)</span> <strong>{{ uzytek.zprzedplonem }} kg N/ha</strong>
 
   
-  <template v-if="uzytek.roslinaprzedplon_id > 1">
+  <template v-if="uzytek.roslinaprzedplon_id == 2">
 	 <br />
 	 <br />
 	 <span class="text-danger">
@@ -69,7 +69,17 @@
 	 <br>
 	 <span class="text-danger">Suma (2+3+4)</span> <strong>{{ uzytek.zroslinaprzedplon }} kg N/ha</strong>
   </template>
-  <template v-else>
+  <template v-else-if v-if="uzytek.roslinaprzedplon_id > 2">
+	 <br />
+	 <br />
+	 <span class="text-danger">
+		4.
+	 </span>
+	 Przedplon - {{ uzytek.nazwaroslinaprzedplon }} 0 kg N/ha + {{ uzytek.zprzedplonem }} kg N/ha
+	 <br>
+	 <span class="text-danger">Suma (2+3+4)</span> <strong>{{ uzytek.zroslinaprzedplon }} kg N/ha</strong>
+  </template>
+  <template v-else-if  v-if="uzytek.roslinaprzedplon_id < 2">
 	 <br />
 	 <br />
 	 <span class="text-danger">
