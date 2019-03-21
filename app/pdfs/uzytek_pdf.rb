@@ -13,15 +13,15 @@ class UzytekPdf < Prawn::Document
           :page_layout => if @zlecenie.typ then :landscape else :portrait end,
           :left_margin => if @zlecenie.typ then 12.7.mm else 28.0.mm end,
           :right_margin => 12.7.mm,
-          :top_margin => if @zlecenie.typ then 70.mm else 50.mm end,
+          :top_margin => if @zlecenie.typ then 28.mm else 12.7.mm end,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
     Defaults::Fonts.new(self)
 
     # header
-    repeat :all do
-      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 44.mm end], width: bounds.width do
+    # repeat :all do
+    #   bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 44.mm end], width: bounds.width do
 
         # nagłówek pisma
         naglowek
@@ -29,17 +29,17 @@ class UzytekPdf < Prawn::Document
         move_down 10.mm
 
         if @zlecenie.typ
-          naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) na rok gospodarczy " +
-                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+          naglowek_a = "Pełny plan nawożenia (azotem, fosforem, potasem, magnezem, wapnowania) nr " + @zlecenie.nr_zlecenia +
+                       " na rok gospodarczy " +  @zlecenie.name.to_s
         else
-          naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
-                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+          naglowek_a = "Plan nawożenia azotem nr " + @zlecenie.nr_zlecenia +
+                      " na rok gospodarczy " + @zlecenie.name.to_s
         end
         
         text naglowek_a, size: 12.5.pt, align: :center, style: :bold
 
-      end
-    end
+    #   end
+    # end
 
     move_down 10.mm
     

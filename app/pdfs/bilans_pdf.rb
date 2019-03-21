@@ -29,11 +29,11 @@ class BilansPdf < Prawn::Document
         move_down 10.mm
 
         if @zlecenie.typ
-          naglowek_a = "Pełny plan nawożenia\n(azotem, fosforem, potasem, magnezem, wapnowania)\nna rok gospodarczy " +
-                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+          naglowek_a = "Pełny plan nawożenia\n(azotem, fosforem, potasem, magnezem, wapnowania)\nnr " + @zlecenie.nr_zlecenia +
+                       " na rok gospodarczy " +  @zlecenie.name.to_s
         else
-          naglowek_a = "Plan nawożenia azotem na rok gospodarczy " +
-                       @zlecenie.name.to_s + " nr " + @zlecenie.nr_zlecenia
+          naglowek_a = "Plan nawożenia azotem nr " + @zlecenie.nr_zlecenia +
+                      " na rok gospodarczy " + @zlecenie.name.to_s
         end
         
         text naglowek_a, size: 12.5.pt, align: :center, style: :bold
@@ -391,7 +391,7 @@ class BilansPdf < Prawn::Document
     # move_down 3.mm
 
 
-    number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true    
+    number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true
   end
 
   def instytucja
