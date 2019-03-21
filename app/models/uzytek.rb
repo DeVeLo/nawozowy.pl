@@ -110,7 +110,7 @@ class Uzytek < ApplicationRecord
   # LEWA STRONA
   # zapotrzebowanie na azot na pole
   def zapotrzebowanie
-    plon * roslina.pobranie * powierzchnia + if @u.roslinaprzedplon.id > 2 then 21 else 0 end
+    plon * roslina.pobranie * powierzchnia + if roslinaprzedplon.id > 2 then 21 else 0 end
   end
 
   # zapotrzebowanie rośliny w kg N/1 ha
