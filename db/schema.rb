@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190321095056) do
+ActiveRecord::Schema.define(version: 20190321112616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20190321095056) do
     t.string   "poczta"
     t.string   "www",            default: ""
     t.string   "shortname",      default: ""
+    t.string   "logo",           default: ""
     t.index ["gmina_id"], name: "index_instytucje_on_gmina_id", using: :btree
     t.index ["powiat_id"], name: "index_instytucje_on_powiat_id", using: :btree
     t.index ["wojewodztwo_id"], name: "index_instytucje_on_wojewodztwo_id", using: :btree

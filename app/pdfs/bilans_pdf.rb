@@ -13,7 +13,7 @@ class BilansPdf < Prawn::Document
           :page_layout => :portrait,
           :left_margin => 28.0.mm,
           :right_margin => 12.7.mm,
-          :top_margin => 50.0.mm,
+          :top_margin => if @zlecenie.typ then 60.mm else 50.0.mm end,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
@@ -21,7 +21,7 @@ class BilansPdf < Prawn::Document
 
     # header
     repeat :all do
-      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 44.mm else 44.mm end], width: bounds.width do
+      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 54.mm else 44.mm end], width: bounds.width do
 
         # nagłówek pisma
         naglowek
@@ -384,7 +384,7 @@ class BilansPdf < Prawn::Document
       
       move_down 2.mm
     
-      text @zlecenie.uwagi, size: 11.pt, style: :italic, inline_format: true
+      text @zlecenie.uwagi, size: 11.pt, style: :italic, inline_format: true, align: :justify
 
     end
 

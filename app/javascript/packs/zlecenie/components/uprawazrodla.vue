@@ -116,7 +116,7 @@
   <br>
   <br>
   <center><b>PODSUMOWANIE</b></center><br>
-  dawka azotu mineralnego działającego w N kg/1 ha {{ Math.round(100*uzytek.zapotrzebowanie_ha)/100 }} - {{ Math.round(100*uzytek.azot_naturalny_ha)/100 }} kg/1 ha = {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} kg/1 ha<br>
+  dawka azotu działającego w N kg/1 ha {{ Math.round(100*uzytek.zapotrzebowanie_ha)/100 }} - {{ Math.round(100*uzytek.azot_naturalny_ha)/100 }} kg/1 ha = {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} kg/1 ha<br>
   saldo N <span :style="'color: ' + kolor_salda + ';'">{{ uzytek.saldo_n }}</span><br>
   dawka nawozu mineralnego do zastosowania {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} / 0.7 = <u>{{ Math.round(100*uzytek.azot_mineralny_ha_w_nawozie)/100 }} dawka z nawozu</u>
   

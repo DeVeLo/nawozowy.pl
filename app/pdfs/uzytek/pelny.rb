@@ -452,15 +452,15 @@ class Uzytek::Pelny
   
   def cao_ha
     unless @uzytek.cao_ha.nil?
-      @uzytek.cao_ha.round.to_s
+      sprintf("%.2f",@uzytek.cao_ha.round(2) ).to_s
     else
-      '0'
+      '0.00'
     end
   end
 
   def cao_pole
     unless @uzytek.cao_ha.nil?
-      @uzytek.cao_pole.round.to_s
+      sprintf("%.2f",@uzytek.cao_pole.round(2) ).to_s
     else
       '0'
     end
