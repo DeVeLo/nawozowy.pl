@@ -17,6 +17,10 @@ class UzytkiPdf < Prawn::Document
 
     # ustawienie fontów
     Defaults::Fonts.new(self)
+
+    repeat :all do
+      draw_text @zlecenie.instytucja.shortname + " plan nr " + @zlecenie.nr_zlecenia, size: 10.pt, at: [bounds.left, bounds.bottom - 7.mm]
+    end
     
     # header
     # repeat :all do
