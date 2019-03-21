@@ -90,7 +90,7 @@ class ZleceniaController < ApplicationController
     params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id,
                                      :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc,
                                      :powierzchnia, :podstawa_id, :podstawainna, :datawplywu, :lp,
-                                     :rejestr, :typ, :bilansn, :datawydruku, :zmiendatewydruku)
+                                     :rejestr, :typ, :bilansn, :datawydruku, :zmiendatewydruku, :uwagi)
   end
   
   def set_zlecenie

@@ -3,7 +3,7 @@ class ZlecenieSerializer < ActiveModel::Serializer
              :podstawa_id, :podstawainna, :datawplywu, :lp, :rejestr, :typ,
              :produkcja_nawozu, :produkcja_azotu, :pozostaly_nawoz, :pozostaly_azot,
              :produkcja_fosforu, :pozostaly_fosfor, :produkcja_potasu, :pozostaly_potas,
-             :nawozynaturalne, :uzytki, :bilansn, :datawydruku, :zmiendatewydruku
+             :nawozynaturalne, :uzytki, :bilansn, :datawydruku, :zmiendatewydruku, :uwagi
   
   has_one :instytucja
   has_one :rolnik

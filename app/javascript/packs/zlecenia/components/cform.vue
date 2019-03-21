@@ -296,6 +296,37 @@
 				  
 
 	 </b-card>
+
+	 <b-card
+		bg-variant="light"
+		class="mt-2">
+		
+		<b-form-row>
+		  <b-col>
+			 <b-form-group
+				label="Uwagi na wydruku głównym"
+				label-size=""
+				label-class="font-weight-bold">
+ 				<b-form-row>
+				  <b-col>
+					 <b-form-group
+						label="Uwagi"
+						label-for="uwagi"
+						label-size="sm">
+						<b-form-textarea
+						  id="uwagi"
+						  v-model="attr.uwagi"
+						  placeholder="Wpisz swoje uwagi."
+						  rows="10"
+						  max-rows="50">
+						</b-form-textarea>
+					 </b-form-group>
+				  </b-col>
+				</b-form-row>
+			 </b-form-group>
+		  </b-col>
+		</b-form-row>
+	 </b-card>
 	 
 	 <div slot="modal-footer" class="w-100 text-center">
 		<hr />

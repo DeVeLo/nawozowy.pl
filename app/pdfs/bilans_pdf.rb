@@ -375,21 +375,18 @@ class BilansPdf < Prawn::Document
               },
             ]
           ])
+
+    if ! @zlecenie.nil? && @zlecenie.uwagi != ''
     
-    # move_down 3.mm
+      move_down 5.mm
+    
+      text "Uwagi.", size: 12.pt, style: :normal
+      
+      move_down 2.mm
+    
+      text @zlecenie.uwagi, size: 11.pt, style: :italic, inline_format: true
 
-    # text "Ilość nawozów naturalnych produkowanych w gospodarstwie " + sprintf("%.0f", @zlecenie.produkcja_nawozu).to_s + " ton / w tym "+ sprintf("%.0f", @zlecenie.produkcja_azotu).to_s + " N kg"
-
-    # move_down 3.mm
-
-    # text "Ilość nawozów zastosowanych " + sprintf("%.0f", @zlecenie.ilosc_nawozow_zastosowanych).to_s + " ton / ilość w nich azotu " + sprintf("%.0f", @zlecenie.ilosc_azotu_zastosowanego).to_s + " kg (w tym działającego " + sprintf("%.0f", @zlecenie.ilosc_azotu_dzialajacego).to_s + " kg) "
-
-    # move_down 3.mm
-
-    # text "Ilość pozostałego nawozu " + sprintf("%.0f", @zlecenie.pozostaly_nawoz).to_s + " ton / w tym "+ sprintf("%.0f", @zlecenie.pozostaly_azot).to_s + " N kg"
-
-    # move_down 3.mm
-
+    end
 
     number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true
   end

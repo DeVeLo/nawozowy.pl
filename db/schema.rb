@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190321082423) do
+ActiveRecord::Schema.define(version: 20190321095056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -518,6 +518,7 @@ ActiveRecord::Schema.define(version: 20190321082423) do
     t.boolean  "bilansn",          default: false
     t.date     "datawydruku"
     t.boolean  "zmiendatewydruku", default: false
+    t.text     "uwagi",            default: ""
     t.index ["gmina_id"], name: "index_zlecenia_on_gmina_id", using: :btree
     t.index ["instytucja_id"], name: "index_zlecenia_on_instytucja_id", using: :btree
     t.index ["podstawa_id"], name: "index_zlecenia_on_podstawa_id", using: :btree
