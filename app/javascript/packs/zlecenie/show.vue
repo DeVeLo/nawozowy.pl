@@ -77,15 +77,26 @@
 
 		  <b-form-row class="mt-2">
 			 <b-col>
-				
+
 				<cform></cform>
-				
 				<b-card no-body>
 				  <b-tabs card>
 					 <b-tab title="nawozy naturalne" active>
 						<b-form-row>
+						  <b-col>
+							 <b>Podział na grupy oznacza, iż dany obornik/gnojówka/gnojowica w ramach danej grupy gromadzony jest na jednej pryzmie lub w jednym zbiorniku. (następuje mieszanie nawozu naturalnego od różnych zwierząt)</b>
+							 <br />
+							 <br />
+							 <b>Przykład:</b> rolnik posiada Krowy mleczne i Buhaje, których obornik składowany jest na jednej pryzmie oraz gnojówka w jednym zbiorniku. Należy utworzyć 2 grupy i do każdej dodać zarówno krowy mleczne jak i buhaje, gdzie w przypadku obornika wybieramy system utrzymania "Płytka ściółka obornik", a w przypadku gnojówki wybieramy system utrzymania "Płytka ściółka gnojówka". W ten sposób podczas rozdysponowywania nawozu naturalnego na użytkach ilości zostaną wyliczone proporcjonalnie do liczby zwierząt w ramach grup.
+						  </b-col>
+						</b-form-row>
+						<b-form-row>
 						  <b-col class="text-right m-0 p-0">
 							 <b-button @click="createAnimalgroup()">dodaj grupę</b-button>
+						  </b-col>
+						</b-form-row>
+						<b-form-row>
+						  <b-col>
 							 <animalgrouptable :key="animalgroupKey"></animalgrouptable>
 						  </b-col>
 						</b-form-row>
@@ -111,6 +122,11 @@
 								  azotanowy
 								</template>
 							 </b-button>
+							 <b-button
+								v-if="uzytki.length > 0"
+								target="_blank"
+								:href="'/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/zapotrzebowanie.pdf'"
+								variant="warning">zapotrzebowanie</b-button>
 							 <b-button @click="createUprawa()">dodaj użytek</b-button>
 							 <b-button
 								v-if="zlecenie.nawozynaturalne && zlecenie.nawozynaturalne.length > 0 && ! resetujnawozyconfirm"

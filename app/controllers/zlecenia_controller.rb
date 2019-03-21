@@ -49,6 +49,18 @@ class ZleceniaController < ApplicationController
       end
     end
   end
+
+  def zapotrzebowanie
+    respond_to do |f|
+      f.pdf do
+        pdf = ZapotrzebowaniePdf.new(@zlecenie)
+        send_data pdf.render,
+                  filename: "zapotrzebowanie-#{@zlecenie.id}",
+                  type: 'application/pdf',
+                  disposition: 'download'
+      end
+    end
+  end
   
   def create
     @zlecenie = @rolnik.zlecenia.new(zlecenie_params)
