@@ -410,9 +410,11 @@ class BilansPdf < Prawn::Document
   # nagłówek
   def naglowek
     # dane instytucji
+    image = Rails.root.join('public',@zlecenie.instytucja.logo).to_s
     table([
             [
               {
+                :image => image, :fit => [50, 100],
                 border_width: 0,
                 padding: 0,
                 width: bounds.width/4
