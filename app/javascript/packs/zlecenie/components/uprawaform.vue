@@ -131,7 +131,7 @@
 								
 							 </b-form-group>
 						  </b-col>
-
+						  
 						  <b-col>
 							 <b-form-group
 								label="powierzchnia ha"
@@ -181,7 +181,7 @@
 								  v-model="uzytek.weglanowa"></b-form-select>
 							 </b-form-group>
 						  </b-col>
-
+						  
 						  <b-col>
 							 <b-form-group
 								label="rodzaj gruntu"
@@ -211,7 +211,7 @@
 								  :formatter="formatter_decimal"></b-form-input>
 							 </b-form-group>
 						  </b-col>
-						  						  
+						  
 						</b-form-row>
 						
 					 </b-form-group>
@@ -292,7 +292,7 @@
 				</b-form-row>
 				
 			 </b-card>
-
+			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">
@@ -433,7 +433,7 @@
 				</b-form-row>
 				
 			 </b-card>
-			 			 
+			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">
@@ -449,7 +449,7 @@
 						<b-form-row>
 						  
 						  <b-col
-								v-if="zlecenie.typ == true">
+							 v-if="zlecenie.typ == true">
 							 <b-form-group
 								label="rodzaj nawozu"
 								label-for="wspwykorzystania"
@@ -464,58 +464,65 @@
 							 </b-form-group>
 						  </b-col>
 						  
-						  
-						  <b-col>
-							 <b-form-group
-								label="kg N/ha"
-								label-for="przedplon"
-								label-size="sm"
-								description="ilość azotu zawartego w zastosowanym nawozie">
-								<b-form-input
-								  size="sm"
-								  id="przedplon"
-								  required
-								  v-model="uzytek.przedplon"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						</b-form-row>
-						
-						<b-form-row v-if="zlecenie.typ == true">
-						  
-						  <b-col>
-							 <b-form-group
-								label="kg P<sub>2</sub>O<sub>5</sub>/ha"
-								label-for="przedplonfosfor"
-								label-size="sm"
-								description="ilość fosforu zawartego w zastosowanym nawozie">
-								<b-form-input
-								  size="sm"
-								  required
-								  id="przedplonfosfor"
-								  v-model="uzytek.przedplonfosfor"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label="kg K<sub>2</sub>O/ha"
-								label-for="przedplonpotas"
-								label-size="sm"
-								description="ilość potasu zawartego w zastosowanym nawozie">
-								<b-form-input
-								  required
-								  size="sm"
-								  id="przedplonpotas"
-								  v-model="uzytek.przedplonpotas"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
+						  <template v-if="uzytek.wspwykorzystania_id != 4">
+							 
+							 <b-col>
+								<b-form-group
+								  label="kg N/ha"
+								  label-for="przedplon"
+								  label-size="sm"
+								  description="ilość azotu zawartego w zastosowanym nawozie">
+								  <b-form-input
+									 size="sm"
+									 id="przedplon"
+									 required
+									 v-model="uzytek.przedplon"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+						  </template>
 						  
 						</b-form-row>
 						
+						<template v-if="uzytek.wspwykorzystania_id != 4">
+
+						  <b-form-row v-if="zlecenie.typ == true">
+							 
+							 <b-col>
+								<b-form-group
+								  label="kg P<sub>2</sub>O<sub>5</sub>/ha"
+								  label-for="przedplonfosfor"
+								  label-size="sm"
+								  description="ilość fosforu zawartego w zastosowanym nawozie">
+								  <b-form-input
+									 size="sm"
+									 required
+									 id="przedplonfosfor"
+									 v-model="uzytek.przedplonfosfor"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+							 <b-col>
+								<b-form-group
+								  label="kg K<sub>2</sub>O/ha"
+								  label-for="przedplonpotas"
+								  label-size="sm"
+								  description="ilość potasu zawartego w zastosowanym nawozie">
+								  <b-form-input
+									 required
+									 size="sm"
+									 id="przedplonpotas"
+									 v-model="uzytek.przedplonpotas"
+									 :formatter="formatter_decimal"></b-form-input>
+								</b-form-group>
+							 </b-col>
+							 
+						  </b-form-row>
+						  
+						</template>
+						  
 					 </b-form-group>
 					 
 				  </b-col>
@@ -537,22 +544,7 @@
 						label-class="font-weight-bold">
 						
 						<b-form-row>
-						  
-						  <b-col v-if="zlecenie.typ == true">
-							 <b-form-group
-								label="plon"
-								label-size="sm"
-								description="plon rośliny przedplonowej w t/ha"
-								label-for="plonprzedplonowej">
-								<b-form-input
-								  required
-								  size="sm"
-								  id="plonprzedplonowej"
-								  v-model="uzytek.plonprzedplonowej"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
+						  						  
 						  <b-col>
 							 <b-form-group
 								label="przedplon"
@@ -565,6 +557,21 @@
 								  id="roslinaprzedplony"
 								  :options="roslinaprzedplony"
 								  v-model="uzytek.roslinaprzedplon_id"></b-form-select>
+							 </b-form-group>
+						  </b-col>
+
+						  <b-col v-if="(zlecenie.typ == true) && (uzytek.roslinaprzedplon_id > 1)">
+							 <b-form-group
+								label="plon"
+								label-size="sm"
+								description="plon rośliny przedplonowej w t/ha"
+								label-for="plonprzedplonowej">
+								<b-form-input
+								  required
+								  size="sm"
+								  id="plonprzedplonowej"
+								  v-model="uzytek.plonprzedplonowej"
+								  :formatter="formatter_decimal"></b-form-input>
 							 </b-form-group>
 						  </b-col>
 						  
@@ -831,6 +838,11 @@ export default {
 					 roslinaprzedplon_id: 1,
 					 grunt_id: 1,
 					 stanprzedplonu: false,
+					 wspwykorzystania_id: 4,
+					 plonprzedplonowej: 0,
+					 przedplonfosfor: 0,
+					 przedplonpotas: 0,
+					 przedplon: 0,
 				}
 		  },
 		  save(reaction) {

@@ -77,8 +77,8 @@ class Uzytek::Fosfor
   # 7) ustalamy zapasy składnika z nawozu naturalnego
   #    z II roku
   def zapasy_nawoz_ii
-    if @u.przedplonfosfor.nil? or @u.wspwykorzystania_id.nil?
-      nil
+    if @u.przedplonfosfor.nil? or @u.wspwykorzystania_id.nil? or @u.wspwykorzystania_id == 4
+      1
     else
       @u.przedplonfosfor * @u.wspwykorzystania.wsp_fosfor_ii_rok
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190324123122) do
+ActiveRecord::Schema.define(version: 20190324164445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -448,8 +448,8 @@ ActiveRecord::Schema.define(version: 20190324123122) do
     t.decimal  "fosfor"
     t.decimal  "potas"
     t.decimal  "magnez"
-    t.decimal  "przedplonfosfor"
-    t.decimal  "przedplonpotas"
+    t.decimal  "przedplonfosfor",     default: "0.0"
+    t.decimal  "przedplonpotas",      default: "0.0"
     t.integer  "wspwykorzystania_id"
     t.decimal  "plonprzedplonowej"
     t.integer  "lp"

@@ -78,8 +78,8 @@ class Uzytek::Potas
   # 7) ustalamy zapasy składnika z nawozu naturalnego
   #    z II roku
   def zapasy_nawoz_ii
-    if @u.przedplonpotas.nil? or @u.wspwykorzystania_id.nil?
-      nil
+    if @u.przedplonpotas.nil? or @u.wspwykorzystania_id.nil? or @u.wspwykorzystania_id == 4
+      1
     else
       @u.przedplonpotas * @u.wspwykorzystania.wsp_potas_ii_rok
     end
