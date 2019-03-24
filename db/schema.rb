@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190321112616) do
+ActiveRecord::Schema.define(version: 20190324123122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20190321112616) do
     t.datetime "updated_at",                   null: false
     t.integer  "rownowaznik"
     t.boolean  "sad",          default: false
+    t.decimal  "korektatyton", default: "0.0"
     t.index ["kategoria_id"], name: "index_ocenymagnez_on_kategoria_id", using: :btree
     t.index ["ocena_id"], name: "index_ocenymagnez_on_ocena_id", using: :btree
   end

@@ -17,12 +17,12 @@ class Uzytek::Magnez
 
   # 2) wyznaczamy współczynnik na podstawie oceny
   #     używamy dla tytoniu
-  def wspolczynnik
+  def korektatyton
     unless ocena.nil?
       # tylko rośliny oznaczone jako tytoń
       # mnożymy przez współczynnik - podobno tymczasowo (wg Moniki)
       if @u.roslina.tyton
-        ocena.ocena.wspolczynnik
+        ocena.korektatyton
       else
         # reszt pozostaje neutralna
         1
@@ -33,9 +33,14 @@ class Uzytek::Magnez
   end
   
   # 2a) wyznaczamy równoważnik na podstawie oceny
+  # jeśli tytoń to nie dodajemy równoważnika do magnezu
   def rownowaznik
     unless ocena.nil?
-      ocena.rownowaznik
+      if @u.roslina.tyton
+        0
+      else
+        ocena.rownowaznik
+      end
     else
       nil
     end
@@ -71,7 +76,7 @@ class Uzytek::Magnez
   def faktyczny_wynik 
     if @u.korekta_magnez.nil?
       unless rownowaznik.nil? or potrzeby.nil?
-        potrzeby * wspolczynnik + rownowaznik
+        potrzeby * korektatyton + rownowaznik
       else
         0
       end
