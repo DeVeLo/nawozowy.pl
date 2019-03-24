@@ -221,78 +221,7 @@
 				</b-form-row>
 				
 			 </b-card>
-			 
-			 <b-card
-				v-if="zlecenie.typ == true"
-				bg-variant="light"
-				class="mt-2">
-				
-				<b-form-row>
-				  
-				  <b-col>
-					 
-					 <b-form-group
-						label="Zawartość pozostałych pierwiastów w glebie"
-						label-class="font-weight-bold"
-						description="Zawartość pierwiastków na podstawie przeprowadzonych badań">
-						
-						<b-form-row>
-						  
-						  <b-col>
-							 <b-form-group
-								label="P<sub>2</sub>O<sub>5</sub>"
-								label-for="fosfor"
-								label-size="sm"
-								description="zawartość fosforu">
-								<b-form-input
-								  required
-								  size="sm"
-								  id="fosfor"
-								  v-model="uzytek.fosfor"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label-size="sm"
-								description="zawartość potasu"
-								label="K<sub>2</sub>O"
-								label-for="potas">
-								<b-form-input
-								  required
-								  size="sm"
-								  id="potas"
-								  v-model="uzytek.potas"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label-size="sm"
-								description="zawartość magnezu"
-								label="MgO"
-								label-for="magnez">
-								<b-form-input
-								  size="sm"
-								  required
-								  id="magnez"
-								  v-model="uzytek.magnez"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						</b-form-row>
-						
-					 </b-form-group>
-					 
-				  </b-col>
-				  
-				</b-form-row>
-				
-			 </b-card>
-			 
+			 			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">
@@ -433,6 +362,77 @@
 				</b-form-row>
 				
 			 </b-card>
+
+			 <b-card
+				v-if="zlecenie.typ == true && uzytek.roslina_id"
+				bg-variant="light"
+				class="mt-2">
+				
+				<b-form-row>
+				  
+				  <b-col>
+					 
+					 <b-form-group
+						label="Zawartość pozostałych pierwiastów w glebie"
+						label-class="font-weight-bold"
+						description="Zawartość pierwiastków na podstawie przeprowadzonych badań">
+						
+						<b-form-row>
+						  
+						  <b-col>
+							 <b-form-group
+								:label="sad()?'P':'P<sub>2</sub>O<sub>5</sub>'"
+								label-for="fosfor"
+								label-size="sm"
+								description="zawartość fosforu">
+								<b-form-input
+								  required
+								  size="sm"
+								  id="fosfor"
+								  v-model="uzytek.fosfor"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col>
+							 <b-form-group
+								label-size="sm"
+								description="zawartość potasu"
+								:label="sad()?'K':'K<sub>2</sub>O'"
+								label-for="potas">
+								<b-form-input
+								  required
+								  size="sm"
+								  id="potas"
+								  v-model="uzytek.potas"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col>
+							 <b-form-group
+								label-size="sm"
+								description="zawartość magnezu"
+								:label="sad()?'M':'MgO'"
+								label-for="magnez">
+								<b-form-input
+								  size="sm"
+								  required
+								  id="magnez"
+								  v-model="uzytek.magnez"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						</b-form-row>
+						
+					 </b-form-group>
+					 
+				  </b-col>
+				  
+				</b-form-row>
+				
+			 </b-card>			 
 			 
 			 <b-card
 				bg-variant="light"
@@ -807,6 +807,18 @@ export default {
 					  set(v) { this.$store.commit('zlecenie', v) } },
 	 },
 	 methods: {
+		  sad() {
+				if (this.rosliny && this.uzytek.roslina_id ) {
+					 let roslina = this.rosliny.find(x => x.id === this.uzytek.roslina_id)
+					 if (roslina) {
+						  return roslina.sad
+					 } else {
+						  return false
+					 }
+				} else {
+					 return false
+				}
+		  },
 		  formatter_decimal(v,e) {
 				if (v !== null) {
 					 v = v.replace(',','.')
