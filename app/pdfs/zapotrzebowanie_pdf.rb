@@ -38,8 +38,8 @@ class ZapotrzebowaniePdf < Prawn::Document
         
         # text naglowek_a, size: 12.5.pt, align: :center, style: :bold
 
-        text "<strong>Zapotrzebowanie na składniki w nawozach mineralnych dla gospodarstwa (w kg).</strong> Zastosowano " +
-             " " + " kg N całkowitego w nawozach naturalnych w tym N działający " + " " + " kg."
+        text "Zalecane dawki nawozów mineralnych (czysty składnik)\ndo zastosowania dla gospodarstwa w całym roku gospodarczym " +
+             @zlecenie.name, size: 12.5.pt, align: :center, style: :bold
         
       end
     end

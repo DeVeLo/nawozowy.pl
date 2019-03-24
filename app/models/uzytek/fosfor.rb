@@ -78,7 +78,7 @@ class Uzytek::Fosfor
   #    z II roku
   def zapasy_nawoz_ii
     if @u.przedplonfosfor.nil? or @u.wspwykorzystania_id.nil? or @u.wspwykorzystania_id == 4
-      1
+      0
     else
       @u.przedplonfosfor * @u.wspwykorzystania.wsp_fosfor_ii_rok
     end
