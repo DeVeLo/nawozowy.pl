@@ -10,12 +10,12 @@
 		  header-text-variant="white">
 		  
 		  <b-row slot="header">
-			 <b-col cols="4">
+			 <b-col cols="6">
 				<b-button @click="createAnimal(animalgroup.id)" variant="primary" size="sm">dodaj zwierzę</b-button>
 
 				<b-button v-if="confirm!=animalgroup.id" type="button" variant="danger" size="sm" @click="confirm=animalgroup.id">usuń grupę</b-button>
 				<span v-if="confirm==animalgroup.id">
-				  na pewno?
+				  Usuniesz również rozdysponowany nawóz naturalny na użytkach. Na pewno?
 				  <b-button type="button" variant="danger" size="sm" @click="usunGrupe(animalgroup.id, index)">tak</b-button>
 				  <b-button type="button" size="sm" @click="confirm=false">nie</b-button>
 				</span>

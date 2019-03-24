@@ -390,6 +390,7 @@ export default {
 						  .then((res) => {
 								this.animalmodal.hide()
 								this.pobierz()
+								this.pobierzAnimalgroups()
 						  })
 						  .catch((error) => console.log(error))
 				} else {
@@ -415,6 +416,20 @@ export default {
 						  .catch((error) => console.log(error))
 				}
 				
+		  },
+		  pobierzAnimalgroups() {
+				this.$http.get('/instytucje/'
+									+ gon.instytucja_id
+									+ '/rolnicy/'
+									+ gon.rolnik_id
+									+ '/zlecenia/'
+									+ gon.id
+									+ '/animalgroups.json')
+					 .then((result) => {
+						  this.animalgroups = result.body
+						  
+					 })
+					 .catch((error) => { console.log(error)} )
 		  },
 		  clear() {
 				this.animal = {

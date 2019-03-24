@@ -1,6 +1,6 @@
 class ZleceniaController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne, :bilans]
+  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne, :bilans, :zapotrzebowanie]
   before_action :set_instytucja
   before_action :set_rolnik
 
@@ -44,6 +44,18 @@ class ZleceniaController < ApplicationController
         pdf = BilansPdf.new(@zlecenie)
         send_data pdf.render,
                   filename: "bilans-#{@zlecenie.id}",
+                  type: 'application/pdf',
+                  disposition: 'download'
+      end
+    end
+  end
+
+  def zapotrzebowanie
+    respond_to do |f|
+      f.pdf do
+        pdf = ZapotrzebowaniePdf.new(@zlecenie)
+        send_data pdf.render,
+                  filename: "zapotrzebowanie-#{@zlecenie.id}",
                   type: 'application/pdf',
                   disposition: 'download'
       end
