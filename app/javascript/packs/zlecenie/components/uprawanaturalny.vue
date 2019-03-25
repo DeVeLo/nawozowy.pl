@@ -82,7 +82,7 @@
 			 
 			 <b-form-row>
 				
-				<b-col cols="6">
+				<b-col cols="4">
 				  <b-form-group
 					 label="wybierz nawóz"
 					 label-for="animalgroups"
@@ -108,16 +108,55 @@
 						v-model="sezon_id"></b-form-select>
 				  </b-form-group>
 				</b-col>
-				
+
 				<b-col cols="2">
 				  <b-form-group
-					 label="ilość t/ha"
+					 label="sposób"
+					 label-for="sposob"
+					 label-size="sm">
+					 <b-form-select
+						size="sm"
+						id="sposob"
+						:options="sposoby"
+						v-model="sposob"></b-form-select>
+				  </b-form-group>
+				</b-col>
+				
+				<b-col cols="2" v-if="sposob==1">
+				  <b-form-group
+					 label="t/ha"
 					 label-for="ilosc"
 					 label-size="sm">
 					 <b-form-input
 						size="sm"
 						id="ilosc"
 						v-model="ilosc"
+						:formatter="formatter_decimal"></b-form-input>
+				  </b-form-group>
+				</b-col>
+
+				<b-col cols="2" v-if="sposob==2">
+				  <b-form-group
+					 label="t/pole"
+					 label-for="produkcja"
+					 label-size="sm">
+					 <b-form-input
+						size="sm"
+						id="produkcja"
+						v-model="produkcja"
+						:formatter="formatter_decimal"></b-form-input>
+				  </b-form-group>
+				</b-col>
+
+				<b-col cols="2" v-if="sposob==3">
+				  <b-form-group
+					 label="kg N/ha"
+					 label-for="n"
+					 label-size="sm">
+					 <b-form-input
+						size="sm"
+						id="n"
+						v-model="n"
 						:formatter="formatter_decimal"></b-form-input>
 				  </b-form-group>
 				</b-col>
@@ -266,8 +305,11 @@ export default {
 		  return {
 				animalgroup: {},
 				ilosc: "",
+				produkcja: "",
+				n: "",
 				sezon_id: false,
 				animalgroup_id: false,
+				sposob: 3,
 				gon: gon,
 				naglowki: [
 					 { key: 'grupa', label: 'grupa zwierząt' },
@@ -280,6 +322,11 @@ export default {
 				sezonoptions: [
 					 { text: 'jesień', value: 1 },
 					 { text: 'wiosna', value: 2 },
+				],
+				sposoby: [
+					 { text: 't/ha', value: 1 },
+ 					 { text: 't/pole', value: 2 },
+ 					 { text: 'kg N/ha', value: 3 },
 				],
 		  }
 	 },
@@ -316,6 +363,9 @@ export default {
 										  animalgroup_id: this.animalgroup_id,
 										  sezon_id: this.sezon_id,
 										  ilosc: this.ilosc,
+										  sposob: this.sposob,
+										  produkcja: this.produkcja,
+										  n: this.n,
 									 },
 									 {})
 					 .then((result) => {
@@ -372,6 +422,9 @@ export default {
 		  },
 		  wyczyscNawoz() {
 				this.ilosc = ""
+				this.n = ""
+				this.produkcja = ""
+				this.sposob = 3
 				this.sezon_id = false
 				// this.animalgroup_id = false
 		  },

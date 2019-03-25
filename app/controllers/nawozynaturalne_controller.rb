@@ -55,7 +55,7 @@ class NawozynaturalneController < ApplicationController
 
   def nawoznaturalny_params
     params.require(:nawoznaturalny).permit(:id, :instytucja_id, :rolnik_id, :zlecenie_id, :uzytek_id,
-                                           :ilosc, :sezon_id, :animalgroup_id)
+                                           :ilosc, :sezon_id, :animalgroup_id, :sposob, :produkcja, :n)
   end
   
   

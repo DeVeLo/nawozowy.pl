@@ -5,10 +5,29 @@ class Nawoznaturalny < ApplicationRecord
   belongs_to :sezon
   belongs_to :animalgroup
   has_many :nawozywykorzystane, dependent: :destroy
+
+  before_save :oblicz_ilosc
+  
   after_create :add_nawozywykorzystane
 
-  validates :ilosc, :animalgroup_id, :uzytek_id, presence: true
+  validates :animalgroup_id, :uzytek_id, presence: true
   validates :sezon_id, inclusion: { in: [1,2] }
+
+  # nawozy możemy dystrybuować na 3 sposoby
+  # 1) ilość t/ha
+  # 2) ilość t/pole
+  # 3) ilość kg N/ha
+  # w zależności od wyboru sposobu
+  def oblicz_ilosc
+    puts ' -------------------------------------------------------- '
+    puts self.produkcja.to_s
+    if self.sposob == 2
+      self.ilosc = self.produkcja / self.uzytek.powierzchnia
+    elsif self.sposob == 3
+      self.ilosc = self.animalgroup.produkt * (self.n / self.animalgroup.produkcja_azot)
+    end
+  end
+
   
   # musimy dodać wykorzystane ilości
   # nawozu naturalnego dla każdego zwierzęcia

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190324164445) do
+ActiveRecord::Schema.define(version: 20190325160645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,10 +172,11 @@ ActiveRecord::Schema.define(version: 20190324164445) do
     t.integer  "sezon_id"
     t.decimal  "produkcja"
     t.decimal  "n"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.decimal  "ilosc"
     t.uuid     "animalgroup_id"
+    t.integer  "sposob",         default: 1
     t.index ["animal_id"], name: "index_nawozynaturalne_on_animal_id", using: :btree
     t.index ["animalgroup_id"], name: "index_nawozynaturalne_on_animalgroup_id", using: :btree
     t.index ["sezon_id"], name: "index_nawozynaturalne_on_sezon_id", using: :btree
