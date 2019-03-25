@@ -161,8 +161,6 @@ class Zlecenie < ApplicationRecord
     zastosowana_gnojowica_azot * 0.7
   end
   
-
-  
   def produkcja_nawozu
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja.round(2)
@@ -247,6 +245,46 @@ class Zlecenie < ApplicationRecord
     else
       0
     end
+  end
+
+  def azot_razem
+    suma = 0
+    self.uzytki.each do |u|
+      suma += (u.azot_mineralny_pole_w_nawozie.nil?)?0:u.azot_mineralny_pole_w_nawozie.round
+    end
+    suma
+  end
+
+  def fosfor_razem
+    suma = 0
+    self.uzytki.each do |u|
+      suma += (u.wynik_fosfor.nil?)?0:(u.wynik_fosfor * u.powierzchnia).round
+    end
+    suma
+  end
+
+  def potas_razem
+    suma = 0
+    self.uzytki.each do |u|
+      suma += (u.wynik_potas.nil?)?0:(u.wynik_potas * u.powierzchnia).round
+    end
+    suma
+  end
+
+  def magnez_razem
+    suma = 0
+    self.uzytki.each do |u|
+      suma += (u.mg_wynik_pole.nil?)?0:u.mg_wynik_pole.round
+    end
+    suma
+  end
+  
+  def cao_razem
+    suma = 0
+    self.uzytki.each do |u|
+      suma += (u.cao_pole.nil?)?0:u.cao_pole.round(2)
+    end
+    suma
   end
   
 end

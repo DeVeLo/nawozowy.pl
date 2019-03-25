@@ -278,7 +278,7 @@ class Uzytek < ApplicationRecord
     unless cao_ha.nil?
       cao_ha * powierzchnia
     else
-      nil
+      0
     end
   end
 
@@ -307,5 +307,31 @@ class Uzytek < ApplicationRecord
       self.korekta_potas
     end
   end
+
+
+  def fosfor_wynik_pole
+    unless self.wynik_fosfor.nil?
+      (self.wynik_fosfor * self.powierzchnia).round.to_s
+    else
+      '0'
+    end
+  end
+
+  def potas_wynik_pole
+    unless self.wynik_potas.nil?
+      (self.wynik_potas * self.powierzchnia).round.to_s
+    else
+      '0'
+    end
+  end
+
+  def mg_pole
+    unless self.mg_wynik_ha.nil?
+      self.mg_wynik_pole.round.to_s
+    else
+      '0'
+    end
+  end
+
   
 end

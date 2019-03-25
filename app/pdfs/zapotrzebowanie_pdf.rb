@@ -13,7 +13,7 @@ class ZapotrzebowaniePdf < Prawn::Document
           :page_layout => :portrait,
           :left_margin => 28.0.mm,
           :right_margin => 12.7.mm,
-          :top_margin => if @zlecenie.typ then 60.mm else 50.0.mm end,
+          :top_margin => 60.mm,
           :bottom_margin => 12.7.mm)
 
     # ustawienie fontów
@@ -21,7 +21,7 @@ class ZapotrzebowaniePdf < Prawn::Document
 
     # header
     repeat :all do
-      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 54.mm else 44.mm end], width: bounds.width do
+      bounding_box [bounds.left, bounds.top + if @zlecenie.typ then 50.mm else 50.mm end], width: bounds.width do
 
         # nagłówek pisma
         naglowek
@@ -101,60 +101,90 @@ class ZapotrzebowaniePdf < Prawn::Document
             ],
           ])
 
-    table([
-            [
-              {
-                content: "Pole", width: bounds.width/7
-              },
-              {
-                content: "Areał (ha)", width: bounds.width/7
-              },
-              {
-                content: "N", width: bounds.width/7
-              },
-              {
-                content: "P2O5", width: bounds.width/7
-              },
-              {
-                content: "K2O", width: bounds.width/7
-              },
-              {
-                content: "MgO", width: bounds.width/7
-              },
-              {
-                content: "CaO (t)", width: bounds.width/7
-              },
-            ]
-          ])
-
-    @zlecenie.uzytki.each do |u|
-      table([
-              [
-                {
-                  content: "Pole", width: bounds.width/7
-                },
-                {
-                  content: "Areał (ha)", width: bounds.width/7
-                },
-                {
-                  content: "N", width: bounds.width/7
-                },
-                {
-                  content: "P2O5", width: bounds.width/7
-                },
-                {
-                  content: "K2O", width: bounds.width/7
-                },
-                {
-                  content: "MgO", width: bounds.width/7
-                },
-                {
-                  content: "CaO (t)", width: bounds.width/7
-                },
-              ]
-            ])
+    move_down 10.mm
+    
+    @uzytki_table = []
+      
+    @uzytki_table.push([
+                          {
+                            content: "Pole", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                          {
+                            content: "Areał (ha)", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                          {
+                            content: "N", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                          {
+                            content: "P2O5", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                          {
+                            content: "K2O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                          {
+                            content: "MgO", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                          {
+                            content: "CaO (t)", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                          },
+                       ]
+                     )
+      
+    
+    
+    @zlecenie.uzytki.order(lp: :ASC).each do |u|
+      @uzytki_table.push([
+        {
+          content: u.lp.to_s, width: bounds.width/7, align: :center, border_width: 0,
+        },
+        {
+          content: sprintf("%.2f", u.powierzchnia.round(2)), width: bounds.width/7, align: :center, border_width: 0,
+        },
+        {
+          content: u.azot_mineralny_pole_w_nawozie.round.to_s, width: bounds.width/7, align: :center, border_width: 0,
+        },
+        {
+          content: u.fosfor_wynik_pole.to_s, width: bounds.width/7, align: :center, border_width: 0,
+        },
+        {
+          content: u.potas_wynik_pole.to_s, width: bounds.width/7, align: :center, border_width: 0,
+        },
+        {
+          content: u.mg_pole.to_s, width: bounds.width/7, align: :center, border_width: 0,
+        },
+        {
+          content: sprintf("%.2f", u.cao_pole.round(2)), width: bounds.width/7, align: :center, border_width: 0,
+        },]
+      )
     end
 
+    @uzytki_table.push([
+        {
+          content: "Razem", width: bounds.width/7, align: :center, border_width: [0.2.mm, 0, 0, 0],
+        },
+        {
+          content: sprintf("%.2f", @zlecenie.suma_powierzchni_uzytkow.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+        },
+        {
+          content: @zlecenie.azot_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+        },
+        {
+          content: @zlecenie.fosfor_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+        },
+        {
+          content: @zlecenie.potas_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+        },
+        {
+          content: @zlecenie.magnez_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+        },
+        {
+          content: sprintf("%.2f", @zlecenie.cao_razem.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+        },]
+      )
+    
+
+    table(@uzytki_table, { header: true })
+    
     number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true
   end
 
