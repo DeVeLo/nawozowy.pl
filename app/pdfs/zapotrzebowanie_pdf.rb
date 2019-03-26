@@ -116,10 +116,10 @@ class ZapotrzebowaniePdf < Prawn::Document
                             content: "N", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
                           },
                           {
-                            content: "P2O5", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "P<sub>2</sub>O<sub>5</sub>", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
                           },
                           {
-                            content: "K2O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "K<sub>2</sub>O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
                           },
                           {
                             content: "MgO", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
@@ -160,25 +160,25 @@ class ZapotrzebowaniePdf < Prawn::Document
 
     @uzytki_table.push([
         {
-          content: "Razem", width: bounds.width/7, align: :center, border_width: [0.2.mm, 0, 0, 0],
+          content: "Razem", width: bounds.width/7, align: :center, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
         },
         {
-          content: sprintf("%.2f", @zlecenie.suma_powierzchni_uzytkow.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+          content: sprintf("%.2f", @zlecenie.suma_powierzchni_uzytkow.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0],  font_style: :bold,
         },
         {
-          content: @zlecenie.azot_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+          content: @zlecenie.azot_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
         },
         {
-          content: @zlecenie.fosfor_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+          content: @zlecenie.fosfor_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
         },
         {
-          content: @zlecenie.potas_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+          content: @zlecenie.potas_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
         },
         {
-          content: @zlecenie.magnez_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+          content: @zlecenie.magnez_razem.to_s, width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
         },
         {
-          content: sprintf("%.2f", @zlecenie.cao_razem.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0]
+          content: sprintf("%.2f", @zlecenie.cao_razem.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
         },]
       )
     
