@@ -107,25 +107,25 @@ class ZapotrzebowaniePdf < Prawn::Document
       
     @uzytki_table.push([
                           {
-                            content: "Pole", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "Pole", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], font_style: :bold
                           },
                           {
-                            content: "Areał (ha)", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "Areał (ha)", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], font_style: :bold
                           },
                           {
-                            content: "N", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "N", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], font_style: :bold
                           },
                           {
-                            content: "P<sub>2</sub>O<sub>5</sub>", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], inline_format: true
+                            content: "P<sub>2</sub>O<sub>5</sub>", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], inline_format: true, font_style: :bold
                           },
                           {
-                            content: "K<sub>2</sub>O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], inline_format: true
+                            content: "K<sub>2</sub>O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], inline_format: true, font_style: :bold
                           },
                           {
-                            content: "MgO", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "MgO", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], font_style: :bold
                           },
                           {
-                            content: "CaO (t)", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "CaO (t)", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], font_style: :bold
                           },
                        ]
                      )
