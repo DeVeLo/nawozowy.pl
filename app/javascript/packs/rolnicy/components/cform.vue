@@ -27,6 +27,7 @@
 				  <b-form-input
 					 required
 					 id="lname"
+					 ref="rolnik_lname"
 					 v-model="attr.lname">
 				  </b-form-input>
 				</b-form-group>
@@ -328,7 +329,7 @@ export default {
 				this.attr = {}
 		  },
 		  focus_rolnik_name() {
-				this.$refs.rolnik_name.focus()
+				this.$refs.rolnik_lname.focus()
 		  },
 		  pobierz(v = { offset: 0, page: 0, rows: 20 }) {
 				this.$http.get('/instytucje/' + gon.instytucja_id + '/rolnicy.json')
