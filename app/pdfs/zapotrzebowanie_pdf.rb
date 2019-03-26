@@ -116,10 +116,10 @@ class ZapotrzebowaniePdf < Prawn::Document
                             content: "N", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
                           },
                           {
-                            content: "P<sub>2</sub>O<sub>5</sub>", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "P<sub>2</sub>O<sub>5</sub>", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], inline_format: true
                           },
                           {
-                            content: "K<sub>2</sub>O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
+                            content: "K<sub>2</sub>O", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0], inline_format: true
                           },
                           {
                             content: "MgO", width: bounds.width/7, align: :center, border_width: [0, 0, 0.2.mm, 0]
@@ -160,7 +160,7 @@ class ZapotrzebowaniePdf < Prawn::Document
 
     @uzytki_table.push([
         {
-          content: "Razem", width: bounds.width/7, align: :center, border_width: [0.2.mm, 0, 0, 0], font_style: :bold,
+          content: "Razem", width: bounds.width/7, align: :center, border_width: [0.2.mm, 0, 0, 0], font_style: :bold
         },
         {
           content: sprintf("%.2f", @zlecenie.suma_powierzchni_uzytkow.round(2)), width: bounds.width/7, align: :center, border_width: 0, border_width: [0.2.mm, 0, 0, 0],  font_style: :bold,
