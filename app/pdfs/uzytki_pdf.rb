@@ -70,7 +70,7 @@ class UzytkiPdf < Prawn::Document
             [
               {
                 content: @zlecenie.rolnik.miejscowosc +
-                  if ! @zlecenie.rolnik.ulica.nil? && @zlecenie.rolnik.ulica != '' then ', ' + @zlecenie.rolnik.ulica else ' ' end +
+                  if ! @zlecenie.rolnik.ulica.nil? && @zlecenie.rolnik.ulica != '' then ', ' + @zlecenie.rolnik.ulica else ' ' end + ' ' +
                   @zlecenie.rolnik.nrdom.to_s +
                 if ! @zlecenie.rolnik.nrmieszkania.nil? && @zlecenie.rolnik.nrmieszkania != '' then '/' + @zlecenie.rolnik.nrmieszkania.to_s else '' end,
                 size: 11.pt,
