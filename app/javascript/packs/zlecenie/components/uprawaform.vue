@@ -540,7 +540,7 @@
 				  <b-col>
 					 
 					 <b-form-group
-						label="Roślina na przedplon"
+						label="Produkty uboczne rośliny przedplonowej"
 						label-class="font-weight-bold">
 						
 						<b-form-row>
@@ -562,7 +562,7 @@
 
 						  <b-col v-if="(zlecenie.typ == true) && (uzytek.roslinaprzedplon_id > 1)">
 							 <b-form-group
-								label="plon"
+								label="plon resztek pożniwnych"
 								label-size="sm"
 								description="plon rośliny przedplonowej w t/ha"
 								label-for="plonprzedplonowej">
@@ -578,7 +578,7 @@
 						  <b-col
 							 v-if="(uzytek.roslinaprzedplon_id > 1) && (zlecenie.typ == true)">
 							 <b-form-group
-								label="stan przedplonu"
+								label="zaorane czy zebrane z pola"
 								label-for="stanprzedplonu"
 								label-size="sm"
 								description="przedplon zaorany czy zebrany?">
