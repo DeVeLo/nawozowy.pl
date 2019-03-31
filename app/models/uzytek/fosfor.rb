@@ -4,6 +4,7 @@ class Uzytek::Fosfor
   def initialize(uzytek)
 
     @u = uzytek
+    @path = []
 
   end
 
@@ -18,8 +19,10 @@ class Uzytek::Fosfor
           .where('ponizej >= ?', @u.fosfor).first
     
     if r.nil?
+      @path.push('brak współczynnika')
       nil
     else
+      @path.push('wartość współczynnika: ' + r.ocena.wspolczynnik.to_s)
       r.ocena.wspolczynnik
     end
   end
@@ -34,8 +37,10 @@ class Uzytek::Fosfor
   #    plonu
   def potrzeby_pokarmowe
     if pobranie.nil?
+      @path.push('brak pobrania dla podanej rośliny')
       nil
     else
+      @path.push('pobranie : ' + pobranie.to_s)
       @u.plon * pobranie
     end
   end
@@ -44,8 +49,11 @@ class Uzytek::Fosfor
   #    gleby i potrzeby pokarmowe rośliny
   def potrzeby_nawozowe
     if potrzeby_pokarmowe.nil? or wspolczynnik.nil?
+      @path.push('nie można ustalić potrzeb nawozowych')
       nil
     else
+      @path.push('potrzeby pokarmowe: ' + potrzeby_pokarmowe.to_s)
+      @path.push('potrzeby nawozowowe: ' + ( potrzeby_pokarmowe + wspolczynnik ).to_s)
       potrzeby_pokarmowe * wspolczynnik
     end
   end
