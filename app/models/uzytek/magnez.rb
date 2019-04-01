@@ -15,6 +15,15 @@ class Uzytek::Magnez
       .where('ponizej >= ?', @u.magnez).first
   end
 
+  # 1a) ocena słowna dla magnezu
+  def ocena_slowna
+    unless ocena.nil?
+      ocena.ocena.name
+    else
+      nil
+    end
+  end
+
   # 2) wyznaczamy współczynnik na podstawie oceny
   #     używamy dla tytoniu
   def korektatyton

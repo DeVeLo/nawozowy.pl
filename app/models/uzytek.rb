@@ -320,6 +320,14 @@ class Uzytek < ApplicationRecord
   def fosfor_ocena_slowna
     Uzytek::Fosfor.new(self).ocena_slowna
   end
+
+  def potas_ocena_slowna
+    Uzytek::Potas.new(self).ocena_slowna
+  end
+
+  def magnez_ocena_slowna
+    Uzytek::Magnez.new(self).ocena_slowna
+  end
   
   def potas_wynik_pole
     unless self.wynik_potas.nil?

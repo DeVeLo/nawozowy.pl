@@ -329,7 +329,7 @@
 							 <b-form-group
 								label-size="sm"
 								description="zawartość potasu"
-								:label="sad()?'K':'K<sub>2</sub>O'"
+								:label="(sad()?'K':'K<sub>2</sub>O') + (uzytek.potas_ocena_slowna?(' (' + uzytek.potas_ocena_slowna + ')'):(''))"
 								label-for="potas">
 								<b-form-input
 								  required
@@ -344,7 +344,7 @@
 							 <b-form-group
 								label-size="sm"
 								description="zawartość magnezu"
-								:label="sad()?'M':'MgO'"
+								:label="(sad()?'M':'MgO') + (uzytek.magnez_ocena_slowna?(' (' + uzytek.magnez_ocena_slowna + ')'):(''))"
 								label-for="magnez">
 								<b-form-input
 								  size="sm"

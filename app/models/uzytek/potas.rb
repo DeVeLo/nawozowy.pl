@@ -7,20 +7,34 @@ class Uzytek::Potas
 
   end
 
+  # 1a)
+  def wynik_oceny
+    Ocenapotas.where(
+      kategoria_id: @u.kategoria_id)
+      .where(sad: @u.roslina.sad)
+      .where('powyzej < ?', @u.potas)
+      .where('ponizej >= ?', @u.potas).first
+  end
+    
   # 1) wyznaczamy współczynnik na podstawie
   #    wyników badań K2O, kategorii agronomicznej
   #    oraz oznaczenia gleby
   def wspolczynnik
-    r = Ocenapotas.where(
-      kategoria_id: @u.kategoria_id)
-          .where(sad: @u.roslina.sad)
-          .where('powyzej < ?', @u.potas)
-          .where('ponizej >= ?', @u.potas).first
+    r = wynik_oceny
     
     if r.nil?
       nil
     else
       r.ocena.wspolczynnik
+    end
+  end
+
+  # 1a) ocena słowna dla potasu
+  def ocena_slowna
+    unless wynik_oceny.nil?
+      wynik_oceny.ocena.name
+    else
+      nil
     end
   end
 
