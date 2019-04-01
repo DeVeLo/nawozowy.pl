@@ -1,5 +1,36 @@
 <template>
 <div>
+
+  <b-card
+	 bg-variant="light"
+	 class="mt-2">
+	 
+	 <b-form-row>
+		
+		<b-col>
+		  
+		  <b-form-group
+			 label="Zestawienie potrzeb i zasobów"
+			 label-class="font-weight-bold">
+			 
+			 <b-form-row>
+				<b-col>
+				  Zapotrzebowanie N kg/1 ha {{ Math.round(100*uzytek.zapotrzebowanie_ha)/100 }} - zasoby {{ Math.round(100*uzytek.azot_naturalny_ha)/100 }} kg/1 ha = {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} kg/1 ha<br>
+				  Bilans azotu {{ Math.round(uzytek.saldo_n) }}<br>
+				  Dawka nawozu mineralnego do zastosowania {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} / 0.7 = <u>{{ Math.round(100*uzytek.azot_mineralny_ha_w_nawozie)/100 }} dawka z nawozu</u>
+				  
+				</b-col>
+				
+			 </b-form-row>
+			 
+		  </b-form-group>
+		  
+		</b-col>
+		
+	 </b-form-row>
+	 
+  </b-card>
+
   <b-card
 	 bg-variant="light"
 	 class="m-0 mt-2">
@@ -67,7 +98,7 @@
 	 </b-form-row>
 	 
   </b-card>
-  
+    
   <b-card
 	 bg-variant="light"
 	 class="mt-2">
