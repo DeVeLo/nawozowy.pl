@@ -109,6 +109,7 @@
 								<b-form-select
 								  size="sm"
 								  required
+								  ref="uzytek_rodzaje_uprawy"
 								  id="rodzajeuprawy"
 								  @input="pobierzRosliny(uzytek.rodzajuprawy_id)"
 								  :options="rodzajeuprawy"
@@ -311,7 +312,7 @@
 						  
 						  <b-col>
 							 <b-form-group
-								:label="sad()?'P':'P<sub>2</sub>O<sub>5</sub>'"
+								:label="(sad()?'P ':'P<sub>2</sub>O<sub>5</sub>') + (uzytek.fosfor_ocena_slowna?(' (' + uzytek.fosfor_ocena_slowna + ')'):(''))"
 								label-for="fosfor"
 								label-size="sm"
 								description="zawartość fosforu">
@@ -845,7 +846,7 @@ export default {
 					 this.pobierzUzytek()
 				}
 
-				this.$refs.uzytek_name.focus()
+				this.$refs.uzytek_rodzaje_uprawy.$el.focus()
 		  },
 		  clear() {	
 				this.uzytek = {

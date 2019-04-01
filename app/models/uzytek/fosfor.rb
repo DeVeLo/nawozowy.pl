@@ -7,16 +7,20 @@ class Uzytek::Fosfor
     @path = []
 
   end
-
+  
+  def wynik_oceny
+    Ocenafosfor.where(kategoria_id: @u.kategoria_id)
+      .where(weglanowa: @u.weglanowa)
+      .where(sad: @u.roslina.sad)
+      .where('powyzej < ?', @u.fosfor)
+      .where('ponizej >= ?', @u.fosfor).first
+  end
+  
   # 1) wyznaczamy współczynnik na podstawie
   #    wyników badań P2O5, kategorii agronomicznej
   #    oraz oznaczenia gleby - czy węglanowa czy nie
   def wspolczynnik
-    r = Ocenafosfor.where(kategoria_id: @u.kategoria_id)
-          .where(weglanowa: @u.weglanowa)
-          .where(sad: @u.roslina.sad)
-          .where('powyzej < ?', @u.fosfor)
-          .where('ponizej >= ?', @u.fosfor).first
+    r = wynik_oceny
     
     if r.nil?
       @path.push('brak współczynnika')
@@ -27,6 +31,15 @@ class Uzytek::Fosfor
     end
   end
 
+  # 1a) ocena słowna dla fosforu
+  def ocena_slowna
+    unless wynik_oceny.nil?
+      wynik_oceny.ocena.name
+    else
+      nil
+    end
+  end
+  
   # 2) określamy pobranie rośliny
   def pobranie
     @u.roslina.fosfor

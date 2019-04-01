@@ -317,6 +317,10 @@ class Uzytek < ApplicationRecord
     end
   end
 
+  def fosfor_ocena_slowna
+    Uzytek::Fosfor.new(self).ocena_slowna
+  end
+  
   def potas_wynik_pole
     unless self.wynik_potas.nil?
       (self.wynik_potas * self.powierzchnia).round.to_s
@@ -333,5 +337,4 @@ class Uzytek < ApplicationRecord
     end
   end
 
-  
 end
