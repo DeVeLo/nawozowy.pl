@@ -85,9 +85,80 @@
 				<input type="hidden" id="rolnik_id" v-model="uzytek.rolnik_id"></input>
 				<input type="hidden" id="zlecenie_id" v-model="uzytek.zlecenie_id"></input>
 			 </b-form-row> 		 
-			 
+			 			 			 
 			 <b-card
-				bg-variant="light">
+				bg-variant="light"
+				class="mt-2">
+				
+				<b-form-row>
+				  
+				  <b-col>
+					 
+					 <b-form-group
+						label="Uprawa"
+						label-class="font-weight-bold">
+						
+						<b-form-row>
+						  
+						  <b-col>
+							 <b-form-group
+								label="rodzaje uprawy"
+								label-for="rodzajeuprawy"
+								label-size="sm"
+								description="wybierz kategorię roślin">
+								<b-form-select
+								  size="sm"
+								  required
+								  id="rodzajeuprawy"
+								  @input="pobierzRosliny(uzytek.rodzajuprawy_id)"
+								  :options="rodzajeuprawy"
+								  v-model="uzytek.rodzajuprawy_id"></b-form-select>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col v-show="uzytek.rodzajuprawy_id">
+							 <b-form-group
+								label="roślina"
+								label-for="roslina"
+								label-size="sm"
+								description="wybierz roślinę">
+								<b-form-select
+								  required
+								  size="sm"
+								  id="rosliny"
+								  :options="rosliny"
+								  v-model="uzytek.roslina_id"></b-form-select>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col v-if="uzytek.rodzajuprawy_id" cols="3">
+							 <b-form-group
+								label="plon"
+								label-for="plon"
+								label-size="sm"
+								description="podaj planowany plon w t/ha">
+								<b-form-input
+								  size="sm"
+								  id="plon"
+								  required
+								  v-model="uzytek.plon"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						</b-form-row>
+						
+					 </b-form-group>
+					 
+				  </b-col>
+				  
+				</b-form-row>
+				
+			 </b-card>
+
+			 <b-card
+				bg-variant="light"
+				class="mt-2">
 				
 				<b-form-row>
 				  
@@ -221,147 +292,6 @@
 				</b-form-row>
 				
 			 </b-card>
-			 			 
-			 <b-card
-				bg-variant="light"
-				class="mt-2">
-				
-				<b-form-row>
-				  
-				  <b-col>
-					 
-					 <b-form-group
-						label="Uprawa"
-						label-class="font-weight-bold">
-						
-						<b-form-row>
-						  
-						  <b-col>
-							 <b-form-group
-								label="rodzaje uprawy"
-								label-for="rodzajeuprawy"
-								label-size="sm"
-								description="wybierz kategorię roślin">
-								<b-form-select
-								  size="sm"
-								  required
-								  id="rodzajeuprawy"
-								  @input="pobierzRosliny(uzytek.rodzajuprawy_id)"
-								  :options="rodzajeuprawy"
-								  v-model="uzytek.rodzajuprawy_id"></b-form-select>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col v-show="uzytek.rodzajuprawy_id">
-							 <b-form-group
-								label="roślina"
-								label-for="roslina"
-								label-size="sm"
-								description="wybierz roślinę">
-								<b-form-select
-								  required
-								  size="sm"
-								  id="rosliny"
-								  :options="rosliny"
-								  v-model="uzytek.roslina_id"></b-form-select>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col v-if="uzytek.rodzajuprawy_id" cols="3">
-							 <b-form-group
-								label="plon"
-								label-for="plon"
-								label-size="sm"
-								description="podaj planowany plon w t/ha">
-								<b-form-input
-								  size="sm"
-								  id="plon"
-								  required
-								  v-model="uzytek.plon"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						</b-form-row>
-						
-					 </b-form-group>
-					 
-				  </b-col>
-				  
-				</b-form-row>
-				
-			 </b-card>
-			 
-			 <b-card
-				bg-variant="light"
-				class="mt-2">
-				
-				<b-form-row>
-				  
-				  <b-col>
-					 
-					 <b-form-group
-						label="Zawartość azotu w glebie"
-						label-class="font-weight-bold">
-						
-						<b-form-row>
-						  
-						  <b-col>
-							 <b-form-group
-								label="zasoby azotu na podstawie"
-								label-for="badania"
-								label-size="sm">
-								<b-form-radio-group
-								  id="badania"
-								  required
-								  stacked
-								  size="sm"
-								  :options="badaniaoptions"
-								  v-model="uzytek.badania">
-								</b-form-radio-group>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col v-if="uzytek.badania == true">
-							 <b-form-group
-								label="kg N/ha"
-								label-for="nmin"
-								label-size="sm"
-								description="zawartość azotu">
-								<b-form-input
-								  id="nmin"
-								  required
-								  size="sm"
-								  v-model="uzytek.nmin"
-								  :formatter="formatter_decimal"></b-form-input>
-							 </b-form-group>
-						  </b-col>
-						  
-						  <b-col>
-							 <b-form-group
-								label="badanie przeprowadzone"
-								label-for="nminsezon"
-								label-size="sm">
-								<b-form-radio-group
-								  id="nminsezon"
-								  required
-								  stacked
-								  size="sm"
-								  :options="nminsezonoptions"
-								  v-model="uzytek.nminsezon">
-								</b-form-radio-group>
-							 </b-form-group>
-						  </b-col>
-						  
-						</b-form-row>
-						
-					 </b-form-group>
-					 
-				  </b-col>
-				  
-				</b-form-row>
-				
-			 </b-card>
 
 			 <b-card
 				v-if="zlecenie.typ == true && uzytek.roslina_id"
@@ -433,6 +363,77 @@
 				</b-form-row>
 				
 			 </b-card>			 
+			 
+			 <b-card
+				bg-variant="light"
+				class="mt-2">
+				
+				<b-form-row>
+				  
+				  <b-col>
+					 
+					 <b-form-group
+						label="Zawartość azotu w glebie"
+						label-class="font-weight-bold">
+						
+						<b-form-row>
+						  
+						  <b-col>
+							 <b-form-group
+								label="zasoby azotu na podstawie"
+								label-for="badania"
+								label-size="sm">
+								<b-form-radio-group
+								  id="badania"
+								  required
+								  stacked
+								  size="sm"
+								  :options="badaniaoptions"
+								  v-model="uzytek.badania">
+								</b-form-radio-group>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col v-if="uzytek.badania == true">
+							 <b-form-group
+								label="kg N/ha"
+								label-for="nmin"
+								label-size="sm"
+								description="zawartość azotu">
+								<b-form-input
+								  id="nmin"
+								  required
+								  size="sm"
+								  v-model="uzytek.nmin"
+								  :formatter="formatter_decimal"></b-form-input>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col>
+							 <b-form-group
+								label="badanie przeprowadzone"
+								label-for="nminsezon"
+								label-size="sm">
+								<b-form-radio-group
+								  id="nminsezon"
+								  required
+								  stacked
+								  size="sm"
+								  :options="nminsezonoptions"
+								  v-model="uzytek.nminsezon">
+								</b-form-radio-group>
+							 </b-form-group>
+						  </b-col>
+						  
+						</b-form-row>
+						
+					 </b-form-group>
+					 
+				  </b-col>
+				  
+				</b-form-row>
+				
+			 </b-card>
 			 
 			 <b-card
 				bg-variant="light"
