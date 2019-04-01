@@ -11,8 +11,16 @@ class UzytekSerializer < ActiveModel::Serializer
              :ph, :azot_w_nawozie, :cao, :cao_ha, :cao_pole, :weglanowa, :fosfor, :potas, :magnez,
              :przedplonfosfor, :przedplonpotas, :wspwykorzystania_id, :plonprzedplonowej, :wynik_fosfor, :wynik_potas,
              :lp, :stanprzedplonu, :zasob, :mg_wynik_ha, :korekta_azot, :korekta_fosfor, :korekta_potas, :korekta_magnez,
-             :korekta_wapn
+             :korekta_wapn, :pobranie_n, :pelne_pobranie_n
 
+  def pobranie_n
+    object.roslina.pobranie
+  end
+
+  def pelne_pobranie_n
+    object.roslina.pobranie * object.plon
+  end
+  
   def zasob
     object.kategoria.zasob
   end

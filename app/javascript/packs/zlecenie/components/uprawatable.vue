@@ -45,15 +45,15 @@
 			 </b-button>
 		  </b-col>
 
-		  <b-col class="text-center">
-			 <b-button
-				variant="primary"
-				class="mt-1"
-				size="sm"
-				@click="zrodla(row.item)">
-				źródła&nbsp;N
-			 </b-button>
-		  </b-col>
+		  <!-- <b-col class="text-center"> -->
+		  <!-- 	 <b-button -->
+		  <!-- 		variant="primary" -->
+		  <!-- 		class="mt-1" -->
+		  <!-- 		size="sm" -->
+		  <!-- 		@click="zrodla(row.item)"> -->
+		  <!-- 		źródła&nbsp;N -->
+		  <!-- 	 </b-button> -->
+		  <!-- </b-col> -->
 
 		  <b-col class="text-center">
 			 <b-button

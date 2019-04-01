@@ -147,7 +147,6 @@
 								</b-button>
 							 </template>
 							 <uprawaform></uprawaform>
-							 <uprawazrodla></uprawazrodla>
 							 <uprawatable></uprawatable>
 						  </b-col>
 						</b-form-row>

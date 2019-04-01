@@ -740,6 +740,11 @@
 			 
 		  </b-tab>
 		  
+		  <b-tab
+			 title="azot"
+			 :disabled="uzytek.id==null">
+			 <uprawazrodla></uprawazrodla>
+		  </b-tab>
 		</b-tabs>
 	 </b-card>
 	 
@@ -757,11 +762,13 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import uprawanaturalny from './uprawanaturalny.vue'
+import uprawazrodla from './uprawazrodla.vue'
 
 export default {
 	 name: 'uprawaform',
 	 components: {
-		  uprawanaturalny
+		  uprawanaturalny,
+		  uprawazrodla
 	 },
 	 data() {
 		  return {

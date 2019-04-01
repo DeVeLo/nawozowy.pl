@@ -1,15 +1,17 @@
 <template>
-<b-modal
-  :title="uzytek.lp + '. źródła azotu - użytek ' + uzytek.name"
-  centered
-  id="uprawazrodla"
-  ref="uprawazrodla"
-  size="lg"
-  header-bg-variant="dark"
-  header-text-variant="light"
-  hide-footer
-  class="text-left">
+<div>
 
+  <div class="mb-3">
+	 Pobranie składnika na wytworzenie
+	 {{ uzytek.plon }} t
+	 {{ uzytek.nazwarosliny }} ::
+	 <strong>{{ uzytek.plon }} * {{ uzytek.pobranie_n }} = {{ uzytek.pelne_pobranie_n }}</strong>.
+  </div>
+
+  <div v-if="uzytek.roslinaprzedplon_id > 2" class="mb-3">
+	 Azot na rozłożenie zaoranej słomy <strong>21</strong>.
+  </div>
+  
   <span class="text-danger">
 	 1.
   </span>
@@ -129,8 +131,7 @@
   dawka azotu działającego w N kg/1 ha {{ Math.round(100*uzytek.zapotrzebowanie_ha)/100 }} - {{ Math.round(100*uzytek.azot_naturalny_ha)/100 }} kg/1 ha = {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} kg/1 ha<br>
   saldo N <span :style="'color: ' + kolor_salda + ';'">{{ uzytek.saldo_n }}</span><br>
   dawka nawozu mineralnego do zastosowania {{ Math.round(100*uzytek.azot_mineralny_ha)/100 }} / 0.7 = <u>{{ Math.round(100*uzytek.azot_mineralny_ha_w_nawozie)/100 }} dawka z nawozu</u>
-  
-</b-modal>
+  </div>
 </template>
 <script>
 export default {
