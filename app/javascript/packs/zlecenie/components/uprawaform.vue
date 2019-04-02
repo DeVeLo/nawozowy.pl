@@ -450,8 +450,7 @@
 						
 						<b-form-row>
 						  
-						  <b-col
-							 v-if="zlecenie.typ == true">
+						  <b-col>
 							 <b-form-group
 								label="rodzaj nawozu"
 								label-for="wspwykorzystania"
