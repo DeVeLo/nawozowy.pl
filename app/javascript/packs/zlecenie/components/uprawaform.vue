@@ -344,7 +344,7 @@
 							 <b-form-group
 								label-size="sm"
 								description="zawartość magnezu"
-								:label="(sad()?'M':'MgO') + (uzytek.magnez_ocena_slowna?(' (' + uzytek.magnez_ocena_slowna + ')'):(''))"
+								:label="(sad()?'Mg':'Mg') + (uzytek.magnez_ocena_slowna?(' (' + uzytek.magnez_ocena_slowna + ')'):(''))"
 								label-for="magnez">
 								<b-form-input
 								  size="sm"
