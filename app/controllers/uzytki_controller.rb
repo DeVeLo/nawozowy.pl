@@ -6,7 +6,7 @@ class UzytkiController < ApplicationController
 
   def index
     respond_to do |f|
-      f.json { render json: Uzytek.all.where(zlecenie_id: @zlecenie.id).order(created_at: :ASC) }
+      f.json { render json: Uzytek.all.where(zlecenie_id: @zlecenie.id).order(lp: :ASC) }
       f.pdf {
         pdf = UzytkiPdf.new(@zlecenie)
         send_data pdf.render,

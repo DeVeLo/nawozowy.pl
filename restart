@@ -1,0 +1,3 @@
+#!/bin/bash
+
+git pull && bundle install && bundle update && rake db:migrate && rails assets:clean && rails assets:precompile && touch tmp/restart.txt
