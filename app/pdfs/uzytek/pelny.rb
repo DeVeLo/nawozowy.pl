@@ -628,7 +628,7 @@ class Uzytek::Pelny
   def uprawa
     @uprawa.push( 
       [ 
-        { content: '<b>Roślina:</b> ' + @uzytek.roslina.name + ' (' + @uzytek.roslina.rodzajuprawy.name + ')',
+        { content: '<b>Roślina:</b> ' + @uzytek.roslina.name,
           padding: 2.mm,
           border_width: 0,
           inline_format: true,
