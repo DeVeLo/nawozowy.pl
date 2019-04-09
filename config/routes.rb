@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   resources :roslinaprzedplony
   resources :bobowate
   
-  # na razie domyślnie wyświetlaj rolników z OSChR Lublin
+  # logowanie do systemu
   root "application#welcome"
+
+  # instrukcja użytkowania
+  get "/instrukcja", action: :instrukcja, controller: :pomoc, as: :instrukcja
   
   # instytucje: Okręgowe Stacje / CDRy
   resources :instytucje, only: [:show] do
