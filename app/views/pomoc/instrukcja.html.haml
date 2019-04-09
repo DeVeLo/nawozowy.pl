@@ -1,27 +1,75 @@
 .container
   .row
-    .col-sm-3
-      %nav{id: 'toc', 'data-toggle' => 'toc', class: 'sticky-top'}
-
-    .col-sm-9
+    .col-sm-9.js-toc-content
       %h1{id: 'wstep'}
         Wstęp
 
       %p
-        Program nawozowy.pl powstał jako efekt kilkumiesięcznej pracy 
+        Program nawozowy.pl powstał w pierwszej kolejności w celu umożliwienia sprawnego i bezbłędnego wykonania <b>planów azotowych</b> pracownikom instytucji doradczych. Z czasem dodano do niego moduł wyliczania <b>pełnego planu nawożenia</b>.
+
+      %p
+        W związku z dużą ilością parametrów, współczynników, warunków, równoważników zawartych w <i>Rozporządzeniu Rady Ministrów z dnia 5 czerwca 2018 r. w sprawie przyjęcia "Programu działań mających na celu zmniejszenie zanieczyszczenia wód azotanami pochodzącymi ze źródeł rolniczych oraz zapobieganie dalszemu zanieczyszczeniu"</i> oraz co za tym idzie ryzykiem popełnienia błędnych obliczeń program otrzymał profesjonalną formę aplikacji w modelu MVC dostępnej przez przeglądarkę internetową.
+
+      %p
+        Na rynku dostępnych jest wiele narzędzi, które starają się sprostać lepiej lub gorzej zadaniu sprawnego wyliczenia planów, mowa o narzędziach w formie arkuszy kalkulacyjnych, jednakże tego typu aplikacje nie zapewniają stosownej automatyzacji i parametryzacji jak również możliwości przechowywania w bazie danych informacji z lat poprzednich. Zatem zdaniem autora są jedynie chwilową protezą w zagadnieniu.
+
+      %p
+        Zapraszam do testowania aplikacji.
+
+      %h1{id: "jak-zaczac"}
+        Od czego zacząć?
+      %p
+        Przygodę z programem najlepiej rozpocząć od testowania w wersji demonstracyjnej, która różni się od wersji produkcyjnej jedynie nagłówkiem na wydrukach. Po za tym wszelkie obliczenia będa identyczne z wersją produkcyjną. Aby wejść do programu do wersji demonstracyjnej wystarczy się <b>zarejestrować</b>.
         
       %h1{id: 'rejestracja'}
         Rejestracja
 
-      %h2{id: 'rejestracja-testowanie'}
-        Wersja DEMO
-        
-      %h2{id: 'rejestracja-produkcja'}
-        Wersja produkcyjna
+      .alert.alert-danger
+        Uwaga! W wersji demonstracyjnej proszę <b>nie podawać</b> prawdziwych danych rolników gdyż te informacje widoczne są dla ogółu osób testujących program.
 
+      %h3{id: 'rejestracja-demo'}
+        Wersja DEMO
+
+      %ul
+        %li
+          Testowanie programu rozpoczynamy od rejestracji na stronie: <a href="https://nawozowy.pl/users/sign_up" target="_blank">https://nawozowy.pl/users/sign_up</a>.
+        %li
+          Podajemy swój <b>adres email</b>, a następnie <b>2 razy hasło</b>.
+        %li
+          Po zatwierdzeniu przyciskiem <a class="btn btn-sm btn-primary" style="color: white;">zarejestruj mnie</a> program przenosi nas od razu do listy rolników gdzie możemy rozpocząć pracę.
+
+      %p.text-center{style: "border: 1px solid grey; background-color: grey; padding: 20px;"}
+        = image_tag "pomoc/instrukcja/zarejestruj.png"
+        
+          
+        
+      %h3{id: 'rejestracja-produkcja'}
+        Wersja produkcyjna
+      %p
+        Aby zarejestrować się do wersji pełnej - czyli takiej, w której dostęp do naszych danych posiadają tylko pracownicy naszej instytucji. Jak również na wydrukach widnieje logo naszej firmy oraz jej dane. Rejestrujemy się jak wyżej do wersji DEMO, a następnie mailowo na adres <code>info@nawozowy.pl</code> lub telefonicznie <code>608635446</code> kontaktujemy z właścicielem programu w celu uzyskania odpowiedniego dostępu.
+        
       %h1{id: 'logowanie'}
         Logowanie
       %p
-        - 1..100.each do |n|
-          = n
+        Logowanie do programu odbywa się ze strony <a href="https://nawozowy.pl/users/sign_in" target="_blank">https://nawozowy.pl/users/sign_in</a> niezależnie czy posiadamy dostęp do wersji DEMO czy do pełnej. Po zalogowaniu program przeniesie nas do odpowiedniego obszaru.
+
+      %h1{id: 'rolnicy'}
+        Lista Rolników
+
+      %p
+        Od razu po rejestracji/logowaniu się program przenosi nas do listy rolników
+
+    .col-sm-3
+      %nav.toc.toc-right.js-toc.relative.z-1.transition--300.absolute.pa4{style: "position: fixed"}
+
+    
         
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+tocbot.init({
+tocSelector: '.js-toc',
+contentSelector: '.js-toc-content',
+headingSelector: 'h1, h2, h3, h4',
+positionFixedClass: 'is-position-fixed',
+});
+</script>
