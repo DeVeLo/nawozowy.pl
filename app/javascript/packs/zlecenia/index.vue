@@ -95,6 +95,7 @@ export default {
 					 datawplywu: new Date,
 					 datawydruku: new Date,
 					 bilansn: false,
+					 zmiendatewydruku: false,
 				}
 				this.modalForm.show()
 		  },
