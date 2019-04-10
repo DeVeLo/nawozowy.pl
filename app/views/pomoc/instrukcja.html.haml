@@ -125,21 +125,50 @@
 
       Podobnie jak w przypadku listy rolników tak i lista zleceń pozwala na kilka podstawowych operacji:
 
-      %ul
-        %li
-          %p
-            <b>NOWE ZLECENIE</b> &raquo; wciśnięcie linku <u>Nowe Zlecenie</u> w prawym górnym rogu ekranu spowoduje wyświetlenie okna z parametrami zlecenia.
-          %p.text-center{style: "border: 1px solid grey; background-color: grey; padding: 20px;"}
-            = link_to (image_tag "pomoc/instrukcja/nowezlecenie.png", style: "width: 100%"), (image_url "pomoc/instrukcja/nowezlecenie.png")
+      %h2{id: "nowe-zlecenie"}
+        Nowe Zlecenie
+      %p
+        &raquo; wciśnięcie linku <u>Nowe Zlecenie</u> w prawym górnym rogu ekranu spowoduje wyświetlenie okna z parametrami zlecenia. Domyślnie wybrane są najczęściej stosowane opcje. Dlatego w wielu wypadkach użytkownikowi pozostanie wciśnięcie przycisku <a class="btn btn-sm btn-primary" style="color:white;">zapisz</a>.
 
-          %p
-            Opis poszczególnych pól:
-          %ul
-            %li
-              typ: 
-            
+      %p
+        Opis poszczególnych pól:
+      %dl.row
+        %dt.col-sm-3.text-right
+          typ
+        %dd.col-sm-9
+          Wybieramy <i>plan azotowy</i> lub <i>pełny plan nawożenia</i>. Domyślnie wybrany jest <i>plan azotowy</i>. Wybór determinuje rodzaj wydruków i widoczność pól w oknach dotyczących upraw.
+        %dt.col-sm-3.text-right
+          oznaczenie
+        %dd.col-sm-9
+          Dowolne oznaczenie zlecenia, domyślnie program wstawia najbliższy czasowo przełom lat - <i>rok gospodarczy</i>.
+        %dt.col-sm-3.text-right
+          data (<i>data wpływu zlecenia</i>)
+        %dd.col-sm-9
+          Program pozwala na ręczne wprowadzenie daty wpływu zlecenia. Domyślnie data z bieżącego dnia.
+        %dt.col-sm-3.text-right
+          rodzaj
+        %dd.col-sm-9
+          Rodzaj planu - czy jest to wykonanie czy zaopiniowanie. Domyślnie <i>wykonanie</i>.
+        %dt.col-sm-3.text-right
+          bilans azotu
+        %dd.col-sm-9
+          Wybieramy opcję <i>pokaż</i> lub <i>nie pokazuj</i> bilans azotu na wydruku planu dla poszczególnych upraw oraz na wydruku głównym.
+        %dt.col-sm-3.text-right
+          data wydruku
+        %dd.col-sm-9
+          Pole wyboru pozwala na włączenie kolejnego pola, w którym wskażemy datę wydruków.
+        %dt.col-sm-3.text-right
+          położenie gospodarstwa
+        %dd.col-sm-9
+          Domyślnie przepisywane są wszystkie informacje z adresu rolnika (które wcześniej ustawiliśmy podczas dodawania rolnika). Należy dostosować zgodnie z rzeczywistością.
+        %dt.col-sm-3.text-right
+          uwagi
+        %dd.col-sm-9
+          Bardzo istotne pole tekstowe gdzie wpisujemy informacje, które zostaną dodane na wydruku głównym w uwagach.
 
-        
+      %p.text-center{style: "border: 1px solid grey; background-color: grey; padding: 20px;"}
+        = link_to (image_tag "pomoc/instrukcja/nowezlecenie.png", style: "width: 100%"), (image_url "pomoc/instrukcja/nowezlecenie.png")
+          
     .col-sm-3
       %nav.lead.absolute.pa4{style: "position: fixed; margin-top: -30px;"}
         <b>Spis Treści</b>
