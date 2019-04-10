@@ -8,7 +8,7 @@
 	 <strong>{{ uzytek.plon }} * {{ uzytek.pobranie_n }} = {{ uzytek.pelne_pobranie_n }}</strong>.
   </div>
 
-  <div v-if="uzytek.roslinaprzedplon_id > 2" class="mb-3">
+  <div v-if="uzytek.roslinaprzedplon_id > 2 && uzytek.stanprzedplonu == false" class="mb-3">
 	 Azot na rozłożenie zaoranej słomy <strong>21</strong>.
   </div>
   
