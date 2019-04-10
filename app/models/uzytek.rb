@@ -115,7 +115,7 @@ class Uzytek < ApplicationRecord
 
   # zapotrzebowanie rośliny w kg N/1 ha
   def zapotrzebowanie_ha
-    plon * roslina.pobranie + if roslinaprzedplon.id > 2 then roslinaprzedplon.n else 0 end
+    plon * roslina.pobranie + if (roslinaprzedplon.id > 2 && stanprzedplonu == false) then roslinaprzedplon.n else 0 end
   end
 
   # PRAWA STRONA
