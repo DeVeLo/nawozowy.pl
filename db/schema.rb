@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190325160645) do
+ActiveRecord::Schema.define(version: 20190416171044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -317,14 +317,15 @@ ActiveRecord::Schema.define(version: 20190325160645) do
     t.string   "nip"
     t.string   "nig"
     t.string   "ulica"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.uuid     "instytucja_id"
     t.string   "kod"
     t.string   "poczta"
     t.string   "tel"
     t.string   "kom"
     t.string   "mail"
+    t.text     "keywords",       default: "", null: false
     t.index ["gmina_id"], name: "index_rolnicy_on_gmina_id", using: :btree
     t.index ["instytucja_id"], name: "index_rolnicy_on_instytucja_id", using: :btree
     t.index ["powiat_id"], name: "index_rolnicy_on_powiat_id", using: :btree
@@ -418,6 +419,7 @@ ActiveRecord::Schema.define(version: 20190325160645) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string   "role"
+    t.string   "szukajrolnika",          default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["instytucja_id"], name: "index_users_on_instytucja_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

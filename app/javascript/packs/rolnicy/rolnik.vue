@@ -24,6 +24,20 @@
 			 <b-col>
 				<h2>lista rolników</h2>
 			 </b-col>
+			 <b-col class="text-right">
+				<b-form-group
+				  label="szukaj"
+				  label-for="plon"
+				  label-size="sm"
+				  description="wpisz dowolną frazę, aby wyszukać">
+				  <b-form-input
+					 ref="search"
+					 v-model="keywords"
+					 @input="search"
+					 size="sm"
+					 />
+				</b-form-group>
+			 </b-col>
 		  </b-row>
 		  
 		  <b-row>
@@ -89,7 +103,6 @@ import cform from './components/cform.vue'
 import cinstytucja from '../components/cinstytucja.vue'
 
 export default {
-	 
 	 name: 'rolnicy',
 	 components: {
 		  cform,
@@ -109,15 +122,13 @@ export default {
 	 },
 	 data() {
 		  return {
+				keywords: '',
 				form: {},
 				wojewodztwa: [],
 				powiaty: [],
 				gminy: [],
 				gon: gon,
 				naglowki: [
-					 { key: 'id',
-						label: '#',
-					 },
 					 { key: 'nig', label: 'NIG', sortable: true },
 					 { key: 'lname', label: 'imię i nazwisko', sortable: true },
 					 { key: 'gname', label: 'nazwa', sortable: true },
@@ -135,6 +146,17 @@ export default {
 						  this.rolnicy.splice(index,1)
 					 })
 					 .catch((error) => { console.log(error) })
+		  },
+		  search() {
+				this.$http.get('/instytucje/'
+									+ gon.instytucja_id
+									+ '/rolnicy.json',
+									{ params: { keywords: this.keywords }})
+					 .then((result) => {
+						  this.rolnicy = result.body
+						  
+					 })
+					 .catch((error) => { console.log(error)} )
 		  },
 		  create() {
 				this.$store.commit('attr', {})
@@ -157,6 +179,7 @@ export default {
 	 mounted() {
 		  this.pobierz_instytucje()
 		  this.pobierz()
+		  this.$refs.search.$el.focus()
 	 }
 }
 </script>
