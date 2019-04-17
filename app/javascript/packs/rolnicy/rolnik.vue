@@ -24,7 +24,7 @@
 			 <b-col>
 				<h2>lista rolników</h2>
 			 </b-col>
-			 <b-col class="text-right">
+			 <b-col class="text-right" xl="2" lg="3" md="4" sm="6">
 				<b-form-group
 				  label="szukaj"
 				  label-for="plon"
