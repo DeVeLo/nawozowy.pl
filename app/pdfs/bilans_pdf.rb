@@ -208,7 +208,7 @@ class BilansPdf < Prawn::Document
 
     move_down 8.mm
 
-    if @zlecenie.nawozynaturalne.count > 0
+    if @zlecenie.animals.count > 0
       text "Nawozy naturalne w gospodarstwie", size: 12.pt, style: :bold, align: :center
     
       table([
