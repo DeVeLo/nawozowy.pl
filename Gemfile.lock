@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/webpacker.git
-  revision: 90df6f551eb93c18d104d5ba20ecd898e3cc58cf
+  revision: 2387331b33c635ec7638af3fad5856cd5b1ea8c2
   specs:
     webpacker (4.0.2)
       activesupport (>= 4.2)
@@ -68,7 +68,7 @@ GEM
       sassc-rails (>= 2.0.0)
     builder (3.2.3)
     byebug (11.0.1)
-    cancancan (3.0.0)
+    cancancan (3.0.1)
     case_transform (0.2)
       activesupport
     coffee-rails (4.2.2)
