@@ -126,6 +126,15 @@ class Uzytek::Potas
   def wszystkie_zapasy
     (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
   end
+
+  # jeśli słoma zebrana z pola wynik będzie trzeba przemnożyć przez 1.2
+  def sloma_zebrana
+    if @u.sloma_zebrana && @u.roslina.sloma
+      1.6
+    else
+      1
+    end
+  end
   
   # 9) dodajemy zapasy i odejmujemy zapotrzebowanie
   def wynik_przed
@@ -141,7 +150,7 @@ class Uzytek::Potas
       if wynik_przed < 0
         0
       else
-        wynik_przed
+        wynik_przed * sloma_zebrana
       end
     else
       nil

@@ -1,5 +1,5 @@
 class RoslinaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :text, :value, :pobranie, :rodzajuprawy, :sad
+  attributes :id, :name, :text, :value, :pobranie, :rodzajuprawy, :sad, :sloma
 
   def text
     object.name + if object.extname != '' then ' ' + object.extname else '' end

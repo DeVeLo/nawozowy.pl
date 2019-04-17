@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190416171044) do
+ActiveRecord::Schema.define(version: 20190417092957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -361,6 +361,7 @@ ActiveRecord::Schema.define(version: 20190416171044) do
     t.boolean  "sad",             default: false
     t.boolean  "tyton",           default: false
     t.string   "extname",         default: ""
+    t.boolean  "sloma",           default: false, null: false
     t.index ["rodzajuprawy_id"], name: "index_rosliny_on_rodzajuprawy_id", using: :btree
   end
 
@@ -462,6 +463,7 @@ ActiveRecord::Schema.define(version: 20190416171044) do
     t.decimal  "korekta_potas"
     t.decimal  "korekta_magnez"
     t.decimal  "korekta_wapn"
+    t.boolean  "sloma_zebrana",       default: false, null: false
     t.index ["bobowata_id"], name: "index_uzytki_on_bobowata_id", using: :btree
     t.index ["bobowate_id"], name: "index_uzytki_on_bobowate_id", using: :btree
     t.index ["grunt_id"], name: "index_uzytki_on_grunt_id", using: :btree

@@ -31,6 +31,7 @@ class Rolnik < ApplicationRecord
                     make_keywords_from_zlecenia
   end
 
+  # przygotowuje numery zleceń do keywords do celów wyszukiwania
   def make_keywords_from_zlecenia
     keywords = ""
     self.zlecenia.each do |zlecenie|

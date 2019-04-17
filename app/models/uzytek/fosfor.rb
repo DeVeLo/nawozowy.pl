@@ -132,6 +132,16 @@ class Uzytek::Fosfor
   def wszystkie_zapasy
     (zapas + zapasy_nawoz_i + zapasy_nawoz_ii)
   end
+
+  # jeśli słoma zebrana z pola wynik będzie trzeba przemnożyć przez 1.2
+  def sloma_zebrana
+    if @u.sloma_zebrana && @u.roslina.sloma
+      1.2
+    else
+      1
+    end
+  end
+    
   
   # 10) dodajemy zapasy i odejmujemy zapotrzebowanie
   def wynik_przed
@@ -153,7 +163,7 @@ class Uzytek::Fosfor
       elsif wynik_przed < 0
         0
       else
-        wynik_przed
+        wynik_przed * sloma_zebrana
       end
     else
       nil

@@ -85,7 +85,7 @@
 				<input type="hidden" id="rolnik_id" v-model="uzytek.rolnik_id"></input>
 				<input type="hidden" id="zlecenie_id" v-model="uzytek.zlecenie_id"></input>
 			 </b-form-row> 		 
-			 			 			 
+			 
 			 <b-card
 				bg-variant="light"
 				class="mt-2">
@@ -132,7 +132,22 @@
 							 </b-form-group>
 						  </b-col>
 						  
-						  <b-col v-if="uzytek.rodzajuprawy_id" cols="3">
+						  <b-col v-if="sloma() && zlecenie.typ == true">
+							 <b-form-group
+								label="słoma zebrana?"
+								label-for="sloma_zebrana"
+								label-size="sm"
+								description="wybierz czy słoma zebrana z pola">
+								<b-form-select
+								  required
+								  size="sm"
+								  id="sloma_zebrana"
+								  :options="slomazebrana"
+								  v-model="uzytek.sloma_zebrana"></b-form-select>
+							 </b-form-group>
+						  </b-col>
+						  
+						  <b-col v-if="uzytek.rodzajuprawy_id" cols="2">
 							 <b-form-group
 								label="plon"
 								label-for="plon"
@@ -798,6 +813,10 @@ export default {
 					 { text: 'przyorany', value: false },
 					 { text: 'zebrany', value: true },
 				],
+				slomazebrana: [
+					 { text: 'nie zebrana', value: false },
+					 { text: 'zebrana z pola', value: true },
+				],
 		  }
 	 },
 	 computed: {
@@ -820,6 +839,22 @@ export default {
 					 let roslina = this.rosliny.find(x => x.id === this.uzytek.roslina_id)
 					 if (roslina) {
 						  return roslina.sad
+					 } else {
+						  return false
+					 }
+				} else {
+					 return false
+				}
+		  },
+		  sloma() {
+				if (this.rosliny && this.uzytek.roslina_id ) {
+					 let roslina = this.rosliny.find(x => x.id === this.uzytek.roslina_id)
+					 if (roslina) {
+						  if (roslina.sloma == true) {
+								return true
+						  } else {
+								return false
+						  }
 					 } else {
 						  return false
 					 }
@@ -863,6 +898,7 @@ export default {
 					 przedplonfosfor: 0,
 					 przedplonpotas: 0,
 					 przedplon: 0,
+					 sloma_zebrana: false,
 				}
 		  },
 		  save(reaction) {
