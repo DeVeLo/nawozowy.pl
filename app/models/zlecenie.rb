@@ -79,6 +79,21 @@ class Zlecenie < ApplicationRecord
     zn.produkcja_gnojowicy.round(2)
   end
 
+  def zakupiony_obornik
+    zn = Zlecenie::Nawoz.new(self)
+    zn.zakupiony_obornik.round(2)
+  end
+
+  def zakupiona_gnojowka
+    zn = Zlecenie::Nawoz.new(self)
+    zn.zakupiona_gnojowka.round(2)
+  end
+
+  def zakupiona_gnojowica
+    zn = Zlecenie::Nawoz.new(self)
+    zn.zakupiona_gnojowica.round(2)
+  end
+  
   def produkcja_obornika_azot
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja_obornika_azot.round(2)
@@ -94,6 +109,21 @@ class Zlecenie < ApplicationRecord
     zn.produkcja_gnojowicy_azot.round(2)
   end
 
+  def zakupiony_obornik_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.zakupiony_obornik_azot.round(2)
+  end
+
+  def zakupiona_gnojowka_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.zakupiona_gnojowka_azot.round(2)
+  end
+
+  def zakupiona_gnojowica_azot
+    zn = Zlecenie::Nawoz.new(self)
+    zn.zakupiona_gnojowica_azot.round(2)
+  end
+  
   def pozostaly_obornik
     zn = Zlecenie::Nawoz.new(self)
     zn.pozostaly_obornik.round(2)
@@ -124,29 +154,28 @@ class Zlecenie < ApplicationRecord
     zn.pozostala_gnojowica_azot.round(2)
   end
 
-
   def zastosowany_obornik
     produkcja_obornika - pozostaly_obornik
   end
 
   def zastosowana_gnojowka
-    produkcja_gnojowki - pozostala_gnojowka
+    zakupiona_gnojowka + produkcja_gnojowki - pozostala_gnojowka
   end
 
   def zastosowana_gnojowica
-    produkcja_gnojowicy - pozostala_gnojowica
+    zakupiona_gnojowica + produkcja_gnojowicy - pozostala_gnojowica
   end
 
   def zastosowany_obornik_azot
-    produkcja_obornika_azot - pozostaly_obornik_azot
+    zakupiony_obornik_azot + produkcja_obornika_azot - pozostaly_obornik_azot
   end
 
   def zastosowana_gnojowka_azot
-    produkcja_gnojowki_azot - pozostala_gnojowka_azot
+    zakupiona_gnojowka_azot + produkcja_gnojowki_azot - pozostala_gnojowka_azot
   end
 
   def zastosowana_gnojowica_azot
-    produkcja_gnojowicy_azot - pozostala_gnojowica_azot
+    zakupiona_gnojowica_azot + produkcja_gnojowicy_azot - pozostala_gnojowica_azot
   end
 
   def zastosowany_obornik_azot_dzialajacy

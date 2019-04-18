@@ -261,6 +261,53 @@ class BilansPdf < Prawn::Document
       table([
               [
                 {
+                  content:  "Zakupione ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                },
+                {
+                  content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                },
+                {
+                  content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                }
+              ],
+              [
+                {
+                  content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                },
+                {
+                  content: @zlecenie.zakupiony_obornik.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                },
+                {
+                  content: @zlecenie.zakupiony_obornik_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                }
+              ],
+              [
+                {
+                  content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                },
+                {
+                  content: @zlecenie.zakupiona_gnojowka.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                },
+                {
+                  content: @zlecenie.zakupiona_gnojowka_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                }
+              ],
+              [
+                {
+                  content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                },
+                {
+                  content: @zlecenie.zakupiona_gnojowica.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                },
+                {
+                  content: @zlecenie.zakupiona_gnojowica_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
+                }
+              ],
+            ])
+      
+      table([
+              [
+                {
                   content:  "Zastosowane na polach gospodarstwa ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
                 },
                 {

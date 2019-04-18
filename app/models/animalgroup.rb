@@ -17,7 +17,7 @@ class Animalgroup < ApplicationRecord
   def animalsname
     # self.zwierzeta.pluck(:name).join(', ') + ' (' + self.pozostalynawoz.to_s + ' t)'
     self.gatunki.distinct.pluck(:name).join(', ') + ' - ' +
-      self.nazwyutrzymania.distinct.pluck(:name).join(', ')
+      self.nazwyutrzymania.distinct.pluck(:sname).join(', ')
   end
 
   def srednia_zawartosc

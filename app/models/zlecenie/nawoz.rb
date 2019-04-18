@@ -14,7 +14,9 @@ class Zlecenie::Nawoz
   def produkcja_obornika
     produkcja = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
-      produkcja += animal.produkt
+      unless animal.zrodlo
+        produkcja += animal.produkt
+      end
     end
     produkcja
   end
@@ -22,7 +24,9 @@ class Zlecenie::Nawoz
   def produkcja_gnojowki
     produkcja = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      produkcja += animal.produkt
+      unless animal.zrodlo
+        produkcja += animal.produkt
+      end
     end
     produkcja
   end
@@ -30,15 +34,19 @@ class Zlecenie::Nawoz
   def produkcja_gnojowicy
     produkcja = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      produkcja += animal.produkt
+      unless animal.zrodlo
+        produkcja += animal.produkt
+      end
     end
     produkcja
   end  
-
+  
   def produkcja_obornika_azot
     azot = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
-      azot += animal.azot
+      unless animal.zrodlo
+        azot += animal.azot
+      end
     end
     azot
   end
@@ -46,7 +54,9 @@ class Zlecenie::Nawoz
   def produkcja_gnojowki_azot
     azot = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      azot += animal.azot
+      unless animal.zrodlo
+        azot += animal.azot
+      end
     end
     azot
   end
@@ -55,14 +65,74 @@ class Zlecenie::Nawoz
   def produkcja_gnojowicy_azot
     azot = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      azot += animal.azot
+      unless animal.zrodlo
+        azot += animal.azot
+      end
     end
     azot
   end
 
+  def zakupiony_obornik
+    produkcja = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
+      if animal.zrodlo
+        produkcja += animal.produkt
+      end
+    end
+    produkcja
+  end
 
+  def zakupiona_gnojowka
+    produkcja = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
+      if animal.zrodlo
+        produkcja += animal.produkt
+      end
+    end
+    produkcja
+  end
 
+  def zakupiona_gnojowica
+    produkcja = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
+      if animal.zrodlo
+        produkcja += animal.produkt
+      end
+    end
+    produkcja
+  end  
 
+  def zakupiony_obornik_azot
+    azot = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
+      if animal.zrodlo
+        azot += animal.azot
+      end
+    end
+    azot
+  end
+
+  def zakupiona_gnojowka_azot
+    azot = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
+      if animal.zrodlo
+        azot += animal.azot
+      end
+    end
+    azot
+  end
+
+  
+  def zakupiona_gnojowica_azot
+    azot = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
+      if animal.zrodlo
+        azot += animal.azot
+      end
+    end
+    azot
+  end
+  
   def pozostaly_obornik
     produkcja = 0
     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
@@ -110,11 +180,7 @@ class Zlecenie::Nawoz
       azot += animal.pozostalyazot
     end
     azot
-  end
-
-
-
-  
+  end  
   
   def produkcja
     produkcja = 0
