@@ -155,7 +155,7 @@ class Zlecenie < ApplicationRecord
   end
 
   def zastosowany_obornik
-    produkcja_obornika - pozostaly_obornik
+    zakupiony_obornik + produkcja_obornika - pozostaly_obornik
   end
 
   def zastosowana_gnojowka
