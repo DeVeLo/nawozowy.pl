@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190417092957) do
+ActiveRecord::Schema.define(version: 20190418093452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20190417092957) do
     t.decimal  "magnez"
     t.decimal  "wapn"
     t.boolean  "zrodlo",              default: false, null: false
+    t.decimal  "tony",                default: "0.0", null: false
     t.index ["animalgroup_id"], name: "index_animals_on_animalgroup_id", using: :btree
     t.index ["instytucja_id"], name: "index_animals_on_instytucja_id", using: :btree
     t.index ["nazwautrzymania_id"], name: "index_animals_on_nazwautrzymania_id", using: :btree

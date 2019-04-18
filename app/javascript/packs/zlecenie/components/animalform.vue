@@ -46,7 +46,7 @@
 					 </b-form-group>
 				  </b-col>
 
-				  <b-col cols="2">
+				  <b-col cols="2" v-if="!animal.zrodlo">
 					 <b-form-group
 						label="ilość"
 						label-for="sztuk"
@@ -59,6 +59,22 @@
 						  id="sztuk"
 						  :formatter="formatter_decimal"
 						  v-model="animal.sztuk"></b-form-input>
+					 </b-form-group>
+				  </b-col>
+
+				  <b-col cols="2" v-if="animal.zrodlo">
+					 <b-form-group
+						label="ton"
+						label-for="ton"
+						label-size="sm"
+						description="ilość ton">
+						<b-form-input
+						  required
+						  size="sm"
+						  ref="animal_ton"
+						  id="sztuk"
+						  :formatter="formatter_decimal"
+						  v-model="animal.tony"></b-form-input>
 					 </b-form-group>
 				  </b-col>
 		
@@ -130,7 +146,7 @@
 
 				</b-form-row>
 
-				<b-form-row>
+				<b-form-row v-show="!animal.zrodlo">
 				  
 				  <input v-if="rownowazniki.length == 1" type="hidden" id="rownowaznik_id" v-model="animal.rownowaznik_id"></input>
 		
@@ -159,7 +175,7 @@
 	 </b-card>
 		
 	 <b-card
-		v-if="animal.zwierze_id && animal.nazwautrzymania_id"
+		v-if="animal.zwierze_id && animal.nazwautrzymania_id && !animal.zrodlo"
 		bg-variant="light"
 		class="mt-2">
 		<b-form-row>
@@ -348,6 +364,16 @@ export default {
 				get() { return this.zawartosc_jednostka.substr(4,this.zawartosc_jednostka.strlen) }
 		  },
 	 },
+	 watch: {
+		  animal: {
+				handler(val) {
+					 if (this.animal.zrodlo) {
+						  this.animal.badania = true
+					 }
+				},
+				deep: true
+		  }
+	 },
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
 		  formatter_decimal(v,e) {
@@ -369,7 +395,11 @@ export default {
 				}
 
 				// focus na ilość sztuk zwierząt
-				this.$refs.animal_sztuk.focus()
+				if (this.animal.zrodlo) {
+					 this.$refs.animal_ton.focus()
+				} else {
+					 this.$refs.animal_sztuk.focus()
+				}
 		  },
 		  save(e) {
 				e.preventDefault()

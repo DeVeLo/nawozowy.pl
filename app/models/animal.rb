@@ -12,7 +12,12 @@ class Animal < ApplicationRecord
   has_many :nawozywykorzystane, dependent: :destroy
 
   before_save :koncentracja?
+  before_save :wylicz_sztuki, if: Proc.new {|model| model.zrodlo }
 
+  def wylicz_sztuki
+    self.sztuk = self.tony / self.systemutrzymania.produkcja
+  end
+  
   def name
     self.zwierze.name
   end
@@ -48,7 +53,11 @@ class Animal < ApplicationRecord
   
   # ilość wyprodukowanego nawozu w ciągu roku
   def produkt
-    self.sztuk * self.systemutrzymania.produkcja
+    if self.zrodlo
+      self.tony
+    else
+      self.sztuk * self.systemutrzymania.produkcja
+    end
   end
 
   # pozostały nawóz po dodaniu do użytku
