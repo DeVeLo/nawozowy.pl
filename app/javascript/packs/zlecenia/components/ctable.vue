@@ -26,7 +26,13 @@
 	 <b-container fluid>
 
 		<b-row>
-		  <b-col class="text-center">
+ 		  <b-col class="text-center">
+			 <b-button size="sm" variant="info" @click="powiel(row.item)">
+				powiel
+			 </b-button>
+		  </b-col>
+
+ 		  <b-col class="text-center">
 			 <b-button size="sm" @click="edit(row.item)">
 				edytuj
 			 </b-button>
@@ -83,6 +89,13 @@ export default {
 	 methods: {
 		  ...mapActions([ 'pobierz' ]),
 		  edit(item) {
+				this.$store.commit('attr', item)
+				this.$store.state.modalForm.show()
+		  },
+		  powiel(item) {
+				item.parent_id = item.id
+				item.name = ''
+				item.datawplywu = (new Date) + ''
 				this.$store.commit('attr', item)
 				this.$store.state.modalForm.show()
 		  },
