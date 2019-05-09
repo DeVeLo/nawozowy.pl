@@ -47,7 +47,7 @@ class Zlecenie < ApplicationRecord
       end
     end
 
-    zlecenie.rolnik.update(updated_at: Time.now)
+    # zlecenie.rolnik.update(updated_at: Time.now)
     zlecenie
   end
   
@@ -94,6 +94,7 @@ class Zlecenie < ApplicationRecord
     unless self.rejestr
       self.update(rejestr: next_rejestr)
     end
+    self.rolnik.update(updated_at: Time.now)
   end
 
   # dane dotyczące nawozu naturalnego #############
