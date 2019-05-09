@@ -17,7 +17,7 @@
   </template>
 
   <template slot="roslina" slot-scope="row">
-	 <span :id="'uzytki_roslina_' + row.item.id">{{ row.item.roslina.name }}&nbsp;ha</span>
+	 <span :id="'uzytki_roslina_' + row.item.id">{{ row.item.roslina.name }}&nbsp;</span>
 	 <b-tooltip :target="'uzytki_roslina_' + row.item.id">
 		{{ row.item.roslina.rodzajuprawy.name }}
 	 </b-tooltip>
