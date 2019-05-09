@@ -1,6 +1,6 @@
 class ZleceniaController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne, :bilans, :zapotrzebowanie]
+  before_action :set_zlecenie, only: [:show, :update, :show, :destroy, :destroy_nawozynaturalne, :bilans, :zapotrzebowanie, :powiel]
   before_action :set_instytucja
   before_action :set_rolnik
 
@@ -38,6 +38,10 @@ class ZleceniaController < ApplicationController
     end  
   end       
 
+  def powiel
+    render json: @zlecenie.powiel
+  end
+  
   def bilans
     respond_to do |f|
       f.pdf do
@@ -102,7 +106,7 @@ class ZleceniaController < ApplicationController
     params.require(:zlecenie).permit(:id, :name, :wariant_id, :instytucja_id, :rolnik_id,
                                      :sprawa, :wojewodztwo_id, :powiat_id, :gmina_id, :miejscowosc,
                                      :powierzchnia, :podstawa_id, :podstawainna, :datawplywu, :lp,
-                                     :rejestr, :typ, :bilansn, :datawydruku, :zmiendatewydruku, :uwagi)
+                                     :rejestr, :typ, :bilansn, :datawydruku, :zmiendatewydruku, :uwagi, :parent_id)
   end
   
   def set_zlecenie

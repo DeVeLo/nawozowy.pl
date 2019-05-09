@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190418093452) do
+ActiveRecord::Schema.define(version: 20190509074123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -527,8 +527,10 @@ ActiveRecord::Schema.define(version: 20190418093452) do
     t.date     "datawydruku"
     t.boolean  "zmiendatewydruku", default: false
     t.text     "uwagi",            default: ""
+    t.uuid     "parent_id"
     t.index ["gmina_id"], name: "index_zlecenia_on_gmina_id", using: :btree
     t.index ["instytucja_id"], name: "index_zlecenia_on_instytucja_id", using: :btree
+    t.index ["parent_id"], name: "index_zlecenia_on_parent_id", using: :btree
     t.index ["podstawa_id"], name: "index_zlecenia_on_podstawa_id", using: :btree
     t.index ["powiat_id"], name: "index_zlecenia_on_powiat_id", using: :btree
     t.index ["rolnik_id"], name: "index_zlecenia_on_rolnik_id", using: :btree
@@ -612,5 +614,6 @@ ActiveRecord::Schema.define(version: 20190418093452) do
   add_foreign_key "zlecenia", "rolnicy"
   add_foreign_key "zlecenia", "warianty"
   add_foreign_key "zlecenia", "wojewodztwa"
+  add_foreign_key "zlecenia", "zlecenia", column: "parent_id"
   add_foreign_key "zwierzeta", "gatunki"
 end

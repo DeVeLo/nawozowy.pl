@@ -18,6 +18,38 @@ class Zlecenie < ApplicationRecord
   after_create :set_lp
   after_create :set_rejestr
 
+  # powiela zlecenie wraz z zawartością i ustawia je jako kolejny rok gospodarczy
+  def powiel
+    zlecenie = self.dup
+    zlecenie.name = (self.name[0,4].to_i + 1).to_s + '/' + (self.name[0,4].to_i + 2).to_s
+    zlecenie.datawplywu = Date.today
+    zlecenie.parent_id = self.id
+    zlecenie.rejestr = nil
+    zlecenie.datawydruku = Date.today
+    zlecenie.save
+
+    self.uzytki.each do |uzytek|
+      u = uzytek.dup
+      u.zlecenie = zlecenie
+      u.save
+    end
+    
+    # powila grupy z poprzedniego zlecenia
+    self.animalgroups.each do |animalgroup|
+      a = animalgroup.dup
+      a.zlecenie = zlecenie
+      a.save
+      animalgroup.animals.each do |animal|
+        an = animal.dup
+        an.zlecenie = zlecenie
+        an.animalgroup = a
+        an.save
+      end
+    end
+    
+    zlecenie
+  end
+  
   def nr_zlecenia
     rejestr.to_s + "/" + (typ ? "PP" : "PA") + "/" + datawplywu.year.to_s
   end

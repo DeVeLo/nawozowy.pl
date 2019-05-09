@@ -27,7 +27,7 @@
 
 		<b-row>
  		  <b-col class="text-center">
-			 <b-button size="sm" variant="info" @click="powiel(row.item)">
+			 <b-button size="sm" variant="info" @click="powiel(row.item.id)">
 				powiel
 			 </b-button>
 		  </b-col>
@@ -92,12 +92,12 @@ export default {
 				this.$store.commit('attr', item)
 				this.$store.state.modalForm.show()
 		  },
-		  powiel(item) {
-				item.parent_id = item.id
-				item.name = ''
-				item.datawplywu = (new Date) + ''
-				this.$store.commit('attr', item)
-				this.$store.state.modalForm.show()
+		  powiel(id) {
+				this.$http.patch('/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + id + '/powiel.json')
+					 .then((result) => {
+						  this.zlecenia.unshift(result.body)
+					 })
+					 .catch((error) => { console.log(error) })
 		  },
 		  usun_zlecenie(id,index) {
 				this.$http.delete('/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + id + '.json')

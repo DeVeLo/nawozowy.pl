@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           delete :destroy_nawozynaturalne
           get :bilans
           get :zapotrzebowanie
+          patch :powiel
         end
         
         # grupy zwierząt (w ramach grup nawóz naturalny jest zmieszany)
