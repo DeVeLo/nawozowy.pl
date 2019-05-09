@@ -46,7 +46,8 @@ class Zlecenie < ApplicationRecord
         an.save
       end
     end
-    
+
+    zlecenie.rolnik.update(updated_at: Time.now)
     zlecenie
   end
   
