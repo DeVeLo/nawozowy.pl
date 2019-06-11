@@ -15,13 +15,14 @@ class Animalgroup < ApplicationRecord
 
   # nazwa wyświetlana w tabeli i polu wyboru
   def animalsname
-    if  self.animals.where(zrodlo: true).any?
-      "* "
-    else
-      ""
-    end +
-      self.gatunki.distinct.pluck(:name).join(', ') + ' - ' +
-      self.nazwyutrzymania.distinct.pluck(:sname).join(', ')
+    self.gatunki.distinct.pluck(:name).join(', ') + ' - ' +
+      self.nazwyutrzymania.distinct.pluck(:sname).join(', ') +
+      if  self.animals.where(zrodlo: true).any?
+        " (zakupiony)"
+      else
+        ""
+      end
+      
   end
 
   def srednia_zawartosc
