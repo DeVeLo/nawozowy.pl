@@ -132,20 +132,20 @@
 							 </b-form-group>
 						  </b-col>
 						  
-						  <b-col v-if="sloma() && zlecenie.typ == true">
-							 <b-form-group
-								label="słoma zebrana?"
-								label-for="sloma_zebrana"
-								label-size="sm"
-								description="wybierz czy słoma zebrana z pola">
-								<b-form-select
-								  required
-								  size="sm"
-								  id="sloma_zebrana"
-								  :options="slomazebrana"
-								  v-model="uzytek.sloma_zebrana"></b-form-select>
-							 </b-form-group>
-						  </b-col>
+						  <!-- <b-col v-if="sloma() && zlecenie.typ == true"> -->
+						  <!-- 	 <b-form-group -->
+						  <!-- 		label="słoma zebrana?" -->
+						  <!-- 		label-for="sloma_zebrana" -->
+						  <!-- 		label-size="sm" -->
+						  <!-- 		description="wybierz czy słoma zebrana z pola"> -->
+						  <!-- 		<b-form-select -->
+						  <!-- 		  required -->
+						  <!-- 		  size="sm" -->
+						  <!-- 		  id="sloma_zebrana" -->
+						  <!-- 		  :options="slomazebrana" -->
+						  <!-- 		  v-model="uzytek.sloma_zebrana"></b-form-select> -->
+						  <!-- 	 </b-form-group> -->
+						  <!-- </b-col> -->
 						  
 						  <b-col v-if="uzytek.rodzajuprawy_id" cols="2">
 							 <b-form-group
