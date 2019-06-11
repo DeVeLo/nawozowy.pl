@@ -557,7 +557,7 @@
 				  <b-col>
 					 
 					 <b-form-group
-						label="Produkty uboczne rośliny przedplonowej"
+						label="Przyorane produkty uboczne rośliny przedplonowej"
 						label-class="font-weight-bold">
 						
 						<b-form-row>
