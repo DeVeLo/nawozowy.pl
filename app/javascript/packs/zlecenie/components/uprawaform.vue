@@ -262,6 +262,7 @@
 								label-size="sm"
 								description="zaznacz czy gleba węglanowa">
 								<b-form-select
+								  required
 								  id="weglanowa"
 								  size="sm"
 								  :options="weglanowe"
@@ -578,7 +579,7 @@
 
 						  <b-col v-if="(zlecenie.typ == true) && (uzytek.roslinaprzedplon_id > 1)">
 							 <b-form-group
-								label="plon resztek pożniwnych"
+								label="plon"
 								label-size="sm"
 								description="plon rośliny przedplonowej w t/ha"
 								label-for="plonprzedplonowej">
@@ -591,21 +592,21 @@
 							 </b-form-group>
 						  </b-col>
 						  
-						  <b-col
-							 v-if="(uzytek.roslinaprzedplon_id > 1) && (zlecenie.typ == true)">
-							 <b-form-group
-								label="zaorane czy zebrane z pola"
-								label-for="stanprzedplonu"
-								label-size="sm"
-								description="przedplon zaorany czy zebrany?">
-								<b-form-select
-								  id="stanprzedplonu"
-								  required
-								  size="sm"
-								  :options="stanyprzedplonu"
-								  v-model="uzytek.stanprzedplonu"></b-form-select>
-							 </b-form-group>
-						  </b-col>
+ 						  <!-- <b-col -->
+						  <!-- 	 v-if="(uzytek.roslinaprzedplon_id > 1) && (zlecenie.typ == true)"> -->
+						  <!-- 	 <b-form-group -->
+						  <!-- 		label="zaorane czy zebrane z pola" -->
+						  <!-- 		label-for="stanprzedplonu" -->
+						  <!-- 		label-size="sm" -->
+						  <!-- 		description="przedplon zaorany czy zebrany?"> -->
+						  <!-- 		<b-form-select -->
+						  <!-- 		  id="stanprzedplonu" -->
+						  <!-- 		  required -->
+						  <!-- 		  size="sm" -->
+						  <!-- 		  :options="stanyprzedplonu" -->
+						  <!-- 		  v-model="uzytek.stanprzedplonu"></b-form-select> -->
+						  <!-- 	 </b-form-group> -->
+						  <!-- </b-col> -->
 						  
 						</b-form-row>
 						
@@ -892,13 +893,11 @@ export default {
 					 nminsezon: false,
 					 roslinaprzedplon_id: 1,
 					 grunt_id: 1,
-					 stanprzedplonu: false,
 					 wspwykorzystania_id: 4,
 					 plonprzedplonowej: 0,
 					 przedplonfosfor: 0,
 					 przedplonpotas: 0,
 					 przedplon: 0,
-					 sloma_zebrana: false,
 				}
 		  },
 		  save(reaction) {
