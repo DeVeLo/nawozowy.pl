@@ -55,6 +55,12 @@
 		  <!-- 	 </b-button> -->
 		  <!-- </b-col> -->
 
+ 		  <b-col class="text-center">
+			 <b-button size="sm" variant="info" @click="powiel(row.item.id)">
+				powiel
+			 </b-button>
+		  </b-col>
+		  
 		  <b-col class="text-center">
 			 <b-button
 				class="mt-1"
@@ -141,6 +147,13 @@ export default {
 				}
 				
 				this.uprawamodal.show()
+		  },
+		  powiel(id) {
+				this.$http.patch('/instytucje/' + gon.instytucja_id + '/rolnicy/' + gon.rolnik_id + '/zlecenia/' + gon.id + '/uzytki/' + id + '/powiel.json')
+					 .then((result) => {
+						  this.uzytki.push(result.body)
+					 })
+					 .catch((error) => { console.log(error) })
 		  },
 		  zrodla(item) {
 				this.uzytek = item

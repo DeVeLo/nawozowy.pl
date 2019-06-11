@@ -29,6 +29,14 @@ class Uzytek < ApplicationRecord
       (u.lp  + 1)
     end
   end
+
+  # powiela użytek w ramach zlecenia
+  def powiel
+    uzytek = self.dup
+    uzytek.lp = nil
+    uzytek.save
+    uzytek
+  end
   
   # ustaw numer porządkowy do nowego użytku
   def set_lp

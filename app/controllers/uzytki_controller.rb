@@ -1,5 +1,5 @@
 class UzytkiController < ApplicationController
-  before_action :set_uzytek, only: [:show, :update, :destroy]
+  before_action :set_uzytek, only: [:show, :update, :destroy, :powiel]
   before_action :set_instytucja
   before_action :set_rolnik
   before_action :set_zlecenie
@@ -57,6 +57,10 @@ class UzytkiController < ApplicationController
     respond_to do |format|
       format.json { head :no_content }
     end
+  end
+
+  def powiel
+    render json: @uzytek.powiel
   end
   
   private

@@ -45,9 +45,12 @@ Rails.application.routes.draw do
         # pola z uprawami
         resources :uzytki do
 
+          member do
+            patch :powiel
+          end
+
           # nawóz naturalny w ramach uprawy
           resources :nawozynaturalne
-          
         end
         
       end
