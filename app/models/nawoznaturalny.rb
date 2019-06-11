@@ -19,8 +19,6 @@ class Nawoznaturalny < ApplicationRecord
   # 3) ilość kg N/ha
   # w zależności od wyboru sposobu
   def oblicz_ilosc
-    puts ' -------------------------------------------------------- '
-    puts self.produkcja.to_s
     if self.sposob == 2
       self.ilosc = self.produkcja / self.uzytek.powierzchnia
     elsif self.sposob == 3

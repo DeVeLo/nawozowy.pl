@@ -15,8 +15,12 @@ class Animalgroup < ApplicationRecord
 
   # nazwa wyświetlana w tabeli i polu wyboru
   def animalsname
-    # self.zwierzeta.pluck(:name).join(', ') + ' (' + self.pozostalynawoz.to_s + ' t)'
-    self.gatunki.distinct.pluck(:name).join(', ') + ' - ' +
+    if  self.animals.where(zrodlo: true).any?
+      "* "
+    else
+      ""
+    end +
+      self.gatunki.distinct.pluck(:name).join(', ') + ' - ' +
       self.nazwyutrzymania.distinct.pluck(:sname).join(', ')
   end
 
