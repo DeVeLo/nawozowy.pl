@@ -34,7 +34,8 @@ class Uzytek < ApplicationRecord
   def powiel
     uzytek = self.dup
     uzytek.lp = nil
-    uzytek.stanprzedplonu = nil
+    uzytek.stanprzedplonu = false
+    uzytek.sloma_zebrana = true
     uzytek.save
     uzytek
   end
