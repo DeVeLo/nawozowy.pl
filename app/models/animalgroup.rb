@@ -18,7 +18,7 @@ class Animalgroup < ApplicationRecord
     self.gatunki.distinct.pluck(:name).join(', ') + ' - ' +
       self.nazwyutrzymania.distinct.pluck(:sname).join(', ') +
       if  self.animals.where(zrodlo: true).any?
-        " (zakupiony)"
+        " (nabyty)"
       else
         ""
       end
