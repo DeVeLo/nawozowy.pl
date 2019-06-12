@@ -898,6 +898,7 @@ export default {
 					 przedplonfosfor: 0,
 					 przedplonpotas: 0,
 					 przedplon: 0,
+					 stanprzedplonu: true,
 				}
 		  },
 		  save(reaction) {
