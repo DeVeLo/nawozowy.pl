@@ -261,7 +261,7 @@ class BilansPdf < Prawn::Document
       table([
               [
                 {
-                  content:  "Zakupione ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
+                  content:  "Nabyte ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
                 },
                 {
                   content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
