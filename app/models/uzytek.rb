@@ -35,7 +35,7 @@ class Uzytek < ApplicationRecord
     uzytek = self.dup
     uzytek.lp = nil
     uzytek.stanprzedplonu = false
-    uzytek.sloma_zebrana = true
+    uzytek.sloma_zebrana = false
     uzytek.save
     uzytek
   end

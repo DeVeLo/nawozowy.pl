@@ -899,6 +899,7 @@ export default {
 					 przedplonpotas: 0,
 					 przedplon: 0,
 					 stanprzedplonu: false,
+					 sloma_zebrana: false,
 				}
 		  },
 		  save(reaction) {
