@@ -104,7 +104,7 @@ class UzytkiPdf < Prawn::Document
     
     move_down 10.mm
     
-    zlecenie.uzytki.order(created_at: :ASC).each_with_index do |uzytek, index|
+    zlecenie.uzytki.order(lp: :ASC).each_with_index do |uzytek, index|
       # dane użytku
     if @zlecenie.typ
       Uzytek::Pelny.new(self, uzytek)
