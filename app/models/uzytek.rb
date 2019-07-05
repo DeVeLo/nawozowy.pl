@@ -194,7 +194,11 @@ class Uzytek < ApplicationRecord
   
   # realny azot z przedplonu jest wynikiem mnożenia przez 0.15
   def realnyprzedplon
-    przedplon * 0.15
+    if wspwykorzystania_id < 4 && wspwykorzystania_id > 0
+      przedplon * 0.15
+    else
+      0
+    end
   end
   
   # zasobność mnożymy przez współczynnik
