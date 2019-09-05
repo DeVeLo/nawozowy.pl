@@ -662,7 +662,7 @@ class Uzytek::Pelny
     if @uzytek.bobowata_id > 1
       @uprawa.push(
         [
-          { content: '<b>Bobowate:</b> ' + @uzytek.bobowata.name,
+          { content: '',  # <b>Bobowate:</b> ' + @uzytek.bobowata.name,
             padding: 2.mm,
             border_width: 0,
             inline_format: true,
