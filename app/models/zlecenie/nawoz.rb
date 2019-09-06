@@ -4,247 +4,116 @@ class Zlecenie::Nawoz
   # klasa wylicza w odniesieniu do nawozu naturalnego:
   # 1) pełną produkcję roczną
   # 2) produkcję azotu
-  # 3) pozostałą ilość nawozu naturalnego
-  # 4) pozostałą ilość azotu
+  # 3) ilość zakupionego nawozu naturalnego
+  # 4) pozostałą ilość nawozu naturalnego
+  # 5) pozostałą ilość azotu
 
   def initialize(zlecenie)
     @zlecenie = zlecenie
   end
 
-  def produkcja_obornika
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
+  @metody = [
+    {name: :produkcja_obornika, zrodlo: :produkt, nazwautrzymania_id: [1,2]},
+    {name: :produkcja_gnojowki, zrodlo: :produkt, nazwautrzymania_id: 3},
+    {name: :produkcja_gnojowicy, zrodlo: :produkt, nazwautrzymania_id: 4},
+    {name: :produkcja_obornika_azot, zrodlo: :azot, nazwautrzymania_id: [1,2]},
+    {name: :produkcja_gnojowki_azot, zrodlo: :azot, nazwautrzymania_id: 3},
+    {name: :produkcja_gnojowicy_azot, zrodlo: :azot, nazwautrzymania_id: 4},
+  ]
+
+  # oblicz produkcję obornika, gnojówki i gnojowicy
+  def oblicz(method, nazwautrzymania_id)
+    suma = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: nazwautrzymania_id).each do |animal|
       unless animal.zrodlo
-        produkcja += animal.produkt
+        suma += animal.send(method)
       end
     end
-    produkcja
+    suma
   end
 
-  def produkcja_gnojowki
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      unless animal.zrodlo
-        produkcja += animal.produkt
-      end
+  # ^^^ zdefiniuj dynamicznie metody ^^^
+  @metody.each do |attr|
+    define_method(attr[:name]) do
+      oblicz(attr[:zrodlo], attr[:nazwautrzymania_id])
     end
-    produkcja
   end
 
-  def produkcja_gnojowicy
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      unless animal.zrodlo
-        produkcja += animal.produkt
-      end
-    end
-    produkcja
-  end  
-  
-  def produkcja_obornika_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
-      unless animal.zrodlo
-        azot += animal.azot
-      end
-    end
-    azot
-  end
+  @metody_zakup = [
+    {name: :zakupiony_obornik, zrodlo: :produkt, nazwautrzymania_id: [1,2]},
+    {name: :zakupiona_gnojowka, zrodlo: :produkt, nazwautrzymania_id: 3},
+    {name: :zakupiona_gnojowica, zrodlo: :produkt, nazwautrzymania_id: 4},
+    {name: :zakupiony_obornik_azot, zrodlo: :azot, nazwautrzymania_id: [1,2]},
+    {name: :zakupiona_gnojowka_azot, zrodlo: :azot, nazwautrzymania_id: 3},
+    {name: :zakupiona_gnojowica_azot, zrodlo: :azot, nazwautrzymania_id: 4},
+  ]
 
-  def produkcja_gnojowki_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      unless animal.zrodlo
-        azot += animal.azot
-      end
-    end
-    azot
-  end
-
-  
-  def produkcja_gnojowicy_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      unless animal.zrodlo
-        azot += animal.azot
-      end
-    end
-    azot
-  end
-
-  def zakupiony_obornik
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
+  # oblicz zakup obornika, gnojówki i gnojowicy
+  def oblicz_zakup(method, nazwautrzymania_id)
+    suma = 0
+    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: nazwautrzymania_id).each do |animal|
       if animal.zrodlo
-        produkcja += animal.produkt
+        suma += animal.send(method)
       end
     end
-    produkcja
-  end
-
-  def zakupiona_gnojowka
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      if animal.zrodlo
-        produkcja += animal.produkt
-      end
-    end
-    produkcja
-  end
-
-  def zakupiona_gnojowica
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      if animal.zrodlo
-        produkcja += animal.produkt
-      end
-    end
-    produkcja
-  end  
-
-  def zakupiony_obornik_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
-      if animal.zrodlo
-        azot += animal.azot
-      end
-    end
-    azot
-  end
-
-  def zakupiona_gnojowka_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      if animal.zrodlo
-        azot += animal.azot
-      end
-    end
-    azot
-  end
-
-  
-  def zakupiona_gnojowica_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      if animal.zrodlo
-        azot += animal.azot
-      end
-    end
-    azot
+    suma
   end
   
-  def pozostaly_obornik
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
-      produkcja += animal.pozostalynawoz
+  # ^^^ zdefiniuj dynamicznie metody ^^^
+  @metody_zakup.each do |attr|
+    define_method(attr[:name]) do
+      oblicz_zakup(attr[:zrodlo], attr[:nazwautrzymania_id])
     end
-    produkcja
   end
 
-  def pozostala_gnojowka
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      produkcja += animal.pozostalynawoz
+  @metody_pozostaly = [
+    {name: :pozostaly_obornik, zrodlo: :pozostalynawoz, nazwautrzymania_id: [1,2]},
+    {name: :pozostala_gnojowka, zrodlo: :pozostalynawoz, nazwautrzymania_id: 3},
+    {name: :pozostala_gnojowica, zrodlo: :pozostalynawoz, nazwautrzymania_id: 4},
+    {name: :pozostaly_obornik_azot, zrodlo: :pozostalyazot, nazwautrzymania_id: [1,2]},
+    {name: :pozostala_gnojowka_azot, zrodlo: :pozostalyazot, nazwautrzymania_id: 3},
+    {name: :pozostala_gnojowica_azot, zrodlo: :pozostalyazot, nazwautrzymania_id: 4},
+  ]
+    
+  def oblicz_pozostaly(method, nazwautrzymania_id)
+    suma = 0
+     @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: nazwautrzymania_id).each do |animal|
+      suma += animal.send(method)
     end
-    produkcja
+    suma
   end
 
-  def pozostala_gnojowica
-    produkcja = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      produkcja += animal.pozostalynawoz
+  # ^^^ zdefiniuj dynamicznie metody ^^^
+  @metody_pozostaly.each do |attr|
+    define_method(attr[:name]) do
+      oblicz_pozostaly(attr[:zrodlo], attr[:nazwautrzymania_id])
     end
-    produkcja
-  end  
-
-  def pozostaly_obornik_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: [1,2]).each do |animal|
-      azot += animal.pozostalyazot
-    end
-    azot
   end
 
-  def pozostala_gnojowka_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 3).each do |animal|
-      azot += animal.pozostalyazot
-    end
-    azot
-  end
+  @metody_globalnie = [
+    {name: :produkcja, zrodlo: :produkt},
+    {name: :pozostala_nawoz, zrodlo: :pozostalynawoz},
+    {name: :azot, zrodlo: :azot},
+    {name: :pozostaly_azot, zrodlo: :pozostalyazot},
+    {name: :fosfor, zrodlo: :produkcja_fosfor},
+    {name: :pozostaly_fosfor, zrodlo: :pozostaly_fosfor},
+    {name: :potas, zrodlo: :produkcja_potas},
+    {name: :pozostaly_potas, zrodlo: :pozostaly_potas},
+  ]
 
-  
-  def pozostala_gnojowica_azot
-    azot = 0
-    @zlecenie.animals.joins(:nazwautrzymania).where(nazwautrzymania_id: 4).each do |animal|
-      azot += animal.pozostalyazot
-    end
-    azot
-  end  
-  
-  def produkcja
-    produkcja = 0
+  def oblicz_globalnie(method)
+    suma = 0
     @zlecenie.animals.each do |animal|
-      produkcja += animal.produkt
+      suma += animal.send(method)
     end
-    produkcja
+    suma
   end
 
-  def pozostala_nawoz
-    produkcja = 0
-    @zlecenie.animals.each do |animal|
-      produkcja += animal.pozostalynawoz
+  # ^^^ zdefiniuj dynamicznie metody ^^^
+  @metody_globalnie.each do |attr|
+    define_method(attr[:name]) do
+      oblicz_globalnie(attr[:zrodlo])
     end
-    produkcja
   end
 
-  
-  def azot
-    azot = 0
-    @zlecenie.animals.each do |animal|
-      azot += animal.azot
-    end
-    azot
-  end
-
-  def pozostaly_azot
-    azot = 0
-    @zlecenie.animals.each do |animal|
-      azot += animal.pozostalyazot
-    end
-    azot
-  end
-
-  def fosfor
-    fosfor = 0
-    @zlecenie.animals.each do |animal|
-      fosfor += animal.produkcja_fosfor
-    end
-    fosfor
-  end
-
-  def pozostaly_fosfor
-    fosfor = 0
-    @zlecenie.animals.each do |animal|
-      fosfor += animal.pozostaly_fosfor
-    end
-    fosfor
-  end
-
-  def potas
-    potas = 0
-    @zlecenie.animals.each do |animal|
-      potas += animal.produkcja_potas
-    end
-    potas
-  end
-
-  def pozostaly_potas
-    potas = 0
-    @zlecenie.animals.each do |animal|
-      potas += animal.pozostaly_potas
-    end
-    potas
-  end
-  
 end

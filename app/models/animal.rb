@@ -60,7 +60,7 @@ class Animal < ApplicationRecord
     end
   end
 
-  # pozostały nawóz po dodaniu do użytku
+   # pozostały nawóz po dodaniu do użytku
   def pozostalynawoz
     self.produkt - self.nawozywykorzystane.sum(:ilosc_na_pole)
   end
