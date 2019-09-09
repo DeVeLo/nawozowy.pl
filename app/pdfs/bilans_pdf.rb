@@ -267,15 +267,18 @@ class BilansPdf < Prawn::Document
                 animalgroups.
                 joins(:animals).
                 where(animals: { nazwautrzymania_id: n[:nid] }).
+                distinct.
                 each do |group|
 
-                tab.push(
-                  nawoz.szczegolowy(
-                    group.nazwaglowny,
-                    group.produkt - group.pozostalynawoz,
-                    group.produkcja_azot - group.pozostaly_azot
+                if (group.produkt - group.pozostalynawoz).round > 0
+                  tab.push(
+                    nawoz.szczegolowy(
+                      group.nazwaglowny,
+                      group.produkt - group.pozostalynawoz,
+                      group.produkcja_azot - group.pozostaly_azot
+                    )
                   )
-                )
+                end
                 
               end
             end
@@ -285,15 +288,22 @@ class BilansPdf < Prawn::Document
                 animalgroups.
                 joins(:animals).
                 where(animals: { nazwautrzymania_id: n[:nid] }).
+                distinct.
                 each do |group|
 
-                tab.push(
-                  nawoz.szczegolowy(
-                    group.nazwaglowny,
-                    group.pozostalynawoz,
-                    group.pozostaly_azot
+                puts '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+                puts group.nazwaglowny
+                puts '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+
+                if  group.pozostalynawoz.round > 0
+                  tab.push(
+                    nawoz.szczegolowy(
+                      group.nazwaglowny,
+                      group.pozostalynawoz,
+                      group.pozostaly_azot
+                    )
                   )
-                )
+                end
                 
               end
             end

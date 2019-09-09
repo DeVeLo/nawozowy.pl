@@ -30,7 +30,12 @@ class Animalgroup < ApplicationRecord
 
   # nazwa wyświetlana na wydruku głównym
   def nazwaglowny
-    self.gatunki.distinct.pluck(:name).join(', ').downcase
+    self.gatunki.distinct.pluck(:name).join(', ').downcase +
+      if  self.animals.where(zrodlo: true).any?
+        " (nabyty)"
+      else
+        ""
+      end
   end
   
   def srednia_zawartosc
