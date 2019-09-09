@@ -49,10 +49,10 @@ class Bilans::Nawozy
       zagregowane = []
 
       zagregowane.push({content: "└ " + title, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 2.mm], width: @parent.bounds.width/2})
-      zagregowane.push({content: "└ " + nawoz.round.to_s, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: @parent.bounds.width/2/3})
-      zagregowane.push({content: "└ " + azot.round.to_s, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: @parent.bounds.width/2/3})
+      zagregowane.push({content: "└ " + nawoz.round.to_s, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 2.mm], width: @parent.bounds.width/2/3})
+      zagregowane.push({content: "└ " + azot.round.to_s, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 2.mm], width: @parent.bounds.width/2/3})
       if azot_dzialajacy != nil
-        zagregowane.push({content: "└ " + azot_dzialajacy.round.to_s, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: @parent.bounds.width/2/3})
+        zagregowane.push({content: "└ " + azot_dzialajacy.round.to_s, size: 7.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 2.mm], width: @parent.bounds.width/2/3})
       end
 
       zagregowane
