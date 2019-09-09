@@ -275,7 +275,8 @@ class BilansPdf < Prawn::Document
                     nawoz.szczegolowy(
                       group.nazwaglowny,
                       group.produkt - group.pozostalynawoz,
-                      group.produkcja_azot - group.pozostaly_azot
+                      group.produkcja_azot - group.pozostaly_azot,
+                      (group.produkcja_azot - group.pozostaly_azot) * 0.7,
                     )
                   )
                 end
