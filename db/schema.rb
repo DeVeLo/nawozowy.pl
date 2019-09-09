@@ -458,7 +458,7 @@ ActiveRecord::Schema.define(version: 20190611090802) do
     t.integer  "wspwykorzystania_id"
     t.decimal  "plonprzedplonowej"
     t.integer  "lp"
-    t.boolean  "stanprzedplonu",      default: true,  null: false
+    t.boolean  "stanprzedplonu",      default: false, null: false
     t.decimal  "korekta_azot"
     t.decimal  "korekta_fosfor"
     t.decimal  "korekta_potas"

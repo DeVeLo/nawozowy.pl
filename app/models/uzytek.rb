@@ -194,7 +194,7 @@ class Uzytek < ApplicationRecord
   
   # realny azot z przedplonu jest wynikiem mnożenia przez 0.15
   def realnyprzedplon
-    if wspwykorzystania_id < 4 && wspwykorzystania_id > 0
+    if wspwykorzystania_id != nil && wspwykorzystania_id < 4 && wspwykorzystania_id > 0
       przedplon * 0.15
     else
       0
