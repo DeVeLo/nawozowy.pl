@@ -14,6 +14,9 @@ class Animal < ApplicationRecord
   before_save :koncentracja?
   before_save :wylicz_sztuki, if: Proc.new {|model| model.zrodlo }
 
+  scope :produkcja, -> { where(zrodlo: false) }
+  scope :zakupiony, -> { where(zrodlo: true) }
+  
   def wylicz_sztuki
     self.sztuk = self.tony / self.systemutrzymania.produkcja
   end

@@ -11,7 +11,11 @@ class Animalgroup < ApplicationRecord
   has_many :nazwyutrzymania, through: :systemyutrzymania
   has_many :nawozynaturalne, dependent: :destroy
   before_save :set_name
-  
+
+  scope :produkcja, -> { joins(:animals).where(animals: { zrodlo: false }) }
+  scope :zakupiony, -> { joins(:animals).where(animals: { zrodlo: true }) }
+  scope :zastosowany, -> { }
+  scope :pozostaly, -> { }
 
   # nazwa wyświetlana w tabeli i polu wyboru
   def animalsname
@@ -22,9 +26,13 @@ class Animalgroup < ApplicationRecord
       else
         ""
       end
-      
   end
 
+  # nazwa wyświetlana na wydruku głównym
+  def nazwaglowny
+    self.gatunki.distinct.pluck(:name).join(', ').downcase
+  end
+  
   def srednia_zawartosc
     srednia = 0
     w = 0
@@ -52,6 +60,11 @@ class Animalgroup < ApplicationRecord
     return produkt
   end
 
+  alias produkcja produkt
+  alias zakupiony produkt
+  alias zastosowany produkt
+  
+
   # pozostały nawóz po zastosowaniu na użytkach
   def pozostalynawoz
     pozostaly = 0
@@ -61,6 +74,8 @@ class Animalgroup < ApplicationRecord
     return pozostaly
   end
 
+  alias pozostaly pozostalynawoz
+  
   def produkcja_azot
     azot = 0
     self.animals.each do |a|
@@ -69,6 +84,8 @@ class Animalgroup < ApplicationRecord
     return azot
   end
 
+  alias zakupiony_azot produkcja_azot
+  
   def pozostaly_azot
     pozostaly = 0
     self.animals.each do |a|
@@ -114,5 +131,5 @@ class Animalgroup < ApplicationRecord
   def set_name
     self.name = "grupa " + (self.zlecenie.animalgroups.count + 1).to_s
   end
-  
+
 end

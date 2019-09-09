@@ -210,206 +210,105 @@ class BilansPdf < Prawn::Document
 
     if @zlecenie.animals.count > 0
       text "Nawozy naturalne w gospodarstwie", size: 12.pt, style: :bold, align: :center
-    
-      table([
-              [
-                {
-                  content:  "Produkowane w gospodarstwie ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.produkcja_obornika.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.produkcja_obornika_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.produkcja_gnojowki.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.produkcja_gnojowki_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.produkcja_gnojowicy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.produkcja_gnojowicy_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-            ])
 
-      table([
-              [
-                {
-                  content:  "Nabyte ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.zakupiony_obornik.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zakupiony_obornik_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.zakupiona_gnojowka.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zakupiona_gnojowka_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.zakupiona_gnojowica.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zakupiona_gnojowica_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-            ])
+      nawoz = Bilans::Nawozy.new(self)
+
+      def nawoz_table(title, method, nawoz, dzialajacy = nil, allow_push = false)
+        tab = []
+        flag = allow_push
+        
+        tab.push(
+          nawoz.naglowek(title + " ",
+                         "ton nawozu",
+                         "kg N",
+                         if dzialajacy != nil
+                           "kg N działającego"
+                         else
+                           nil
+                         end))
+        
+        [
+          {t: 'Obornik ',  n: 'obornik',   m: method[:meski],  nid: [1,2]},
+          {t: 'Gnojówka ', n: 'gnojowka',  m: method[:zenski], nid: 3},
+          {t: 'Gnojowica', n: 'gnojowica', m: method[:zenski], nid: 4}
+        ].each do |n|
+          if @zlecenie.send("#{n[:m]}_#{n[:n]}").round > 0 || allow_push
+            flag = true
+            tab.push(
+              nawoz.zagregowany(
+                n[:t],
+                @zlecenie.send("#{n[:m]}_#{n[:n]}"),
+                @zlecenie.send("#{n[:m]}_#{n[:n]}_azot"),
+                if dzialajacy != nil then @zlecenie.send("#{n[:m]}_#{n[:n]}_azot_dzialajacy") else nil end,
+                allow_push
+              )
+            )
+
+            if method[:meski] == 'produkcja' || method[:meski] == 'zakupiony'
+              @zlecenie.
+                animals.
+                send(method[:meski]).
+                where(nazwautrzymania_id: n[:nid]).
+                each do |animal|
+                
+                tab.push(
+                  nawoz.szczegolowy(
+                    animal.name,
+                    animal.produkt,
+                    animal.azot
+                  )
+                )
+                
+              end
+            end
+
+            if method[:meski] == 'zastosowany'
+              @zlecenie.
+                animalgroups.
+                joins(:animals).
+                where(animals: { nazwautrzymania_id: n[:nid] }).
+                each do |group|
+
+                tab.push(
+                  nawoz.szczegolowy(
+                    group.nazwaglowny,
+                    group.produkt - group.pozostalynawoz,
+                    group.produkcja_azot - group.pozostaly_azot
+                  )
+                )
+                
+              end
+            end
+
+            if method[:meski] == 'pozostaly' # || method[:meski] == 'zakupiony'
+              @zlecenie.
+                animalgroups.
+                joins(:animals).
+                where(animals: { nazwautrzymania_id: n[:nid] }).
+                each do |group|
+
+                tab.push(
+                  nawoz.szczegolowy(
+                    group.nazwaglowny,
+                    group.pozostalynawoz,
+                    group.pozostaly_azot
+                  )
+                )
+                
+              end
+            end
+            
+          end
+        end
+        if flag
+          table(tab)
+        end
+      end
       
-      table([
-              [
-                {
-                  content:  "Zastosowane na polach gospodarstwa ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: "kg N działającego", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.zastosowany_obornik.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zastosowany_obornik_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zastosowany_obornik_azot_dzialajacy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.zastosowana_gnojowka.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zastosowana_gnojowka_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zastosowana_gnojowka_azot_dzialajacy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.zastosowana_gnojowica.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zastosowana_gnojowica_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.zastosowana_gnojowica_azot_dzialajacy.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-            ])
-
-      table([
-              [
-                {
-                  content:  "Pozostałe do zagospodarowania ", size: 11.pt, font_style: :bold, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: "ton nawozu", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: "kg N", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Obornik ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.pozostaly_obornik.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.pozostaly_obornik_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojówka ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.pozostala_gnojowka.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.pozostala_gnojowka_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-              [
-                {
-                  content: "Gnojowica ", size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2
-                },
-                {
-                  content: @zlecenie.pozostala_gnojowica.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                },
-                {
-                  content: @zlecenie.pozostala_gnojowica_azot.round.to_s, size: 11.pt, font_style: :normal, border_width: 0, padding: [0.5.mm, 0, 0, 0], width: bounds.width/2/3
-                }
-              ],
-            ])
+      nawoz_table("Produkowane w gospodarstwie", {meski: "produkcja", zenski: "produkcja"}, nawoz, nil)
+      nawoz_table("Nabyte", {meski: "zakupiony", zenski: "zakupiona"}, nawoz, nil)
+      nawoz_table("Zastosowane na polach gospodarstwa", {meski: "zastosowany", zenski: "zastosowana"}, nawoz, true)
+      nawoz_table("Pozostałe do zagospodarowania", {meski: "pozostaly", zenski: "pozostala"}, nawoz, nil)
 
     end
       
@@ -443,7 +342,7 @@ class BilansPdf < Prawn::Document
 
     number_pages "(strona <page> z <total>)", height: 20, width: 400, align: :right, at: [bounds.right-400, 0.mm], :start_count_at => 1, size: 10, inline_format: true
   end
-
+  
   def instytucja
     [
       [

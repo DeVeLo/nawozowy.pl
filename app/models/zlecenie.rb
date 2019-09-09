@@ -103,15 +103,21 @@ class Zlecenie < ApplicationRecord
     zn.produkcja_obornika.round(2)
   end
 
+  alias produkcja_obornik produkcja_obornika
+  
   def produkcja_gnojowki
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja_gnojowki.round(2)
   end
 
+  alias produkcja_gnojowka produkcja_gnojowki
+  
   def produkcja_gnojowicy
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja_gnojowicy.round(2)
   end
+
+  alias produkcja_gnojowica produkcja_gnojowicy
 
   def zakupiony_obornik
     zn = Zlecenie::Nawoz.new(self)
@@ -133,15 +139,21 @@ class Zlecenie < ApplicationRecord
     zn.produkcja_obornika_azot.round(2)
   end
 
+  alias  produkcja_obornik_azot produkcja_obornika_azot
+
   def produkcja_gnojowki_azot
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja_gnojowki_azot.round(2)
   end
 
+  alias produkcja_gnojowka_azot produkcja_gnojowki_azot
+
   def produkcja_gnojowicy_azot
     zn = Zlecenie::Nawoz.new(self)
     zn.produkcja_gnojowicy_azot.round(2)
   end
+
+  alias produkcja_gnojowica_azot produkcja_gnojowicy_azot
 
   def zakupiony_obornik_azot
     zn = Zlecenie::Nawoz.new(self)
