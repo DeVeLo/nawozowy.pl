@@ -48,7 +48,7 @@ class Uzytek::Pelny
                      padding: [1.mm, 0, 0, 9.mm ]
                    },
                    {
-                     content: nn.ilosc.round.to_s + ' t/ha (' +
+                     content: nn.ilosc.round(1).to_s + ' t/ha (' +
                        nn.wykorzystany_azot.round(1).to_s + ' kg N/ha ' +
                        'w tym działający ' + nn.wykorzystany_azot_dzialajacy.round(1).to_s +
                        ' kg N/ ha' +
