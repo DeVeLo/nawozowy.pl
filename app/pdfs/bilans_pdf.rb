@@ -253,7 +253,7 @@ class BilansPdf < Prawn::Document
                 
                 tab.push(
                   nawoz.szczegolowy(
-                    animal.name,
+                    if method[:meski] == 'produkcja' then animal.name else animal.animalgroup.nazwaglowny end,
                     animal.produkt,
                     animal.azot
                   )
