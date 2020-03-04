@@ -158,7 +158,7 @@ GEM
       prawn (>= 0.11.1)
       railties (>= 3.0.0)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.4)
     rabl-rails (0.5.5)
       activesupport (>= 4.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -288,7 +288,7 @@ DEPENDENCIES
   prawn-svg
   prawn-table
   prawn_rails
-  puma (~> 3.0)
+  puma (~> 3.12)
   rabl-rails
   rails (~> 5.0.7, >= 5.0.7.1)
   rails-i18n
